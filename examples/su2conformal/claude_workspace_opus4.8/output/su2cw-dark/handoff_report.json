@@ -1,0 +1,104 @@
+{
+  "model": "su2cw-dark",
+  "agent": "report-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "report",
+  "created_from": [
+    "output/su2cw-dark/handoff_model.json",
+    "output/su2cw-dark/handoff_critique.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json",
+    "output/su2cw-dark/handoff_fopt.json",
+    "output/su2cw-dark/handoff_pta.json",
+    "output/su2cw-dark/ptarcade_bayes.json",
+    "output/su2cw-dark/handoff_constraints.json",
+    "output/su2cw-dark/handoff_prior_audit.json"
+  ],
+  "commands": [
+    "pdflatex -interaction=nonstopmode final_report.tex (run 1)",
+    "pdflatex -interaction=nonstopmode final_report.tex (run 2)",
+    "WebSearch: arXiv 2511.15687 (Lewicki, Vaskonen)",
+    "WebSearch: arXiv 2306.09411 (Bringmann et al.)",
+    "WebSearch: arXiv 2109.11558 (Borah, Dasgupta, Kang)",
+    "WebSearch: arXiv 2502.19478 (Balan et al.)"
+  ],
+  "files_read": [
+    "output/su2cw-dark/handoff_model.json",
+    "output/su2cw-dark/handoff_critique.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json",
+    "output/su2cw-dark/handoff_fopt.json",
+    "output/su2cw-dark/handoff_pta.json",
+    "output/su2cw-dark/ptarcade_bayes.json",
+    "output/su2cw-dark/handoff_constraints.json",
+    "output/su2cw-dark/handoff_prior_audit.json",
+    "docs/HANDOFF_REPORT_SCHEMA.md",
+    ".claude/agents/report-agent.md"
+  ],
+  "files_written": [
+    "output/su2cw-dark/final_report.tex",
+    "output/su2cw-dark/final_report.pdf",
+    "output/su2cw-dark/handoff_report.json"
+  ],
+  "warnings": [
+    "Constraint and prior-audit stages carry run_status=warning; reported as pipeline limitations, not failures.",
+    "Two upstream constraint sources (C10 Tulin-Yu 1705.02358; C11 ATLAS/CMS) are unverified in the handoff and are cited only as descriptive context.",
+    "Metadata correction applied for 2306.09411 author list (handoff listed an incorrect author set)."
+  ],
+  "errors": [],
+  "approximations": [
+    "Report relays upstream approximations: high-T thermal potential, dbf template with ksw=1/vw=1 and large-alpha amplitude extrapolation, PTArcade ceffyl likelihood, mu=chi0 CW scale."
+  ],
+  "included_sections": [
+    {"name": "Prompt", "status": "included", "source": "user prompt (verbatim)", "notes": []},
+    {"name": "Summary", "status": "included", "source": "all handoffs", "notes": []},
+    {"name": "Model description", "status": "included", "source": "handoff_model.json", "notes": ["critic-agent output, status ok"]},
+    {"name": "Pipeline status", "status": "included", "source": "all handoffs", "notes": []},
+    {"name": "Preliminary literature search", "status": "included", "source": "handoff_librarian_preliminary.json", "notes": []},
+    {"name": "FOPT results", "status": "included", "source": "handoff_fopt.json", "notes": []},
+    {"name": "PTA results", "status": "included", "source": "handoff_pta.json, ptarcade_bayes.json", "notes": ["no pta_report.md; narrative from handoffs"]},
+    {"name": "Constraints", "status": "included", "source": "handoff_constraints.json", "notes": []},
+    {"name": "Assumptions and limitations", "status": "included", "source": "handoff_prior_audit.json", "notes": []},
+    {"name": "Reference-verification note", "status": "included", "source": "arXiv/INSPIRE searches", "notes": []},
+    {"name": "Conclusions", "status": "included", "source": "all handoffs", "notes": []},
+    {"name": "References", "status": "included", "source": "handoffs + verification", "notes": []}
+  ],
+  "figures_included": [
+    {"label": "fig:benchspec", "file": "pta_benchmark_spectrum.pdf", "caption": "Benchmark GW spectrum vs frequency with PTA violins.", "source": "handoff_pta.json", "notes": []},
+    {"label": "fig:ptaspec", "file": "pta_ptarcade_spectrum.pdf", "caption": "Bayesian MAP-point GW spectrum vs frequency with PTA violins.", "source": "handoff_pta.json", "notes": []},
+    {"label": "fig:post", "file": "pta_posteriors.pdf", "caption": "PTArcade NG15 posteriors in (g, log10 chi0).", "source": "handoff_pta.json", "notes": []}
+  ],
+  "tables_included": [
+    {"label": "tab:status", "file": "final_report.tex", "caption": "Pipeline status by stage.", "source": "all handoffs", "notes": []},
+    {"label": "tab:lit", "file": "final_report.tex", "caption": "Verified literature anchors.", "source": "handoff_librarian_preliminary.json", "notes": []},
+    {"label": "tab:fopt", "file": "final_report.tex", "caption": "FOPT benchmarks.", "source": "handoff_fopt.json", "notes": []},
+    {"label": "tab:pta", "file": "final_report.tex", "caption": "PTA best-fit benchmarks (14/14).", "source": "handoff_pta.json", "notes": []},
+    {"label": "tab:constraints", "file": "final_report.tex", "caption": "Constraints summary.", "source": "handoff_constraints.json", "notes": []},
+    {"label": "tab:assump", "file": "final_report.tex", "caption": "Top assumptions/limitations.", "source": "handoff_prior_audit.json", "notes": []}
+  ],
+  "cited_sources": [
+    {"title": "A first order dark SU(2)_D phase transition with vector dark matter in the light of NANOGrav 12.5 yr data", "arxiv_id": "2109.11558", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector", "arxiv_id": "2502.19478", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data", "arxiv_id": "2501.11619", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Gravitational waves from scale-invariant vector dark matter model: Probing below the neutrino-floor", "arxiv_id": "1907.08899", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Impact of cosmic expansion on gravitational wave spectra from strongly supercooled first-order phase transitions", "arxiv_id": "2511.15687", "source_file": "handoff_pta.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Does NANOGrav observe a dark sector phase transition?", "arxiv_id": "2306.09411", "source_file": "handoff_constraints.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Cosmological constraints on first-order phase transitions", "arxiv_id": "2109.14765", "source_file": "handoff_constraints.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Bounds on very low reheating scenarios after Planck", "arxiv_id": "1511.00672", "source_file": "handoff_constraints.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Higgsless/sound-wave template validity (alpha<~0.5)", "arxiv_id": "2209.04369", "source_file": "handoff_pta.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Beam-dump / dark-photon kinetic-mixing compilation", "arxiv_id": "2507.11163", "source_file": "handoff_constraints.json", "source_type": "handoff_json", "citation_verified": false},
+    {"title": "Supernova bounds on the dark photon using its electromagnetic decay", "arxiv_id": "1410.0221", "source_file": "handoff_constraints.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Dark matter self-interactions and small scale structure (Tulin, Yu)", "arxiv_id": "1705.02358", "source_file": "handoff_constraints.json", "source_type": "handoff_json", "citation_verified": false}
+  ],
+  "unverified_or_rejected_references": [
+    {"arxiv_id": "1705.02358", "reason": "Marked citation_verified:false in handoff_constraints.json (C10); not independently re-validated. Cited as descriptive context only, not as a verified literature claim."},
+    {"arxiv_id": "", "reason": "C11 ATLAS/CMS invisible-Higgs entry has no arXiv ID and citation_verified:false; cited as context only."},
+    {"arxiv_id": "2507.11163", "reason": "C7 beam-dump compilation marked verified upstream but not independently re-validated here; reported as upstream-verified."}
+  ],
+  "inconsistencies": [
+    {"field": "authors(2306.09411)", "handoff_value": "Bringmann, Depta, Hufnagel, Kersten, Mariotti, et al.", "verified_value": "T. Bringmann, P. F. Depta, T. Konstandin, K. Schmidt-Hoberg, C. Tasillo", "resolution": "Corrected author list used in report per arXiv/INSPIRE verification."},
+    {"field": "preferred_region(g,chi0)", "fopt_stage": "chi0~5e-3 GeV, g~1.3", "pta_stage": "chi0~1.1 GeV, g~0.87", "resolution": "Reported as template/prior-dependent (A03/A18); not silently reconciled."},
+    {"field": "thermalization xi=1 vs secluded model", "model_handoff": "xi=1 thermal equilibrium assumed", "constraint_handoff": "no SM portal => equilibrium not realizable", "resolution": "Reported as foundational limitation A01/C3; user retained minimal secluded model."}
+  ],
+  "compiled_pdf": true,
+  "compile_errors": []
+}

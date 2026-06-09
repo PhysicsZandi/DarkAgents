@@ -1,0 +1,367 @@
+{
+  "model": "u1conformal_fermion",
+  "agent": "fopt-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-08",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json"
+  ],
+  "commands": [
+    "conda run -n ptarcade python output/u1conformal_fermion/fopt_model.py",
+    "conda run -n ptarcade python output/u1conformal_fermion/fopt_model_scan.py"
+  ],
+  "files_read": [
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/SEMIANALYTICPIPELINE.md",
+    "docs/HANDOFF_FOPT_SCHEMA.md",
+    "backend/semianalytic_pipeline.py",
+    "backend/T_vs_g_gs_GeV.csv"
+  ],
+  "files_written": [
+    "output/u1conformal_fermion/fopt_model.py",
+    "output/u1conformal_fermion/fopt_model_scan.py",
+    "output/u1conformal_fermion/fopt_benchmarks.csv",
+    "output/u1conformal_fermion/fopt_results.json",
+    "output/u1conformal_fermion/fopt_report.md",
+    "output/u1conformal_fermion/handoff_fopt.json"
+  ],
+  "warnings": [
+    "1822 points (40.8%) had numerical failures, mostly at high g_D (>1.5) where the backend bounce action computation fails",
+    "395 points (8.8%) failed physical guards (CW condition or supercooling condition)",
+    "The backend produces RuntimeWarning for divide-by-zero in log at extreme parameter values; these are caught and recorded as numerical failures",
+    "Extremely large alpha values (up to 10^24) at very low vev (0.1 MeV) indicate strong supercooling; these points have f_peak_est below the PTA band"
+  ],
+  "errors": [],
+  "approximations": [
+    "High-temperature expansion of finite-T effective potential valid in supercooling regime",
+    "Gaussian approximation for false vacuum fraction",
+    "Single-field approximation for FOPT analysis",
+    "Scalar loop contributions to CW potential neglected (gb_scalar = 0 in backend; subleading per pipeline documentation)",
+    "Renormalisation scale set to vev; no RG running included",
+    "No Daisy resummation included",
+    "f_peak_est is a template-independent order-of-magnitude estimate; the true spectral peak depends on the GW template used by the pta-agent"
+  ],
+  "backend_choice": {
+    "selected_backend": "semianalytic_pipeline",
+    "executed": true,
+    "reason": "Model is classically scale-invariant with single scalar field, masses proportional to vev, no tree-level mass term. Compatible per BACKEND_COMPATIBILITY.md."
+  },
+  "backend": "semianalytic_pipeline",
+  "backend_executed": true,
+  "expected_upstream_inputs": [
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json"
+  ],
+  "missing_upstream_inputs": [],
+  "model_parameter_ranges": {
+    "g_D": [0.1, 4.0],
+    "y_psi": [0.0, 1.0],
+    "v": [0.0001, 100.0]
+  },
+  "parameter_basis": {
+    "independent": {
+      "g_D": {
+        "type": "dimensionless",
+        "range": [0.1, 4.0],
+        "notes": "Dark gauge coupling; scanned in FOPT scan"
+      },
+      "y_psi": {
+        "type": "dimensionless",
+        "range": [0.0, 1.0],
+        "notes": "Yukawa coupling; scanned in FOPT scan; constrained by CW condition y_psi < (3/2)^(1/4)*g_D and supercooling condition g_D > y_psi/sqrt(2)"
+      },
+      "v": {
+        "type": "dimensionful",
+        "range": [0.0001, 100.0],
+        "units": "GeV",
+        "notes": "Dark Higgs vev; scanned in FOPT scan"
+      }
+    },
+    "dependent": {
+      "lambda_Phi": {
+        "type": "dimensionless",
+        "relation": "lambda_Phi = (3 * g_D**4 - 2 * y_psi**4) / (32 * pi**2)",
+        "notes": "CW-fixed quartic coupling; NOT scanned"
+      },
+      "beta_lambda": {
+        "type": "dimensionless",
+        "relation": "beta_lambda = (3 * g_D**4 - 2 * y_psi**4) / (8 * pi**2)",
+        "notes": "CW beta function parameter; beta_lambda > 0 required for radiative symmetry breaking"
+      },
+      "m_chi": {
+        "type": "dimensionful",
+        "relation": "m_chi**2 = beta_lambda * v**2",
+        "units": "GeV",
+        "notes": "Physical mass of the CW pseudo-dilaton (radial scalar mode)"
+      },
+      "m_Aprime": {
+        "type": "dimensionful",
+        "relation": "m_Aprime = g_D * v",
+        "units": "GeV",
+        "notes": "Physical dark photon mass"
+      },
+      "m_psi": {
+        "type": "dimensionful",
+        "relation": "m_psi = y_psi * v / sqrt(2)",
+        "units": "GeV",
+        "notes": "Mass of each Dirac fermion mass eigenstate"
+      },
+      "gb_scalar": {
+        "type": "dimensionless",
+        "relation": "gb_scalar = sqrt(beta_lambda)",
+        "notes": "Scalar self-coupling gb for backend; set to 0 in backend by default"
+      }
+    },
+    "fixed": {
+      "xi": {
+        "value": 1.0,
+        "notes": "T_dark / T_SM temperature ratio; assumes dark sector thermalised with SM"
+      },
+      "epsilon_kinetic_mixing": {
+        "value": 0.0,
+        "notes": "Gauge kinetic mixing between U(1)_D and U(1)_Y; set to zero at tree level"
+      },
+      "lambda_HPhi": {
+        "value": 0.0,
+        "notes": "Higgs portal coupling |H|^2|Phi|^2; set to zero"
+      }
+    }
+  },
+  "temperature_key": "Treh",
+  "scan_status_labels": ["viable", "physical_failure", "numerical_failure", "not_fopt"],
+  "benchmark_summary": {
+    "total_points": 4464,
+    "viable_points": 2247,
+    "failed_points": 1822,
+    "excluded_points": 395
+  },
+  "scan_summary": {
+    "total_points": 4464,
+    "viable_points": 2247,
+    "failed_points": 1822,
+    "excluded_points": 395
+  },
+  "csv_json_alignment": {
+    "csv_file": "output/u1conformal_fermion/fopt_benchmarks.csv",
+    "independent_parameter_columns": ["g_D", "y_psi", "v"],
+    "required_result_columns": ["alpha", "beta_H", "Tn", "Tp", "Treh", "f_peak_est", "eternal_inflation", "beta_lambda", "lambda_Phi", "m_Aprime", "m_psi", "m_chi", "gb_scalar"],
+    "status_column": "status"
+  },
+  "model_parameters": [
+    {
+      "name": "g_D",
+      "range": [0.1, 4.0],
+      "scanned": true,
+      "units": "dimensionless"
+    },
+    {
+      "name": "y_psi",
+      "range": [0.0, 1.0],
+      "scanned": true,
+      "units": "dimensionless"
+    },
+    {
+      "name": "v",
+      "range": [0.0001, 100.0],
+      "scanned": true,
+      "units": "GeV"
+    }
+  ],
+  "benchmarks": [
+    {
+      "name": "PTA_center_1",
+      "parameters": {
+        "g_D": 0.6429,
+        "y_psi": 0.2300,
+        "v": 0.02154435
+      },
+      "alpha": 28691.0,
+      "beta_H": 42.401,
+      "Tn": 0.000189,
+      "Tp": 0.0001524,
+      "Treh": 0.0019835,
+      "f_peak_est": 1.0013e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "PTA_center_2",
+      "parameters": {
+        "g_D": 0.7636,
+        "y_psi": 0.4033,
+        "v": 0.01
+      },
+      "alpha": 88.396,
+      "beta_H": 78.77,
+      "Tn": 0.000421,
+      "Tp": 0.0003376,
+      "Treh": 0.0010382,
+      "f_peak_est": 1.0028e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "PTA_center_3",
+      "parameters": {
+        "g_D": 0.7636,
+        "y_psi": 0.5344,
+        "v": 0.01232847
+      },
+      "alpha": 490.89,
+      "beta_H": 65.191,
+      "Tn": 0.000331,
+      "Tp": 0.0002657,
+      "Treh": 0.0012512,
+      "f_peak_est": 9.9362e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "PTA_center_4",
+      "parameters": {
+        "g_D": 0.7556,
+        "y_psi": 0.35,
+        "v": 0.01
+      },
+      "alpha": 74.85,
+      "beta_H": 79.635,
+      "Tn": 0.000436,
+      "Tp": 0.0003497,
+      "Treh": 0.001032,
+      "f_peak_est": 1.0086e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "PTA_center_5",
+      "parameters": {
+        "g_D": 0.9182,
+        "y_psi": 0.6,
+        "v": 0.003511192
+      },
+      "alpha": 5.651,
+      "beta_H": 180.402,
+      "Tn": 0.000349,
+      "Tp": 0.0002802,
+      "Treh": 0.0004499,
+      "f_peak_est": 9.9042e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    }
+  ],
+  "best_points": [
+    {
+      "name": "PTA_center_1",
+      "parameters": {
+        "g_D": 0.6429,
+        "y_psi": 0.2300,
+        "v": 0.02154435
+      },
+      "alpha": 28691.0,
+      "beta_H": 42.401,
+      "Tn": 0.000189,
+      "Tp": 0.0001524,
+      "Treh": 0.0019835,
+      "f_peak_est": 1.0013e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "PTA_center_2",
+      "parameters": {
+        "g_D": 0.7636,
+        "y_psi": 0.4033,
+        "v": 0.01
+      },
+      "alpha": 88.396,
+      "beta_H": 78.77,
+      "Tn": 0.000421,
+      "Tp": 0.0003376,
+      "Treh": 0.0010382,
+      "f_peak_est": 1.0028e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "PTA_center_3",
+      "parameters": {
+        "g_D": 0.7636,
+        "y_psi": 0.5344,
+        "v": 0.01232847
+      },
+      "alpha": 490.89,
+      "beta_H": 65.191,
+      "Tn": 0.000331,
+      "Tp": 0.0002657,
+      "Treh": 0.0012512,
+      "f_peak_est": 9.9362e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "PTA_center_4",
+      "parameters": {
+        "g_D": 0.7556,
+        "y_psi": 0.35,
+        "v": 0.01
+      },
+      "alpha": 74.85,
+      "beta_H": 79.635,
+      "Tn": 0.000436,
+      "Tp": 0.0003497,
+      "Treh": 0.001032,
+      "f_peak_est": 1.0086e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "PTA_center_5",
+      "parameters": {
+        "g_D": 0.9182,
+        "y_psi": 0.6,
+        "v": 0.003511192
+      },
+      "alpha": 5.651,
+      "beta_H": 180.402,
+      "Tn": 0.000349,
+      "Tp": 0.0002802,
+      "Treh": 0.0004499,
+      "f_peak_est": 9.9042e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    }
+  ],
+  "prior_ranges": {
+    "g_D": [0.3, 2.0],
+    "y_psi": [0.01, 0.6],
+    "v": [0.0001, 100.0]
+  },
+  "validation": {
+    "finite_values": true,
+    "percolation_checked": true,
+    "eternal_inflation_checked": true,
+    "perturbativity_checked": true
+  },
+  "output_files": [
+    "output/u1conformal_fermion/fopt_model.py",
+    "output/u1conformal_fermion/fopt_model_scan.py",
+    "output/u1conformal_fermion/fopt_benchmarks.csv",
+    "output/u1conformal_fermion/fopt_results.json",
+    "output/u1conformal_fermion/fopt_report.md",
+    "output/u1conformal_fermion/handoff_fopt.json"
+  ]
+}

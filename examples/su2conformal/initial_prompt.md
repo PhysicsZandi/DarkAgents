@@ -1,0 +1,1 @@
+what is the minimal conformal non-abelian model that can explain the NANOGrav signal?

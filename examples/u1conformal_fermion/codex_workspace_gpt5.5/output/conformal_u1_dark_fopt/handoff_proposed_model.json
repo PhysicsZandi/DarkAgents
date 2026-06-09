@@ -1,0 +1,414 @@
+{
+  "model": "conformal_u1_dark_fopt",
+  "agent": "proposer-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-08",
+  "branch": "fopt-pta",
+  "created_from": [
+    "User prompt: Can a conformal U(1) BSM extension with a dark scalar, a dark gauge bosons and a dark fermion explain the NANOGrav signal with a cosmological FOPT?",
+    ".codex/agents/proposer-agent.md",
+    ".codex/skills/model-proposal/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/BACKEND_COMPATIBILITY.md"
+  ],
+  "commands": [
+    "sed -n '1,220p' .codex/agents/proposer-agent.md",
+    "sed -n '1,260p' .codex/skills/model-proposal/SKILL.md",
+    "sed -n '1,260p' docs/HANDOFF_SCHEMAS.md",
+    "sed -n '1,260p' docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "sed -n '1,260p' docs/BACKEND_COMPATIBILITY.md",
+    "rg --files output | rg 'handoff_(model|proposed_model)\\\\.json$'",
+    "find output -maxdepth 2 -type d | sort",
+    "mkdir -p output/conformal_u1_dark_fopt",
+    "python -m json.tool output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "python -c '<AST expression validation for JSON handoff expressions>'",
+    "rg -n \"psi_L|psi_R|q_psi_L|q_psi_R|q_Phi = 1|m_X = g_D|g_D\\\\*\\\\*2 \\\\* chi\" output/conformal_u1_dark_fopt"
+  ],
+  "files_read": [
+    ".codex/agents/proposer-agent.md",
+    ".codex/skills/model-proposal/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/BACKEND_COMPATIBILITY.md"
+  ],
+  "files_written": [
+    "output/conformal_u1_dark_fopt/proposed_model.md",
+    "output/conformal_u1_dark_fopt/handoff_proposed_model.json"
+  ],
+  "warnings": [
+    "No existing output directory was present, so local novelty was checked only against the absence of existing local handoff files.",
+    "No numerical FOPT or PTA result is claimed by this proposer handoff."
+  ],
+  "errors": [],
+  "approximations": [
+    "Higgs portal coupling is fixed to zero for the FOPT backend parameterization.",
+    "Gauge kinetic mixing with hypercharge is fixed to zero for the FOPT backend parameterization.",
+    "The semianalytic high-temperature/small-field expansion backend is assumed to be the intended deterministic FOPT implementation."
+  ],
+  "gauge_groups": [
+    {
+      "name": "SU(3)_c",
+      "type": "standard_model",
+      "notes": "All new dark-sector fields are singlets."
+    },
+    {
+      "name": "SU(2)_L",
+      "type": "standard_model",
+      "notes": "All new dark-sector fields are singlets."
+    },
+    {
+      "name": "U(1)_Y",
+      "type": "standard_model",
+      "notes": "All new dark-sector fields have zero hypercharge."
+    },
+    {
+      "name": "U(1)_D",
+      "type": "dark_gauge",
+      "gauge_coupling": "g_D",
+      "notes": "Broken by the Coleman-Weinberg vev of the complex dark scalar Phi."
+    }
+  ],
+  "global_symmetries": [
+    {
+      "name": "classical_scale_invariance",
+      "status": "imposed_at_tree_level",
+      "notes": "Forbids explicit scalar mass terms and dimensionful dark-sector parameters before dimensional transmutation."
+    },
+    {
+      "name": "accidental_dark_fermion_number_or_residual_parity",
+      "status": "approximate_or_model_dependent",
+      "notes": "May stabilize the dark fermion when no additional dark-sector operators are introduced; not required by the FOPT backend."
+    }
+  ],
+  "particle_content": [
+    {
+      "name": "Phi",
+      "type": "complex_scalar",
+      "spin": 0,
+      "statistics": "boson",
+      "dof": 2,
+      "charges": {
+        "SU(3)_c": "1",
+        "SU(2)_L": "1",
+        "U(1)_Y": 0,
+        "U(1)_D": 2
+      },
+      "role": "Coleman-Weinberg dark scalar and FOPT order parameter"
+    },
+    {
+      "name": "X_mu",
+      "type": "gauge_boson",
+      "spin": 1,
+      "statistics": "boson",
+      "dof": 3,
+      "charges": {
+        "SU(3)_c": "1",
+        "SU(2)_L": "1",
+        "U(1)_Y": 0,
+        "U(1)_D": "adjoint"
+      },
+      "role": "Massive dark photon after U(1)_D breaking; dominant bosonic CW and thermal-barrier contributor"
+    },
+    {
+      "name": "psi_plus",
+      "type": "left_handed_weyl_fermion",
+      "spin": 0.5,
+      "statistics": "fermion",
+      "dof": 2,
+      "charges": {
+        "SU(3)_c": "1",
+        "SU(2)_L": "1",
+        "U(1)_Y": 0,
+        "U(1)_D": 1
+      },
+      "role": "Dark fermion Weyl component with positive U(1)_D charge"
+    },
+    {
+      "name": "psi_minus",
+      "type": "left_handed_weyl_fermion",
+      "spin": 0.5,
+      "statistics": "fermion",
+      "dof": 2,
+      "charges": {
+        "SU(3)_c": "1",
+        "SU(2)_L": "1",
+        "U(1)_Y": 0,
+        "U(1)_D": -1
+      },
+      "role": "Dark fermion Weyl component with negative U(1)_D charge; cancels U(1)_D gauge and gravitational anomalies with psi_plus"
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "dark_gauge_kinetic",
+      "expression": "-1/4 * X_munu * X_munu",
+      "notes": "Canonical U(1)_D gauge kinetic term."
+    },
+    {
+      "name": "dark_scalar_kinetic",
+      "expression": "abs(D_mu_Phi)**2",
+      "notes": "D_mu Phi = (partial_mu - I*2*g_D*X_mu) Phi for q_Phi = 2."
+    },
+    {
+      "name": "dark_fermion_kinetic",
+      "expression": "I*psi_plus_dagger*bar_sigma_mu*D_mu_psi_plus + I*psi_minus_dagger*bar_sigma_mu*D_mu_psi_minus",
+      "notes": "Covariant derivatives use q_psi_plus = 1 and q_psi_minus = -1."
+    },
+    {
+      "name": "dark_yukawa",
+      "expression": "-1/2*y_D*Phi_dagger*psi_plus*psi_plus - 1/2*y_D*Phi*psi_minus*psi_minus + h.c.",
+      "notes": "Gauge invariant because -q_Phi + 2*q_psi_plus = -2 + 2 = 0 and q_Phi + 2*q_psi_minus = 2 - 2 = 0."
+    },
+    {
+      "name": "classically_scale_invariant_potential",
+      "expression": "lambda_D*(Phi_dagger*Phi)**2",
+      "notes": "No explicit mass term; lambda_D is CW-dependent and is not scanned in the semianalytic backend."
+    },
+    {
+      "name": "higgs_portal_fixed_zero",
+      "expression": "lambda_HP*(H_dagger*H)*(Phi_dagger*Phi)",
+      "notes": "Allowed by symmetries but fixed to lambda_HP = 0 for the proposed backend-compatible FOPT parameterization."
+    },
+    {
+      "name": "kinetic_mixing_fixed_zero",
+      "expression": "epsilon/2*B_munu*X_munu",
+      "notes": "Allowed for two U(1) gauge groups but fixed to epsilon = 0 for the proposed backend-compatible FOPT parameterization."
+    }
+  ],
+  "free_parameters": [
+    {
+      "name": "v_D",
+      "range": "positive real, GeV; downstream scan should choose PTA-relevant values",
+      "notes": "Dark radial vev, <chi> = v_D."
+    },
+    {
+      "name": "g_D",
+      "range": "positive perturbative real coupling",
+      "notes": "Dark U(1)_D gauge coupling."
+    },
+    {
+      "name": "y_D",
+      "range": "nonnegative perturbative real coupling with beta_lambda > 0",
+      "notes": "Dark Yukawa coupling."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "v_D": {
+        "description": "Dark radial vev in GeV",
+        "scan": true
+      },
+      "g_D": {
+        "description": "Dark gauge coupling",
+        "scan": true
+      },
+      "y_D": {
+        "description": "Dark Yukawa coupling",
+        "scan": true
+      }
+    },
+    "dependent": {
+      "gb_X": {
+        "expression": "2 * g_D",
+        "description": "Gauge boson mass-over-vev ratio m_X/v_D."
+      },
+      "gf_psi": {
+        "expression": "y_D / sqrt(2)",
+        "description": "Dark fermion mass-over-vev ratio m_psi/v_D."
+      },
+      "beta_lambda": {
+        "expression": "(1/(8*pi**2))*(3*gb_X**4 - 4*gf_psi**4)",
+        "description": "Coleman-Weinberg beta coefficient in the backend mass-over-vev basis."
+      },
+      "m_chi_squared": {
+        "expression": "beta_lambda * v_D**2",
+        "description": "CW pseudo-dilaton radial scalar mass squared."
+      },
+      "lambda_D": {
+        "determination": "Coleman-Weinberg minimization condition; renormalization-scale dependent and not scanned by semianalytic_pipeline",
+        "description": "Dependent quartic coupling."
+      }
+    },
+    "fixed": {
+      "lambda_HP": {
+        "value": 0,
+        "description": "Higgs portal fixed to zero for backend-compatible dark-sector FOPT scan."
+      },
+      "epsilon": {
+        "value": 0,
+        "description": "Hypercharge-dark kinetic mixing fixed to zero for backend-compatible FOPT scan."
+      },
+      "q_Phi": {
+        "value": 2,
+        "description": "Dark scalar U(1)_D charge convention."
+      },
+      "q_psi_plus": {
+        "value": 1,
+        "description": "Positive dark Weyl fermion U(1)_D charge convention."
+      },
+      "q_psi_minus": {
+        "value": -1,
+        "description": "Negative dark Weyl fermion U(1)_D charge convention."
+      }
+    }
+  },
+  "assumptions": [
+    "The dark sector is decoupled from the Standard Model for the FOPT backend scan.",
+    "The model is classically scale invariant at tree level.",
+    "The FOPT is controlled by the single radial background chi.",
+    "The Coleman-Weinberg quartic is dependent and not a scan parameter.",
+    "The critic-agent should verify the stated anomaly cancellation and charge conventions before downstream use."
+  ],
+  "backend_compatibility": [
+    {
+      "backend": "semianalytic_pipeline",
+      "status": "compatible_with_warnings",
+      "mapping": {
+        "vev": "v_D",
+        "bosons": [
+          {
+            "name": "X_mu",
+            "gb": "2*g_D",
+            "dof": 3
+          }
+        ],
+        "fermions": [
+          {
+            "name": "psi",
+            "gf": "y_D / sqrt(2)",
+            "dof": 4
+          }
+        ],
+        "order_parameter": "chi",
+        "beta_lambda": "(1/(8*pi**2))*(3*(2*g_D)**4 - 4*(y_D/sqrt(2))**4)"
+      },
+      "notes": "The model is a conformal single-field Coleman-Weinberg setup with masses proportional to chi and no explicit scalar mass term."
+    }
+  ],
+  "ssb_pattern": [
+    {
+      "from": "U(1)_D",
+      "to": "nothing",
+      "order_parameter": "chi",
+      "vev": "v_D",
+      "notes": "The dark photon becomes massive and the radial scalar is a CW pseudo-dilaton."
+    }
+  ],
+  "vev_convention": [
+    {
+      "field_definition": "Phi = chi / sqrt(2)",
+      "vev": "chi = v_D",
+      "notes": "Unitary gauge is implied for the broken U(1)_D phase."
+    }
+  ],
+  "tree_level_potential": [
+    {
+      "name": "conformal_quartic",
+      "expression": "lambda_D * chi**4 / 4",
+      "notes": "lambda_D is dependent through the CW minimization condition; no chi**2 mass term is present."
+    }
+  ],
+  "field_dependent_masses": [
+    {
+      "particle": "X_mu",
+      "m2_of_chi": "4 * g_D**2 * chi**2",
+      "dof": 3,
+      "statistics": "boson",
+      "notes": "From |D_mu Phi|**2 with Phi = chi/sqrt(2) and q_Phi = 2 under the convention where m_X = 2*g_D*chi."
+    },
+    {
+      "particle": "psi",
+      "m2_of_chi": "(y_D**2 / 2) * chi**2",
+      "dof": 4,
+      "statistics": "fermion",
+      "notes": "From the Yukawa operators -(y_D/2) Phi_dagger psi_plus psi_plus - (y_D/2) Phi psi_minus psi_minus + h.c. with Phi = chi/sqrt(2)."
+    },
+    {
+      "particle": "chi",
+      "m2_of_chi": "beta_lambda * v_D**2",
+      "dof": 1,
+      "statistics": "boson",
+      "notes": "CW pseudo-dilaton mass at the broken minimum; not double-counted in beta_lambda for backend scans."
+    }
+  ],
+  "thermal_masses": [
+    {
+      "particle": "X_longitudinal",
+      "thermal_mass_squared": "((g_D**2 / 3) * (4 + 1 + 1)) * T**2",
+      "notes": "Representative Abelian Debye contribution from one charged complex scalar with q=2 and two Weyl fermions with charges +1 and -1; downstream FOPT implementation may use its own backend convention."
+    },
+    {
+      "particle": "chi",
+      "thermal_mass_squared": "((g_D**2 / 4) + (y_D**2 / 12) + (lambda_D / 3)) * T**2",
+      "notes": "Analytic scalar thermal-mass placeholder for validation; semianalytic_pipeline primarily consumes gb/gf/dof and CW relations."
+    }
+  ],
+  "expression_symbols": [
+    {
+      "symbol": "chi",
+      "meaning": "Real radial dark scalar background field",
+      "dimension": "GeV"
+    },
+    {
+      "symbol": "T",
+      "meaning": "Temperature",
+      "dimension": "GeV"
+    },
+    {
+      "symbol": "v_D",
+      "meaning": "Dark radial vev",
+      "dimension": "GeV"
+    },
+    {
+      "symbol": "g_D",
+      "meaning": "Dark U(1)_D gauge coupling",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "y_D",
+      "meaning": "Dark Yukawa coupling",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "lambda_D",
+      "meaning": "Dependent dark scalar quartic",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "lambda_HP",
+      "meaning": "Fixed Higgs portal coupling",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "epsilon",
+      "meaning": "Fixed hypercharge-dark kinetic mixing",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "gb_X",
+      "meaning": "Gauge boson mass-over-vev ratio",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "gf_psi",
+      "meaning": "Dark fermion mass-over-vev ratio",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "beta_lambda",
+      "meaning": "CW beta coefficient for the quartic",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "pi",
+      "meaning": "Mathematical constant pi",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "sqrt",
+      "meaning": "Square-root function in SymPy/Python expressions",
+      "dimension": "function"
+    }
+  ]
+}

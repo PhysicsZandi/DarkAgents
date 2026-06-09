@@ -1,0 +1,500 @@
+{
+  "model": "minimal_conformal_su2_doublet",
+  "agent": "prior-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "prior_audit",
+  "created_from": [
+    ".codex/agents/prior-agent.md",
+    ".codex/skills/prior-audit/SKILL.md",
+    "docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "output/minimal_conformal_su2_doublet/handoff_model.json",
+    "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+    "output/minimal_conformal_su2_doublet/handoff_critique.json",
+    "output/minimal_conformal_su2_doublet/handoff_fopt.json",
+    "output/minimal_conformal_su2_doublet/handoff_pta.json",
+    "output/minimal_conformal_su2_doublet/handoff_constraints.json"
+  ],
+  "commands": [
+    "sed -n on prior-agent instructions and prior-audit skill",
+    "python -m json.tool on required upstream handoff JSONs",
+    "python consistency validation for prior audit CSV/JSON"
+  ],
+  "files_read": [
+    ".codex/agents/prior-agent.md",
+    ".codex/skills/prior-audit/SKILL.md",
+    "docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "output/minimal_conformal_su2_doublet/handoff_model.json",
+    "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+    "output/minimal_conformal_su2_doublet/handoff_critique.json",
+    "output/minimal_conformal_su2_doublet/handoff_fopt.json",
+    "output/minimal_conformal_su2_doublet/handoff_pta.json",
+    "output/minimal_conformal_su2_doublet/handoff_constraints.json"
+  ],
+  "files_written": [
+    "output/minimal_conformal_su2_doublet/prior_audit_report.md",
+    "output/minimal_conformal_su2_doublet/prior_audit_table.csv",
+    "output/minimal_conformal_su2_doublet/handoff_prior_audit.json"
+  ],
+  "warnings": [
+    "Audit-only pass; no new physics calculations, FOPT scans, PTA scans, or PTArcade runs performed.",
+    "Final interpretation is limited by missing thermal-history, abundance, self-interaction, and template-validity calculations.",
+    "Constraint no-exclusion result should not be read as a positive viability proof."
+  ],
+  "errors": [],
+  "approximations": [
+    "Audit severity and controlled flags are expert classifications based on upstream handoff content."
+  ],
+  "uncertainty_summary": {
+    "total_items": 18,
+    "severity_distribution": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 1,
+      "6": 4,
+      "7": 2,
+      "8": 5,
+      "9": 4,
+      "10": 2
+    },
+    "controlled_distribution": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 4,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0
+    }
+  },
+  "upstream_statuses": [
+    {
+      "file": "output/minimal_conformal_su2_doublet/handoff_model.json",
+      "agent": "critic-agent/model",
+      "status": "warning",
+      "note": "Authoritative model usable with literature, portal, and backend caveats."
+    },
+    {
+      "file": "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+      "agent": "preliminary-librarian-agent",
+      "status": "warning",
+      "note": "Exact model already studied; benchmark conventions require care."
+    },
+    {
+      "file": "output/minimal_conformal_su2_doublet/handoff_critique.json",
+      "agent": "critic-agent",
+      "status": "warning",
+      "note": "No red flags, but same-model precedent and convention/backend caveats."
+    },
+    {
+      "file": "output/minimal_conformal_su2_doublet/handoff_fopt.json",
+      "agent": "fopt-agent",
+      "status": "ok",
+      "note": "Usable scan with semianalytic and percolation approximations."
+    },
+    {
+      "file": "output/minimal_conformal_su2_doublet/handoff_pta.json",
+      "agent": "pta-agent",
+      "status": "warning",
+      "note": "DBF/template/large-alpha and prior-boundary caveats; no 14/14 benchmark."
+    },
+    {
+      "file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+      "agent": "constraint-agent",
+      "status": "warning",
+      "note": "No exclusions claimed because most required observables are missing."
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "PA01",
+      "kind": "warning",
+      "category": "novelty",
+      "description": "Exact core classically conformal SU(2)_D doublet model was already studied for NANOGrav 12.5-year FOPT interpretation in arXiv:2109.11558; model-level novelty is low.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "model novelty",
+        "final interpretation"
+      ],
+      "required_solution": "Compare only as updated/recomputed PTA likelihood result, not as a new model claim.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+        "section": "warnings/novelty_verdict",
+        "note": "Exact same-model literature precedent."
+      }
+    },
+    {
+      "id": "PA02",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "Minimal model fixes Higgs portal coupling to zero and treats the dark sector as secluded.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": [
+        "constraints",
+        "cosmology",
+        "laboratory applicability"
+      ],
+      "required_solution": "Specify a thermal origin or nonzero portal extension, or state that portal searches and thermal-SM constraints are not directly testable.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_model.json",
+        "section": "parameter_basis.fixed",
+        "note": "portal_coupling=0."
+      }
+    },
+    {
+      "id": "PA03",
+      "kind": "limitation",
+      "category": "thermal_history",
+      "description": "No thermal history, dark-sector temperature ratio, decoupling history, reheating partition, relic abundance, or entropy transfer observable was computed.",
+      "severity": 10,
+      "controlled": false,
+      "affected_outputs": [
+        "BBN/CMB constraints",
+        "Delta N_eff",
+        "interpretation of sub-GeV transition"
+      ],
+      "required_solution": "Implement thermal_history.py/cosmo_constraints.py with T_dark/T_SM, entropy evolution, FOPT energy partition, and BBN/CMB likelihood mapping.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+        "section": "missing_calculations",
+        "note": "Constraint stage requires new backend for core cosmological observables."
+      }
+    },
+    {
+      "id": "PA04",
+      "kind": "limitation",
+      "category": "dark_matter",
+      "description": "No relic abundance or fractional dark-vector DM abundance was computed, so vector-DM claims and self-interaction bounds cannot be applied.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": [
+        "dark matter viability",
+        "self-interaction constraints"
+      ],
+      "required_solution": "Compute Omega_WD/Omega_DM for the assumed thermal/nonthermal history and document whether W_D is stable and cosmologically relevant.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+        "section": "missing_calculations",
+        "note": "Relic-density and DM-fraction observables absent."
+      }
+    },
+    {
+      "id": "PA05",
+      "kind": "limitation",
+      "category": "self_interactions",
+      "description": "No non-Abelian vector self-interaction transfer or viscosity cross section sigma/m(v) was computed.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "structure-formation constraints"
+      ],
+      "required_solution": "Implement self_interactions.py for dwarf, Milky Way, and cluster velocities with unit conversion and transfer/viscosity convention.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+        "section": "constraints C05-C06",
+        "note": "Mass and coupling alone cannot test SIDM bounds."
+      }
+    },
+    {
+      "id": "PA06",
+      "kind": "approximation",
+      "category": "fopt_backend",
+      "description": "FOPT calculation uses a semianalytic conformal high-temperature/polynomial backend with Gaussian percolation approximation.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "alpha",
+        "beta/H",
+        "Tn/Tp/Treh",
+        "PTA spectrum"
+      ],
+      "required_solution": "Cross-check selected benchmarks with a full finite-temperature effective-potential/bounce calculation and alternate percolation criteria.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_fopt.json",
+        "section": "warnings/approximations",
+        "note": "Backend approximation explicitly inherited downstream."
+      }
+    },
+    {
+      "id": "PA07",
+      "kind": "approximation",
+      "category": "effective_potential",
+      "description": "Single-field Coleman-Weinberg radial background is assumed; portal, dark fermions, extra scalars, daisy thermal-mass scans, and RG-running scans are omitted.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "phase-transition strength",
+        "mass spectrum",
+        "theoretical validity"
+      ],
+      "required_solution": "Add controlled variations for portal, extra matter, RG scale, and thermal-mass prescriptions if making robustness claims.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_fopt.json",
+        "section": "approximations",
+        "note": "Restricted model and scan basis."
+      }
+    },
+    {
+      "id": "PA08",
+      "kind": "warning",
+      "category": "spectrum_template",
+      "description": "PTA analysis uses DBF template for very large-alpha points; wall velocity and microscopic efficiency are not independently computed.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": [
+        "PTA fit",
+        "GW amplitude",
+        "spectral shape"
+      ],
+      "required_solution": "Compute or marginalize wall velocity and efficiency, compare DBF/BF/Higgsless templates only within documented validity domains.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_pta.json",
+        "section": "warnings/template_validity",
+        "note": "DBF selected by regime with explicit validity warning."
+      }
+    },
+    {
+      "id": "PA09",
+      "kind": "warning",
+      "category": "pta_benchmark",
+      "description": "No perfect 14/14 PTA violin benchmark was found; best direct scan benchmark reaches 13/14 bins.",
+      "severity": 6,
+      "controlled": true,
+      "affected_outputs": [
+        "benchmark visualization",
+        "claim strength"
+      ],
+      "required_solution": "Report as near-match only and avoid claiming all violin bins are covered by a direct benchmark.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_pta.json",
+        "section": "benchmark_analysis.scan_summary",
+        "note": "Best accepted score was 13/14."
+      }
+    },
+    {
+      "id": "PA10",
+      "kind": "prior",
+      "category": "ptarcade_priors",
+      "description": "Initial PTArcade final run hit the upper log10_vD prior boundary and was rerun with a wider prior; posterior boundary sensitivity remains a required caveat.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "posterior",
+        "MAP",
+        "credible intervals"
+      ],
+      "required_solution": "Inspect final chains for boundary contact, rerun with still-wider/alternative priors if posterior support approaches limits.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_pta.json",
+        "section": "warnings/ptarcade_analysis.priors",
+        "note": "Archived prior-boundary chain and widened-prior rerun documented."
+      }
+    },
+    {
+      "id": "PA11",
+      "kind": "warning",
+      "category": "ptarcade_map",
+      "description": "Final PTArcade MAP has extremely large alpha and f_peak_est above nominal PTA steering band; f_peak_est is approximate while DBF spectrum is fitted.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "MAP interpretation",
+        "PTA-band explanation"
+      ],
+      "required_solution": "Assess MAP validity using full spectrum, template domain, and prior-boundary diagnostics rather than f_peak_est alone.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_pta.json",
+        "section": "ptarcade_analysis.map_estimates",
+        "note": "MAP alpha=2.14e14 and f_peak_est=1.75e-7 Hz."
+      }
+    },
+    {
+      "id": "PA12",
+      "kind": "limitation",
+      "category": "constraints",
+      "description": "Constraint stage claims no exclusions mainly because required cosmological, portal, abundance, and self-interaction observables are missing.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": [
+        "constraint verdict",
+        "final viability"
+      ],
+      "required_solution": "Phrase constraint result as unconstrained/not testable with current observables, not as physically allowed.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+        "section": "warnings/constraint_summary",
+        "note": "Only one direct theory check; seven constraints require new backend."
+      }
+    },
+    {
+      "id": "PA13",
+      "kind": "warning",
+      "category": "cosmology",
+      "description": "Sub-GeV strongly supercooled FOPT can affect BBN/CMB through energy release or dark radiation, but visible/dark reheating and Delta N_eff are not mapped.",
+      "severity": 10,
+      "controlled": false,
+      "affected_outputs": [
+        "cosmological viability",
+        "final claim"
+      ],
+      "required_solution": "Compute dark radiation, entropy injection, and BBN/CMB likelihood for the fitted posterior region.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+        "section": "constraints C01-C04",
+        "note": "Core cosmological constraints require thermal history."
+      }
+    },
+    {
+      "id": "PA14",
+      "kind": "assumption",
+      "category": "mass_convention",
+      "description": "Pipeline adopts m_WD(chi)=gD*chi/2 despite a convention tension in arXiv:2109.11558.",
+      "severity": 6,
+      "controlled": true,
+      "affected_outputs": [
+        "literature benchmark comparison",
+        "model mapping"
+      ],
+      "required_solution": "Keep the critic-authoritative convention in all local code and avoid directly importing same-paper benchmark masses without conversion.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_critique.json",
+        "section": "warnings/validation_field_dependent_masses",
+        "note": "Convention fixed by critic validation."
+      }
+    },
+    {
+      "id": "PA15",
+      "kind": "uncertainty",
+      "category": "gauge_dependence",
+      "description": "Perturbative finite-temperature effective potential in conformal models has gauge/daisy/RG prescription dependence not quantified by the scan.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "FOPT observables",
+        "robustness"
+      ],
+      "required_solution": "Run gauge/prescription/RG-scale variations or use gauge-invariant diagnostics where possible.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+        "section": "theory_uncertainties",
+        "note": "Gauge dependence and daisy prescription flagged upstream."
+      }
+    },
+    {
+      "id": "PA16",
+      "kind": "prior",
+      "category": "scan_ranges",
+      "description": "FOPT and PTA scans use finite chosen ranges for gD and vD; conclusions are conditional on these prior/range choices.",
+      "severity": 6,
+      "controlled": true,
+      "affected_outputs": [
+        "benchmark discovery",
+        "posterior support"
+      ],
+      "required_solution": "State all ranges and rerun boundary expansions when best points or posterior mass approach limits.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_fopt.json",
+        "section": "prior_ranges",
+        "note": "FOPT gD [0.25,3.2], vD [1e-5,0.8] GeV; PTA priors differ."
+      }
+    },
+    {
+      "id": "PA17",
+      "kind": "limitation",
+      "category": "statistics",
+      "description": "PTArcade evidence is null in the handoff, so model comparison against alternatives is not available.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": [
+        "Bayesian comparison",
+        "final ranking"
+      ],
+      "required_solution": "Compute evidence with controlled error or restrict claims to posterior fit quality.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_pta.json",
+        "section": "ptarcade_analysis.bayes_estimates",
+        "note": "evidence and evidence_error are null."
+      }
+    },
+    {
+      "id": "PA18",
+      "kind": "caveat",
+      "category": "applicability",
+      "description": "Portal-based collider, direct-detection, and beam-dump constraints are not applicable only under the exact zero-portal minimal assumption; any portal extension reopens them.",
+      "severity": 6,
+      "controlled": true,
+      "affected_outputs": [
+        "constraint applicability",
+        "model extensions"
+      ],
+      "required_solution": "Maintain a separate constraint recast for nonzero portal variants.",
+      "source": {
+        "file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+        "section": "constraints C07-C10",
+        "note": "Not applicable due to portal_coupling=0."
+      }
+    }
+  ],
+  "required_followups": [
+    {
+      "id": "FU01",
+      "priority": "high",
+      "description": "Build thermal-history and BBN/CMB observable backend for T_dark/T_SM, entropy transfer, reheating partition, Delta N_eff, and energy injection.",
+      "blocked_by": [
+        "PA03",
+        "PA13"
+      ],
+      "suggested_action": "Implement thermal_history.py and cosmo_constraints.py, then rerun constraint-agent."
+    },
+    {
+      "id": "FU02",
+      "priority": "high",
+      "description": "Compute relic abundance or dark-vector fractional abundance and non-Abelian self-interaction cross sections.",
+      "blocked_by": [
+        "PA04",
+        "PA05"
+      ],
+      "suggested_action": "Implement relic_density.py and self_interactions.py before making dark-matter viability claims."
+    },
+    {
+      "id": "FU03",
+      "priority": "high",
+      "description": "Assess GW template validity for extremely large alpha and independently determine or marginalize wall velocity and efficiency.",
+      "blocked_by": [
+        "PA08",
+        "PA11"
+      ],
+      "suggested_action": "Compare DBF/BF/Higgsless where valid and add wall-dynamics nuisance parameters or calculations."
+    },
+    {
+      "id": "FU04",
+      "priority": "medium",
+      "description": "Audit final PTArcade posterior boundary behavior and prior sensitivity after the widened-prior rerun.",
+      "blocked_by": [
+        "PA10",
+        "PA16"
+      ],
+      "suggested_action": "Inspect chain extrema and repeat with alternate priors if support remains close to boundaries."
+    },
+    {
+      "id": "FU05",
+      "priority": "medium",
+      "description": "Quantify effective-potential gauge, daisy, and RG prescription uncertainty for representative posterior and benchmark points.",
+      "blocked_by": [
+        "PA06",
+        "PA07",
+        "PA15"
+      ],
+      "suggested_action": "Run controlled theory-validity variations or full bounce cross-checks."
+    }
+  ]
+}

@@ -1,0 +1,482 @@
+{
+  "model": "conformal_u1_dark_fopt",
+  "agent": "pta-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-08",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/conformal_u1_dark_fopt/handoff_critique.json",
+    "output/conformal_u1_dark_fopt/handoff_fopt.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    "output/conformal_u1_dark_fopt/handoff_model.json",
+    "output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "output/conformal_u1_dark_fopt/fopt_results.json",
+    "output/conformal_u1_dark_fopt/fopt_benchmarks.csv"
+  ],
+  "commands": [
+    "conda run -n ptarcade python output/conformal_u1_dark_fopt/pta_scan.py",
+    "conda run -n ptarcade python output/conformal_u1_dark_fopt/pta_plot.py",
+    "conda run -n ptarcade ptarcade -m output/conformal_u1_dark_fopt/ptarcade_model.py -c output/conformal_u1_dark_fopt/ptarcade_config_smoke.py",
+    "conda run -n ptarcade ptarcade -m output/conformal_u1_dark_fopt/ptarcade_model.py -c output/conformal_u1_dark_fopt/ptarcade_config.py",
+    "conda run -n ptarcade python output/conformal_u1_dark_fopt/ptarcade_plot.py"
+  ],
+  "files_read": [
+    ".codex/agents/pta-agent.md",
+    ".codex/skills/pta-analysis/SKILL.md",
+    ".codex/skills/ptarcade-campaign/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_PTA_SCHEMA.md",
+    "docs/SPECTRUM.md",
+    "docs/PTARCADE.md",
+    "backend/spectrum.py",
+    "backend/pta_violin_windows.csv",
+    "backend/plot_violins.py",
+    "output/conformal_u1_dark_fopt/handoff_critique.json",
+    "output/conformal_u1_dark_fopt/handoff_fopt.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    "output/conformal_u1_dark_fopt/handoff_model.json",
+    "output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "output/conformal_u1_dark_fopt/fopt_results.json",
+    "output/conformal_u1_dark_fopt/fopt_benchmarks.csv",
+    "output/conformal_u1_dark_fopt/fopt_model.py",
+    "output/conformal_u1_dark_fopt/fopt_model_scan.py"
+  ],
+  "files_written": [
+    "output/conformal_u1_dark_fopt/pta_spectrum.py",
+    "output/conformal_u1_dark_fopt/pta_scan.py",
+    "output/conformal_u1_dark_fopt/pta_plot.py",
+    "output/conformal_u1_dark_fopt/pta_benchmark_scan.csv",
+    "output/conformal_u1_dark_fopt/pta_benchmark_spectrum.pdf",
+    "output/conformal_u1_dark_fopt/ptarcade_model.py",
+    "output/conformal_u1_dark_fopt/ptarcade_config.py",
+    "output/conformal_u1_dark_fopt/ptarcade_config_smoke.py",
+    "output/conformal_u1_dark_fopt/ptarcade_plot.py",
+    "output/conformal_u1_dark_fopt/ptarcade_bayes.json",
+    "output/conformal_u1_dark_fopt/pta_posteriors.pdf",
+    "output/conformal_u1_dark_fopt/pta_ptarcade_spectrum.pdf",
+    "output/conformal_u1_dark_fopt/pta_report.md",
+    "output/conformal_u1_dark_fopt/handoff_pta.json"
+  ],
+  "warnings": [
+    "Selected DBF template is only a closest supported template for the strongest/supercooled points; template validity is not strict across all best points.",
+    "PTArcade MAP estimate lies at the physical y_D lower boundary y_D=0, so y_D posterior should not be over-interpreted as an interior preference.",
+    "PTArcade chain file contains 10001 stored rows after a completed N_samples=100000 run, consistent with PTArcade storage/thinning rather than 100000 literal rows."
+  ],
+  "errors": [],
+  "approximations": [
+    "Uses backend Spectrum(template=\"dbf\") for benchmark and PTArcade spectra.",
+    "Uses FOPT-agent semianalytic backend at each sampled point through fopt_model.evaluate_point.",
+    "PTA benchmark scoring uses tabulated backend/pta_violin_windows.csv intervals and does not extrapolate beyond 14 bins."
+  ],
+  "analysis_mode": "benchmark_plus_ptarcade",
+  "pta_parameter_basis": {
+    "independent": {
+      "v_D": {
+        "unit": "GeV"
+      },
+      "g_D": {
+        "unit": "dimensionless"
+      },
+      "y_D": {
+        "unit": "dimensionless"
+      }
+    },
+    "dependent": {
+      "gb_X": "2*g_D",
+      "gf_psi": "y_D/sqrt(2)",
+      "beta_lambda": "(3*gb_X**4 - 4*gf_psi**4)/(8*pi**2)"
+    },
+    "fixed": {}
+  },
+  "spectrum_template": "dbf",
+  "template_validity": {
+    "status": "warning",
+    "reason": "DBF is closest implemented template for strong/supercooled FOPT points, but several high-scoring points have extremely large alpha and are outside strict published template assumptions."
+  },
+  "benchmark_analysis": {
+    "scan_summary": {
+      "total_points": 791,
+      "viable_points": 19,
+      "boundary_expansions": [
+        "Used FOPT-agent seeded/coarse/extended_low/extended_broad direct-evaluation grid; best 14/14 points were not expanded further in PTA because the upstream scan already included one-order broad ranges and no independent PTA interpolation/cache was used."
+      ]
+    },
+    "prior_ranges": {
+      "v_D": {
+        "min": 0.001,
+        "max": 7.0,
+        "unit": "GeV"
+      },
+      "g_D": {
+        "min": 0.15,
+        "max": 1.0
+      },
+      "y_D": {
+        "min": 0.0,
+        "max": 0.9
+      }
+    },
+    "template_comparison": {
+      "dbf": {
+        "best_score": 14,
+        "validity": "warning"
+      }
+    },
+    "best_fit_points": [
+      {
+        "rank": 1,
+        "name": "extended_broad_v0.7653_g0.35_y0.9",
+        "parameters": {
+          "v_D": 0.7652855797503655,
+          "g_D": 0.35,
+          "y_D": 0.9
+        },
+        "alpha": 421826688151.7989,
+        "beta_H": 17.521152184286848,
+        "T_star": 0.0469063223481496,
+        "score": 14.0,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1.1396231656979165e-08,
+        "peak_h2OmegaGW": 4.795181543589633e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.3227367963571053e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            5.480665333031204e-10,
+            1.8440197851849214e-09,
+            3.21327524731262e-09,
+            4.205619948161624e-09,
+            4.707759832334352e-09,
+            4.746525491649554e-09,
+            4.495445279500938e-09,
+            4.136961618211386e-09,
+            3.748668881919753e-09,
+            3.366780009919451e-09,
+            3.018803445719105e-09,
+            2.701203985544514e-09,
+            2.4197253380492995e-09,
+            2.1755586753993387e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/conformal_u1_dark_fopt/pta_benchmark_scan.csv",
+          "spectrum_id": "pta_0700"
+        }
+      },
+      {
+        "rank": 2,
+        "name": "coarse_v0.5_g0.3_y0.4",
+        "parameters": {
+          "v_D": 0.5,
+          "g_D": 0.3,
+          "y_D": 0.4
+        },
+        "alpha": 88921963.39277467,
+        "beta_H": 24.796130504171284,
+        "T_star": 0.0421499568258041,
+        "score": 14.0,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1.4133522589244011e-08,
+        "peak_h2OmegaGW": 2.53934237678412e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.3227367963571053e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            1.9247807062724974e-10,
+            6.850737732479321e-10,
+            1.2906453561834624e-09,
+            1.8419628562944755e-09,
+            2.249541192474576e-09,
+            2.5064129456778795e-09,
+            2.5354155692168715e-09,
+            2.464653916049874e-09,
+            2.336310540391924e-09,
+            2.1783342019468063e-09,
+            2.013560021187875e-09,
+            1.8484795715194931e-09,
+            1.691632097361593e-09,
+            1.5481056554751223e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/conformal_u1_dark_fopt/pta_benchmark_scan.csv",
+          "spectrum_id": "pta_0133"
+        }
+      },
+      {
+        "rank": 3,
+        "name": "coarse_v0.5_g0.3_y0.3",
+        "parameters": {
+          "v_D": 0.5,
+          "g_D": 0.3,
+          "y_D": 0.3
+        },
+        "alpha": 13230185.416218542,
+        "beta_H": 26.918742433977624,
+        "T_star": 0.042269891811372,
+        "score": 14.0,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1.5499482401113475e-08,
+        "peak_h2OmegaGW": 2.174659439238706e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.3227367963571053e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            1.4081374282542224e-10,
+            5.093790142734101e-10,
+            9.82455216817983e-10,
+            1.4412223897992884e-09,
+            1.8124940200112426e-09,
+            2.093113471092599e-09,
+            2.1708959216290152e-09,
+            2.156549569033059e-09,
+            2.0823545792240563e-09,
+            1.9724467853209616e-09,
+            1.8473872541648373e-09,
+            1.715197638485277e-09,
+            1.584777050118857e-09,
+            1.462044642795173e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/conformal_u1_dark_fopt/pta_benchmark_scan.csv",
+          "spectrum_id": "pta_0132"
+        }
+      },
+      {
+        "rank": 4,
+        "name": "coarse_v0.5_g0.3_y0.2",
+        "parameters": {
+          "v_D": 0.5,
+          "g_D": 0.3,
+          "y_D": 0.2
+        },
+        "alpha": 4050687.451274712,
+        "beta_H": 28.33584224669039,
+        "T_star": 0.0423654820416152,
+        "score": 14.0,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1.623119832454485e-08,
+        "peak_h2OmegaGW": 1.973330298795575e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.3227367963571053e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            1.1559975228433565e-10,
+            4.2198001698340746e-10,
+            8.248239245119541e-10,
+            1.229432808927871e-09,
+            1.573261710506599e-09,
+            1.856892940704211e-09,
+            1.9561461341611635e-09,
+            1.9701839615881803e-09,
+            1.9252451697955246e-09,
+            1.842601704206685e-09,
+            1.740901327626762e-09,
+            1.6286161011562543e-09,
+            1.5145627520358983e-09,
+            1.4049544576782583e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/conformal_u1_dark_fopt/pta_benchmark_scan.csv",
+          "spectrum_id": "pta_0131"
+        }
+      }
+    ]
+  },
+  "ptarcade_analysis": {
+    "run_status": "warning",
+    "campaign": {
+      "pta_data": "NG15",
+      "mode": "ceffyl",
+      "out_dir": "output/conformal_u1_dark_fopt/chains",
+      "config_file": "output/conformal_u1_dark_fopt/ptarcade_config.py",
+      "model_file": "output/conformal_u1_dark_fopt/ptarcade_model.py",
+      "plot_file": "output/conformal_u1_dark_fopt/ptarcade_plot.py"
+    },
+    "prior_parameter_basis": {
+      "independent": {
+        "v_D": "sampled as log10_v_D = log10(v_D/GeV)",
+        "g_D": "linear",
+        "y_D": "linear"
+      },
+      "dependent": {
+        "gb_X": "2*g_D",
+        "gf_psi": "y_D/sqrt(2)",
+        "beta_lambda": "(3*gb_X**4 - 4*gf_psi**4)/(8*pi**2)"
+      },
+      "fixed": {}
+    },
+    "priors": {
+      "v_D": {
+        "distribution": "Uniform in log10_v_D",
+        "log10_min": -3.5,
+        "log10_max": 1.0,
+        "min_GeV": 0.00031622776601683794,
+        "max_GeV": 10.0
+      },
+      "g_D": {
+        "distribution": "Uniform",
+        "min": 0.15,
+        "max": 1.0
+      },
+      "y_D": {
+        "distribution": "Uniform",
+        "min": 0.0,
+        "max": 0.95
+      }
+    },
+    "chain_validation": {
+      "chains_found": true,
+      "finite_samples": true,
+      "notes": "Final PTArcade command completed N_samples=100000; stored chain rows: 10001. Posterior and MAP plots generated from final chains only."
+    },
+    "bayes_estimates": {
+      "bayes_est": {
+        "v_D": {
+          "mean": 0.9597839281049243,
+          "std_log10": 0.1817884831790365
+        },
+        "g_D": {
+          "mean": 0.2855779045136462,
+          "std": 0.02613049838232023
+        },
+        "y_D": {
+          "mean": 0.40535649236565025,
+          "std": 0.2545363207791076
+        }
+      },
+      "credible_regions": {
+        "sigma_1": {
+          "description": "68% credible region",
+          "bounds": {
+            "v_D": {
+              "low": 0.6524223090101575,
+              "high": 1.3946423272935458,
+              "low_log10": -0.1854711970579447,
+              "high_log10": 0.1444628418749687
+            },
+            "g_D": {
+              "low": 0.2604596540094731,
+              "high": 0.31488766085794484
+            },
+            "y_D": {
+              "low": 0.11853518564406271,
+              "high": 0.7049053385665409
+            }
+          }
+        },
+        "sigma_2": {
+          "description": "95% credible region",
+          "bounds": {
+            "v_D": {
+              "low": 0.3419511560474823,
+              "high": 1.762984033472977,
+              "low_log10": -0.46603592369233837,
+              "high_log10": 0.2462483791138535
+            },
+            "g_D": {
+              "low": 0.2541805469101902,
+              "high": 0.3500417750768086
+            },
+            "y_D": {
+              "low": 0.016331092066329926,
+              "high": 0.88518897279808
+            }
+          }
+        },
+        "sigma_3": {
+          "description": "99.7% credible region",
+          "bounds": {
+            "v_D": {
+              "low": 0.118723200867615,
+              "high": 2.334614370658233,
+              "low_log10": -0.9254644029983113,
+              "high_log10": 0.368215154484038
+            },
+            "g_D": {
+              "low": 0.25209916984954484,
+              "high": 0.37926516847216496
+            },
+            "y_D": {
+              "low": 0.0006881227393056251,
+              "high": 0.9369271889892906
+            }
+          }
+        }
+      },
+      "evidence": null,
+      "evidence_error": null
+    },
+    "map_estimates": {
+      "map_est": {
+        "v_D": 1.1755003158867923,
+        "g_D": 0.26200174184515485,
+        "y_D": 0.0
+      },
+      "map_value": null
+    }
+  },
+  "constraint_summary": []
+}

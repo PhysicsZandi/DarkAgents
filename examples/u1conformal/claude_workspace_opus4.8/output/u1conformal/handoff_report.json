@@ -1,0 +1,97 @@
+{
+  "model": "u1conformal",
+  "agent": "report-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-09",
+  "branch": "report",
+  "created_from": [
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/handoff_pta.json",
+    "output/u1conformal/handoff_constraints.json",
+    "output/u1conformal/handoff_prior_audit.json",
+    "output/u1conformal/model.md"
+  ],
+  "commands": [
+    "pdflatex -interaction=nonstopmode -halt-on-error report.tex (run 1)",
+    "pdflatex -interaction=nonstopmode -halt-on-error report.tex (run 2)",
+    "WebSearch: arXiv 2511.15687 (Lewicki & Vaskonen) verification",
+    "WebSearch: arXiv 2603.08430 (Caputo & Essig) verification",
+    "WebSearch: arXiv 2209.04369 (Jinno et al.) verification"
+  ],
+  "files_read": [
+    "input/u1conformal/prompt.md",
+    "output/u1conformal/model.md",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/handoff_pta.json",
+    "output/u1conformal/handoff_constraints.json",
+    "output/u1conformal/handoff_prior_audit.json",
+    "docs/HANDOFF_REPORT_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/u1conformal/report.tex",
+    "output/u1conformal/report.pdf",
+    "output/u1conformal/handoff_report.json"
+  ],
+  "warnings": [
+    "Preferred region is provisional: no-SMBHB foreground fit (A17), order-of-magnitude gauge dependence (A07), xi=1 vs epsilon~0 tension (A05), and four missing constraint calculations (A19).",
+    "No constraint currently excludes any part of the PTArcade 1-sigma region."
+  ],
+  "errors": [],
+  "approximations": [
+    "Numeric values in report tables are rounded for presentation; authoritative values are in the upstream handoff JSONs.",
+    "FOPT backend: high-T expansion, Gaussian percolation, mu=v with no RG running/daisy resummation.",
+    "GW spectrum: dbf template, ksw=1, amplitude ~1/beta_H^2 (2511.15687).",
+    "Constraint epsilon-vs-mass bounds are order-of-magnitude bands, not recast."
+  ],
+  "included_sections": [
+    {"name": "Prompt", "status": "included", "source": "user terminal / input/u1conformal/prompt.md", "notes": []},
+    {"name": "Model description (critic)", "status": "included", "source": "handoff_critique.json, model.md", "notes": []},
+    {"name": "Pipeline status", "status": "included", "source": "all handoffs", "notes": []},
+    {"name": "Preliminary literature search", "status": "included", "source": "handoff_librarian_preliminary.json", "notes": []},
+    {"name": "FOPT results", "status": "included", "source": "handoff_fopt.json", "notes": []},
+    {"name": "PTA results", "status": "included", "source": "handoff_pta.json", "notes": ["Includes 3 required PDF figures plus all produced plots."]},
+    {"name": "Constraints", "status": "included", "source": "handoff_constraints.json", "notes": ["12 constraints + 4 missing calculations."]},
+    {"name": "Assumptions and limitations", "status": "included", "source": "handoff_prior_audit.json", "notes": ["22 items audited; high-severity highlighted."]},
+    {"name": "Conclusions", "status": "included", "source": "synthesis", "notes": []},
+    {"name": "Inconsistencies", "status": "included", "source": "handoff_critique.json, handoff_constraints.json", "notes": ["xi=1 vs epsilon~0 tension reported, not resolved."]},
+    {"name": "References", "status": "included", "source": "all handoffs", "notes": []}
+  ],
+  "figures_included": [
+    {"label": "fig:benchspec", "file": "pta_benchmark_spectrum.pdf", "caption": "Estimated benchmark spectrum with NG15 violins.", "source": "handoff_pta.json", "notes": []},
+    {"label": "fig:ptarcadespec", "file": "pta_ptarcade_spectrum.pdf", "caption": "Bayesian MAP-point spectrum with NG15 violins.", "source": "handoff_pta.json", "notes": []},
+    {"label": "fig:posteriors", "file": "u1conformal_posteriors.pdf", "caption": "PTArcade NG15 posterior distributions of (log10 v, g_D).", "source": "handoff_pta.json", "notes": []}
+  ],
+  "tables_included": [
+    {"label": "tab:critic", "file": "report.tex", "caption": "Critic warnings and clarifications.", "source": "handoff_critique.json", "notes": []},
+    {"label": "tab:status", "file": "report.tex", "caption": "Pipeline stage statuses.", "source": "all handoffs", "notes": []},
+    {"label": "tab:lit", "file": "report.tex", "caption": "Verified literature.", "source": "handoff_librarian_preliminary.json", "notes": []},
+    {"label": "tab:fopt", "file": "report.tex", "caption": "Representative FOPT benchmarks.", "source": "handoff_fopt.json", "notes": []},
+    {"label": "tab:pta", "file": "report.tex", "caption": "Top-scoring PTA benchmark spectra.", "source": "handoff_pta.json", "notes": []},
+    {"label": "tab:posteriors", "file": "report.tex", "caption": "PTArcade credible regions.", "source": "handoff_pta.json", "notes": []},
+    {"label": "tab:constraints", "file": "report.tex", "caption": "Constraints on the 1-sigma region.", "source": "handoff_constraints.json", "notes": []},
+    {"label": "tab:assumptions", "file": "report.tex", "caption": "High-severity assumptions/limitations.", "source": "handoff_prior_audit.json", "notes": []}
+  ],
+  "cited_sources": [
+    {"title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data", "arxiv_id": "2501.11619", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector", "arxiv_id": "2502.19478", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "NANOGrav Signal from a Dark Conformal Phase Transition", "arxiv_id": "2306.17086", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Gravitational waves from a dark U(1)_D phase transition in light of NANOGrav 12.5 yr data", "arxiv_id": "2105.01007", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Gravitational waves from scale-invariant vector dark matter model: Probing below the neutrino-floor", "arxiv_id": "1907.08899", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Gauge-independent gravitational waves from a minimal dark U(1) sector with viable dark matter candidates", "arxiv_id": "2602.14866", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "On gauge dependence of gravitational waves from a first-order phase transition in classical scale-invariant U(1)' models", "arxiv_id": "1707.06765", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Impact of cosmic expansion on gravitational wave spectra from strongly supercooled first-order phase transitions", "arxiv_id": "2511.15687", "source_file": "handoff_pta.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Higgsless simulations of cosmological phase transitions and gravitational waves", "arxiv_id": "2209.04369", "source_file": "handoff_pta.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Strong Constraints on Sub-GeV Dark Sectors from SLAC Beam Dump E137", "arxiv_id": "1406.2698", "source_file": "handoff_constraints.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Revisiting Supernova 1987A Constraints on Dark Photons", "arxiv_id": "1611.03864", "source_file": "handoff_constraints.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "The Dark Photon: a 2026 Perspective", "arxiv_id": "2603.08430", "source_file": "handoff_constraints.json", "source_type": "handoff_json", "citation_verified": true}
+  ],
+  "inconsistencies": [
+    {"description": "xi=1 (T_dark=T_vis) used by the FOPT/PTA stages to set g_* and the GW redshift is incompatible with exactly vanishing portals (epsilon=lambda_HPhi=0); a minimum nonzero epsilon is required and remains uncomputed.", "sources": ["handoff_critique.json", "handoff_constraints.json (C03, warnings)", "handoff_prior_audit.json (A05)"], "resolution": "Reported explicitly in Section 'Inconsistencies'; not silently resolved."}
+  ],
+  "compiled_pdf": true,
+  "compile_errors": []
+}

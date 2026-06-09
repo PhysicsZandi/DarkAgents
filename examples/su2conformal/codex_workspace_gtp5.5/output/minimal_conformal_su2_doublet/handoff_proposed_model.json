@@ -1,0 +1,357 @@
+{
+  "model": "minimal_conformal_su2_doublet",
+  "agent": "proposer-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "created_from": [
+    "User prompt: what is the minimal conformal non-abelian model that can explain the NANOGrav signal?",
+    ".codex/agents/proposer-agent.md",
+    ".codex/skills/model-proposal/SKILL.md",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md"
+  ],
+  "commands": [
+    "sed -n '1,220p' .codex/agents/proposer-agent.md",
+    "sed -n '1,260p' .codex/skills/model-proposal/SKILL.md",
+    "sed -n '1,260p' docs/BACKEND_COMPATIBILITY.md",
+    "sed -n '1,260p' docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "sed -n '1,220p' docs/HANDOFF_SCHEMAS.md",
+    "find output -maxdepth 2 \\( -name handoff_model.json -o -name handoff_proposed_model.json \\) -print",
+    "mkdir -p output/minimal_conformal_su2_doublet",
+    "python -m json.tool output/minimal_conformal_su2_doublet/handoff_proposed_model.json",
+    "find output/minimal_conformal_su2_doublet -maxdepth 1 -type f -print"
+  ],
+  "files_read": [
+    ".codex/agents/proposer-agent.md",
+    ".codex/skills/model-proposal/SKILL.md",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md"
+  ],
+  "files_written": [
+    "output/minimal_conformal_su2_doublet/proposed_model.md",
+    "output/minimal_conformal_su2_doublet/handoff_proposed_model.json"
+  ],
+  "warnings": [
+    "Candidate only: no FOPT calculation, PTA scan, or NANOGrav fit has been performed at proposal stage.",
+    "No existing output handoff files were found, so duplicate checking was limited to an empty local output set.",
+    "The scalar thermal mass coefficient is left symbolic as c_phi pending downstream backend convention choices."
+  ],
+  "errors": [],
+  "approximations": [
+    "Classically scale-invariant Coleman-Weinberg treatment with one radial background field chi.",
+    "Portal couplings and extra matter are neglected to keep the non-Abelian conformal model minimal.",
+    "The CW pseudo-dilaton contribution is treated as dependent and not double-counted as an independent scanned bosonic mass ratio."
+  ],
+  "gauge_groups": [
+    {
+      "name": "SU(2)_D",
+      "type": "non-Abelian gauge",
+      "coupling": "gD",
+      "generators": "T_D_a = sigma_a / 2 in the fundamental representation",
+      "notes": "Minimal non-Abelian dark gauge group."
+    },
+    {
+      "name": "SM",
+      "type": "spectator",
+      "coupling": "not used",
+      "notes": "All new dark-sector fields are Standard Model singlets."
+    }
+  ],
+  "global_symmetries": [
+    {
+      "name": "classical_scale_invariance",
+      "status": "imposed at tree level",
+      "notes": "Forbids explicit scalar mass terms; scale generated radiatively through Coleman-Weinberg symmetry breaking."
+    }
+  ],
+  "particle_content": [
+    {
+      "name": "Phi",
+      "type": "scalar",
+      "spin": 0,
+      "statistics": "boson",
+      "gauge_representations": {
+        "SU(2)_D": "fundamental_doublet",
+        "SM": "singlet"
+      },
+      "degrees_of_freedom": 4,
+      "components": "One complex SU(2)_D doublet; in unitary gauge Phi = (0, chi / sqrt(2))^T.",
+      "notes": "Provides the single conformal radial background chi for the FOPT backend."
+    },
+    {
+      "name": "W_D_a",
+      "type": "gauge_boson",
+      "spin": 1,
+      "statistics": "boson",
+      "gauge_representations": {
+        "SU(2)_D": "adjoint",
+        "SM": "singlet"
+      },
+      "degrees_of_freedom": 9,
+      "multiplicity": 3,
+      "polarizations_after_ssb": 3,
+      "notes": "Three massive dark vector bosons after SU(2)_D breaking."
+    },
+    {
+      "name": "chi",
+      "type": "radial_scalar",
+      "spin": 0,
+      "statistics": "boson",
+      "gauge_representations": {
+        "SU(2)_D": "singlet_after_gauge_fixing",
+        "SM": "singlet"
+      },
+      "degrees_of_freedom": 1,
+      "notes": "Coleman-Weinberg pseudo-dilaton; mass is dependent, not an independent scanned input."
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "dark_gauge_kinetic",
+      "expression": "-1 / 4 * FDa_munu * FDa_munu",
+      "symbols": [
+        "FDa_munu"
+      ],
+      "gauge_invariance_notes": "Adjoint field strength contracted over SU(2)_D adjoint and Lorentz indices."
+    },
+    {
+      "name": "scalar_kinetic",
+      "expression": "Dmu_Phi_dag * Dmu_Phi",
+      "symbols": [
+        "Dmu_Phi_dag",
+        "Dmu_Phi"
+      ],
+      "gauge_invariance_notes": "Fundamental doublet covariant derivative contracted with its Hermitian conjugate."
+    },
+    {
+      "name": "conformal_tree_potential",
+      "expression": "-lambda_phi * (Phi_dag_Phi)**2",
+      "symbols": [
+        "lambda_phi",
+        "Phi_dag_Phi"
+      ],
+      "gauge_invariance_notes": "Only renormalizable SU(2)_D-invariant scalar potential term for one doublet under classical scale invariance."
+    }
+  ],
+  "free_parameters": [
+    {
+      "name": "gD",
+      "range": "positive perturbative gauge coupling; downstream scans should impose perturbativity and beta_lambda > 0",
+      "role": "Dark SU(2)_D gauge coupling."
+    },
+    {
+      "name": "vD",
+      "range": "positive energy scale to be scanned by downstream FOPT/PTA stages",
+      "role": "Coleman-Weinberg vev of the radial field chi."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "gD": {
+        "description": "Dark SU(2)_D gauge coupling.",
+        "domain": "gD > 0"
+      },
+      "vD": {
+        "description": "Zero-temperature Coleman-Weinberg vev in the chi direction.",
+        "domain": "vD > 0"
+      }
+    },
+    "dependent": {
+      "beta_lambda": {
+        "expression": "1 / (8 * pi**2) * (9 * (gD / 2)**4)",
+        "description": "Model-independent CW beta_lambda from the three massive dark gauge bosons with gb = gD / 2 and total vector dof 9."
+      },
+      "m_chi2": {
+        "expression": "beta_lambda * vD**2",
+        "description": "CW pseudo-dilaton mass squared."
+      },
+      "lambda_phi": {
+        "determination": "Coleman-Weinberg minimization condition at the chosen renormalization scale; not an independent scan parameter for semianalytic_pipeline.",
+        "description": "Running quartic in V0 = lambda_phi * chi**4 / 4."
+      },
+      "m_WD": {
+        "expression": "gD * vD / 2",
+        "description": "Common physical mass of the three dark gauge bosons after symmetry breaking."
+      },
+      "gb_WD": {
+        "expression": "gD / 2",
+        "description": "Mass-over-background ratio for each dark vector, m_WD(chi) = gb_WD * chi."
+      },
+      "gb_scalar": {
+        "expression": "sqrt(beta_lambda)",
+        "description": "Dependent pseudo-dilaton mass-over-vev ratio; not independently scanned or double-counted in beta_lambda."
+      }
+    },
+    "fixed": {
+      "portal_coupling": {
+        "value": 0,
+        "description": "Higgs portal neglected in the minimal proposal."
+      },
+      "dark_fermions": {
+        "value": 0,
+        "description": "No new dark fermions included."
+      }
+    }
+  },
+  "assumptions": [
+    "The model is considered as a dark sector with negligible portal coupling to the Standard Model for the proposal stage.",
+    "The phase transition is assumed to be controlled by the single radial background chi.",
+    "Gauge fixing and daisy-resummation details are deferred to downstream FOPT implementation conventions.",
+    "No quantitative claim about explaining NANOGrav is made before downstream scans."
+  ],
+  "backend_compatibility": [
+    {
+      "backend": "semianalytic_pipeline",
+      "status": "compatible_with_warnings",
+      "mapping": {
+        "background_field": "chi",
+        "vev": "vD",
+        "tree_level_potential": "lambda_phi * chi**4 / 4",
+        "bosonic_mass_ratios": [
+          {
+            "name": "W_D",
+            "gb": "gD / 2",
+            "dof": 9
+          }
+        ],
+        "fermionic_mass_ratios": []
+      },
+      "notes": "Classically scale-invariant single-field model with no explicit tree-level mass term. All relevant masses are proportional to chi. Warning status records that the PTA signal has not yet been computed."
+    }
+  ],
+  "ssb_pattern": [
+    {
+      "from": "SU(2)_D",
+      "to": "nothing",
+      "order_parameter": "chi",
+      "vev": "vD",
+      "notes": "A single complex fundamental doublet completely Higgses SU(2)_D."
+    }
+  ],
+  "vev_convention": [
+    {
+      "field": "Phi",
+      "background": "Phi = Matrix([0, chi / sqrt(2)])",
+      "minimum": "chi = vD",
+      "gauge": "unitary_gauge",
+      "notes": "With this convention, m_WD2(chi) = gD**2 * chi**2 / 4 and V0(chi) = lambda_phi * chi**4 / 4."
+    }
+  ],
+  "tree_level_potential": [
+    {
+      "name": "conformal_quartic",
+      "expression": "lambda_phi * chi**4 / 4",
+      "background_field": "chi",
+      "notes": "No mass term due to classical scale invariance; lambda_phi is CW-fixed and dependent."
+    }
+  ],
+  "field_dependent_masses": [
+    {
+      "particle": "W_D_a",
+      "m2_of_chi": "gD**2 * chi**2 / 4",
+      "mass_ratio": "gD / 2",
+      "dof": 9,
+      "statistics": "boson",
+      "notes": "Three SU(2)_D gauge bosons, each with three massive polarizations after symmetry breaking."
+    },
+    {
+      "particle": "chi",
+      "m2_of_chi": "beta_lambda * chi**2",
+      "mass_ratio": "sqrt(beta_lambda)",
+      "dof": 1,
+      "statistics": "boson",
+      "notes": "Dependent CW pseudo-dilaton entry for bookkeeping only; do not use as an independent beta_lambda source."
+    }
+  ],
+  "thermal_masses": [
+    {
+      "particle": "Phi",
+      "thermal_mass2": "c_phi * T**2",
+      "coefficient": "c_phi",
+      "statistics": "boson",
+      "notes": "Symbolic scalar thermal mass coefficient to be fixed by downstream FOPT backend conventions."
+    },
+    {
+      "particle": "W_D_longitudinal",
+      "thermal_mass2": "c_WD * gD**2 * T**2",
+      "coefficient": "c_WD",
+      "statistics": "boson",
+      "notes": "Symbolic Debye mass coefficient for longitudinal dark gauge modes; downstream implementation may choose the appropriate SU(2) coefficient."
+    }
+  ],
+  "expression_symbols": [
+    {
+      "symbol": "chi",
+      "meaning": "Real radial background field.",
+      "type": "field"
+    },
+    {
+      "symbol": "vD",
+      "meaning": "Coleman-Weinberg vev of chi.",
+      "type": "independent_parameter"
+    },
+    {
+      "symbol": "gD",
+      "meaning": "Dark SU(2)_D gauge coupling.",
+      "type": "independent_parameter"
+    },
+    {
+      "symbol": "lambda_phi",
+      "meaning": "CW-fixed scalar quartic coupling.",
+      "type": "dependent_parameter"
+    },
+    {
+      "symbol": "beta_lambda",
+      "meaning": "CW beta_lambda controlling pseudo-dilaton mass.",
+      "type": "dependent_parameter"
+    },
+    {
+      "symbol": "pi",
+      "meaning": "Mathematical constant pi.",
+      "type": "constant"
+    },
+    {
+      "symbol": "sqrt",
+      "meaning": "Square-root function.",
+      "type": "function"
+    },
+    {
+      "symbol": "T",
+      "meaning": "Temperature.",
+      "type": "thermal_variable"
+    },
+    {
+      "symbol": "c_phi",
+      "meaning": "Scalar thermal mass coefficient.",
+      "type": "fixed_symbolic_coefficient"
+    },
+    {
+      "symbol": "c_WD",
+      "meaning": "Dark gauge Debye mass coefficient.",
+      "type": "fixed_symbolic_coefficient"
+    },
+    {
+      "symbol": "Phi_dag_Phi",
+      "meaning": "Gauge-invariant scalar bilinear Phi dagger Phi.",
+      "type": "lagrangian_symbol"
+    },
+    {
+      "symbol": "FDa_munu",
+      "meaning": "Dark SU(2)_D field strength tensor.",
+      "type": "lagrangian_symbol"
+    },
+    {
+      "symbol": "Dmu_Phi",
+      "meaning": "Gauge-covariant derivative acting on Phi.",
+      "type": "lagrangian_symbol"
+    },
+    {
+      "symbol": "Dmu_Phi_dag",
+      "meaning": "Hermitian conjugate gauge-covariant derivative acting on Phi.",
+      "type": "lagrangian_symbol"
+    }
+  ]
+}

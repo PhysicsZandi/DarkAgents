@@ -1,0 +1,197 @@
+{
+  "model": "su2cw-dark",
+  "agent": "critic-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/su2cw-dark/handoff_proposed_model.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json"
+  ],
+  "commands": [
+    "python3 CW beta_lambda self-consistency check (g=1.37)",
+    "grep semianalytic_pipeline.py for get_beta_lambda/get_coeffs/get_scalar_mass conventions"
+  ],
+  "files_read": [
+    "output/su2cw-dark/handoff_proposed_model.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json",
+    "docs/HANDOFF_CRITIC_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "backend/semianalytic_pipeline.py"
+  ],
+  "files_written": [
+    "output/su2cw-dark/critique.md",
+    "output/su2cw-dark/handoff_critique.json",
+    "output/su2cw-dark/handoff_model.json",
+    "output/su2cw-dark/model.md"
+  ],
+  "warnings": [
+    "Supercooled conformal FOPTs face transition-completion/percolation risk; fopt-agent must verify the transition completes (P_false percolation, Gamma/H^4) and not assume nucleation implies completion.",
+    "chi0 scan range [1e-4, 1e2] GeV is broad; PTA-band literature anchors (2109.11558) sit near MeV scale (chi0 ~ 1e-3 to 1e0 GeV). Range is permissive, not wrong.",
+    "Backend uses high-temperature expansion of the thermal potential; its validity degrades in deep supercooling (small Tn/chi0). Documented backend approximation."
+  ],
+  "errors": [],
+  "approximations": [
+    "Scalar self-loop back-reaction on beta_lambda neglected (verified <0.04% at g=1.37); gb_scalar=sqrt(beta_lambda) added self-consistently by backend.",
+    "One-loop CW + high-T thermal potential as implemented in backend/semianalytic_pipeline.py."
+  ],
+  "validation_gauge_groups": [
+    {
+      "item": "SU(2)_D dark gauge symmetry",
+      "status": "ok",
+      "notes": "Non-abelian dark gauge group, coupling g. No fermions, so no gauge or mixed gauge-gravitational anomalies are possible. Fully broken by the doublet vev: no light non-abelian remnant, consistent with perturbative (non-confining) treatment."
+    }
+  ],
+  "validation_global_symmetries": [
+    {
+      "item": "Classical scale (conformal) invariance",
+      "status": "ok",
+      "notes": "Lagrangian contains no dimensionful parameter; potential is pure quartic lambda(Phi^dag Phi)^2 with no mu^2 term. Scale invariance broken radiatively via Coleman-Weinberg dimensional transmutation. Consistent."
+    },
+    {
+      "item": "Accidental custodial SO(4)~SU(2)xSU(2) of single-doublet quartic",
+      "status": "ok",
+      "notes": "Genuine accidental global symmetry of one complex doublet with a single quartic; not gauged, no consequence for FOPT. Informational."
+    }
+  ],
+  "validation_particle_content": [
+    {
+      "item": "Complex SU(2)_D doublet Phi (4 real dof)",
+      "status": "ok",
+      "notes": "Spin 0, fundamental of SU(2)_D, 4 real dof. dof bookkeeping consistent."
+    },
+    {
+      "item": "Dark gauge bosons W_D (9 dof)",
+      "status": "ok",
+      "notes": "Three massive dark vectors x 3 polarizations = 9 dof after SSB. dof balance: before SSB 4(scalar)+3x2(massless vectors)=10; after 1(radial)+3x3(massive vectors)=10. Goldstone count consistent (3 eaten)."
+    },
+    {
+      "item": "Radial CW pseudo-dilaton chi (1 dof)",
+      "status": "ok",
+      "notes": "Single physical radial scalar, mass fixed by CW relation m_chi^2 = beta_lambda*chi0^2 > 0. Added automatically by backend; must not be double-counted in boson_dofs."
+    }
+  ],
+  "validation_lagrangian_terms": [
+    {
+      "item": "Scalar kinetic (D_mu Phi)^dag (D^mu Phi)",
+      "status": "ok",
+      "notes": "D_mu Phi=(d_mu - i g sigma^a/2 W^a_mu)Phi; gauge invariant. Source of gauge-boson masses."
+    },
+    {
+      "item": "Gauge kinetic -1/4 W^a_{mu nu} W^{a mu nu}",
+      "status": "ok",
+      "notes": "Standard non-abelian Yang-Mills, a=1,2,3. Consistent."
+    },
+    {
+      "item": "Scalar potential lambda(Phi^dag Phi)^2",
+      "status": "ok",
+      "notes": "Only quartic permitted by classical scale invariance; no mu^2 term. Consistent with conformal symmetry and CW breaking."
+    }
+  ],
+  "validation_free_parameters": [
+    {
+      "item": "g in [0.3,1.5] (independent)",
+      "status": "ok",
+      "notes": "Dark gauge coupling; controls FOPT strength/supercooling. Upper bound preserves one-loop perturbativity. Literature anchor g_D=1.37 lies near the upper edge."
+    },
+    {
+      "item": "chi0 in [1e-4,1e2] GeV (independent)",
+      "status": "warning",
+      "notes": "Symmetry-breaking scale / GW peak frequency. Range is broad; PTA-band fits cluster near MeV (chi0 ~ 1e-3 to 1 GeV). Permissive but not inconsistent."
+    },
+    {
+      "item": "lambda classified as dependent",
+      "status": "ok",
+      "notes": "Correctly dependent: CW-fixed, renormalization-scale dependent, never scanned. Not used by backend. Matches schema requirement that CW-fixed quartics are dependent."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "g": "Dark SU(2)_D gauge coupling.",
+      "chi0": "Scalar radial vev in GeV (symmetry-breaking scale)."
+    },
+    "dependent": {
+      "lambda": "CW-fixed quartic, scale-dependent, never scanned.",
+      "beta_lambda": "1/(8 pi^2)(sum_B dof*gb^4 - sum_F dof*gf^4) = (9*(g/2)^4 + gb_scalar^4)/(8 pi^2). Verified >0.",
+      "gb_scalar": "sqrt(beta_lambda); negligible back-reaction, added self-consistently by backend.",
+      "m_chi": "sqrt(beta_lambda)*chi0; CW pseudo-dilaton mass."
+    },
+    "fixed": {
+      "n_W": "9 (three massive dark vectors, 3 polarizations each).",
+      "scalar_dof": "1 (radial mode; injected automatically by backend get_scalar_mass()).",
+      "fermion_content": "none."
+    }
+  },
+  "validation_assumptions": [
+    {
+      "item": "Dark sector in thermal equilibrium with SM bath (xi=1)",
+      "status": "ok",
+      "notes": "Common temperature assumption; matches backend default. Downstream may revisit xi if BBN/Neff constraints bite."
+    },
+    {
+      "item": "No fermions => beta_lambda>0 guaranteed (bosons dominate)",
+      "status": "ok",
+      "notes": "Required condition for radiative SSB and positive m_chi^2 is satisfied identically. Verified numerically."
+    },
+    {
+      "item": "Perturbativity g<=~1.5",
+      "status": "ok",
+      "notes": "Keeps one-loop CW reliable."
+    }
+  ],
+  "validation_ssb_pattern": [
+    {
+      "item": "SU(2)_D -> nothing via single doublet vev",
+      "status": "ok",
+      "notes": "A single fundamental vev of SU(2) breaks the group completely (no unbroken generator leaves the vev invariant). All 3 gauge bosons massive, 3 Goldstones eaten. vev convention Phi=(1/sqrt2)(0,chi)^T correctly identifies the broken vacuum and is consistent with the SSB pattern."
+    }
+  ],
+  "validation_vev_convention": [
+    {
+      "item": "Phi=(1/sqrt2)(0,chi)^T, <chi>=chi0",
+      "status": "ok",
+      "notes": "Standard SU(2)-doublet convention with the 1/sqrt(2). Yields m_W=g*chi/2, consistent with literature M_ZD=g_D M/2 (2109.11558). Single real background direction chi."
+    }
+  ],
+  "validation_tree_level_potential": [
+    {
+      "item": "V_tree = lambda(chi^2/2)^2 = (lambda/4)chi^4",
+      "status": "ok",
+      "notes": "Pure quartic along radial direction, no mass term. Consistent with the doublet potential under the stated vev convention."
+    }
+  ],
+  "validation_field_dependent_masses": [
+    {
+      "item": "W_D: m^2(chi)=g^2 chi^2/4, gb=g/2, dof=9",
+      "status": "ok",
+      "notes": "Derived from doublet kinetic term: all three SU(2) gauge bosons degenerate at m_W=g*chi/2. gb=g/2 and dof=9 consistent. SymPy-compatible string 'g**2 * chi**2 / 4'."
+    },
+    {
+      "item": "scalar: m^2(chi)=beta_lambda*chi^2, gb=sqrt(beta_lambda), dof=1",
+      "status": "ok",
+      "notes": "CW radial mode; gb fixed self-consistently. Backend injects this automatically (get_scalar_mass); must not be added to boson_dofs by hand. SymPy-compatible string 'beta_lambda * chi**2'."
+    }
+  ],
+  "validation_thermal_masses": [
+    {
+      "item": "W_D Debye/thermal mass via backend high-T coefficient",
+      "status": "ok",
+      "notes": "Backend get_coeffs reconstructs msq = T^2/12 * sum_B dof*gb^2 internally from gb and dof of each bosonic species; no separate numeric thermal-mass input required. Consistent with backend interface. The proposer placeholder string 'g**2*T**2*(n_dof_factor)' is descriptive only and not consumed numerically."
+    }
+  ],
+  "validation_backend_compatibility": [
+    {
+      "item": "semianalytic_pipeline mapping",
+      "status": "ok",
+      "notes": "boson_gbs={'Wprime': g/2}, boson_dofs={'Wprime': 9}, no fermions. Backend get_beta_lambda computes (sum_B dof*gb^4 - sum_F dof*gf^4)/(8 pi^2) and adds the scalar (dof=1, gb=m_chi/chi0) in __init__. Verified beta_lambda>0 and self-consistent (scalar back-reaction <0.04% at g=1.37). Single-field classically scale-invariant regime = exactly the backend's domain of validity."
+    }
+  ],
+  "authoritative_model_file": "output/su2cw-dark/model.md",
+  "repair_records": [],
+  "red_flags": [],
+  "warnings": [
+    "Branch viability (not a Lagrangian inconsistency): supercooled conformal FOPT may fail to complete (percolation/false-vacuum domination). fopt-agent must check transition completion, not just nucleation.",
+    "chi0 range is broad relative to PTA-band literature anchors (~MeV). fopt/pta agents should focus near chi0 ~ 1e-3 to 1 GeV.",
+    "High-T expansion validity degrades in deep supercooling; inherited backend approximation."
+  ]
+}

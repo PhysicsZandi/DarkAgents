@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\title{Conformal \(U(1)_D\) Dark-Sector First-Order Phase Transition and the NANOGrav Signal}
+\author{DarkAgents}
+\date{8 June 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We report the DarkAgents analysis of the prompt: ``Can a conformal U(1) BSM extension with a dark scalar, a dark gauge bosons and a dark fermion explain the NANOGrav signal with a cosmological FOPT?''  The conditional answer is yes at the level computed here: the validated conformal Abelian dark sector has viable first-order phase-transition points, a benchmark scan contains points lying inside all 14 PTA violin windows, and a PTArcade run on NANOGrav 15-year data finds a posterior region near \(v_D\simeq 1\) GeV and \(g_D\simeq 0.29\).  This is not yet a full exclusion-safe cosmological model.  The result depends on an approximate semianalytic FOPT backend, a DBF gravitational-wave template used outside strict validity for strongly supercooled points, exact-zero portal assumptions, and missing BBN/CMB, relic-density, thermal-history, RG-validity and completion calculations.
+\end{abstract}
+
+\section{Model}
+The validated model is the Standard Model plus a dark \(U(1)_D\).  All new fields are SM singlets.  The dark scalar \(\Phi\) has \(U(1)_D\) charge \(2\), the dark gauge boson is \(X_\mu\), and the fermion sector contains two left-handed Weyl fields \(\psi_+\) and \(\psi_-\) with charges \(+1\) and \(-1\).  This charge assignment permits Majorana-type Yukawa terms after \(\Phi\) gets a Coleman-Weinberg vev and is anomaly-safe for the Abelian dark gauge symmetry.
+
+The dark-sector Lagrangian terms used by the validated handoff are
+\begin{align}
+\mathcal{L}_D \supset
+-\frac14 X_{\mu\nu}X^{\mu\nu}
+ + |D_\mu\Phi|^2
+ + i\psi_+^\dagger\bar\sigma^\mu D_\mu\psi_+
+ + i\psi_-^\dagger\bar\sigma^\mu D_\mu\psi_-
+ -\frac12 y_D \Phi^\dagger \psi_+\psi_+
+ -\frac12 y_D \Phi \psi_-\psi_- + \mathrm{h.c.}
+ - \lambda_D(\Phi^\dagger\Phi)^2 .
+\end{align}
+The symmetry-allowed Higgs portal \(\lambda_{HP}(H^\dagger H)(\Phi^\dagger\Phi)\) and hypercharge kinetic mixing \(\epsilon B_{\mu\nu}X^{\mu\nu}/2\) are fixed to zero in the backend.  The independent scan parameters are \(v_D\), \(g_D\), and \(y_D\).  The dependent quantities are
+\begin{equation}
+g_b=2g_D,\qquad g_f=\frac{y_D}{\sqrt{2}},\qquad
+\beta_\lambda=\frac{3g_b^4-4g_f^4}{8\pi^2},
+\end{equation}
+with Coleman-Weinberg scalar mass \(m_\chi^2=\beta_\lambda v_D^2\).  The field-dependent masses used for the backend are
+\begin{equation}
+m_X^2(\chi)=4g_D^2\chi^2,\qquad
+m_\psi^2(\chi)=\frac{y_D^2}{2}\chi^2,
+\end{equation}
+where the fermion entry represents two degenerate Majorana Weyl mass eigenstates with total fermionic degree count \(4\).  The explicit thermal-mass formulae in the handoff are documentation placeholders, not direct semianalytic backend inputs.
+
+\section{Pipeline Status}
+\begin{center}
+\begin{tabular}{p{0.25\linewidth}p{0.16\linewidth}p{0.49\linewidth}}
+\toprule
+Stage & Status & Interpretation \\
+\midrule
+Proposal & warning & Usable conformal \(U(1)_D\) model proposal; no numerical FOPT/PTA claim. \\
+Preliminary literature & ok & Relevant conformal dark-sector PTA literature and benchmark seeds identified. \\
+Critique/model validation & warning & No fatal model red flags; exact-zero portals, \(\beta_\lambda>0\), and backend caveats remain. \\
+FOPT & ok & Semianalytic scan executed. \\
+PTA/PTArcade & warning & Usable benchmark and PTArcade outputs with DBF-template and MAP-boundary warnings. \\
+Constraints & warning & No non-PTA published constraint applied as an exclusion; several require new observables. \\
+Prior audit & warning & Highest-severity unresolved issues are thermal history, portal assumptions, supercooling completion, and physical posterior masking. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Literature Context}
+The preliminary literature search found that the broad model class is not new: conformal or nearly conformal dark sectors have already been studied as PTA/NANOGrav FOPT explanations.  The exact backend limit used here, with \(q_\Phi=2\), an anomaly-safe Weyl pair, \(\epsilon=0\), and \(\lambda_{HP}=0\), is a variant of that class rather than a fully distinct unexplored mechanism.
+
+The closest verified paper is Balan, Bringmann, Kahlhoefer, Matuszak and Tasillo, ``Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector,'' arXiv:2502.19478.  It contains a conformal hidden \(U(1)'\), dark photon, dark Higgs, stable fermion, Yukawa coupling, and PTA/NANOGrav-relevant FOPT.  Differences include charge normalization and nonzero portal/kinetic-mixing assumptions.  Borah, Dasgupta and Kang, arXiv:2105.01007, studied a dark \(U(1)_D\) FOPT in light of NANOGrav 12.5-year data, but with negligible dark Yukawa in the FOPT analysis.  Goncalves, Marfatia, Morais and Pasechnik, arXiv:2501.11619, studied supercooled conformal dark \(U(1)'\) transitions with PTArcade likelihoods.  Fujikura, Girmohanta, Nakai and Suzuki, arXiv:2306.17086, is relevant to conformal dark PTA signals but uses a different confining mechanism.  Hashino, Kanemura, Takahashi and Tanaka provide Abelian conformal phase-transition context through an INSPIRE-verified record, but were not used as a direct target-model benchmark.
+
+\section{FOPT Results}
+The FOPT agent used the local semianalytic conformal single-field backend.  It scanned 791 total points: 416 were viable, 307 failed numerically, and 68 were excluded or physically failed.  Among viable points, 187 had estimated peak-frequency scale in the PTA band.  The backend caveats are important: it uses a small-field/high-temperature polynomial approximation, approximate percolation treatment, and no RG running, portal coupling, kinetic mixing, or full daisy-resummed finite-temperature potential.
+
+\begin{center}
+\begin{tabular}{lrrrrrr}
+\toprule
+Point & \(v_D\) [GeV] & \(g_D\) & \(y_D\) & \(\alpha\) & \(\beta/H\) & \(T_{\rm reh}\) [GeV] \\
+\midrule
+extended\_low\_v0.002\_g0.5\_y0.5 & 0.002 & 0.50 & 0.50 & 0.804 & 253.7 & \(3.53\times10^{-4}\) \\
+extended\_broad\_v0.08367\_g0.25\_y0.25 & 0.0837 & 0.25 & 0.25 & \(2.04\times10^{16}\) & 13.0 & \(6.68\times10^{-3}\) \\
+extended\_low\_v0.01108\_g0.38\_y0.5 & 0.0111 & 0.38 & 0.50 & 83.7 & 80.0 & \(1.19\times10^{-3}\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+The quantity \(f_{\rm peak,est}\) in the handoff is an order-of-magnitude redshifted scale guide used to seed PTA analysis, not a true spectral peak.
+
+\section{PTA and PTArcade Results}
+The PTA agent used a DBF spectrum template.  In the benchmark comparison, 19 viable points were found by the PTA scoring procedure and the best points scored \(14/14\), meaning their spectra fell inside all 14 tabulated PTA violin windows.  The top point has \(v_D=0.7653\) GeV, \(g_D=0.35\), \(y_D=0.9\), \(\alpha=4.22\times10^{11}\), \(\beta/H=17.52\), \(T_\star=0.0469\) GeV, peak frequency \(1.14\times10^{-8}\) Hz, and peak \(h^2\Omega_{\rm GW}=4.80\times10^{-9}\).  This is strong evidence of spectral compatibility with the PTA windows, but the strongest points have extremely large \(\alpha\), so the DBF template validity warning is central.
+
+The PTArcade run used NANOGrav 15-year data in ceffyl mode.  The priors were log-uniform \(v_D\in[10^{-3.5},10]\) GeV, uniform \(g_D\in[0.15,1.0]\), and uniform \(y_D\in[0,0.95]\).  The stored chains were finite; 10001 rows were stored after a completed \(N_{\rm samples}=100000\) run.  The posterior estimates are
+\begin{align}
+v_D &= 0.960 \ {\rm GeV}\quad(\sigma_{\log_{10}v_D}=0.182),\\
+g_D &= 0.286 \pm 0.026,\qquad
+y_D = 0.405 \pm 0.255 .
+\end{align}
+The 68\% intervals are \(v_D=0.652\)--\(1.395\) GeV, \(g_D=0.260\)--\(0.315\), and \(y_D=0.119\)--\(0.705\).  The MAP point is \(v_D=1.176\) GeV, \(g_D=0.262\), \(y_D=0\).  Since \(y_D\) is at the physical lower boundary, the MAP must not be interpreted as an interior preference for a vanishing Yukawa.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{pta_benchmark_spectrum.pdf}
+\caption{Benchmark DBF spectrum compared with the PTA violin windows.}
+\end{figure}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{pta_ptarcade_spectrum.pdf}
+\caption{PTArcade MAP spectrum generated from the final chain summary.}
+\end{figure}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.78\linewidth]{pta_posteriors.pdf}
+\caption{PTArcade posterior distributions for the model parameters.}
+\end{figure}
+
+\section{Constraints}
+The constraint handoff considered 12 constraints.  None was directly testable as a published exclusion with the present observables.  Two were approximately testable, two require a recast, four require new backend calculations, and four were not applicable in the exact-zero-portal backend limit.
+
+\begin{longtable}{p{0.16\linewidth}p{0.23\linewidth}p{0.18\linewidth}p{0.31\linewidth}}
+\toprule
+ID & Constraint & Status & Reason \\
+\midrule
+C01 & BBN expansion/dark radiation & requires new backend & Needs dark-sector temperature ratio, decoupling, abundances, and lifetimes. \\
+C03 & CMB \(\Delta N_{\rm eff}\) & requires new backend & Radiation density at BBN/recombination was not computed. \\
+C04 & CMB energy injection & recast needed & Requires abundance, annihilation/decay channels, and SM-visible final states. \\
+C05 & Thermalization/decoupling & requires new backend & Zero portals leave the dark-sector temperature history unspecified. \\
+C06--C08 & Dark photon and scalar laboratory limits & not applicable & Published limits require nonzero kinetic mixing or Higgs portal; backend fixes both to zero. \\
+C09 & Dark fermion relic abundance & requires new backend & Stability and Boltzmann abundance are not established. \\
+C10 & Self-interactions/structure formation & recast needed & Requires DM identity, relic fraction, and velocity-dependent cross sections. \\
+C11 & Supercooling completion & approximate & Large-\(\alpha\) points need stronger completion and wall-velocity diagnostics. \\
+C12 & Perturbativity/CW validity & approximate & Couplings are perturbative, but rectangular 68\% posterior corners include \(\beta_\lambda<0\); RG running was not computed. \\
+\bottomrule
+\end{longtable}
+The preferred 68\% PTArcade region maps to \(m_X=0.340\)--\(0.878\) GeV and \(m_\psi=0.055\)--\(0.695\) GeV under \(m_X=2g_Dv_D\) and \(m_\psi=y_Dv_D/\sqrt2\).  For \(\beta_\lambda>0\) corners, the estimated scalar mass range is \(m_\chi\simeq0.034\)--\(0.108\) GeV.  Because these ranges use independent rectangular intervals rather than a masked posterior covariance, they should be treated as approximate.
+
+\section{Prior and Assumption Audit}
+The highest-severity uncontrolled issues are:
+\begin{center}
+\begin{tabular}{p{0.08\linewidth}p{0.13\linewidth}p{0.58\linewidth}p{0.10\linewidth}}
+\toprule
+ID & Category & Issue & Severity \\
+\midrule
+A01 & portal & Exact \(\epsilon=0\) removes visible dark-photon production, decay, and thermalization channels without a protective argument. & 8 \\
+A02 & portal & Exact \(\lambda_{HP}=0\) removes scalar mixing and SM thermal contact without a protective argument. & 8 \\
+A05 & physical mask & The rectangular PTArcade 68\% region contains \(\beta_\lambda<0\) corners. & 8 \\
+A07 & percolation & Strongly supercooled points need robust completion, reheating, and wall-velocity diagnostics. & 8 \\
+A09 & thermal history & No BBN/CMB/\(\Delta N_{\rm eff}\) thermal-history calculation is present. & 8 \\
+A08 & GW template & The DBF template is the closest supported template, not a strict template for all very strong transitions. & 7 \\
+A10 & dark matter & Fermion stability and relic abundance are unresolved. & 7 \\
+A12 & RG validity & No RG, Landau-pole, or loop-stability audit was performed. & 7 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The highest-priority followups are a \(\beta_\lambda>0\)-masked posterior summary, a dark-sector thermal-history module, a full completion/percolation cross-check of the preferred and \(14/14\) points, justification or relaxation of exact-zero portals, and a dark fermion stability/relic-density calculation.
+
+\section{Conclusion}
+Within the implemented workflow, the model can conditionally explain the NANOGrav signal through a cosmological first-order phase transition.  This statement is supported by a successful semianalytic FOPT scan, PTA benchmark spectra that include \(14/14\) violin-window matches, and a finite PTArcade chain whose posterior lies near \(v_D\sim1\) GeV and \(g_D\sim0.3\).  The result should be read as positive evidence for spectral compatibility, not as a completed cosmological viability proof.
+
+The unresolved caveats are not cosmetic.  Exact-zero portals control whether visible-sector laboratory, BBN and CMB constraints apply; the dark-sector temperature history is absent; the strongest PTA-compatible points are supercooled and require completion diagnostics beyond the current approximation; the DBF template is only a closest supported template; the posterior must be masked to enforce \(\beta_\lambda>0\); and the dark fermion has not been promoted to a fully calculated relic.  No non-PTA constraint currently excludes the reported preferred region, but this is a non-exclusion due to missing observables and backend scope, not a proof that the region is safe.
+
+\section*{References}
+\begin{enumerate}
+\item Debasish Borah, Arnab Dasgupta, Sin Kyu Kang, ``Gravitational waves from a dark \(U(1)_D\) phase transition in the light of NANOGrav 12.5 yr data,'' arXiv:2105.01007, Phys. Rev. D 104, 063501 (2021).
+\item Joao Goncalves, Danny Marfatia, Antonio P. Morais, Roman Pasechnik, ``Supercooled phase transitions in conformal dark sectors explain NANOGrav data,'' arXiv:2501.11619, Phys. Lett. B 869, 139829 (2025).
+\item Sowmiya Balan, Torsten Bringmann, Felix Kahlhoefer, Jonas Matuszak, Carlo Tasillo, ``Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector,'' arXiv:2502.19478, JCAP 08 (2025) 062.
+\item Kohei Fujikura, Sudhakantha Girmohanta, Yuichiro Nakai, Motoo Suzuki, ``NANOGrav Signal from a Dark Conformal Phase Transition,'' arXiv:2306.17086.
+\item Katsuya Hashino, Shinya Kanemura, Yuta Takahashi, Masatoshi Tanaka, ``Phase transition and vacuum stability in the classically conformal B-L model,'' INSPIRE record 1705442.
+\item Marco Hufnagel, Kai Schmidt-Hoberg, Sebastian Wild, ``BBN constraints on MeV-scale dark sectors. Part I. Sterile decays,'' arXiv:1712.03972.
+\item Marco Hufnagel, Kai Schmidt-Hoberg, Sebastian Wild, ``BBN constraints on MeV-scale dark sectors. Part II. Electromagnetic decays,'' arXiv:1808.09324.
+\item Eleonora Di Valentino, Alessandro Melchiorri, Joseph Silk, ``Cosmological constraints in extended parameter space from the Planck 2018 Legacy release,'' arXiv:1908.01391.
+\item Torsten Bringmann, Felix Kahlhoefer, Kai Schmidt-Hoberg, Parampreet Walia, ``Strong constraints on self-interacting dark matter with light mediators,'' arXiv:1612.00845.
+\item M. Battaglieri et al., ``US Cosmic Visions: New Ideas in Dark Matter 2017: Community Report,'' arXiv:1707.04591.
+\item Marco Fabbrichesi, Emidio Gabrielli, Gaia Lanfranchi, ``The Dark Photon,'' arXiv:2005.01515.
+\item Thomas Hambye, Laurent Vanderheyden, ``Minimal self-interacting dark matter models with light mediator,'' arXiv:1912.11708.
+\item Ryusuke Jinno, Thomas Konstandin, Hyeonseok Rubira, Jorinde van de Vis, ``Supercool subtleties of cosmological phase transitions,'' arXiv:2212.07559.
+\item Alexander Farzinnia, Hong-Jian He, Jing Ren, ``Classically conformal B-L extended Standard Model and Higgs vacuum stability,'' arXiv:1205.2893.  This citation is marked uncertain in the constraint handoff metadata and is not used as an exclusion claim here.
+\end{enumerate}
+
+\end{document}

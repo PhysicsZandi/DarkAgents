@@ -1,0 +1,253 @@
+{
+  "model": "minimal_conformal_su2_doublet",
+  "agent": "critic-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/minimal_conformal_su2_doublet/handoff_proposed_model.json",
+    "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+    ".codex/agents/critic-agent.md",
+    ".codex/skills/model-critique/SKILL.md",
+    "docs/HANDOFF_CRITIC_SCHEMA.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "backend/semianalytic_pipeline.py"
+  ],
+  "commands": [
+    "sed -n '1,220p' .codex/agents/critic-agent.md",
+    "sed -n '1,260p' .codex/skills/model-critique/SKILL.md",
+    "sed -n '1,240p' docs/HANDOFF_CRITIC_SCHEMA.md",
+    "sed -n '1,220p' docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "sed -n '1,260p' docs/HANDOFF_SCHEMAS.md",
+    "sed -n '1,520p' output/minimal_conformal_su2_doublet/handoff_proposed_model.json",
+    "sed -n '1,620p' output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+    "sed -n '1,520p' backend/semianalytic_pipeline.py"
+  ],
+  "files_read": [
+    ".codex/agents/critic-agent.md",
+    ".codex/skills/model-critique/SKILL.md",
+    "docs/HANDOFF_CRITIC_SCHEMA.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "output/minimal_conformal_su2_doublet/handoff_proposed_model.json",
+    "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+    "backend/semianalytic_pipeline.py"
+  ],
+  "files_written": [
+    "output/minimal_conformal_su2_doublet/critique.md",
+    "output/minimal_conformal_su2_doublet/handoff_critique.json",
+    "output/minimal_conformal_su2_doublet/model.md",
+    "output/minimal_conformal_su2_doublet/handoff_model.json"
+  ],
+  "warnings": [
+    "The exact core model has already been studied for a NANOGrav 12.5-year FOPT interpretation in arXiv:2109.11558, so model-level novelty is low.",
+    "arXiv:2109.11558 contains a vector-mass convention tension; downstream calculations must use the validated proposer/backend convention m_WD2(chi) = gD**2 * chi**2 / 4.",
+    "Perturbative finite-temperature effective potentials carry gauge and daisy-prescription dependence.",
+    "No FOPT scan or PTA likelihood was performed by critic-agent."
+  ],
+  "errors": [],
+  "approximations": [
+    "Negligible Higgs portal.",
+    "Single-field radial Coleman-Weinberg background chi.",
+    "No dark fermions or additional scalar multiplets."
+  ],
+  "validation_gauge_groups": [
+    {
+      "item": "SU(2)_D",
+      "status": "ok",
+      "notes": "A dark non-Abelian SU(2) gauge group with coupling gD is well-defined; all new fields are SM singlets."
+    }
+  ],
+  "validation_global_symmetries": [
+    {
+      "item": "classical_scale_invariance",
+      "status": "ok",
+      "notes": "The tree-level scalar mass term is absent and the potential is quartic-only."
+    }
+  ],
+  "validation_particle_content": [
+    {
+      "item": "Phi complex fundamental doublet",
+      "status": "ok",
+      "notes": "One complex SU(2)_D doublet contains four real scalar dof, three of which become Goldstones after complete breaking."
+    },
+    {
+      "item": "W_D_a dark vectors",
+      "status": "ok",
+      "notes": "Three gauge bosons acquire equal masses after SSB, giving total massive-vector dof 9."
+    },
+    {
+      "item": "new chiral fermions",
+      "status": "ok",
+      "notes": "No new chiral fermions are present, so no gauge or mixed chiral anomalies are introduced."
+    }
+  ],
+  "validation_lagrangian_terms": [
+    {
+      "item": "gauge kinetic term",
+      "status": "ok",
+      "notes": "-1 / 4 * FDa_munu * FDa_munu is gauge invariant after adjoint and Lorentz contractions."
+    },
+    {
+      "item": "scalar kinetic term",
+      "status": "ok",
+      "notes": "Dmu_Phi_dag * Dmu_Phi is gauge invariant for a fundamental scalar doublet."
+    },
+    {
+      "item": "quartic scalar potential",
+      "status": "ok",
+      "notes": "(Phi_dag_Phi)**2 is the minimal renormalizable SU(2)_D-invariant quartic compatible with classical scale invariance."
+    }
+  ],
+  "validation_free_parameters": [
+    {
+      "item": "gD",
+      "status": "ok",
+      "notes": "Independent positive gauge coupling to be scanned subject to perturbativity and beta_lambda > 0."
+    },
+    {
+      "item": "vD",
+      "status": "ok",
+      "notes": "Independent positive Coleman-Weinberg vev and FOPT scale."
+    },
+    {
+      "item": "lambda_phi",
+      "status": "ok",
+      "notes": "Correctly classified as dependent; it must not be assigned an independent prior."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "gD": {
+        "description": "Dark SU(2)_D gauge coupling.",
+        "domain": "gD > 0"
+      },
+      "vD": {
+        "description": "Coleman-Weinberg vev of chi.",
+        "domain": "vD > 0"
+      }
+    },
+    "dependent": {
+      "beta_lambda": {
+        "expression": "1 / (8 * pi**2) * (9 * (gD / 2)**4)",
+        "description": "Coleman-Weinberg beta_lambda from nine dark-vector dof with gb = gD / 2."
+      },
+      "m_chi2": {
+        "expression": "beta_lambda * vD**2",
+        "description": "Pseudo-dilaton mass squared."
+      },
+      "lambda_phi": {
+        "determination": "Coleman-Weinberg minimization condition at the chosen renormalization scale.",
+        "description": "Dependent quartic; not independently scanned."
+      },
+      "m_WD": {
+        "expression": "gD * vD / 2",
+        "description": "Common massive dark-vector mass."
+      },
+      "gb_WD": {
+        "expression": "gD / 2",
+        "description": "Vector mass-over-background ratio."
+      },
+      "gb_scalar": {
+        "expression": "sqrt(beta_lambda)",
+        "description": "Dependent scalar mass-over-vev ratio computed by the backend."
+      }
+    },
+    "fixed": {
+      "portal_coupling": {
+        "value": 0,
+        "description": "Minimal dark-sector limit."
+      },
+      "dark_fermions": {
+        "value": 0,
+        "description": "No dark fermions included."
+      }
+    }
+  },
+  "validation_assumptions": [
+    {
+      "item": "negligible Higgs portal",
+      "status": "warning",
+      "notes": "Acceptable for the branch calculation but relevant to later cosmological and laboratory constraints."
+    },
+    {
+      "item": "same-model literature precedent",
+      "status": "warning",
+      "notes": "arXiv:2109.11558 studied the same core model, reducing novelty but not blocking validation."
+    }
+  ],
+  "authoritative_model_file": "output/minimal_conformal_su2_doublet/model.md",
+  "repair_records": [
+    {
+      "original_issue": "The proposer handoff left scalar and longitudinal-vector thermal masses as symbolic placeholders c_phi and c_WD.",
+      "applied_fix": "Replaced them in the authoritative model with explicit expressions (lambda_phi / 2 + 3 * gD**2 / 16) * T**2 and 5 * gD**2 * T**2 / 6.",
+      "justification": "These analytical coefficients match the same-model preliminary-literature benchmark conventions and remove an avoidable ambiguity for daisy bookkeeping.",
+      "minimal": true
+    }
+  ],
+  "red_flags": [],
+  "warnings": [
+    "Exact core model already exists in the literature.",
+    "Use m_WD2(chi) = gD**2 * chi**2 / 4 despite a conflicting displayed field-dependent mass convention in arXiv:2109.11558.",
+    "The semianalytic backend does not directly consume the explicit daisy thermal masses."
+  ],
+  "validation_ssb_pattern": [
+    {
+      "item": "SU(2)_D -> nothing",
+      "status": "ok",
+      "notes": "A single nonzero fundamental doublet vev has no continuous unbroken SU(2) generator."
+    }
+  ],
+  "validation_vev_convention": [
+    {
+      "item": "Phi = Matrix([0, chi / sqrt(2)])",
+      "status": "ok",
+      "notes": "This convention gives Phi_dag_Phi = chi**2 / 2 and V0(chi) = lambda_phi * chi**4 / 4."
+    }
+  ],
+  "validation_tree_level_potential": [
+    {
+      "item": "lambda_phi * chi**4 / 4",
+      "status": "ok",
+      "notes": "Consistent with V0 = lambda_phi * (Phi_dag_Phi)**2 and classical scale invariance."
+    }
+  ],
+  "validation_field_dependent_masses": [
+    {
+      "item": "W_D_a",
+      "status": "ok",
+      "notes": "The scalar kinetic term yields (gD**2 * chi**2 / 8) W_D^a W_D^a; matching the real-vector term (1 / 2) m2 W_D^a W_D^a gives m2 = gD**2 * chi**2 / 4."
+    },
+    {
+      "item": "chi",
+      "status": "ok",
+      "notes": "The pseudo-dilaton mass is dependent, m_chi2 = beta_lambda * vD**2, and should not be added as an independent scanned bosonic ratio."
+    }
+  ],
+  "validation_thermal_masses": [
+    {
+      "item": "Phi scalar thermal mass",
+      "status": "fixed",
+      "notes": "Symbolic c_phi was replaced with (lambda_phi / 2 + 3 * gD**2 / 16) * T**2 for authoritative bookkeeping.",
+      "original": "c_phi * T**2",
+      "fix": "(lambda_phi / 2 + 3 * gD**2 / 16) * T**2",
+      "severity": "warning"
+    },
+    {
+      "item": "W_D longitudinal Debye mass",
+      "status": "fixed",
+      "notes": "Symbolic c_WD was replaced with 5 * gD**2 * T**2 / 6 for authoritative bookkeeping.",
+      "original": "c_WD * gD**2 * T**2",
+      "fix": "5 * gD**2 * T**2 / 6",
+      "severity": "warning"
+    }
+  ],
+  "validation_backend_compatibility": [
+    {
+      "item": "semianalytic_pipeline mapping",
+      "status": "ok",
+      "notes": "Use chi0 = vD, boson_gbs = {'W_D': gD / 2}, boson_dofs = {'W_D': 9}, fermion_gfs = {}, fermion_dofs = {}. The backend adds the dependent scalar internally."
+    }
+  ]
+}

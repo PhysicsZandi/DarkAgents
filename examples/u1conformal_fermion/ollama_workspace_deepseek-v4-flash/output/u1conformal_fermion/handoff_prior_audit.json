@@ -1,0 +1,888 @@
+{
+  "model": "u1conformal_fermion",
+  "agent": "prior-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-08",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json",
+    "output/u1conformal_fermion/handoff_critique.json",
+    "output/u1conformal_fermion/handoff_fopt.json",
+    "output/u1conformal_fermion/handoff_pta.json",
+    "output/u1conformal_fermion/handoff_constraints.json"
+  ],
+  "commands": [
+    "WebSearch: CW loop validity breakdown in supercooling",
+    "WebSearch: DBF template validity domain for high alpha",
+    "WebSearch: Bubble wall velocity runaway assumptions",
+    "WebSearch: Scalar loop contribution subleading check",
+    "WebSearch: Daisy resummation importance in supercooled PTs",
+    "WebSearch: PTArcade prior sensitivity",
+    "WebSearch: Conformal U1 dark sector fermion DM freeze-out",
+    "WebSearch: RG scale choice uncertainty in CW potential",
+    "WebSearch: Percolation and eternal inflation in supercooled PTs"
+  ],
+  "files_read": [
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json",
+    "output/u1conformal_fermion/handoff_critique.json",
+    "output/u1conformal_fermion/handoff_fopt.json",
+    "output/u1conformal_fermion/handoff_pta.json",
+    "output/u1conformal_fermion/handoff_constraints.json",
+    "docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/u1conformal_fermion/handoff_prior_audit.json",
+    "output/u1conformal_fermion/prior_audit_report.md",
+    "output/u1conformal_fermion/prior_audit_table.csv"
+  ],
+  "warnings": [
+    "17 upstream handoff items inspected across 6 files; the constraint-agent identified 10 required new backends and 1 critical inconsistency (xi=1 vs zero portals) that remain unaddressed",
+    "Multiple implicit approximations in the FOPT backend (4D HT without daisy, no RG running, gb_scalar=0) cumulatively introduce an unquantified theoretical uncertainty that could shift GW predictions by up to 100% in extreme supercooling regimes per recent literature",
+    "The PTArcade MCMC used 100k samples with 7501 post-burnin retained, which is relatively low for a 3-parameter model; posterior contours may not be fully converged"
+  ],
+  "errors": [],
+  "approximations": [
+    "4D high-temperature expansion without dimensional reduction",
+    "No Daisy resummation in thermal potential",
+    "Renormalisation scale fixed to the vev; no RG running included",
+    "Gaussian approximation for false vacuum fraction",
+    "Single-field approximation for bounce action",
+    "Scalar loop contributions to CW potential neglected (gb_scalar=0)",
+    "DBF template from Lewicki & Vaskonen (2025, 2511.15687)",
+    "PTArcade Uniform(0.1,3.0) on g_D, Uniform(0.0001,0.8) on y_psi, Uniform(-4.0,1.0) on log10_v"
+  ],
+  "uncertainty_summary": {
+    "total_items": 38,
+    "severity_distribution": {
+      "1": 1,
+      "2": 5,
+      "3": 6,
+      "4": 4,
+      "5": 4,
+      "6": 7,
+      "7": 6,
+      "8": 2,
+      "9": 0,
+      "10": 3
+    },
+    "controlled_distribution": {
+      "1": 1,
+      "2": 5,
+      "3": 4,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0
+    },
+    "count_by_severity_effective": {
+      "severity_10_critical": 3,
+      "severity_9": 0,
+      "severity_8_critical": 2,
+      "severity_7_major": 6,
+      "severity_6_moderate": 7,
+      "severity_5_moderate": 3,
+      "severity_4_minor": 4,
+      "severity_3_minor": 6,
+      "severity_2_minor": 5,
+      "severity_1_minor": 1,
+      "total": 37
+    }
+  },
+  "upstream_statuses": [
+    {
+      "status": "ok",
+      "note": "Final validated model specification; complete and consistent",
+      "handoff": "output/u1conformal_fermion/handoff_model.json"
+    },
+    {
+      "status": "ok",
+      "note": "Literature context; all papers verified and relevance-assessed",
+      "handoff": "output/u1conformal_fermion/handoff_librarian_preliminary.json"
+    },
+    {
+      "status": "warning",
+      "note": "Critique passed with warnings; Goldstone thermal mass fixed; gb_scalar=0 noted as info-level warning",
+      "handoff": "output/u1conformal_fermion/handoff_critique.json"
+    },
+    {
+      "status": "ok",
+      "note": "FOPT analysis complete; 40.8% numerical failure rate at high g_D noted",
+      "handoff": "output/u1conformal_fermion/handoff_fopt.json"
+    },
+    {
+      "status": "ok",
+      "note": "PTA analysis complete; benchmark scan + PTArcade campaign; posteriors obtained",
+      "handoff": "output/u1conformal_fermion/handoff_pta.json"
+    },
+    {
+      "status": "ok",
+      "note": "Constraint analysis complete; 17 constraints considered; 10 require new backends; 6 not applicable",
+      "handoff": "output/u1conformal_fermion/handoff_constraints.json"
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "A01",
+      "kind": "assumption",
+      "category": "model-building",
+      "description": "Classical scale invariance (conformal symmetry) at tree level: no dimensionful parameters in the Lagrangian. Radiative symmetry breaking via CW mechanism.",
+      "severity": 2,
+      "controlled": true,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json",
+        "handoff_constraints.json"
+      ],
+      "required_solution": "Explicitly documented and validated by critic-agent. The CW condition beta_lambda > 0 is enforced throughout. This is a foundational model assumption and is internally consistent.",
+      "source": {
+        "file": "handoff_model.json",
+        "section": "global_symmetries",
+        "note": "Classical scale invariance listed as global anomalous symmetry"
+      }
+    },
+    {
+      "id": "A02",
+      "kind": "assumption",
+      "category": "model-building",
+      "description": "Zero Higgs portal coupling (lambda_HPhi = 0). No tree-level mixing between SM Higgs and dark Higgs sectors.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": [
+        "handoff_constraints.json"
+      ],
+      "required_solution": "Explicitly fixed parameter. Documented as a simplification. If relaxed, Higgs invisible decay constraints (BR_inv < 0.11) would strongly constrain lambda_HPhi. Future work: estimate radiatively generated lambda_HPhi via 2-loop effects (estimated O(10^{-16})).",
+      "source": {
+        "file": "handoff_model.json",
+        "section": "parameter_basis.fixed.lambda_HPhi",
+        "note": "Fixed parameter set to zero"
+      }
+    },
+    {
+      "id": "A03",
+      "kind": "assumption",
+      "category": "model-building",
+      "description": "Zero gauge kinetic mixing (epsilon = 0) between U(1)_D and U(1)_Y at all scales. No tree-level coupling between dark photon and SM photon.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": [
+        "handoff_constraints.json"
+      ],
+      "required_solution": "Explicitly fixed parameter. 6/17 constraints ruled not_applicable solely due to epsilon=0 (beam dump, stellar, SN, direct detection, indirect detection). If relaxed even by a small loop-induced value (epsilon ~ 10^{-16}-10^{-10}), the strongest constraints would come from beam dumps (E137, NA64) for m_A' ~ 300-900 MeV. Future work: compute 2-loop radiatively-induced epsilon.",
+      "source": {
+        "file": "handoff_model.json",
+        "section": "parameter_basis.fixed.epsilon_kinetic_mixing",
+        "note": "Fixed parameter set to zero"
+      }
+    },
+    {
+      "id": "A04",
+      "kind": "assumption",
+      "category": "model-building",
+      "description": "Dark sector thermalised with SM (xi = T_dark/T_SM = 1). Requires dark and visible sectors to share the same temperature history.",
+      "severity": 10,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json",
+        "handoff_constraints.json"
+      ],
+      "required_solution": "This is the most critical uncontrolled assumption. Constraint C17 flags that xi=1 is inconsistent with zero portal couplings (epsilon=0, lambda_HPhi=0). The gravitational interaction rate Gamma_grav ~ T^5/M_Pl^4 is completely negligible compared to H(T) at all relevant scales (Gamma_grav/H ~ 10^{-51} at T=1 GeV). The dark sector temperature after the FOPT must be computed self-consistently from the phase transition energy release, not assumed equal to SM. The benchmark points with v~10-20 MeV (f_peak ~ 10^{-8} Hz) and PTArcade MAP (v=1.19 GeV) would have vastly different xi(T) evolution. Li & Nath (2602.14324) show that neglecting xi evolution can lead to discrepancies of up to 4 orders of magnitude in GW power. Required action: implement coupled Boltzmann equations for DS-SM temperature evolution.",
+      "source": {
+        "file": "handoff_model.json",
+        "section": "parameter_basis.fixed.xi",
+        "note": "Fixed parameter xi=1.0; marked as inconsistent by constraint-agent (C17)"
+      }
+    },
+    {
+      "id": "A05",
+      "kind": "assumption",
+      "category": "model-building",
+      "description": "Two Dirac fermions (psi_1, psi_2) with charges +1/2 and -1/2 are the minimal anomaly-free fermion content.",
+      "severity": 1,
+      "controlled": true,
+      "affected_outputs": [
+        "handoff_model.json"
+      ],
+      "required_solution": "Explicitly validated by critic-agent. The U(1)_D^3 anomaly cancels with this charge assignment. The Yukawa term y_psi*Phi*psi1_bar*psi2 is gauge-invariant. This is a solid model-building choice, not an approximation.",
+      "source": {
+        "file": "handoff_model.json",
+        "section": "assumptions",
+        "note": "Validated and explained in detail"
+      }
+    },
+    {
+      "id": "A06",
+      "kind": "approximation",
+      "category": "fopt-potential",
+      "description": "Scalar loop contributions to the CW potential are neglected (gb_scalar = 0 in backend). The pipeline documentation states these are subleading.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json"
+      ],
+      "required_solution": "Literature confirms scalar loops are indeed subleading for CW regimes (Kierkla et al. 2312.12413: gauge bosons dominate). However, the beta_lambda formula used in this analysis (beta_lambda = (3g_D^4 - 2y_psi^4)/(8pi^2)) omits the scalar self-interaction contribution (10*lambda^2/(48pi^2) from the full CW beta function). This changes the quantitative relationship between g_D, y_psi and the scalar mass. The Balan et al. (2502.19478) model, which is structurally similar, includes this term (lambda = 11/(48pi^2)(10lambda^2 + 3g^4 - y^4)). The difference could shift viable parameter space boundaries. Future work: compare with and without scalar loop contributions.",
+      "source": {
+        "file": "handoff_model.json",
+        "section": "approximations",
+        "note": "gb_scalar = 0; scalar loops neglected as subleading"
+      }
+    },
+    {
+      "id": "A07",
+      "kind": "approximation",
+      "category": "fopt-potential",
+      "description": "High-temperature expansion of the finite-T effective potential is valid throughout the supercooling regime. Assumes m/T << 1 for all particles at the phase transition temperature.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json",
+        "handoff_constraints.json"
+      ],
+      "required_solution": "The high-T expansion breaks down for supercooled transitions where T_n can be orders of magnitude below the mass scale. For the benchmark points: T_n ~ 0.0002-0.0004 GeV while m_A' ~ 0.02-0.03 GeV, giving m_A'/T_n ~ 50-150. The condition m/T << 1 is severely violated. Recent literature (Camargo-Molina et al. 2410.23210, Christiansen et al. 2511.02910) shows the 4D HT approach gives gauge-dependent results and large theoretical uncertainties for RSB in this regime. The dimensional reduction (3D EFT) approach is the systematic alternative. The scale hierarchy pi*T >> g^(1/2)*pi*T >> g*pi*T >> ... breaks down, and perturbative control is lost. This is a critical issue because GW predictions depend exponentially on parameters like beta/H. Required action: quantify uncertainty by comparing 4D HT to 3D EFT or at minimum test varying the scale mu=pi*T by a factor ~2.",
+      "source": {
+        "file": "handoff_fopt.json",
+        "section": "approximations",
+        "note": "High-T expansion listed as approximation; flagged as potentially invalid in supercooling"
+      }
+    },
+    {
+      "id": "A08",
+      "kind": "approximation",
+      "category": "fopt-potential",
+      "description": "No Daisy (ring diagram) resummation is included in the thermal effective potential.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json"
+      ],
+      "required_solution": "Daisy resummation captures the leading IR-divergent contributions from the zero-Matsubara mode in the high-T expansion. Without it, the thermal potential lacks the Debye-screened mass corrections which modify the barrier structure. For supercooled transitions, the barrier is essential for determining nucleation rates. Curtin, Meade, Ramani (1808.08849) show errors up to 40% in Tc with standard truncated full dressing methods; partial dressing (PD) and optimized partial dressing (OPD) improve this. The omission could affect the percolation temperature T_p and inverse duration beta/H. Required action: implement Arnold-Espinosa or PD resummation to estimate the impact on FOPT parameters.",
+      "source": {
+        "file": "handoff_fopt.json",
+        "section": "approximations",
+        "note": "'No Daisy resummation included'"
+      }
+    },
+    {
+      "id": "A09",
+      "kind": "approximation",
+      "category": "fopt-potential",
+      "description": "Renormalisation scale fixed to the vev (mu = v). No RG running of couplings is included between the renormalisation scale and the physical temperature scale.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json"
+      ],
+      "required_solution": "This is a significant uncontrolled approximation for supercooled transitions where field values and temperatures span many orders of magnitude. The literature (Christiansen et al. 2511.02910, Kierkla et al. 2312.12413) shows that consistent RG running is essential: the one-parameter approximation (OPA) without running deviates significantly from the 3D two-loop benchmark. The coupling g_D runs between the renormalisation scale mu=v and the thermal scale mu ~ pi*T where the nucleation dynamics happen. Sher (PRD 24, 1699, 1981) demonstrated that including the temperature dependence of the gauge coupling changes T_n by ~10 orders of magnitude in extreme cases. At a minimum, the uncertainty should be quantified by varying the fixed scale mu by a factor of 2-4. Pascoli et al. (2602.02829) suggest mu = max(m_A'(phi), sqrt(kappa)*T) with kappa = pi^2 for consistency with 3D-NLO results.",
+      "source": {
+        "file": "handoff_fopt.json",
+        "section": "approximations",
+        "note": "'Renormalisation scale set to vev; no RG running included'"
+      }
+    },
+    {
+      "id": "A10",
+      "kind": "approximation",
+      "category": "fopt-nucleation",
+      "description": "Gaussian approximation for the false vacuum fraction. The fraction of space remaining in the false vacuum is computed assuming an exponential nucleation rate that can be approximated by Gaussian integration around the saddle point.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json"
+      ],
+      "required_solution": "The Gaussian approximation for the false vacuum fraction is standard in the literature and works well when the bounce action S_3/T is large and the curvature around its minimum is moderate. For strongly supercooled transitions, Athron, Balazs, Morris (2212.07559) show that the physical volume criterion for percolation becomes more important than the simple false vacuum fraction. The bias is systematic but small compared to other uncertainties. Could be improved by using the JMAK equation with exact nucleation rate integral.",
+      "source": {
+        "file": "handoff_fopt.json",
+        "section": "approximations",
+        "note": "Gaussian approximation for false vacuum fraction"
+      }
+    },
+    {
+      "id": "A11",
+      "kind": "approximation",
+      "category": "fopt-nucleation",
+      "description": "Single-field approximation for the bounce action. The FOPT is treated as driven by the radial mode chi alone; the Goldstone and gauge field fluctuations are not evolved independently.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json"
+      ],
+      "required_solution": "The single-field bounce action is standard for models with a single scalar vev. The backend's analytic bounce action formula assumes a single tunneling field. For classically scale-invariant models, the CW mechanism generates a barrier via gauge boson loops which cannot be captured by a single-field tree-level potential. However, the semianalytic pipeline uses an effective single-field approach through its parameterisation. Multi-field bounce effects (e.g., gauge field fluctuations contributing to the tunneling path) could modify the action. Feng & Zhang (2602.14866) provide a gauge-independent treatment using Nielsen identities which shows this is a systematic concern. Required action: compare with full multi-field bounce action or gauge-independent treatment to estimate the uncertainty.",
+      "source": {
+        "file": "handoff_fopt.json",
+        "section": "approximations",
+        "note": "'Single-field approximation for FOPT analysis'"
+      }
+    },
+    {
+      "id": "A12",
+      "kind": "approximation",
+      "category": "fopt-nucleation",
+      "description": "Eternal inflation condition checked but relies on the bounce action extrapolation to T=0 and the condition S_3(T=0)/T > ~2. If violated, the Universe never stops inflating in the false vacuum.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": [
+        "handoff_fopt.json"
+      ],
+      "required_solution": "The eternal inflation check is performed by the backend, and viable points are filtered. However, the check's reliability depends on the bounce action behaviour approaching zero temperature, which is extrapolated. For the most supercooled points (alpha ~ 10^24), the issue of graceful exit (Ellis, Lewicki, No, 1809.08242) becomes relevant. The check is documented but its methodology should be validated against dedicated results.",
+      "source": {
+        "file": "handoff_fopt.json",
+        "section": "validation",
+        "note": "'eternal_inflation_checked: true'"
+      }
+    },
+    {
+      "id": "A13",
+      "kind": "approximation",
+      "category": "fopt-nucleation",
+      "description": "Percolation temperature T_p computed via the Gaussian approximation of the false vacuum fraction P_f(T_p) = 0.71. Does not use the physical volume criterion or JMAK equation.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json"
+      ],
+      "required_solution": "The percolation temperature defines the reference point for GW predictions. Athron et al. (2305.02357, 2212.07559) advocate the physical volume criterion (dI/dt > 0 at T_p, where I is the false vacuum volume fraction) as more fundamental than the 0.71 fraction condition. For strongly supercooled transitions with very slow nucleation rates, the difference could be significant. The JMAK equation also accounts for overlapping bubbles. Required action: check the physical volume criterion for the benchmark points.",
+      "source": {
+        "file": "handoff_fopt.json",
+        "section": "validation",
+        "note": "'percolation_checked: true' using standard P_f=0.71 criterion"
+      }
+    },
+    {
+      "id": "A14",
+      "kind": "assumption",
+      "category": "fopt-nucleation",
+      "description": "Bubble wall velocity is assumed to be ultra-relativistic / runaway (v_w ~ 1). The DBF template is calibrated for this regime.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_pta.json"
+      ],
+      "required_solution": "This is a critical uncontrolled assumption. The GW spectrum amplitude and shape depend strongly on v_w. The DBF template (Lewicki & Vaskonen, 2511.15687) assumes thin-wall, ultra-relativistic bubble expansion. However, recent work (Garcia Garcia et al., 2212.10572) shows that the runaway criterion Delta V > P_mdp (maximum dynamic pressure) can require much larger energy release than the classical Delta V > P_inf condition, especially for models with massive gauge bosons whose mass changes across the wall. This model has such gauge bosons (A' with mass g_D * v -> 0 across the wall). The friction from dark photon emission could prevent runaway. Laurent and Cline (2109.13710) find solutions are categorised as deflagrations (v_w ~ c_s ~ 0.58) or ultrarelativistic detonations (gamma > 10), with the critical alpha threshold determining which regime applies. For this model, alpha values across the PTArcade posterior range from ~10^3 to 10^10, which strongly suggest detonation regime. However, f_peak_est uses a specific efficiency factor kappa(R) that depends on the friction model. Required action: compute v_w from first principles or at minimum check the friction pressure vs vacuum energy.",
+      "source": {
+        "file": "handoff_pta.json",
+        "section": "approximations",
+        "note": "'Template assumes thin-wall, ultra-relativistic bubble expansion (v_w ~ 1)'"
+      }
+    },
+    {
+      "id": "A15",
+      "kind": "approximation",
+      "category": "fopt-gw",
+      "description": "DBF (dissipative bulk flow) template from Lewicki & Vaskonen (2025, arXiv:2511.15687) used for GW spectrum. Valid for strongly supercooled transitions (alpha >> 1) with ultra-relativistic walls.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_pta.json"
+      ],
+      "required_solution": "The DBF template is appropriate for the supercooled regime, but its calibration has specific assumptions: thin-wall limit, specific range of beta/H (~4 to >100), and the efficiency factor kappa(R_eff) for splitting energy between bubble walls and fluid. For the most extreme points (alpha ~ 10^10), the transition is so supercooled that the Universe is vacuum-dominated before percolation. The standard Hubble-normalised parameters (alpha, beta/H) may not capture the dynamics correctly. Li & Nath (2602.14324) advocate using mean bubble separation R_* instead of beta/H for strongly supercooled transitions, as beta/H can even become negative. The PTA benchmark scan uses a bin-counting score (14/14 bins) which is a binary match criterion, not a chi-squared fit. Required action: validate the DBF template against the full numerical simulation results of Lewicki & Vaskonen for the specific alpha values found in the PTArcade posterior (alpha ~ 10^4-10^10). Cross-check with alternative templates.",
+      "source": {
+        "file": "handoff_pta.json",
+        "section": "approximations",
+        "note": "'Dissipative bulk flow (dbf) template from Lewicki & Vaskonen (2025), arXiv:2511.15687'"
+      }
+    },
+    {
+      "id": "A16",
+      "kind": "uncertainty",
+      "category": "fopt-gw",
+      "description": "Bubble collisions vs sound waves vs turbulence dominance in the GW spectrum. The DBF template assumes the 'dissipative bulk flow' regime where fluid motion is the dominant source.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_pta.json"
+      ],
+      "required_solution": "For alpha >> 1, the vacuum energy dominates: the bubble walls can runaway and bubble collisions can dominate the signal. The DBF template includes both bubble collisions and fluid contributions via the efficiency factor kappa(R). However, this is a simplification: the fluid contribution from expanding plasma shells depends on the coupling of the scalar field to the plasma. For a completely secluded dark sector with no radiation, only bubble walls are sourced. The template used assumes a radiation-dominated environment. Required action: compare vacuum-dominated (bubble collision) and fluid-dominated (sound wave) templates for the same FOPT parameters to assess which is more physically appropriate for this secluded model.",
+      "source": {
+        "file": "handoff_pta.json",
+        "section": "approximations",
+        "note": "Template assumes DBF regime with combined wall + fluid contribution"
+      }
+    },
+    {
+      "id": "A17",
+      "kind": "uncertainty",
+      "category": "fopt-gw",
+      "description": "Numerical failure rate: 40.8% (1822/4464) of FOPT scan points failed, mostly at high g_D (>1.5) where the bounce action computation fails.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json"
+      ],
+      "required_solution": "The high failure rate at g_D > 1.5 is a significant coverage gap. The PTArcade posterior prefers g_D in [0.51, 0.75] (within the stable range), but the benchmark scan and the full FOPT scan had to exclude 40% of parameter space. This means conclusions about the high-coupling region are incomplete. The failures arise from numerical instabilities in the bounce action computation at extreme parameter values. Required action: diagnose the specific failure mode (RuntimeWarning divide-by-zero in log) and either fix the numerical computation or document the excluded region boundaries carefully.",
+      "source": {
+        "file": "handoff_fopt.json",
+        "section": "warnings",
+        "note": "'1822 points (40.8%) had numerical failures, mostly at high g_D (>1.5)'"
+      }
+    },
+    {
+      "id": "A18",
+      "kind": "approximation",
+      "category": "pta-priors",
+      "description": "PTArcade prior choice: Uniform(0.1, 3.0) on g_D, Uniform(0.0001, 0.8) on y_psi, Uniform(-4.0, 1.0) on log10_v. Flat priors in linear space for couplings, flat in log space for v.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_pta.json"
+      ],
+      "required_solution": "Prior choice can significantly affect posterior inference, especially for parameters where the likelihood is not strongly informative. The Uniform(0.1, 3.0) on g_D excludes regions below 0.1 (which the FOPT scan explored) and above 3.0 (which had numerical failures). The Uniform(0.0001, 0.8) on y_psi with 68% HPDI lower bound not existing (extends to prior boundary) suggests a volume effect from the flat prior driving the posterior to small values. The y_psi posterior lower bound not existing is a red flag: it indicates the data does not constrain this parameter and the prior dominates the inference. The Uniform prior on log10_v is a log-uniform prior on v, which is a reasonable scale-invariant choice. Required action: (1) rerun with Jeffreys or weakly informative priors to check sensitivity; (2) extend y_psi prior upper bound to 1.0 to test truncation effects; (3) estimate the Bayesian evidence ratio between nested hypotheses.",
+      "source": {
+        "file": "handoff_pta.json",
+        "section": "ptarcade_analysis.priors",
+        "note": "PTArcade prior details listed"
+      }
+    },
+    {
+      "id": "A19",
+      "kind": "limitation",
+      "category": "pta-mcmc",
+      "description": "PTArcade MCMC convergence: 100,000 samples total with 25,000 burn-in discarded, leaving 7,501 post-burnin samples for inference from a single chain.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_pta.json"
+      ],
+      "required_solution": "For a 3-parameter model with non-trivial correlations between alpha, beta/H, and Treh (derived parameters), 7,501 effective samples from a single chain may be insufficient for robust posterior estimation, especially for tail quantiles (95% and 99.7% HPDIs). The acceptance rate (0.28) is healthy for a Metropolis-Hastings/Gibbs sampler, but the chain length is modest. No Gelman-Rubin R-hat diagnostic was computed (single chain). No effective sample size (ESS) estimate was reported. The y_psi 68% HPDI lower bound not existing could be a chain-length issue rather than a genuine physical degeneracy. Required action: run at least 4 independent chains, compute R-hat < 1.05 for all parameters, verify ESS > 1000 for all reported percentiles.",
+      "source": {
+        "file": "handoff_pta.json",
+        "section": "ptarcade_analysis.chain_validation",
+        "note": "'100000 MCMC samples in chain_0. ... 7501 post-burnin samples used for analysis.'"
+      }
+    },
+    {
+      "id": "A20",
+      "kind": "limitation",
+      "category": "pta-priors",
+      "description": "The PTArcade posterior is driven by a 14-bin comparison to the NANOGrav 15-year data. The benchmark scan uses a binary inside/outside bin criterion (score/14) rather than a chi-squared likelihood.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_pta.json"
+      ],
+      "required_solution": "The 14/14 score indicates the spectrum lies within the observed error bars at all frequencies, but a binary criterion discards spectral shape information. A chi-squared fit would provide quantitative model comparison (e.g., significance relative to a null hypothesis of no GW signal, or relative to the common-spectrum red noise process). The PTArcade Bayesian analysis properly uses the ceffyl likelihood, which is more robust. However, the benchmark scan's 14/14 score is used as the primary selection criterion. Required action: report chi-squared values and p-values alongside the binary score.",
+      "source": {
+        "file": "handoff_pta.json",
+        "section": "benchmark_analysis.best_fit_points",
+        "note": "'inside_bins: 14, total_bins: 14, score: 1.0'"
+      }
+    },
+    {
+      "id": "A21",
+      "kind": "caveat",
+      "category": "pta-mcmc",
+      "description": "The y_psi marginal posterior extends to very small values without a well-defined lower bound. The 68% HPDI lower bound does not exist (extends to prior edge).",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_pta.json",
+        "handoff_constraints.json"
+      ],
+      "required_solution": "This is a serious issue: it means the NANOGrav data does not constrain y_psi from below within the prior range, and the posterior is dominated by the prior volume effect. The physical explanation is that y_psi mainly affects beta_lambda and the scalar mass m_chi. For y_psi much smaller than g_D, the CW condition beta_lambda ~ 3g_D^4/(8pi^2) becomes independent of y_psi. Since the GW spectrum depends on alpha, beta/H, and T_reh (not directly on y_psi), the mapping from (g_D, y_psi, v) to (alpha, beta/H, Treh) is many-to-one for small y_psi. This degeneracy is not resolved by the PTA data. Required action: reparameterise using (g_D, m_chi/v, v) or similar physically relevant basis to break the degeneracy.",
+      "source": {
+        "file": "handoff_pta.json",
+        "section": "warnings",
+        "note": "'The MAP point for y_psi is 0.109 ... but the marginal posterior for y_psi extends to very small values without a well-defined lower bound'"
+      }
+    },
+    {
+      "id": "A22",
+      "kind": "limitation",
+      "category": "constraint-dm",
+      "description": "Dark matter relic abundance has not been computed. The lightest dark sector particle (chi in most of the 1-sigma PTArcade region, m_chi ~ 20-120 MeV) is a stable DM candidate but its relic abundance is unknown.",
+      "severity": 10,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_constraints.json"
+      ],
+      "required_solution": "This is the most critical missing calculation. If chi is the DM candidate, its relic abundance from thermal freeze-out within the dark sector (secluded freeze-out) must be computed. The DM mass (20-120 MeV) and couplings (g_D ~ 0.53-0.65) are in a range where freeze-out is plausible. Overproduction (Omega_DM h^2 > 0.12) would exclude large regions of the PTArcade posterior. Underproduction is permissive but reduces the model's DM explainability. The DM annihilation channel is chi chi -> A A (s-wave for real scalar). Required action: implement a Boltzmann solver for secluded freeze-out, compute chi chi -> A A cross-section, and determine Omega_DM h^2 at each viable point.",
+      "source": {
+        "file": "handoff_constraints.json",
+        "section": "warnings",
+        "note": "C07: DM relic abundance not computed; C06: CMB constraints on DM annihilation not computed"
+      }
+    },
+    {
+      "id": "A23",
+      "kind": "limitation",
+      "category": "constraint-dm",
+      "description": "Dark matter self-interaction cross-section has not been computed. For chi masses ~20-120 MeV with A' mediator masses ~340-940 MeV, the self-interaction could be relevant for small-scale structure.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_constraints.json"
+      ],
+      "required_solution": "If chi is DM, its self-interaction via A' exchange in the t-channel could give sigma_T/m in the range 0.1-10 cm^2/g (dwarf-scale interesting). The mass ratio m_A'/m_chi ~ 5-20 in the 1-sigma region, putting the interaction in the perturbative regime. Required action: compute the transfer cross-section as a function of relative velocity and compare to Bullet Cluster (v~4000 km/s: sigma/m < 1 cm^2/g) and dwarf galaxies (v~100 km/s: sigma/m ~ 0.1-10 cm^2/g).",
+      "source": {
+        "file": "handoff_constraints.json",
+        "section": "constraints.C11",
+        "note": "C11: Dark matter self-interaction constraints (requires_new_backend)"
+      }
+    },
+    {
+      "id": "A24",
+      "kind": "assumption",
+      "category": "constraint-thermal",
+      "description": "Perturbative unitarity: g_D < 4*pi is satisfied for the whole viable region. More stringent coupled-channel unitarity bounds from vector-scalar scattering (Araki et al. 2406.17760) have not been checked for this specific mass hierarchy.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": [
+        "handoff_constraints.json"
+      ],
+      "required_solution": "The simple perturbativity bound g_D < 4*pi is satisfied. More detailed unitarity bounds require a full coupled-channel analysis. Araki et al. found m_A' > 0.8 GeV for g_D~0.7 and m_chi=2 GeV; this model has lighter scalars (m_chi~20-120 MeV) so the bound is likely satisfied but should be checked. Low priority given the small couplings.",
+      "source": {
+        "file": "handoff_constraints.json",
+        "section": "constraints.C08",
+        "note": "C08: Perturbative unitarity bound (directly applicable but not computed in detail)"
+      }
+    },
+    {
+      "id": "A25",
+      "kind": "assumption",
+      "category": "constraint-thermal",
+      "description": "Delta N_eff constraint is satisfied because all dark sector particles in the PTArcade 1-sigma region have masses > 30 MeV and are non-relativistic at BBN (T ~ 1 MeV).",
+      "severity": 2,
+      "controlled": true,
+      "affected_outputs": [
+        "handoff_constraints.json"
+      ],
+      "required_solution": "The Delta N_eff argument relies on the mass scales being above MeV. This is valid for the PTArcade posterior (v~0.65-1.45 GeV), but the FOPT benchmark region (v~10-20 MeV) has m_chi ~ 1-2 MeV which could be borderline relativistic. The PTArcade region is the fiducial inference region, so this is considered controlled. Future work: confirm the reheating temperature T_reh > MeV for the entire posterior.",
+      "source": {
+        "file": "handoff_constraints.json",
+        "section": "constraints.C05",
+        "note": "C05: CMB Delta N_eff constraint (direct, satisfied for 1-sigma region)"
+      }
+    },
+    {
+      "id": "A26",
+      "kind": "limitation",
+      "category": "constraint-bbn",
+      "description": "BBN constraints on late-decaying particles require the relic abundance of the stable DM candidate (chi) to compute energy injection. Only A' -> psi+ psi- lifetime has been computed (prompt, tau ~ 10^{-12} s, safe).",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_constraints.json"
+      ],
+      "required_solution": "BBN constraints can limit dark sectors even without SM portals if the stable relic's density is too high (it would increase the expansion rate). The A' decay is prompt, but what about chi? If chi is stable (lightest DS particle), its energy density at BBN -- not a decay -- is the concern. For a dark sector that reheats to T_reh ~ 1-200 MeV, chi (m_chi ~ 20-120 MeV) would be semi-relativistic at BBN. Required action: compute chi number density after the FOPT, including any dilution from the PT entropy injection.",
+      "source": {
+        "file": "handoff_constraints.json",
+        "section": "constraints.C04",
+        "note": "C04: BBN constraints on late-decaying particles (requires_new_backend)"
+      }
+    },
+    {
+      "id": "A27",
+      "kind": "limitation",
+      "category": "constraint-bbn",
+      "description": "BBN/CMB constraint on phase transition energy injection (Bai-Korwar bound T_* > ~2 MeV for strong PTs). The FOPT benchmarks have T_reh < 2 MeV (as low as 0.45 MeV).",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_constraints.json",
+        "handoff_fopt.json"
+      ],
+      "required_solution": "The Bai-Korwar bound assumes the latent heat reheats SM photons. In this secluded model, the latent heat reheats only the dark sector. If the DS remains secluded, there is no direct effect on SM BBN. However, the DS energy density contributes to the universe's total expansion rate. If the DS energy fraction is significant at BBN (which it would be if T_reh_ds >> T_SM), it modifies the expansion rate and effective neutrino count. Required action: compute the dark sector energy density at BBN, taking into account the PT dilution factor and subsequent cooling.",
+      "source": {
+        "file": "handoff_constraints.json",
+        "section": "constraints.C16",
+        "note": "C16: BBN/CMB constraint on PT energy injection (approximate, depends on portality)"
+      }
+    },
+    {
+      "id": "A28",
+      "kind": "limitation",
+      "category": "constraint-thermal",
+      "description": "xi = T_dark/T_SM = 1 is inconsistent with zero portals. Gravitational thermalisation is negligible. The dark sector temperature evolution must be self-consistently computed from the PT reheating.",
+      "severity": 10,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json",
+        "handoff_constraints.json"
+      ],
+      "required_solution": "This is the single most critical unresolved issue. The constraint-agent (C17) correctly identifies this as a fundamental inconsistency. Without any portal coupling (epsilon=0, lambda_HPhi=0), the ratio Gamma_grav/H ~ T^6/M_Pl^3 is ~10^{-51} at T=1 GeV -- completely negligible. The dark sector can only share the SM temperature if both sectors were produced with identical temperatures during reheating and then decoupled. Even in that case, entropy conservation in each sector gives different T(t) evolutions when particle masses become relevant. The PTArcade analysis should instead treat xi as a free parameter or compute it self-consistently. Li & Nath (2602.14324) show that omitting xi evolution can change GW predictions by up to 4 orders of magnitude. Required action: model the dark sector as an isolated thermal bath with its own temperature T_ds(t), compute entropy injection from the FOPT, and determine xi(T) at BBN, CMB, and today.",
+      "source": {
+        "file": "handoff_constraints.json",
+        "section": "constraints.C17",
+        "note": "C17: xi=1 self-consistency (requires_new_backend, critical)"
+      }
+    },
+    {
+      "id": "A29",
+      "kind": "limitation",
+      "category": "model-phenomenology",
+      "description": "The PTArcade 1-sigma region (v ~ 0.65-1.45 GeV) and the FOPT benchmark region (v ~ 10-20 MeV) are in completely different mass regimes. The benchmark scan used for PTA selection did not cover the PTArcade-favoured region.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json",
+        "handoff_constraints.json"
+      ],
+      "required_solution": "There is a discrepancy between the FOPT benchmark scan (which found best points at v~10-20 MeV) and the PTArcade Bayesian posterior (which favours v~0.65-1.45 GeV). The FOPT benchmark scan had v range [0.0001, 100.0] GeV and found PTA-compatible points at the low-v end. The PTArcade posterior used prior log10_v in [-4, 1] (v in [1e-4, 10] GeV) and converged to v ~ 1 GeV. The two analyses point to different physical regimes. This discrepancy should be investigated: the benchmark scan selected points where the spectrum's peak falls in the right frequency range (f_peak ~ 10^{-8} Hz), while PTArcade uses the full NANOGrav likelihood. Required action: overlay the benchmark scan 14/14 points and the PTArcade posterior region on the same (v, g_D) plane to check consistency.",
+      "source": {
+        "file": "handoff_pta.json",
+        "section": "benchmark_analysis.best_fit_points",
+        "note": "Benchmark points have v ~ 0.003-1 GeV; PTArcade MAP v = 1.19 GeV"
+      }
+    },
+    {
+      "id": "A30",
+      "kind": "caveat",
+      "category": "constraint-thermal",
+      "description": "The 1-sigma PTArcade region has all dark sector masses > 30 MeV (non-relativistic at BBN), but this is a posterior statement conditional on the xi=1 assumption. If xi != 1, the masses would be different.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_constraints.json",
+        "handoff_pta.json"
+      ],
+      "required_solution": "All the constraint analyses that rely on the DS particle masses (Delta N_eff, BBN, DM relic abundance) are conditional on the posterior derived under xi=1. If xi is relaxed, the GW spectrum parameters alpha, beta/H, T_reh change, which feeds back into the PTArcade posterior. This circular dependency between the model assumptions and the posterior-derived masses means the 'safe' conclusions about Delta N_eff being satisfied could change. Required action: perform a self-consistent analysis where xi is treated as a free parameter or computed from thermal history.",
+      "source": {
+        "file": "handoff_constraints.json",
+        "section": "input_region.notes",
+        "note": "All mass ranges conditional on xi=1 assumption"
+      }
+    },
+    {
+      "id": "A31",
+      "kind": "approximation",
+      "category": "fopt-potential",
+      "description": "The Coleman-Weinberg mechanism is the sole source of symmetry breaking. No tree-level mass term exists; the one-loop CW potential generates the vacuum expectation value radiatively.",
+      "severity": 2,
+      "controlled": true,
+      "affected_outputs": [
+        "handoff_fopt.json"
+      ],
+      "required_solution": "This is the defining feature of the model. It is explicitly documented and used consistently across all stages. The CW condition lambda_Phi = (3*g_D^4 - 2*y_psi^4)/(32*pi^2) follows from beta_lambda = 0 at the vev. Validated by critic-agent. Controlled assumption.",
+      "source": {
+        "file": "handoff_model.json",
+        "section": "assumptions",
+        "note": "'The Coleman-Weinberg mechanism is the sole source of symmetry breaking'"
+      }
+    },
+    {
+      "id": "A32",
+      "kind": "caveat",
+      "category": "fopt-numerical",
+      "description": "The semianalytic_pipeline backend uses analytic fits for the bounce action at zero and finite temperature, not a direct numerical solution of the bounce equation.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json"
+      ],
+      "required_solution": "The analytic bounce action parameterisation is calibrated for specific models and may not be universally accurate for all parameter combinations, especially at extreme supercooling. The 40.8% numerical failure rate suggests the fitting functions break down for g_D > 1.5. Required action: cross-validate the analytic bounce action against direct numerical solutions (e.g., CosmoTransitions or BubbleProfiler) for a subset of benchmark points.",
+      "source": {
+        "file": "handoff_fopt.json",
+        "section": "backend_choice",
+        "note": "Uses semianalytic_pipeline with analytic bounce action fits"
+      }
+    },
+    {
+      "id": "A33",
+      "kind": "approximation",
+      "category": "fopt-thermo",
+      "description": "The temperature-dependent effective potential uses only the finite-T renormalisation of the scalar self-coupling; running of gauge and Yukawa couplings with temperature is not included.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json"
+      ],
+      "required_solution": "In the standard 4D HT approach, the couplings g_D and y_psi are evaluated at the renormalisation scale mu=v without RG running. The gauge coupling running affects the DW approximation and the barrier height. For supercooled transitions spanning orders of magnitude in temperature, this running could be significant. Related to A09 (no RG running). Required action: implement one-loop RG running of g_D and y_psi between mu=v and mu ~ pi*T.",
+      "source": {
+        "file": "handoff_fopt.json",
+        "section": "approximations",
+        "note": "'No RG running of couplings included' (also in handoff_pta.json)"
+      }
+    },
+    {
+      "id": "A34",
+      "kind": "limitation",
+      "category": "pta-spin",
+      "description": "The PTArcade analysis assumes a power-law SMBHB foreground characterised by amplitude A_BHB and spectral index gamma_BHB as nuisance parameters. The correlation between SMBHB parameters and DS parameters is marginalised but not reported.",
+      "severity": 3,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_pta.json"
+      ],
+      "required_solution": "The NANOGrav 15-year signal has a significant common-spectrum component that could be either astrophysical (SMBHB) or cosmological (GW from PT). The ceffyl analysis should separate these components. The DS posterior marginalises over the SMBHB foreground, but the correlation between the DS parameters and the SMBHB spectral index is not reported. The 14-bin benchmark scan does not account for the SMBHB foreground at all (it fits a pure DS spectrum). Required action: report the joint posterior of DS+SMBHB parameters and the Bayes factor between DS+SMBHB and SMBHB-only models.",
+      "source": {
+        "file": "handoff_pta.json",
+        "section": "ptarcade_analysis.campaign",
+        "note": "ceffyl mode used; SMBHB parameters marginalised"
+      }
+    },
+    {
+      "id": "A35",
+      "kind": "caveat",
+      "category": "pta-validity",
+      "description": "The extremely large alpha values in the benchmark points (up to 10^10) may be outside the calibrated range of the DBF template. The template was validated for alpha ranging from weak to strong (alpha up to ~10^4), not for extreme supercooling where the transition is vacuum-dominated.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_pta.json"
+      ],
+      "required_solution": "For alpha >> 1, the vacuum energy dominates and the Universe enters a period of vacuum-like expansion before the transition completes. The standard Hubble-normalised FOPT parameters (alpha, beta/H) derived assuming radiation domination lose their meaning. The peak frequency estimate f_peak_est uses an order-of-magnitude formula that assumes the Universe is radiation-dominated during the PT. For the most extreme points (BP-B: alpha ~ 1.2*10^11), the PT occurs during vacuum domination, which would affect the redshift relation between the PT epoch and today. Required action: check whether alpha < alpha_max for each point, where alpha_max is the value at which the vacuum energy starts dominating the expansion. If alpha > alpha_max, the standard GW spectrum formulas need modification.",
+      "source": {
+        "file": "handoff_pta.json",
+        "section": "warnings",
+        "note": "'The dbf template is valid for strongly supercooled transitions (alpha >> 1) but was calibrated with specific simulation parameters; the extremely large alpha values (up to 10^10) may be outside the calibrated range'"
+      }
+    },
+    {
+      "id": "A36",
+      "kind": "caveat",
+      "category": "fopt-numerical",
+      "description": "The FOPT scan grid resolution (4464 points in 3D parameter space) may miss fine structure in the viable parameter region. The PTArcade MCMC explores more finely but has limited chain length.",
+      "severity": 3,
+      "controlled": false,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json"
+      ],
+      "required_success": false,
+      "required_solution": "4464 points over 3 parameters is a coarse grid (approximately 16x16x17 spacing). For a model with a narrow viable region (e.g., the supercooling condition y_psi < g_D*sqrt(2) creates a thin wedge in parameter space), the grid may miss fine features. The adaptive scan refinement (expanding to 1728 additional points near the best point) partially addresses this. The PTArcade MCMC provides finer exploration but only 7501 post-burnin samples. Required action: perform an adaptive scan with higher resolution near the best-fit region to map the posterior contours.",
+      "source": {
+        "file": "handoff_fopt.json",
+        "section": "scan_summary",
+        "note": "Total 4464 points scanned"
+      }
+    },
+    {
+      "id": "A37",
+      "kind": "assumption",
+      "category": "model-building",
+      "description": "The fermion masses from the Yukawa term produce a Dirac mass matrix with degenerate eigenvalues (both psi_1 and psi_2 have the same mass m_psi = y_psi * v / sqrt(2)). ",
+      "severity": 2,
+      "controlled": true,
+      "affected_outputs": [
+        "handoff_fopt.json"
+      ],
+      "required_solution": "The mass degeneracy follows from the single Yukawa coupling y_psi combined with the pair of opposite-charge fermions. This is a consequence of the model structure, not an approximation. The fermion content is minimal for anomaly cancellation. Validated by critic-agent. Controlled.",
+      "source": {
+        "file": "handoff_model.json",
+        "section": "dependent_parameters",
+        "note": "m_psi = y_psi * v / sqrt(2) for both fermions"
+      }
+    },
+    {
+      "id": "A38",
+      "kind": "assumption",
+      "category": "model-building",
+      "description": "The dark sector has no CP-violating phases: all couplings (g_D, y_psi, lambda_Phi) are real. The Lagrangian is CP-conserving.",
+      "severity": 2,
+      "controlled": true,
+      "affected_outputs": [
+        "handoff_fopt.json",
+        "handoff_pta.json"
+      ],
+      "required_solution": "Explicitly validated by critic-agent. No CP-violation is introduced. This does not affect the FOPT or PTA analysis as CP-violation is not relevant for the GW spectrum. Controlled assumption.",
+      "source": {
+        "file": "handoff_critique.json",
+        "section": "validation_lagrangian_terms",
+        "note": "'CP conservation check: ok'"
+      }
+    }
+  ],
+  "required_followups": [
+    {
+      "id": "R01",
+      "priority": "high",
+      "description": "Self-consistent dark sector temperature evolution: compute xi(T) = T_ds(T)/T_SM(T) from the phase transition to today, treating the dark sector as an isolated thermal bath with entropy injection from the FOPT. This supersedes the xi=1 assumption.",
+      "blocked_by": [],
+      "suggested_action": "Implement coupled Boltzmann equations for DS-SM temperature evolution, including PT entropy release and subsequent cooling. A. Mitridate et al. (PTArcade pipeline) approach can be extended."
+    },
+    {
+      "id": "R02",
+      "priority": "high",
+      "description": "Dark matter relic abundance computation: determine if chi (lightest DS particle) overcloses the universe. Compute the chi chi -> A A annihilation cross-section and solve the secluded freeze-out Boltzmann equation.",
+      "blocked_by": [
+        "R01"
+      ],
+      "suggested_action": "Implement tree-level 2->2 scattering cross-section for chi chi -> A A via contact interaction, then solve the coupled Boltzmann equation for the dark sector. Compare Omega h^2 to Planck 2018 value 0.12."
+    },
+    {
+      "id": "R03",
+      "priority": "high",
+      "description": "RG scale uncertainty quantification: assess the impact of fixing the renormalisation scale to the vev without running. The 4D HT potential should be evaluated at mu = max(m_A'(phi), pi T) at a minimum, and the sensitivity to scale variation by factor 2-4 should be reported.",
+      "blocked_by": [],
+      "suggested_action": "Rerun the FOPT analysis for the benchmark points with RG running of couplings implemented, using the scale prescription of Pascoli et al. (2602.02829). Compare to 3D EFT results from the literature."
+    },
+    {
+      "id": "R04",
+      "priority": "high",
+      "description": "Bubble wall velocity computation: determine whether friction from dark photon emission (P_mdp) prevents runaway, and compute v_w from first principles for the PTArcade posterior points.",
+      "blocked_by": [],
+      "suggested_action": "Compute the friction pressure from 1->2 and 1->N processes for gauge boson emission across the wall. Compare to the vacuum energy difference Delta V. Report v_w for each viable parameter point."
+    },
+    {
+      "id": "R05",
+      "priority": "medium",
+      "description": "PTArcade chain convergence and prior sensitivity analysis: run 4+ independent chains with R-hat diagnostics, extend to 5e5+ samples, test Jeffreys/log-uniform priors vs Uniform priors.",
+      "blocked_by": [],
+      "suggested_action": "Rerun PTArcade with 5 independent chains of 2e5 samples each. Compute R-hat and ESS. Rerun with alternative priors (log-uniform on g_D, y_psi). Compare posterior contours."
+    },
+    {
+      "id": "R06",
+      "priority": "medium",
+      "description": "Benchmark scan vs PTArcade posterior consistency check: resolve the discrepancy between the benchmark scan (v ~ 10-20 MeV) and PTArcade posterior (v ~ 0.65-1.45 GeV). Determine if both are valid or if one analysis is selecting on a different FOPT regime.",
+      "blocked_by": [],
+      "suggested_action": "Compute the PTArcade likelihood at the benchmark best-fit points (v~10 MeV) and compare to the MAP. Overlay parameter points on a (v, g_D) phase diagram."
+    },
+    {
+      "id": "R07",
+      "priority": "medium",
+      "description": "DBF template validity check for extreme alpha: validate the DBF template for alpha > 10^4 by comparing to full numerical simulations or alternative templates (bubble collisions vs sound waves).",
+      "blocked_by": [],
+      "suggested_action": "Cross-check the DBF template against the Caprini et al. (2409.03651) or the vacuum-dominated bubble collision template from Lewicki & Vaskonen (2023) for the same (alpha, beta/H) values."
+    },
+    {
+      "id": "R08",
+      "priority": "medium",
+      "description": "Direct numerical bounce action validation: cross-validate the semianalytic pipeline's analytic bounce action against CosmoTransitions or BubbleProfiler for the benchmark points.",
+      "blocked_by": [],
+      "suggested_action": "Use CosmoTransitions to compute the bounce action at T=0 and at T=T_p for 5-10 benchmark points. Compare S_3/T values and assess the systematic offset."
+    },
+    {
+      "id": "R09",
+      "priority": "low",
+      "description": "Perturbative unitarity check: compute the coupled-channel S-wave amplitudes for all 2->2 processes at the dark sector energy scale.",
+      "blocked_by": [],
+      "suggested_action": "Compute partial-wave unitarity bounds for A'A' -> A'A', A'A' -> chi chi, chi chi -> chi chi. Diagonalise the coupled-channel matrix and apply |Re(a_0)| < 1/2."
+    },
+    {
+      "id": "R10",
+      "priority": "low",
+      "description": "DM self-interaction cross-section: compute sigma_T/m for the DM candidate and compare to Bullet Cluster and dwarf galaxy bounds.",
+      "blocked_by": [
+        "R02"
+      ],
+      "suggested_action": "Compute the t-channel A' exchange cross-section for chi chi -> chi chi Transfer cross-section sigma_T in the Born approximation. Compare velocity-dependent limits."
+    },
+    {
+      "id": "R11",
+      "priority": "low",
+      "description": "FOPT benchmark-constrained 14/14 point validation: recompute the GW spectrum and the NANOGrav 15-year likelihood for the 18 best points using a full chi-squared, not just binary bin-counting.",
+      "blocked_by": [],
+      "suggested_action": "Compute the chi-squared statistic for each of the 18 perfect-score points using the NANOGrav 15-year data covariance matrix. Report the minimum chi-squared and degrees of freedom."
+    },
+    {
+      "id": "R12",
+      "priority": "low",
+      "description": "Loop-induced kinetic mixing estimate: compute the 2-loop radiatively-generated epsilon from SM Higgs and W loops to assess whether epsilon is truly zero.",
+      "blocked_by": [],
+      "suggested_action": "Compute the dominant 2-loop diagram: SM Higgs -> W exchange -> dark photon. Compare the resulting epsilon to current experimental sensitivities."
+    }
+  ]
+}

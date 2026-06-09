@@ -1,0 +1,341 @@
+{
+  "model": "u1conformal_fermion",
+  "agent": "critic-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-08",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/u1conformal_fermion/handoff_proposed_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json",
+    "terminal prompt: model-critique"
+  ],
+  "commands": [],
+  "files_read": [
+    "output/u1conformal_fermion/handoff_proposed_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json",
+    ".claude/skills/model-critique/SKILL.md",
+    ".claude/agents/critic-agent.md",
+    "docs/HANDOFF_CRITIC_SCHEMA.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/SEMIANALYTICPIPELINE.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "backend/semianalytic_pipeline.py"
+  ],
+  "files_written": [
+    "output/u1conformal_fermion/handoff_critique.json",
+    "output/u1conformal_fermion/critique.md",
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/model.md"
+  ],
+  "warnings": [
+    "Goldstone theta thermal mass expression was physically inconsistent with the combined g2sq formula used by the backend; fixed to match."
+  ],
+  "errors": [],
+  "approximations": [
+    "Higgs portal coupling set to zero (lambda_HPhi = 0)",
+    "Gauge kinetic mixing set to zero (epsilon = 0)",
+    "Dark sector thermalised with SM (xi = T_dark/T_SM = 1)",
+    "High-temperature expansion of finite-T effective potential valid in supercooling regime",
+    "Gaussian approximation for false vacuum fraction",
+    "Single-field approximation for FOPT analysis",
+    "gb_scalar set to 0 in backend; scalar loop contributions to CW potential neglected (subleading per pipeline documentation)"
+  ],
+  "validation_gauge_groups": [
+    {
+      "item": "U(1)_D gauge group definition",
+      "status": "ok",
+      "notes": "U(1)_D with coupling g_D. Single rank-1 Abelian group. Correctly specified."
+    }
+  ],
+  "validation_global_symmetries": [
+    {
+      "item": "Classical scale invariance",
+      "status": "ok",
+      "notes": "Global anomalous symmetry broken radiatively by CW mechanism. Correctly noted as anomalous."
+    }
+  ],
+  "validation_particle_content": [
+    {
+      "item": "Phi (complex scalar)",
+      "status": "ok",
+      "notes": "Spin 0, U(1)_D charge +1, DOF 2 (complex). Field content correct."
+    },
+    {
+      "item": "Aprime (gauge boson)",
+      "status": "ok",
+      "notes": "Spin 1, neutral under U(1)_D, DOF 3 (massive). Correct."
+    },
+    {
+      "item": "psi_1 (Dirac fermion)",
+      "status": "ok",
+      "notes": "Spin 1/2, U(1)_D charge +1/2, DOF 4. Vector-like: L and R have same charge. Anomaly-free by construction."
+    },
+    {
+      "item": "psi_2 (Dirac fermion)",
+      "status": "ok",
+      "notes": "Spin 1/2, U(1)_D charge -1/2, DOF 4. Vector-like. Opposite charge to psi_1 ensures anomaly cancellation."
+    },
+    {
+      "item": "Fermion DOF count",
+      "status": "ok",
+      "notes": "Two Dirac fermions each with 4 DOF = 8 total fermionic DOF. Matches fermion_dofs in backend mapping."
+    }
+  ],
+  "validation_lagrangian_terms": [
+    {
+      "item": "gauge_kinetic: -1/4 F'_mu_nu F'^mu_nu",
+      "status": "ok",
+      "notes": "Standard U(1) gauge kinetic term. Correct and gauge invariant."
+    },
+    {
+      "item": "scalar_kinetic: (D_mu Phi)*(D^mu Phi)",
+      "status": "ok",
+      "notes": "D_mu = d_mu + i*g_D*A'_mu. Phi charge +1. Gauge invariant. Correct."
+    },
+    {
+      "item": "fermion_kinetic_psi1: i*psi1_bar*gamma^mu*D_mu*psi1",
+      "status": "ok",
+      "notes": "Vector-like Dirac fermion kinetic term. D_mu = d_mu + i*g_D*(1/2)*A'_mu. Gauge invariant."
+    },
+    {
+      "item": "fermion_kinetic_psi2: i*psi2_bar*gamma^mu*D_mu*psi2",
+      "status": "ok",
+      "notes": "D_mu = d_mu - i*g_D*(1/2)*A'_mu. Gauge invariant."
+    },
+    {
+      "item": "yukawa: y_psi*Phi*psi1_bar*psi2 + h.c.",
+      "status": "ok",
+      "notes": "Gauge invariant: Phi charge +1, psi1_bar charge -1/2, psi2 charge -1/2. Sum = 0. Renormalizable, dimension-4 operator."
+    },
+    {
+      "item": "scalar_potential: lambda_Phi*(Phi*Phi)^2",
+      "status": "ok",
+      "notes": "Gauge invariant. Classically scale-invariant (no mass term). Correct form for CW model."
+    },
+    {
+      "item": "CP conservation check",
+      "status": "ok",
+      "notes": "All couplings (g_D, y_psi, lambda_Phi) are real. No CP-violating phases. Lagrangian is CP-conserving."
+    }
+  ],
+  "validation_free_parameters": [
+    {
+      "item": "g_D: Dark gauge coupling",
+      "status": "ok",
+      "notes": "Range [0.1, 4.0]. Perturbativity requires g_D < 4*pi = 12.57; range within perturbative regime. Independent scan parameter."
+    },
+    {
+      "item": "y_psi: Yukawa coupling",
+      "status": "ok",
+      "notes": "Range [0.0, 1.0]. Constrained by CW condition beta_lambda > 0 and supercooling condition g_D > y_psi/sqrt(2). Independent scan parameter. (Note: supercooling condition added to parameter notes in handoff_model.json)"
+    },
+    {
+      "item": "v: Dark Higgs vev",
+      "status": "ok",
+      "notes": "Range [100.0, 10000.0] GeV. Sets overall dark sector mass scale. Independent scan parameter."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "g_D": {
+        "type": "dimensionless",
+        "range": [0.1, 4.0],
+        "notes": "Dark gauge coupling; scanned in MCMC"
+      },
+      "y_psi": {
+        "type": "dimensionless",
+        "range": [0.0, 1.0],
+        "notes": "Yukawa coupling; scanned in MCMC; constrained by CW condition beta_lambda > 0 (y_psi < (3/2)^(1/4)*g_D) and supercooling condition g_D > y_psi/sqrt(2) for FOPT viability"
+      },
+      "v": {
+        "type": "dimensionful",
+        "range": [100.0, 10000.0],
+        "units": "GeV",
+        "notes": "Dark Higgs vev; scanned in MCMC"
+      }
+    },
+    "dependent": {
+      "lambda_Phi": {
+        "type": "dimensionless",
+        "relation": "lambda_Phi_cw = (3 * g_D**4 - 2 * y_psi**4) / (32 * pi**2)",
+        "notes": "CW-fixed quartic coupling; derived from beta_lambda = (3*g_D^4 - 2*y_psi^4)/(8*pi^2) via lambda_Phi = beta_lambda/4; NOT scanned"
+      },
+      "beta_lambda": {
+        "type": "dimensionless",
+        "relation": "beta_lambda = (3 * g_D**4 - 2 * y_psi**4) / (8 * pi**2)",
+        "notes": "CW beta function parameter; beta_lambda > 0 required for radiative SSB"
+      },
+      "m_chi": {
+        "type": "dimensionful",
+        "relation": "m_chi**2 = beta_lambda * v**2",
+        "units": "GeV",
+        "notes": "Physical mass of the CW pseudo-dilaton (radial scalar mode)"
+      },
+      "m_Aprime": {
+        "type": "dimensionful",
+        "relation": "m_Aprime = g_D * v",
+        "units": "GeV",
+        "notes": "Physical dark photon mass"
+      },
+      "m_psi": {
+        "type": "dimensionful",
+        "relation": "m_psi = y_psi * v / sqrt(2)",
+        "units": "GeV",
+        "notes": "Mass of each Dirac fermion mass eigenstate from psi_1-psi_2 mixing"
+      },
+      "gb_scalar": {
+        "type": "dimensionless",
+        "relation": "gb_scalar = sqrt(beta_lambda)",
+        "notes": "Scalar self-coupling gb for backend; set to 0 in backend as scalar loops are subleading"
+      }
+    },
+    "fixed": {
+      "xi": {
+        "value": 1.0,
+        "notes": "T_dark / T_SM temperature ratio; assumes dark sector thermalised with SM"
+      },
+      "epsilon_kinetic_mixing": {
+        "value": 0.0,
+        "notes": "Gauge kinetic mixing between U(1)_D and U(1)_Y; set to zero at tree level"
+      },
+      "lambda_HPhi": {
+        "value": 0.0,
+        "notes": "Higgs portal coupling |H|^2|Phi|^2; set to zero (no tree-level mixing)"
+      }
+    }
+  },
+  "validation_assumptions": [
+    {
+      "item": "Two Dirac fermions for anomaly cancellation and gauge invariance",
+      "status": "ok",
+      "notes": "A single Dirac fermion cannot satisfy gauge invariance of the Yukawa term with non-zero scalar charge. Two Dirac fermions with opposite charges are the minimal consistent fermion content."
+    },
+    {
+      "item": "Zero Higgs portal and kinetic mixing",
+      "status": "ok",
+      "notes": "Consistent approximation for a secluded dark sector. No tree-level mixing with SM."
+    },
+    {
+      "item": "Thermal equilibrium with SM (xi = 1)",
+      "status": "ok",
+      "notes": "Dark sector thermalised with SM bath. Standard assumption for coupled dark sectors."
+    },
+    {
+      "item": "Perturbative control",
+      "status": "ok",
+      "notes": "g_D < 4*pi, y_psi < (3/2)^(1/4)*g_D. Both couplings remain perturbative in the scanned range."
+    }
+  ],
+  "authoritative_model_file": "output/u1conformal_fermion/handoff_model.json",
+  "repair_records": [
+    {
+      "original_issue": "Goldstone theta thermal mass expression 'g_D**2 * T**2 / 3' was physically inconsistent with the combined backend formula '(3*g_D**2 + 2*y_psi**2) * T**2 / 12' used for all other thermal masses. In the symmetric phase, the Goldstone mode (angular component of complex scalar Phi) receives the same thermal corrections as the radial mode chi from gauge, fermion, and scalar contributions. The separate expression omitted fermion contributions and used a different gauge coefficient.",
+      "applied_fix": "Updated Goldstone theta thermal mass to '(3 * g_D**2 + 2 * y_psi**2) * T**2 / 12', matching the combined g2sq formula used by the backend for consistency.",
+      "justification": "Physical consistency: the Goldstone mode is part of the same complex scalar field as the radial mode, so its thermal mass must receive the same gauge and Yukawa corrections. The backend uses a single combined g2sq coefficient for the entire thermal potential, not separate Debye masses per particle. The Goldstone expression needs to match this combined treatment.",
+      "was_minimal": true
+    },
+    {
+      "original_issue": "The dependent parameter 'lambda_Phi' had a relation field that defined 'beta_lambda' rather than 'lambda_Phi' itself. The relation 'beta_lambda = (3*g_D**4 - 2*y_psi**4)/(8*pi**2)' was correct for beta_lambda but the parameter name was 'lambda_Phi'. Furthermore, the CW-fixed quartic lambda_Phi and beta_lambda are related by lambda_Phi = beta_lambda/4 (from V_tree = lambda_Phi*chi^4/4 and V_CW = beta_lambda*chi^4/16*(log(...))).",
+      "applied_fix": "Separated 'lambda_Phi' and 'beta_lambda' into two distinct dependent parameters with correct relations. lambda_Phi relation: 'lambda_Phi = (3*g_D**4 - 2*y_psi**4)/(32*pi**2)' (from lambda_Phi = beta_lambda/4). beta_lambda relation: 'beta_lambda = (3*g_D**4 - 2*y_psi**4)/(8*pi**2)'.",
+      "justification": "Clarity and correctness: lambda_Phi and beta_lambda are distinct quantities. The original handoff had the relation defining beta_lambda under the key lambda_Phi. The CW-fixed quartic coupling is lambda_Phi, related to beta_lambda by the factor 1/4 from the tree-level potential normalization.",
+      "was_minimal": true
+    },
+    {
+      "original_issue": "The supercooling condition g_D > y_psi/sqrt(2) (from Feng-Zhang: m_A' > m_psi for FOPT viability) was not explicitly documented in the parameter notes, only implicitly mentioned in the librarian's recommended next steps.",
+      "applied_fix": "Added the supercooling condition to the y_psi parameter notes: 'constrained by CW condition beta_lambda > 0 (y_psi < (3/2)^(1/4)*g_D) and supercooling condition g_D > y_psi/sqrt(2) for FOPT viability'.",
+      "justification": "Important physical constraint for FOPT-PTA branch. The mass hierarchy m_A' > m_psi suppresses fermion backreaction and helps supercooling. This is a known result from the literature (Feng-Zhang 2602.14866) and should be documented.",
+      "was_minimal": true
+    }
+  ],
+  "red_flags": [],
+  "warnings": [
+    {
+      "item": "gb_scalar = sqrt(beta_lambda) is classified as dependent but backend sets it to 0",
+      "severity": "info",
+      "notes": "The backend explicitly sets boson_gbs['scalar'] = 0, meaning scalar loop contributions are neglected. The dependent parameter gb_scalar is documentation-only. This is consistent with the pipeline documentation which states scalar contributions are subleading."
+    },
+    {
+      "item": "Perturbativity of y_psi for low g_D values",
+      "severity": "info",
+      "notes": "At low g_D values (e.g., g_D=0.1), the CW condition restricts y_psi < 0.111, which is within the scanned range but eliminates most of the parameter space. The y_psi range [0.0, 1.0] is safe because the scan will naturally reject points failing beta_lambda > 0."
+    },
+    {
+      "item": "Fermion masses in CW potential",
+      "severity": "info",
+      "notes": "Fermions contribute negatively to beta_lambda (suppressing the CW barrier), which may weaken the first-order phase transition. The supercooling condition g_D > y_psi/sqrt(2) partially mitigates this."
+    }
+  ],
+  "validation_ssb_pattern": [
+    {
+      "item": "SSB pattern: U(1)_D -> nothing",
+      "status": "ok",
+      "notes": "Complex scalar Phi acquires vev, fully breaking U(1)_D. No residual gauge symmetry. Consistent with vev convention and particle content."
+    }
+  ],
+  "validation_vev_convention": [
+    {
+      "item": "Phi = (chi + v)/sqrt(2) in unitary gauge",
+      "status": "ok",
+      "notes": "Standard convention for SSB in U(1) theory. Radial mode chi has minimum at chi = v. Goldstone theta eaten by A'_mu. Consistent with SSB pattern."
+    }
+  ],
+  "validation_tree_level_potential": [
+    {
+      "item": "V_tree = lambda_Phi * chi**4 / 4",
+      "status": "ok",
+      "notes": "Correct expression after substituting Phi = chi/sqrt(2) into lambda_Phi*(Phi*Phi)^2. Scale invariant. No mass term."
+    }
+  ],
+  "validation_field_dependent_masses": [
+    {
+      "item": "m2_Aprime = g_D**2 * chi**2",
+      "status": "ok",
+      "notes": "From scalar kinetic term |D_mu Phi|^2 with Phi = chi/sqrt(2). DOF = 3 (massive gauge boson). Correct."
+    },
+    {
+      "item": "m2_chi = beta_lambda * chi**2",
+      "status": "ok",
+      "notes": "From CW effective potential curvature. DOF = 1 (real scalar). Correct."
+    },
+    {
+      "item": "m2_psi = y_psi**2 * chi**2 / 2",
+      "status": "ok",
+      "notes": "From Yukawa term y_psi*Phi*psi1_bar*psi2 with Phi = chi/sqrt(2). Matches m_psi = y_psi*chi/sqrt(2). DOF = 8 (two Dirac fermions). Correct."
+    }
+  ],
+  "validation_thermal_masses": [
+    {
+      "item": "Aprime longitudinal thermal mass",
+      "status": "ok",
+      "notes": "Expression: (3*g_D**2 + 2*y_psi**2) * T**2 / 12. Matches backend g2sq*T^2/12 formula. Correct."
+    },
+    {
+      "item": "chi (scalar) thermal mass",
+      "status": "ok",
+      "notes": "Expression: (3*g_D**2 + 2*y_psi**2) * T**2 / 12. Matches backend g2sq*T^2/12 formula. Correct."
+    },
+    {
+      "item": "Goldstone theta thermal mass (fixed)",
+      "status": "fixed",
+      "notes": "Original: g_D**2 * T**2 / 3. Fixed to (3*g_D**2 + 2*y_psi**2) * T**2 / 12 to match combined backend formula and ensure physical consistency with radial mode."
+    }
+  ],
+  "validation_backend_compatibility": [
+    {
+      "item": "Backend: semianalytic_pipeline.py",
+      "status": "ok",
+      "notes": "Model satisfies single-field conformal criterion. Mapping: boson_gbs={'gauge': g_D, 'scalar': 0}, boson_dofs={'gauge': 3, 'scalar': 1}, fermion_gfs={'psi': y_psi/sqrt(2)}, fermion_dofs={'psi': 8}. Beta_lambda = (3*g_D^4 - 2*y_psi^4)/(8*pi^2). All expressions Python/SymPy compatible."
+    },
+    {
+      "item": "CW relation: beta_lambda = (3*g_D^4 - 2*y_psi^4)/(8*pi^2)",
+      "status": "ok",
+      "notes": "Verified: sum_B n_B gb^4 = 3*g_D^4, sum_F n_F gf^4 = 8*(y_psi^2/2)^2 = 2*y_psi^4. Result: beta_lambda = (3*g_D^4 - 2*y_psi^4)/(8*pi^2). Correct."
+    },
+    {
+      "item": "M_chi^2 = beta_lambda * vev^2 relation",
+      "status": "ok",
+      "notes": "Correct: CW-generated scalar mass squared at minimum equals beta_lambda * v^2."
+    }
+  ]
+}

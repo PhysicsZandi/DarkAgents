@@ -1,0 +1,198 @@
+{
+  "model": "u1conformal",
+  "agent": "critic-agent",
+  "run_status": "warning",
+  "model_source": "user",
+  "branch": "fopt-pta",
+  "upstream_handoffs": [
+    "output/u1conformal/handoff_librarian_preliminary.json"
+  ],
+  "validation_gauge_groups": [
+    {
+      "item": "U(1)_D dark gauge symmetry",
+      "status": "ok",
+      "notes": "Abelian dark U(1)_D with a single complex scalar Phi of charge +1 and gauge boson A'. The covariant derivative D_mu = d_mu - i g_D A'_mu is correct for a charge-1 scalar and |D_mu Phi|^2 is gauge invariant. SM gauge invariance is untouched at the level of the dark Lagrangian."
+    },
+    {
+      "item": "Gauge anomalies",
+      "status": "ok",
+      "notes": "No new chiral fermions are introduced; the only new matter is a complex scalar (bosonic). Hence there are no new [U(1)_D]^3 cubic anomalies, no mixed U(1)_D-gravitational anomalies, and no mixed U(1)_D-SM anomalies. Anomaly cancellation is trivially satisfied."
+    }
+  ],
+  "validation_global_symmetries": [
+    {
+      "item": "Classical scale invariance (conformal symmetry)",
+      "status": "ok",
+      "notes": "The tree Lagrangian contains no dimensionful parameter (no tree mass term, only the marginal quartic and gauge couplings), so it is classically scale invariant. Scale invariance is broken radiatively (Coleman-Weinberg dimensional transmutation) and anomalously by the trace anomaly, as required for the CW mechanism."
+    },
+    {
+      "item": "Global U(1) / Goldstone",
+      "status": "ok",
+      "notes": "The U(1)_D is gauged, so the phase of Phi is a gauge degree of freedom, not a physical global symmetry. The Goldstone mode G is unphysical (gauge artifact) and is eaten by A'. No physical massless Goldstone remains."
+    }
+  ],
+  "validation_particle_content": [
+    {
+      "item": "Complex scalar Phi (scalon/dark Higgs)",
+      "status": "ok",
+      "notes": "Spin 0, U(1)_D charge +1, complex (2 real dof: radial rho + Goldstone G). After SSB rho is the physical massive radial mode (the scalon); G is eaten."
+    },
+    {
+      "item": "Dark gauge boson A'",
+      "status": "ok",
+      "notes": "Spin 1, real vector. Massless before SSB (2 dof), massive after SSB (3 dof) by absorbing the Goldstone G."
+    }
+  ],
+  "validation_lagrangian_terms": [
+    {
+      "item": "|D_mu Phi|^2 kinetic + gauge term",
+      "status": "ok",
+      "notes": "Gauge invariant; generates the gauge-boson mass term (1/2) g_D^2 chi^2 A'_mu A'^mu after substituting the background. Consistent with m_A'^2 = g_D^2 chi^2."
+    },
+    {
+      "item": "-lambda_Phi |Phi|^4 quartic",
+      "status": "ok",
+      "notes": "Only allowed marginal scalar self-interaction consistent with U(1)_D and scale invariance. With Phi=(chi+rho+iG)/sqrt2, |Phi|^4 = chi^4/4 along the background, giving V_tree = lambda_Phi chi^4/4."
+    },
+    {
+      "item": "-(1/4) F'_munu F'^munu gauge kinetic",
+      "status": "ok",
+      "notes": "Standard Abelian field strength kinetic term, correctly normalized for a real vector."
+    },
+    {
+      "item": "Optional portal lambda_HPhi |H|^2 |Phi|^2",
+      "status": "warning",
+      "notes": "Gauge invariant and allowed. The user assumes it is negligible for PT/GW dynamics. This is consistent with the literature requirement that the Higgs portal must be extremely small (|lambda_HPhi| < 1e-10, arXiv:2501.11619) to preserve conformal supercooling; otherwise it would induce a tree-level mass term and break the classical scale invariance needed by the semianalytic backend. Acceptable as a stated assumption but must be propagated as a constraint downstream."
+    },
+    {
+      "item": "Optional kinetic mixing (epsilon/2) F'_munu F^munu",
+      "status": "warning",
+      "notes": "Gauge invariant. Assumed negligible for PT/GW dynamics. Relevant for thermalization (xi=1 assumption) and for collider/astro constraints; must be tracked by the constraint-agent."
+    }
+  ],
+  "validation_free_parameters": [
+    {
+      "item": "Independent scan parameters {v, g_D}",
+      "status": "ok",
+      "notes": "Two independent parameters (vev v and dark gauge coupling g_D) are correct for a minimal scale-invariant U(1)_D with CW breaking."
+    },
+    {
+      "item": "lambda_Phi classification",
+      "status": "ok",
+      "notes": "Correctly declared DEPENDENT, fixed by the CW minimization V_eff'(v)=0. Not scanned independently. Consistent with the semianalytic backend, which computes the CW-fixed quartic internally and must not receive it as input."
+    },
+    {
+      "item": "m_A'^2 = g_D^2 chi^2 and m_rho^2 = beta_lambda v^2",
+      "status": "ok",
+      "notes": "Both are dependent quantities. m_A'^2 = g_D^2 chi^2 verified from the vev convention (real-vector 1/2 factor accounted for). m_rho^2 = beta_lambda v^2 with beta_lambda = (1/8pi^2)(sum_b n_b g_b^4 - sum_f n_f g_f^4) = 3 g_D^4/(8pi^2), using n_b=3 (massive vector), g_b=m_A'/v=g_D, and no fermions. beta_lambda>0 so radiative symmetry breaking is realized. Numerically agrees with the model-independent CW form required by the backend."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "v": "Dark-sector vacuum expectation value (GeV). Scan parameter.",
+      "g_D": "U(1)_D gauge coupling. Scan parameter."
+    },
+    "dependent": {
+      "lambda_Phi": "Scalar quartic, fixed by CW minimization V_eff'(v)=0; computed internally by the backend, never scanned.",
+      "m_A_prime": "g_D * v (m_A'^2 = g_D^2 v^2).",
+      "m_rho": "sqrt(beta_lambda) * v with beta_lambda = 3 g_D^4/(8 pi^2).",
+      "beta_lambda": "(1/8pi^2)(sum_b n_b g_b^4 - sum_f n_f g_f^4) = 3 g_D^4/(8 pi^2)."
+    },
+    "fixed": {
+      "n_A_prime": "3 (massive vector dof)",
+      "g_b_A_prime": "m_A'/v = g_D",
+      "xi": "1 (T_dark = T_visible, dark dof added to g_* separately)",
+      "lambda_HPhi": "assumed ~0 for PT/GW dynamics (must remain << 1e-10 to preserve conformality)",
+      "epsilon": "assumed ~0 for PT/GW dynamics"
+    }
+  },
+  "validation_ssb_pattern": [
+    {
+      "item": "U(1)_D -> nothing (complete breaking)",
+      "status": "ok",
+      "notes": "Phi acquires <Phi> = chi/sqrt2 with chi != 0, fully breaking U(1)_D. dof bookkeeping: before SSB complex scalar (2) + massless vector (2) = 4; after SSB radial rho (1) + massive vector (3) = 4. Goldstone G eaten. Consistent with the vev convention and the unbroken (trivial) residual gauge group."
+    }
+  ],
+  "validation_vev_convention": [
+    {
+      "item": "Phi = (chi + rho + i G)/sqrt2",
+      "status": "ok",
+      "notes": "Standard convention. The 1/sqrt2 yields canonically normalized real fields rho, G and reproduces |Phi|^2 = (chi^2 + ...)/2 so that the gauge mass term carries the correct 1/2 for a real vector. Consistent with m_A'^2 = g_D^2 chi^2."
+    }
+  ],
+  "validation_tree_level_potential": [
+    {
+      "item": "V_tree(chi) = lambda_Phi chi^4/4",
+      "status": "warning",
+      "notes": "Correct functional form for a single-field scale-invariant potential with no tree mass term, compatible with the semianalytic backend. CLARIFICATION REQUESTED: at the renormalization scale mu=v the CW-renormalized lambda_Phi(v) is small/slightly negative (dimensional transmutation); the physical minimum at chi=v arises only from the full one-loop V_eff, not from V_tree alone. Please confirm that lambda_Phi is understood as the renormalized coupling at mu=v fixed by V_eff'(v)=0 (the backend handles this internally) and that no additional tree mass term is implied."
+    }
+  ],
+  "validation_field_dependent_masses": [
+    {
+      "item": "m_A'^2(chi) = g_D**2 * chi**2",
+      "status": "ok",
+      "notes": "SymPy-compatible. Derived from (1/2) g_D^2 chi^2 A'^2 with real-vector 1/2 factor. dof n_A' = 3."
+    },
+    {
+      "item": "m_rho^2(chi) (radial)",
+      "status": "ok",
+      "notes": "Physical radial mass at the vacuum is m_rho^2 = beta_lambda * v**2 = (3*g_D**4/(8*pi**2)) * v**2, radiatively generated. Tree-level field-dependent curvature m_rho_tree^2(chi) = 3*lambda_Phi*chi**2 with lambda_Phi CW-fixed; scalar/Goldstone contributions to V_eff are subdominant and computed internally by the backend."
+    },
+    {
+      "item": "m_G^2(chi) (Goldstone)",
+      "status": "ok",
+      "notes": "Unphysical/gauge-dependent (vanishes at the true vacuum in Landau gauge). Eaten by A'. Subdominant contribution, handled internally; not an independent physical state."
+    }
+  ],
+  "validation_thermal_masses": [
+    {
+      "item": "Debye/thermal mass of A' (longitudinal)",
+      "status": "warning",
+      "notes": "The user prompt does NOT explicitly specify thermal (Debye) masses. The semianalytic backend (SemiAnalyticPipeline) reconstructs the thermal contributions internally from the high-T expansion given the mass-over-vev ratios and dof, and the dominant thermal barrier comes from the A' bosonic dof. CLARIFICATION/NOTE: confirm reliance on the backend's internal high-T treatment; the leading Debye mass scales as Pi_A' ~ (g_D^2/3) T^2 for the longitudinal A'. No daisy resummation / RG running is included in the current backend (renormalization scale = vev)."
+    }
+  ],
+  "validation_backend_compatibility": [
+    {
+      "item": "semianalytic_pipeline.py applicability",
+      "status": "ok",
+      "notes": "Model is a classically scale-invariant SINGLE-field model with all masses proportional to one scalar vev and NO explicit tree mass term. This exactly matches the selection rule for backend/semianalytic_pipeline.py. Input: boson_gbs={A':g_D}, boson_dofs={A':3}, empty fermion dicts; chi0=v in GeV. Scalar/Goldstone excluded from input (computed internally). CW-fixed quartic must NOT be passed in."
+    },
+    {
+      "item": "Supercooling regime validity",
+      "status": "ok",
+      "notes": "Strong supercooling is the intended regime; the high-T (small field/T) expansion remains valid because the thermal barrier sits at small chi/T. Gaussian percolation approximation is valid in all regimes per the backend docs."
+    }
+  ],
+  "validation_assumptions": [
+    {
+      "item": "xi = T_dark/T_visible = 1",
+      "status": "warning",
+      "notes": "Common-temperature assumption. Requires sufficient thermal contact (e.g. via portal/kinetic mixing) between dark and visible sectors, which is in mild tension with the assumed smallness of lambda_HPhi and epsilon. The MeV-scale reheating is also constrained by Neff/BBN. Track downstream."
+    },
+    {
+      "item": "Portal and kinetic mixing negligible for PT/GW",
+      "status": "warning",
+      "notes": "Acceptable for the FOPT/GW computation but constrains the parameter space; lambda_HPhi must stay << 1e-10 to preserve conformality. Relevant for constraint-agent."
+    },
+    {
+      "item": "Gauge dependence of CW+thermal effective potential",
+      "status": "warning",
+      "notes": "Order-of-magnitude theory uncertainty on the GW spectrum from gauge dependence (arXiv:1707.06765, 1707; gauge-independent methods in 2602.14866). The backend uses a fixed gauge; document this as a theory uncertainty."
+    }
+  ],
+  "authoritative_model_file": "output/u1conformal/model.md",
+  "repair_records": [],
+  "red_flags": [],
+  "warnings": [
+    "Thermal/Debye masses not explicitly specified by the user; relies on the backend's internal high-T treatment (Pi_A' ~ (g_D^2/3) T^2). Confirm acceptable.",
+    "V_tree = lambda_Phi chi^4/4 is physically meaningful only with lambda_Phi as the CW-renormalized coupling at mu=v fixed by V_eff'(v)=0; confirm no implicit tree mass term.",
+    "xi=1 common-temperature assumption is in mild tension with negligible portal/kinetic mixing; affects g_* and Neff/BBN.",
+    "Higgs portal must remain << 1e-10 to preserve classical conformality required by the single-field semianalytic backend.",
+    "Gauge dependence of the CW+thermal effective potential is an order-of-magnitude theory uncertainty on the GW spectrum; backend uses a fixed gauge with no RG running or daisy resummation."
+  ],
+  "clarification_requests": [
+    "Confirm that lambda_Phi denotes the renormalized quartic at scale mu=v fixed by the CW minimization V_eff'(v)=0 (handled internally by the backend), with NO additional tree-level mass term, so the model stays strictly single-field scale-invariant.",
+    "Confirm that thermal (Debye) masses are to be supplied by the backend's internal high-T expansion (no externally specified Pi terms), and that daisy resummation / RG running being absent (renormalization scale = vev) is acceptable for the intended accuracy.",
+    "Confirm the intended treatment of xi=1 given that the portal and kinetic mixing are assumed negligible: how are the two sectors kept in thermal equilibrium, and which dark relativistic dof are added to g_*?"
+  ]
+}

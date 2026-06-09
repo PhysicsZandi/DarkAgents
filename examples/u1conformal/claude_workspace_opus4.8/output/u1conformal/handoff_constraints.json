@@ -1,0 +1,469 @@
+{
+  "model": "u1conformal",
+  "agent": "constraint-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-09",
+  "branch": "constraints",
+  "created_from": [
+    "output/u1conformal/handoff_pta.json",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/model.md"
+  ],
+  "commands": [
+    "WebSearch: dark photon kinetic mixing constraints sub-GeV beam dump NA64 E137 invisible decay 2024 review",
+    "WebSearch: dark sector Delta Neff BBN supercooled phase transition MeV reheating PTA NANOGrav xi=1",
+    "WebSearch: SN1987A dark photon bound 100-700 MeV kinetic mixing epsilon excluded band trapping free-streaming",
+    "WebFetch: https://cds.cern.ch/record/2956361/files/2603.08430.pdf (Dark Photon 2026 Perspective)",
+    "WebFetch: https://arxiv.org/html/2502.19478 (Balan et al., same conformal dark U(1) + sub-GeV DM)",
+    "WebFetch: https://arxiv.org/abs/2501.11619 (Goncalves et al., conformal dark sector NANOGrav)",
+    "WebFetch: https://arxiv.org/abs/1611.03864 (SN1987A dark photon, Chang/Essig/McDermott)"
+  ],
+  "files_read": [
+    "output/u1conformal/handoff_pta.json",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/model.md",
+    "docs/HANDOFF_CONSTRAINTS_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/u1conformal/handoff_constraints.json",
+    "output/u1conformal/constraints_report.md",
+    "output/u1conformal/constraints_table.csv"
+  ],
+  "warnings": [
+    "The PTA/FOPT handoffs fix epsilon~0 and lambda_HPhi~0 for the GW computation, but the xi=1 (T_dark=T_vis) thermalization assumption that enters g_* and the GW redshift REQUIRES a nonzero portal (kinetic mixing or Higgs portal). epsilon and lambda_HPhi are therefore NOT free to be exactly zero on the cosmology side; this is an internal tension flagged by the critic and must be resolved by computing a thermalization/decay window for epsilon.",
+    "No predicted value of epsilon, no dark photon decay width/lifetime, no Delta Neff, and no relic/freeze-out yield are present in any upstream handoff. Most cosmological and laboratory constraints therefore CANNOT yet be applied to a point; they are mapped to required missing calculations.",
+    "Dark photon mass in the 1-sigma region is m_A' ~ 0.32-0.67 GeV, which is ABOVE the SN1987A energy-loss reach (m_A' < ~0.1 GeV, 1611.03864); SN1987A is therefore not applicable to the preferred-region dark photon.",
+    "Quantitative epsilon-vs-mass bounds quoted from the 2026 dark-photon review (2603.08430) were read from a model summary of the PDF, not from a numerical table; treat the epsilon numbers as order-of-magnitude until cross-checked against darkcast/the published exclusion plots."
+  ],
+  "errors": [],
+  "approximations": [
+    "Visible-decay collider/beam-dump epsilon bounds at 0.3-0.7 GeV taken as order-of-magnitude bands (epsilon ~ 1e-3 down to ~1e-5) from the 2026 dark-photon review; not recast onto the exact model decay assumptions.",
+    "Dark Higgs (scalon) decay width formula and lifetime example (tau_phi ~ 2500 s at kappa=1e-4) taken from 2502.19478 for nearby parameters; not recomputed for the exact 1-sigma point.",
+    "BBN reheating bound Treh > ~3 MeV adopted as the standard MeV-reheating limit (2502.19478, AlterBBN); the preferred-region Treh ~ 60-100 MeV comfortably exceeds it."
+  ],
+  "analysis_mode": "ptarcade_1sigma",
+  "input_region": {
+    "source": "ptarcade_1sigma",
+    "parameters": {
+      "g_D": {"low": 0.5084811487246946, "high": 0.5460260823780715, "map": 0.5280166512106359},
+      "log10_v_GeV": {"low": -0.21382461107941222, "high": 0.09084385239772558, "map": 0.03800649895932868},
+      "v_GeV": {"low": 0.6116, "high": 1.2326, "map": 1.0915}
+    },
+    "derived_masses": {
+      "m_A_prime_GeV": {"formula": "g_D*v", "low": 0.311, "high": 0.673, "map": 0.576, "note": "GeV-scale dark photon"},
+      "m_rho_scalon_GeV": {"formula": "sqrt(3 g_D^4/(8 pi^2))*v", "low": 0.0107, "high": 0.0244, "map": 0.0211, "note": "light scalon; coeff sqrt(3 g_D^4/(8 pi^2)) ~ 0.0175-0.0193 over the g_D band"},
+      "Treh_GeV": {"low": 0.06, "high": 0.10, "note": "reheating temperature from FOPT handoff in the overlapping v,g_D window"}
+    },
+    "notes": [
+      "Independent params v and g_D from PTArcade NG15 ceffyl 68% credible region (handoff_pta.json bayes_estimates.credible_regions.sigma_1).",
+      "Dark sector relativistic dof at the transition: A' (3) + scalon rho (1); xi=1 assumed.",
+      "epsilon (kinetic mixing) and lambda_HPhi (Higgs portal) are fixed ~0 for the GW dynamics but must be nonzero for thermalization/decay (cosmology side)."
+    ]
+  },
+  "constraint_summary": {
+    "total_constraints_considered": 12,
+    "directly_testable": 1,
+    "approximately_testable": 2,
+    "requires_recast": 3,
+    "requires_new_backend": 4,
+    "not_applicable": 2
+  },
+  "constraints": [
+    {
+      "id": "C01",
+      "name": "BBN bound on MeV-scale reheating temperature",
+      "category": "BBN",
+      "description": "A FOPT completing near the MeV scale must reheat the SM plasma above the neutrino-decoupling / BBN temperature so that SM neutrinos re-equilibrate and light-element abundances are preserved. Standard conservative limit Treh > ~3 MeV (model-dependent ~1-4 MeV).",
+      "applicability_class": "direct",
+      "constraint_applied": true,
+      "affected_particles": ["dark sector (reheating)", "A'", "rho"],
+      "mass_range": {},
+      "coupling_range": {},
+      "observable": "Treh",
+      "required_inputs": ["Treh"],
+      "required_observables": ["Treh"],
+      "available_observables": ["Treh (handoff_fopt.json, handoff_pta benchmarks)"],
+      "missing_observables": [],
+      "units": {"Treh": "GeV", "bound": "MeV"},
+      "conventions": {"Treh": "reheating temperature after FOPT completion (visible-sector if entropy is shared)"},
+      "applicability": "Treh ~ 0.06-0.10 GeV (60-100 MeV) across the 1-sigma region comfortably exceeds the ~3 MeV BBN floor; the preferred region is NOT excluded by this bound.",
+      "tested_subregion": {"Treh_GeV": [0.06, 0.10], "verdict": "allowed"},
+      "applicability_notes": [
+        "Caveat: the >3 MeV floor assumes the released latent heat reaches the SM bath; in a fully secluded sector with epsilon~0 the SM is not reheated and the bound application changes. Whether SM reheating occurs depends on the (currently unspecified) portal.",
+        "Treh in this model is in GeV; bound quoted in MeV. Conversion explicit: 0.06 GeV = 60 MeV >> 3 MeV."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan, Bringmann, Kahlhoefer, Matuszak, Tasillo",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C02",
+      "name": "Delta Neff from dark radiation (CMB + BBN)",
+      "category": "Neff",
+      "description": "A thermalized dark sector (xi=1) with extra relativistic dof (A':3, scalon:1) contributes Delta Neff. Planck+BAO require Neff = 2.99 +/- 0.17, i.e. Delta Neff <~ 0.3-0.4. The contribution depends on when the dark dof become non-relativistic relative to neutrino decoupling and on whether the dark entropy is transferred to neutrinos/photons via a portal.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["A'", "rho"],
+      "mass_range": {"m_A_prime_GeV": [0.311, 0.673], "m_rho_GeV": [0.0107, 0.0244]},
+      "coupling_range": {"xi": 1},
+      "observable": "Delta Neff",
+      "required_inputs": ["xi", "dark dof spectrum (m_A', m_rho)", "Treh", "portal (epsilon or lambda_HPhi) for entropy transfer", "decoupling temperature of dark sector"],
+      "required_observables": ["Delta Neff", "dark-sector decoupling temperature T_dec", "entropy ratio at BBN/CMB"],
+      "available_observables": ["xi=1 (assumption)", "m_A', m_rho", "Treh"],
+      "missing_observables": ["Delta Neff", "T_dec", "post-decoupling dark-to-visible entropy ratio"],
+      "units": {"Delta Neff": "dimensionless", "Planck bound": "Neff=2.99+/-0.17"},
+      "conventions": {"Delta Neff": "extra effective neutrino species at CMB; relate to dark T ratio via 7/8(4/11)^(4/3) normalization"},
+      "applicability": "Potentially the most constraining bound on the xi=1 assumption. A fully thermalized dark photon+scalon decoupling while relativistic can give Delta Neff well above 0.3 unless the dark dof become non-relativistic and/or dump their entropy into the SM before neutrino decoupling. Cannot be applied without computing Delta Neff for the preferred region.",
+      "tested_subregion": {"note": "entire 1-sigma region pending Delta Neff computation"},
+      "applicability_notes": [
+        "m_A' ~ 0.3-0.7 GeV and m_rho ~ 11-24 MeV: A' is non-relativistic well before BBN, but the light scalon (~20 MeV) is near the neutrino-decoupling scale (~2 MeV) only marginally above it, so its late entropy injection / Delta Neff must be evaluated.",
+        "Whether the dark entropy heats neutrinos or photons (sign and size of Delta Neff) depends on the portal channel, which is unspecified."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan, Bringmann, Kahlhoefer, Matuszak, Tasillo",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C03",
+      "name": "Thermalization / dark-visible equilibrium (justification of xi=1)",
+      "category": "thermalization",
+      "description": "xi=1 (T_dark=T_vis) requires the dark and visible sectors to have been in thermal contact. With lambda_HPhi << 1e-10 (required by conformality) the only viable bridge is kinetic mixing epsilon. A minimum epsilon is needed for the dark photon to thermalize with the SM (Gamma > H) at the relevant temperature.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"m_A_prime_GeV": [0.311, 0.673]},
+      "coupling_range": {"epsilon_needed": "lower bound to be computed; literature window 1e-7 < epsilon < 1e-3 for nearby parameters (2502.19478)"},
+      "observable": "Gamma_thermalization / H at T ~ m_A'",
+      "required_inputs": ["epsilon", "m_A'", "g_D", "SM plasma temperature history"],
+      "required_observables": ["thermalization rate Gamma(epsilon) vs Hubble H", "minimum epsilon for xi=1"],
+      "available_observables": ["m_A'", "g_D", "Treh"],
+      "missing_observables": ["epsilon", "Gamma/H", "epsilon_min for thermal contact"],
+      "units": {"epsilon": "dimensionless mixing"},
+      "conventions": {"epsilon": "(epsilon/2) F'_munu F^munu kinetic-mixing normalization (model.md)"},
+      "applicability": "The xi=1 assumption that enters g_* and the GW redshift is not self-consistent at epsilon=0. A nonzero epsilon must be present; the minimum epsilon for thermalization must be computed and intersected with laboratory and SN bounds. This is an internal-consistency constraint, not an exclusion.",
+      "tested_subregion": {"note": "applies to whole region via the fixed xi=1 assumption"},
+      "applicability_notes": [
+        "Critic handoff explicitly flags the tension between xi=1 and negligible epsilon/lambda_HPhi.",
+        "Literature (2502.19478) uses kappa(=epsilon) in [1e-7, 1e-3] for thermalization + prompt A'->e+e- decay; this window must be checked against the visible-decay collider/beam-dump bounds (C04-C06)."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan, Bringmann, Kahlhoefer, Matuszak, Tasillo",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C04",
+      "name": "Visible-decay collider searches on dark photon (BaBar, KLOE, LHCb, Belle II)",
+      "category": "collider",
+      "description": "A GeV-scale dark photon mixing with the SM photon decays visibly (A'->e+e-, mu+mu-, hadrons) and is searched for in resonance/displaced-vertex modes. For m_A' ~ 0.3-0.7 GeV, prompt visible searches exclude roughly epsilon ~ 1e-3 down to ~few x 1e-4.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"m_A_prime_GeV": [0.311, 0.673]},
+      "coupling_range": {"epsilon_excluded_approx": [3e-4, 1e-2]},
+      "observable": "epsilon vs m_A' (visible BR-weighted production cross section)",
+      "required_inputs": ["epsilon", "m_A'", "BR(A'->visible)", "A' lifetime"],
+      "required_observables": ["predicted epsilon", "A' visible branching ratios", "A' decay length"],
+      "available_observables": ["m_A'"],
+      "missing_observables": ["epsilon", "BR(A'->ee/mumu/hadrons)", "A' lifetime"],
+      "units": {"epsilon": "dimensionless", "m_A'": "GeV"},
+      "conventions": {"epsilon": "standard hypercharge/photon kinetic mixing; production assumes A' couples to SM EM current with strength epsilon e"},
+      "applicability": "Applies only if A' decays visibly inside the detector (prompt), i.e. for the upper part of the thermalization epsilon window. Cannot be applied without the predicted epsilon and the visible/invisible branching split (A'->dark states is forbidden here since m_A' < 2 m_rho? check: m_A'~0.3-0.7 GeV vs 2 m_rho ~ 0.02-0.05 GeV, so A'->rho rho is OPEN -> invisible/dark decays compete).",
+      "tested_subregion": {"m_A_prime_GeV": [0.311, 0.673], "epsilon": "pending"},
+      "applicability_notes": [
+        "Crucially, 2 m_rho ~ 21-49 MeV << m_A' ~ 311-673 MeV, so the dark decay A'->rho+rho (or A'->dark states) is kinematically OPEN and can dominate, making A' largely INVISIBLE to visible-decay searches. The visible/invisible branching ratio must be computed before applying C04.",
+        "epsilon ranges are order-of-magnitude from 2603.08430; recast against darkcast needed."
+      ],
+      "source": {
+        "title": "The Dark Photon: a 2026 Perspective",
+        "arxiv_id": "2603.08430",
+        "authors": "Caputo, Essig",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C05",
+      "name": "Electron beam-dump constraints (E137, E141, E774, NA64-visible)",
+      "category": "beam_dump",
+      "description": "For small epsilon the dark photon is long-lived and can be produced in beam dumps and decay visibly downstream. E137/E141/E774 exclude a band of small epsilon (~1e-7 to ~1e-4) for sub-GeV masses, complementary to collider bounds.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"m_A_prime_GeV": [0.311, 0.673]},
+      "coupling_range": {"epsilon_excluded_approx": [1e-7, 1e-4]},
+      "observable": "epsilon vs m_A' for long-lived visibly-decaying A'",
+      "required_inputs": ["epsilon", "m_A'", "A' lifetime / decay length", "BR(A'->visible)"],
+      "required_observables": ["predicted epsilon", "A' lifetime", "visible branching ratio"],
+      "available_observables": ["m_A'"],
+      "missing_observables": ["epsilon", "A' lifetime", "BR(A'->ee)"],
+      "units": {"epsilon": "dimensionless", "m_A'": "GeV"},
+      "conventions": {"epsilon": "standard photon kinetic mixing; bound depends on decay length matching dump-to-detector geometry"},
+      "applicability": "Applies only in the small-epsilon, long-lived, visible-decay corner AND only if A'->visible has appreciable BR. Since A'->dark (rho rho) is open, the visible BR may be suppressed, weakening beam-dump reach. Cannot apply without epsilon and the branching split.",
+      "tested_subregion": {"m_A_prime_GeV": [0.311, 0.673], "epsilon": "pending"},
+      "applicability_notes": [
+        "Beam-dump bounds weaken substantially if A' decays invisibly to dark states (open here).",
+        "epsilon band is order-of-magnitude; recast needed."
+      ],
+      "source": {
+        "title": "Strong Constraints on Sub-GeV Dark Sectors from SLAC Beam Dump E137",
+        "arxiv_id": "1406.2698",
+        "authors": "Batell, Essig, Surujon",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C06",
+      "name": "Invisible / missing-energy dark photon searches (NA64-invisible, BaBar mono-photon)",
+      "category": "fixed_target",
+      "description": "If the dark photon decays predominantly to dark states (here A'->rho rho is open), missing-energy searches (NA64 invisible, BaBar single-photon) constrain epsilon as a function of m_A'. Typical reach epsilon ~ 1e-4 to 1e-3 for sub-GeV invisible A'.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"m_A_prime_GeV": [0.311, 0.673]},
+      "coupling_range": {"epsilon_excluded_approx": [1e-4, 1e-3]},
+      "observable": "epsilon vs m_A' for invisibly-decaying A'",
+      "required_inputs": ["epsilon", "m_A'", "BR(A'->invisible)"],
+      "required_observables": ["predicted epsilon", "BR(A'->dark)"],
+      "available_observables": ["m_A'"],
+      "missing_observables": ["epsilon", "BR(A'->rho rho / dark)"],
+      "units": {"epsilon": "dimensionless"},
+      "conventions": {"epsilon": "standard photon kinetic mixing; missing-energy bound assumes BR(A'->invisible)~1"},
+      "applicability": "Likely the most relevant collider-class bound IF A' is dominantly invisible (A'->rho rho open). Requires the predicted epsilon and the invisible branching ratio. Not yet applicable.",
+      "tested_subregion": {"m_A_prime_GeV": [0.311, 0.673], "epsilon": "pending"},
+      "applicability_notes": [
+        "Because 2 m_rho << m_A', the invisible (dark) channel is open; this is the more physically relevant collider category for this model rather than visible-decay searches.",
+        "rho itself eventually decays back to SM via the epsilon-induced loop, but on cosmological timescales, so it is detector-invisible."
+      ],
+      "source": {
+        "title": "The Dark Photon: a 2026 Perspective",
+        "arxiv_id": "2603.08430",
+        "authors": "Caputo, Essig",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C07",
+      "name": "SN1987A energy-loss bound on dark photon",
+      "category": "supernova",
+      "description": "Light dark photons produced in the SN1987A core can free-stream out and shorten the neutrino burst, excluding epsilon ~ 1e-10 to 1e-6 for m_A' below ~100 MeV.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"applicable_m_A_prime_GeV": [0.0, 0.1]},
+      "coupling_range": {"epsilon_band": [1e-10, 1e-6]},
+      "observable": "SN core energy-loss rate",
+      "required_inputs": ["m_A'", "epsilon"],
+      "required_observables": [],
+      "available_observables": ["m_A'"],
+      "missing_observables": [],
+      "units": {"m_A'": "GeV", "epsilon": "dimensionless"},
+      "conventions": {"epsilon": "standard photon kinetic mixing"},
+      "applicability": "NOT APPLICABLE: the preferred-region dark photon mass m_A' ~ 0.31-0.67 GeV lies ABOVE the SN1987A reach (m_A' < ~0.1 GeV). The SN core temperature (~30 MeV) cannot copiously produce a 0.3-0.7 GeV dark photon.",
+      "tested_subregion": {"m_A_prime_GeV": [0.311, 0.673], "verdict": "outside SN1987A mass reach"},
+      "applicability_notes": [
+        "1611.03864 explicitly limits its analysis to m_A' < ~100 MeV.",
+        "Do not apply SN1987A to this region from mass alone; it is out of the production-kinematics regime."
+      ],
+      "source": {
+        "title": "Revisiting Supernova 1987A Constraints on Dark Photons",
+        "arxiv_id": "1611.03864",
+        "authors": "Chang, Essig, McDermott",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C08",
+      "name": "Light scalon (dark Higgs) decay and late energy injection (BBN/CMB)",
+      "category": "BBN",
+      "description": "The scalon rho (m_rho ~ 11-24 MeV) decays only via epsilon-suppressed loops to SM fermions, with a long lifetime (e.g. tau_phi ~ 2500 s at kappa=1e-4 for nearby parameters). A long-lived MeV-scale relic that decays during/after BBN can inject electromagnetic/hadronic energy and dissociate light nuclei or distort the CMB.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["rho"],
+      "mass_range": {"m_rho_GeV": [0.0107, 0.0244]},
+      "coupling_range": {"epsilon": "pending"},
+      "observable": "scalon lifetime, abundance, decay-injection time",
+      "required_inputs": ["m_rho", "epsilon", "g_D", "rho abundance/yield", "decay channels"],
+      "required_observables": ["Gamma_rho (decay width)", "tau_rho", "rho relic yield Y_rho", "energy-injection epoch"],
+      "available_observables": ["m_rho"],
+      "missing_observables": ["Gamma_rho", "tau_rho", "Y_rho", "epsilon"],
+      "units": {"m_rho": "GeV", "tau": "s"},
+      "conventions": {"Gamma_rho_to_ff": "(27 e^4 kappa^4 g^2 m_phi/(128 pi^5))(m_f^2/m_A'^2) from 2502.19478"},
+      "applicability": "Potentially constraining: an MeV scalon with tau >> 1 s decaying electromagnetically can violate BBN/CMB energy-injection limits unless its abundance is tiny or it decays fast enough. Requires computing the scalon width, lifetime and freeze-out yield for the preferred region. m_rho < 2 m_e? No: m_rho ~ 11-24 MeV > 2 m_e (1.022 MeV), so rho->e+e- is open; rho->mu+mu- and hadrons closed.",
+      "tested_subregion": {"m_rho_GeV": [0.0107, 0.0244], "tau": "pending"},
+      "applicability_notes": [
+        "rho is the lightest dark state and, with epsilon~0, would be cosmologically stable -> overclosure / extra dark matter. With nonzero epsilon it decays to e+e-; the lifetime sets whether it injects energy during BBN (t~1-1e3 s) or recombination.",
+        "This couples directly to C02 (Delta Neff) and to the dark-matter relic question; the scalon abundance must be tracked."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan, Bringmann, Kahlhoefer, Matuszak, Tasillo",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C09",
+      "name": "Scalon / dark-state relic overabundance (secluded sector)",
+      "category": "indirect_detection",
+      "description": "In the strictly secluded limit (epsilon=0), the lightest dark state (scalon rho) is stable and its thermal relic abundance could overclose the Universe or exceed Omega_DM. Whether this is a constraint depends on the freeze-out/annihilation cross section (rho rho -> A' A' etc.).",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["rho", "A'"],
+      "mass_range": {"m_rho_GeV": [0.0107, 0.0244]},
+      "coupling_range": {"g_D": [0.508, 0.546]},
+      "observable": "relic abundance Omega h^2",
+      "required_inputs": ["m_rho", "m_A'", "g_D", "annihilation cross section", "epsilon (for late decay)"],
+      "required_observables": ["thermal relic yield", "<sigma v> for rho annihilation", "Omega_rho h^2"],
+      "available_observables": ["m_rho", "m_A'", "g_D"],
+      "missing_observables": ["<sigma v>", "Omega_rho h^2"],
+      "units": {"Omega h^2": "dimensionless"},
+      "conventions": {},
+      "applicability": "Cannot be applied without a relic-abundance calculation. If rho is stable (epsilon=0) it must not exceed Omega_DM h^2 ~ 0.12; if it decays (epsilon nonzero) C08 applies instead. The minimal DM-free model studied here has no dedicated DM candidate, so the scalon fate is an open cosmology question.",
+      "tested_subregion": {"note": "entire region pending relic calculation"},
+      "applicability_notes": [
+        "The user's model is the DM-free version of 2502.19478; without a DM fermion the scalon is the lightest dark state and its cosmological fate (stable relic vs decay) is unspecified.",
+        "Coupled to C03 (epsilon needed) and C08 (decay)."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan, Bringmann, Kahlhoefer, Matuszak, Tasillo",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C10",
+      "name": "Higgs portal coupling / conformality and Higgs invisible width",
+      "category": "collider",
+      "description": "The Higgs portal lambda_HPhi |H|^2|Phi|^2 must remain << 1e-10 to preserve classical scale invariance (avoid an induced tree mass term). Such a tiny coupling is far below any Higgs invisible-width or direct collider sensitivity, so the Higgs invisible-width bound is automatically satisfied.",
+      "applicability_class": "approximate",
+      "constraint_applied": true,
+      "affected_particles": ["Phi", "rho", "H (SM Higgs)"],
+      "mass_range": {},
+      "coupling_range": {"lambda_HPhi_required": "< 1e-10"},
+      "observable": "BR(h->invisible), induced scalar mass term",
+      "required_inputs": ["lambda_HPhi"],
+      "required_observables": ["lambda_HPhi (model assumption)"],
+      "available_observables": ["lambda_HPhi ~ 0 / < 1e-10 (model.md, critic)"],
+      "missing_observables": [],
+      "units": {"lambda_HPhi": "dimensionless"},
+      "conventions": {"portal_term": "lambda_HPhi |H|^2 |Phi|^2"},
+      "applicability": "The conformality requirement lambda_HPhi << 1e-10 is FAR stronger than any collider Higgs-portal bound (current BR(h->inv) < ~0.1 probes lambda_HPhi ~ O(0.01)). The model assumption therefore trivially satisfies the Higgs invisible-width constraint. The binding constraint here is theoretical (conformality), not experimental.",
+      "tested_subregion": {"lambda_HPhi": "< 1e-10", "verdict": "allowed and theory-required"},
+      "applicability_notes": [
+        "This is a self-consistency / theory constraint that the FOPT analysis already relies on; recorded for completeness.",
+        "If lambda_HPhi were the thermalization bridge instead of epsilon, it could not be (too small); hence epsilon is the required portal (see C03)."
+      ],
+      "source": {
+        "title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data",
+        "arxiv_id": "2501.11619",
+        "authors": "Goncalves, Marfatia, Morais, Pasechnik",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C11",
+      "name": "Perturbativity / theory bound on g_D and lambda_Phi",
+      "category": "theory",
+      "description": "Perturbative validity of the one-loop CW + thermal effective potential requires g_D, |lambda_Phi| sufficiently below the strong-coupling regime. The preferred g_D ~ 0.51-0.55 gives g_D^2/(4 pi) ~ 0.02, well within perturbativity.",
+      "applicability_class": "direct",
+      "constraint_applied": true,
+      "affected_particles": ["A'", "rho"],
+      "mass_range": {},
+      "coupling_range": {"g_D": [0.5084811487246946, 0.5460260823780715]},
+      "observable": "alpha_D = g_D^2/(4 pi), loop expansion parameter",
+      "required_inputs": ["g_D"],
+      "required_observables": ["g_D"],
+      "available_observables": ["g_D (PTArcade 1-sigma)"],
+      "missing_observables": [],
+      "units": {"g_D": "dimensionless"},
+      "conventions": {"alpha_D": "g_D^2/(4 pi)"},
+      "applicability": "g_D ~ 0.51-0.55 => alpha_D ~ 0.021-0.024 << 1. Perturbativity is satisfied across the entire 1-sigma region. NOT excluded.",
+      "tested_subregion": {"g_D": [0.508, 0.546], "verdict": "perturbative, allowed"},
+      "applicability_notes": [
+        "Separately, the GW spectrum carries an order-of-magnitude gauge-dependence theory uncertainty (1707.06765) that is NOT an exclusion but should be propagated; recorded in warnings of upstream handoffs."
+      ],
+      "source": {
+        "title": "On gauge dependence of gravitational waves from a FOPT in classical scale-invariant U(1)' models",
+        "arxiv_id": "1707.06765",
+        "authors": "Chiang, Senaha",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C12",
+      "name": "Dark photon direct detection (terrestrial)",
+      "category": "direct_detection",
+      "description": "Direct-detection / electron-recoil experiments (SENSEI, DAMIC-M, XENON) constrain kinetically-mixed dark photons mainly as a dark-matter candidate or via absorption. Here A' is unstable (decays to dark/SM states) and is not the relic DM, so absorption-DM limits do not apply.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"m_A_prime_GeV": [0.311, 0.673]},
+      "coupling_range": {},
+      "observable": "DM-electron / DM-nucleon scattering or A' absorption",
+      "required_inputs": ["A' relic abundance", "epsilon"],
+      "required_observables": [],
+      "available_observables": ["m_A'"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {},
+      "applicability": "NOT APPLICABLE: the dark photon in this model is a short-lived FOPT-sector mediator, not a relic dark-matter candidate, so dark-photon-DM direct-detection/absorption limits do not constrain it. (A separate scalon-relic question is covered by C09.)",
+      "tested_subregion": {"verdict": "not applicable - A' is not DM"},
+      "applicability_notes": [
+        "Do not apply DM direct-detection bounds from mass alone; the relic-abundance / stability assumptions are not met for A'."
+      ],
+      "source": {
+        "title": "The Dark Photon: a 2026 Perspective",
+        "arxiv_id": "2603.08430",
+        "authors": "Caputo, Essig",
+        "citation_verified": true
+      }
+    }
+  ],
+  "missing_calculations": [
+    {
+      "observable": "predicted/required kinetic mixing epsilon and minimum epsilon for xi=1 thermalization",
+      "needed_for_constraints": ["C03", "C04", "C05", "C06", "C08"],
+      "required_inputs": ["m_A'", "g_D", "SM plasma temperature history", "dark-visible scattering/decay rates"],
+      "suggested_backend_module": "new: dark_portal_thermalization.py (compute Gamma_thermal(epsilon,T) vs H(T); solve for epsilon_min giving xi=1)",
+      "validation_checks": ["Gamma/H > 1 at T~m_A' for epsilon>=epsilon_min", "consistency with the GW-side assumption that epsilon is negligible for the potential (epsilon^2 corrections << 1)"],
+      "priority": "high"
+    },
+    {
+      "observable": "dark photon decay width, lifetime and visible/invisible branching ratios (A'->e+e-, A'->rho rho/dark)",
+      "needed_for_constraints": ["C04", "C05", "C06", "C08"],
+      "required_inputs": ["m_A'", "m_rho", "epsilon", "g_D"],
+      "suggested_backend_module": "new: dark_photon_decay.py (partial widths to e+e-, hadrons, and dark rho rho; decay length)",
+      "validation_checks": ["sum of BR = 1", "A'->rho rho open since 2 m_rho << m_A'", "compare A' decay length to beam-dump geometry and to t_BBN"],
+      "priority": "high"
+    },
+    {
+      "observable": "Delta Neff from the thermalized dark sector at CMB and BBN",
+      "needed_for_constraints": ["C02"],
+      "required_inputs": ["xi", "m_A'", "m_rho", "dark-sector decoupling temperature", "entropy-transfer channel (epsilon)"],
+      "suggested_backend_module": "new: dark_Neff.py (track dark dof g_*dark(T), decoupling, entropy ratio; map to Delta Neff)",
+      "validation_checks": ["Delta Neff vs Planck Neff=2.99+/-0.17", "relativistic dof counting A':3 + rho:1", "compare to AlterBBN-style treatment in 2502.19478"],
+      "priority": "high"
+    },
+    {
+      "observable": "scalon (rho) relic yield, lifetime and BBN/CMB energy-injection",
+      "needed_for_constraints": ["C08", "C09"],
+      "required_inputs": ["m_rho", "m_A'", "g_D", "epsilon", "annihilation cross section rho rho -> A' A'"],
+      "suggested_backend_module": "new: scalon_relic_decay.py (freeze-out yield + epsilon-loop decay width to e+e-; injection epoch)",
+      "validation_checks": ["Omega_rho h^2 vs 0.12 if stable", "tau_rho vs t_BBN (~1-1e3 s) and t_rec", "use Gamma_phi->ff formula from 2502.19478"],
+      "priority": "high"
+    }
+  ]
+}

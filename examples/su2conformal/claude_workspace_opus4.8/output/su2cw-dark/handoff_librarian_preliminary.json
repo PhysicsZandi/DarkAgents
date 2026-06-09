@@ -1,0 +1,117 @@
+{
+  "model": "su2cw-dark",
+  "agent": "preliminary-librarian-agent",
+  "run_status": "ok",
+  "scan_mode": "preliminary_scan",
+  "papers": [
+    {
+      "arxiv_id": "2109.11558",
+      "title": "A first order dark SU(2)_D phase transition with vector dark matter in the light of NANOGrav 12.5 yr data",
+      "authors": ["Debasish Borah", "Arnab Dasgupta", "Sin Kyu Kang"],
+      "year": 2021,
+      "journal": "Phys. Rev. D 104, 063501 (2021)",
+      "relevance_score": 10,
+      "brief_description": "Dark SU(2)_D gauge extension with a single complex scalar doublet and classical conformal invariance (no bare mass term). Symmetry breaking via Coleman-Weinberg; the three massive SU(2)_D gauge bosons (Z_D) are vector dark matter. A sub-GeV supercooled FOPT produces nano-Hz gravitational waves fitting NANOGrav 12.5yr.",
+      "model_studied": "Classically conformal dark SU(2)_D with one complex scalar doublet, no fermions in the breaking sector, CW dimensional transmutation, vector dark matter Z_D. Effectively identical structure to su2cw-dark.",
+      "similarity_to_target": "Same model class: classically scale-invariant SU(2)_D, single complex doublet, CW radiative breaking, supercooled sub-GeV FOPT, NANOGrav PTA target. Convention M_ZD = g_D M/2 matches proposer m_W = g*chi/2 (vev <Phi> = M/sqrt(2)). Difference: NANOGrav 12.5yr (vs 15yr target); includes DM relic phenomenology not in su2cw-dark scope.",
+      "paper_classification": "same_model",
+      "metadata_only": false,
+      "experimental_constraints": ["NANOGrav 12.5yr 95% CL GW amplitude/slope", "vector dark matter relic abundance (non-thermal scalar-portal)"],
+      "observables": ["nano-Hz stochastic GW spectrum", "vector DM relic density"],
+      "benchmark_points": [
+        {"label": "Scenario 1", "g_D": 1.37, "M_ZD": "8.23 MeV", "vev_M": "derived from M_ZD = g_D M/2", "Tstar_Tn": "1.8 MeV", "alpha": 0.45, "beta_over_H": 143, "target": "NANOGrav 12.5yr 95% CL"},
+        {"label": "Scenario 2", "g_D": 1.37, "M_ZD": "817 keV", "Tstar_Tn": "190 keV", "alpha": 0.36, "beta_over_H": 151, "target": "NANOGrav 12.5yr 95% CL"}
+      ],
+      "assumptions": ["classical conformal invariance (no mu^2 term)", "CW one-loop effective potential", "supercooled sub-GeV transition", "moderate alpha ~ O(0.4) (not extreme runaway)"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2502.19478",
+      "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+      "authors": ["Sowmiya Balan", "Torsten Bringmann", "Felix Kahlhoefer", "Jonas Matuszak", "Carlo Tasillo"],
+      "year": 2025,
+      "journal": "JCAP 08 (2025) 062",
+      "relevance_score": 8,
+      "brief_description": "Classically conformal dark sector with a U(1)' gauge symmetry, dark Higgs Phi and dark fermions chi. CW dimensional transmutation generates all scales. Supercooled MeV-scale FOPT explains the NANOGrav 15yr nano-Hz GW signal while the dark fermion is sub-GeV dark matter.",
+      "model_studied": "Classically conformal dark U(1)' with dark Higgs and two left-handed fermions. m_A' = g v, m_phi = sqrt(3 lambda) v, m_chi = y v/sqrt(2). Coupled and secluded dark-sector benchmarks.",
+      "similarity_to_target": "Structurally similar: same conformal/CW supercooled-FOPT-for-NANOGrav-15yr philosophy, but Abelian U(1)' (not SU(2)_D) and includes fermionic DM. Gauge group and dof differ, so FOPT strength/beta_lambda differ; benchmarks adaptable, not direct. Useful for 15yr target and for FOPT parameter magnitudes (very large alpha, low Tp).",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": ["NANOGrav 15yr GW posterior", "sub-GeV DM relic/direct/indirect constraints", "Neff / BBN bounds on supercooling"],
+      "observables": ["nano-Hz stochastic GW spectrum (15yr)", "sub-GeV DM relic abundance"],
+      "benchmark_points": [
+        {"label": "Point A (coupled)", "g": 0.677, "y": 0.224, "vev": "173 MeV", "m_Aprime": "117 MeV", "m_phi": "36.3 MeV", "m_chi": "27.4 MeV", "Tp": "2.28 MeV", "alpha": 4700, "beta_over_H": 33.7, "target": "NANOGrav 15yr"},
+        {"label": "Point B (secluded)", "g": 0.601, "y": 0.234, "vev": "692 MeV", "m_Aprime": "416 MeV", "m_phi": "114 MeV", "m_chi": "115 MeV", "Tp": "1.21 MeV", "alpha": 9.48e6, "beta_over_H": 18.0, "target": "NANOGrav 15yr"}
+      ],
+      "assumptions": ["classical conformal invariance", "CW potential", "strong supercooling => very large alpha", "U(1)' not SU(2)"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2501.11619",
+      "title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data",
+      "authors": ["Joao Goncalves", "Danny Marfatia", "Antonio P. Morais", "Roman Pasechnik"],
+      "year": 2025,
+      "journal": "Phys. Lett. B 869 (2025) 139829",
+      "relevance_score": 6,
+      "brief_description": "Supercooled FOPTs in conformal dark U(1)' models proposed to explain the nano-Hz NANOGrav GW signal. Emphasizes supercooling and completion of the transition.",
+      "model_studied": "Conformal dark U(1)' sector with supercooled FOPT (abstract-level access only).",
+      "similarity_to_target": "Same target signal (NANOGrav nano-Hz) and same conformal/supercooled philosophy, but U(1)' rather than SU(2)_D. Confirms the landscape and supercooling subtleties (transition completion). Numerical benchmarks not extracted (metadata-only).",
+      "paper_classification": "same_target_signal_different_model",
+      "metadata_only": true,
+      "experimental_constraints": ["NANOGrav GW posterior"],
+      "observables": ["nano-Hz stochastic GW spectrum"],
+      "benchmark_points": [],
+      "assumptions": ["conformal dark sector", "strong supercooling", "transition-completion checks"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "1907.08899",
+      "title": "Gravitational waves from scale-invariant vector dark matter model: Probing below the neutrino-floor",
+      "authors": ["Amine Mohamadnejad"],
+      "year": 2020,
+      "journal": "Eur. Phys. J. C 80, 197 (2020)",
+      "relevance_score": 5,
+      "brief_description": "Scale-invariant SU(2) hidden-sector with a complex scalar doublet; CW breaking generates a scalon and a degenerate triplet of massive SU(2) vector dark matter. Strongly first-order EW-scale phase transition with GW signal in the LISA/eLISA mHz band.",
+      "model_studied": "Classically scale-invariant SU(2) dark gauge with a complex scalar doublet, CW dimensional transmutation, vector triplet DM. Two independent parameters (scale invariance).",
+      "similarity_to_target": "Same SU(2)+doublet+CW structure as su2cw-dark and useful for the effective potential / FOPT methodology (tree + CW + thermal + daisy). However the symmetry-breaking scale is electroweak (~TeV/100 GeV) so the GW peak is in the mHz LISA band, NOT the PTA nano-Hz band. Benchmarks are NOT usable for the PTA target; structure/methodology only.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": true,
+      "experimental_constraints": ["DM relic density", "direct detection (neutrino floor)", "LISA/eLISA GW sensitivity"],
+      "observables": ["mHz stochastic GW spectrum", "DM relic density", "DM-nucleon cross section"],
+      "benchmark_points": [],
+      "assumptions": ["classical scale invariance", "CW + thermal + daisy effective potential", "EW-scale (not PTA-scale) symmetry breaking"],
+      "citation_verified": true
+    }
+  ],
+  "searched_sources": ["arXiv", "INSPIRE-HEP (via web)", "JCAP/PRD/PLB/EPJC publisher pages", "NASA ADS"],
+  "novelty_verdict": "not_novel",
+  "novelty_notes": "The su2cw-dark model (classically conformal dark SU(2)_D, single complex scalar doublet, no fermions, CW dimensional transmutation, supercooled sub-GeV FOPT, vector DM) is essentially the model of Borah-Dasgupta-Kang arXiv:2109.11558, which already fit the NANOGrav 12.5yr signal. The conformal/supercooled-FOPT-for-NANOGrav idea has been extended to the 15yr data set in closely related U(1)' conformal models (2502.19478, 2501.11619). The novel element for the present task is targeting the NANOGrav 15yr signal with the SU(2)_D (non-Abelian) realization specifically; the SU(2)+doublet+CW structure itself is well established (1907.08899) but at the EW scale.",
+  "benchmark_hints": [
+    {
+      "source": "arXiv:2109.11558 (Borah, Dasgupta, Kang)",
+      "parameters": {"g_D": 1.37, "M_ZD_scenario1": "8.23 MeV", "M_ZD_scenario2": "817 keV", "Tstar_scenario1": "1.8 MeV", "Tstar_scenario2": "190 keV", "alpha_scenario1": 0.45, "alpha_scenario2": 0.36, "beta_over_H_scenario1": 143, "beta_over_H_scenario2": 151},
+      "confidence": "direct",
+      "conventions": {"vev": "<Phi> = M/sqrt(2)", "gauge_boson_mass": "M_ZD = g_D M/2 == proposer m_W = g*chi/2", "g_mapping": "g_D == proposer g", "vev_mapping": "M == proposer chi0 (in MeV here vs GeV range in proposer)"},
+      "notes": "Same model, NANOGrav 12.5yr. Implied chi0: M = 2 M_ZD/g_D ~ 12 MeV (scenario 1), ~1.2 MeV (scenario 2). Strong coupling g_D=1.37 near proposer upper edge (g<=1.5). alpha ~ O(0.4) is modest, not extreme runaway. Best direct anchor for the SU(2)_D realization; re-fit to 15yr posterior needed."
+    },
+    {
+      "source": "arXiv:2502.19478 (Balan et al.)",
+      "parameters": {"g": [0.601, 0.677], "vev": ["173 MeV", "692 MeV"], "Tp": ["1.21 MeV", "2.28 MeV"], "alpha": [4700, 9.48e6], "beta_over_H": [18.0, 33.7]},
+      "confidence": "adaptable",
+      "conventions": {"gauge_boson_mass": "m_A' = g v (Abelian U(1)', differs from SU(2) m_W = g v/2)", "model": "U(1)' + dark fermions, not SU(2)_D"},
+      "notes": "Targets NANOGrav 15yr directly. Shows the very-strong-supercooling regime (very large alpha, low beta/H, Tp ~ 1-2 MeV, vev O(100 MeV - 1 GeV)). Gauge group/dof differ from SU(2)_D so alpha/beta values are not transferable one-to-one, but they bracket the FOPT parameter magnitudes expected in the PTA band for conformal dark sectors."
+    }
+  ],
+  "constraint_summary": [],
+  "theory_uncertainties": [
+    "Supercooled conformal FOPTs raise transition-completion concerns (percolation/false-vacuum domination); flagged in 2501.11619 and 2502.19478.",
+    "High-T expansion validity in deep supercooling; backend uses high-T expansion (proposer approximation note).",
+    "Renormalization-scale dependence of the CW potential and the dependent quartic lambda."
+  ],
+  "recommended_next_steps": [
+    "Anchor FOPT validation on arXiv:2109.11558 (same SU(2)_D model) scenarios: g_D=1.37, chi0 ~ 1-12 MeV, alpha ~ 0.4, beta/H ~ 140-150, Tn ~ 0.2-2 MeV.",
+    "Use arXiv:2502.19478 to gauge the 15yr-targeted supercooling regime (Tp ~ 1-2 MeV, vev O(100 MeV)-O(1 GeV)) and check whether modest-alpha (2109.11558) vs extreme-alpha (2502.19478) better matches the 15yr posterior.",
+    "Mind the convention m_W = g*chi/2 (SU(2)) vs m_A' = g v (U(1)') when importing benchmarks.",
+    "Verify proposer chi0 range (1e-4 to 1e2 GeV) against PTA-band requirement: literature points sit at MeV-scale vev, i.e. chi0 ~ 1e-3 to 1e0 GeV, near the lower-middle of the proposer range."
+  ]
+}

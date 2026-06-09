@@ -1,0 +1,188 @@
+{
+  "model": "conformal-SU2",
+  "agent": "pta-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/conformal-SU2/handoff_model.json",
+    "output/conformal-SU2/handoff_librarian_preliminary.json",
+    "output/conformal-SU2/handoff_fopt.json"
+  ],
+  "commands": [
+    "ptarcade -m output/conformal-SU2/ptarcade_model.py -c output/conformal-SU2/ptarcade_config.py (smoke test, N=100)",
+    "ptarcade -m output/conformal-SU2/ptarcade_model.py -c output/conformal-SU2/ptarcade_config.py (production, N=100000)"
+  ],
+  "files_read": [
+    "output/conformal-SU2/handoff_model.json",
+    "output/conformal-SU2/handoff_librarian_preliminary.json",
+    "output/conformal-SU2/handoff_fopt.json",
+    "output/conformal-SU2/fopt_benchmarks.csv",
+    "docs/SPECTRUM.md",
+    "backend/pta_violin_windows.csv",
+    "backend/plot_violins.py",
+    "docs/PTARCADE.md"
+  ],
+  "files_written": [
+    "output/conformal-SU2/pta_spectrum.py",
+    "output/conformal-SU2/pta_scan.py",
+    "output/conformal-SU2/pta_benchmark_scan.csv",
+    "output/conformal-SU2/pta_benchmark_spectrum.pdf",
+    "output/conformal-SU2/ptarcade_model.py",
+    "output/conformal-SU2/ptarcade_config.py",
+    "output/conformal-SU2/ptarcade_plot.py",
+    "output/conformal-SU2/chains/",
+    "output/conformal-SU2/ptarcade_bayes.json",
+    "output/conformal-SU2/pta_posteriors.pdf",
+    "output/conformal-SU2/pta_ptarcade_spectrum.pdf",
+    "output/conformal-SU2/pta_report.md",
+    "output/conformal-SU2/handoff_pta.json"
+  ],
+  "warnings": [
+    "The MAP point (g=0.86, chi0=1.12 GeV) from the eternal-inflation-filtered run is well within the prior volume.",
+    "The PTArcade chain has only 7501 effective samples after thinning (N=100k sampled). Convergence could be improved with more chains or longer burn-in.",
+    "The dbf (dissipative bulk flow) spectrum template is used for all points, including those with moderate alpha~O(1-10) where its validity is less established.",
+    "A stable dark SU(2) sector contributes to Delta N_eff, which should be evaluated by constraint-agent."
+  ],
+  "eternal_inflation_checked": true,
+  "errors": [],
+  "approximations": [
+    "GW spectrum computed using the dbf (dissipative bulk flow) template (arXiv:2511.15687), validated for strong transitions with alpha >> 1",
+    "High-temperature (small-field) expansion of the one-loop finite-T effective potential",
+    "Gaussian approximation for false-vacuum fraction (arXiv:2602.02928)",
+    "CW mechanism at one loop; higher-order corrections neglected",
+    "PTArcade uses ceffyl mode with free spectrum modeling of the PTA common red-noise process"
+  ],
+  "template_choice": {
+    "selected_template": "dbf",
+    "alternative_templates_considered": ["higgsless"],
+    "reasoning": "The FOPT scan shows alpha values ranging from O(10^0) to O(10^8) across the viable parameter space. The higgsless template (arXiv:2209.04369) is validated for alpha up to ~0.5. For the strong transitions (alpha >> 1) that characterize CW-type models, the dbf template (arXiv:2511.15687) is designed. The dbf template accounts for dissipative effects in the fluid motion, which become important for very strong transitions with large alpha.",
+    "wall_velocity_assumption": "Derived from the FOPT pipeline (not fixed)",
+    "validity_range": "alpha > 0.1 (any strength), beta/H > 0",
+    "caveats": "For the weakest viable transitions (alpha ~ O(1-10)), the dbf template's validity is less established, though these points typically produce GW amplitudes too small to explain the PTA signal."
+  },
+  "violin_scan": {
+    "num_frequency_bins": 14,
+    "freq_range_nHz": [1.99, 29.58],
+    "total_points_evaluated": 1660,
+    "successful_points": 1346,
+    "eternal_inflation_excluded": 14,
+    "points_with_14_14": 7,
+    "points_with_13_14": 7,
+    "points_with_12_14": 10,
+    "best_scan_points": [
+      {
+        "g": 0.90,
+        "chi0_GeV": 0.5,
+        "alpha": 2.02e11,
+        "beta_H": 18.3,
+        "Tr_GeV": 0.046,
+        "score": "14/14"
+      },
+      {
+        "g": 1.00,
+        "chi0_GeV": 0.5,
+        "alpha": 5.85e6,
+        "beta_H": 28.8,
+        "Tr_GeV": 0.046,
+        "score": "14/14"
+      },
+      {
+        "g": 0.95,
+        "chi0_GeV": 0.5,
+        "alpha": 4.57e8,
+        "beta_H": 23.2,
+        "Tr_GeV": 0.044,
+        "score": "14/14"
+      },
+      {
+        "g": 1.00,
+        "chi0_GeV": 0.39,
+        "alpha": 5.07e6,
+        "beta_H": 29.2,
+        "score": "14/14"
+      },
+      {
+        "g": 0.95,
+        "chi0_GeV": 0.39,
+        "alpha": 3.91e8,
+        "beta_H": 23.6,
+        "score": "14/14"
+      },
+      {
+        "g": 0.90,
+        "chi0_GeV": 0.39,
+        "alpha": 1.81e11,
+        "beta_H": 18.4,
+        "score": "14/14"
+      },
+      {
+        "g": 1.05,
+        "chi0_GeV": 0.5,
+        "alpha": 2.23e5,
+        "beta_H": 35.1,
+        "score": "14/14"
+      }
+    ],
+    "viable_region": {
+      "g": [0.8, 2.3],
+      "chi0_GeV": [3e-5, 0.5]
+    }
+  },
+  "ptarcade_campaign": {
+    "status": "completed",
+    "data_set": "NG15",
+    "mode": "ceffyl",
+    "N_samples": 100000,
+    "effective_samples": 7501,
+    "acceptance_rate": 0.292,
+    "runtime_seconds": 1047.5,
+    "parameters": ["g", "log10_chi0"],
+    "priors": {
+      "g": "Uniform(0.5, 3.0)",
+      "log10_chi0": "Uniform(-5.0, 0.699)"
+    },
+    "eternal_inflation_filter": true
+  },
+  "posterior_results": {
+    "g": {
+      "mean": 0.883,
+      "std": 0.035,
+      "map": 0.863,
+      "sigma_1sigma": [0.852, 0.912],
+      "sigma_2sigma": [0.845, 0.981],
+      "sigma_3sigma": [0.842, 1.058]
+    },
+    "log10_chi0": {
+      "mean": -0.051,
+      "std": 0.172,
+      "map": 0.049,
+      "chi0_map_GeV": 1.12,
+      "sigma_1sigma": [-0.209, 0.103],
+      "sigma_2sigma": [-0.502, 0.178],
+      "sigma_3sigma": [-0.862, 0.232]
+    }
+  },
+  "map_spectrum_point": {
+    "g": 0.863,
+    "chi0_GeV": 1.12,
+    "log10_chi0": 0.049
+  },
+  "output_files": {
+    "benchmark_spectrum": "output/conformal-SU2/pta_benchmark_spectrum.pdf",
+    "posteriors": "output/conformal-SU2/conformal-SU2_posteriors.pdf",
+    "ptarcade_spectrum": "output/conformal-SU2/pta_ptarcade_spectrum.pdf",
+    "benchmark_scan": "output/conformal-SU2/pta_benchmark_scan.csv",
+    "bayes_json": "output/conformal-SU2/ptarcade_bayes.json",
+    "fopt_benchmarks": "output/conformal-SU2/fopt_benchmarks.csv",
+    "ptarcade_chains": "output/conformal-SU2/chains/"
+  },
+  "literature_comparison": {
+    "arXiv:2109.11558_BP1": {
+      "g": 1.37,
+      "inferred_chi0_GeV": 0.012,
+      "beta_H": "ours: 144, theirs: 143 (matched within 1%)",
+      "alpha": "ours: 15, theirs: 0.45 (different dof counting)"
+    }
+  }
+}

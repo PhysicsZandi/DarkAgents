@@ -1,0 +1,48 @@
+{
+  "bayes_est": {
+    "gD": {
+      "mean": 0.8836054462695611,
+      "std": 0.03534910242479358
+    },
+    "log10-vD": {
+      "mean": -0.05390840126703515,
+      "std": 0.17159915013967514
+    }
+  },
+  "map_est": {
+    "gD": 0.8631754917681774,
+    "log10-vD": 0.04454840660657564
+  },
+  "sigma_regions": {
+    "gD": {
+      "1sigma": {
+        "low": 0.8527916813042775,
+        "high": 0.9158656299072967
+      },
+      "2sigma": {
+        "low": 0.8454037817941346,
+        "high": 0.9826946719861296
+      },
+      "3sigma": {
+        "low": 0.842529052765022,
+        "high": 1.0535829931936984
+      }
+    },
+    "log10-vD": {
+      "1sigma": {
+        "low": -0.22173300849938934,
+        "high": 0.1004857616886799
+      },
+      "2sigma": {
+        "low": -0.48834097948963195,
+        "high": 0.18136033732807783
+      },
+      "3sigma": {
+        "low": -0.811982675106135,
+        "high": 0.22249489666512567
+      }
+    }
+  },
+  "chains_dir": "/Users/mattezandi/Desktop/code/DarkAgents/codex_workspace/output/minimal_conformal_su2_doublet/chains/minimal_conformal_su2_doublet",
+  "finite_samples": true
+}

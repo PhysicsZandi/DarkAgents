@@ -1,0 +1,25 @@
+Starting import from ./output/su2cw-dark/chains/np_model/
+Finished importing   output/su2cw-dark/chains/np_model in 0.02s
+----- Stats for sample #0-----
+No 1D k-bounds available for this sample
+
+Lower 68.0%-HPDI limit is reached for g = 0.8441934539651085
+Upper 68.0%-HPDI limit is reached for g = 0.8901379034635951
+Lower 95.0%-HPDI limit is reached for g = 0.8423288758300816
+Upper 95.0%-HPDI limit is reached for g = 0.9531888623764014
+Lower 99.0%-HPDI limit is reached for g = 0.8411881921910269
+Upper 99.0%-HPDI limit is reached for g = 1.001420520816325
+Lower 68.0%-HPDI limit is reached for log10-chi0 = -0.13081022588402536
+Upper 68.0%-HPDI limit is reached for log10-chi0 = 0.15279158092695733
+Lower 95.0%-HPDI limit is reached for log10-chi0 = -0.4033223650426404
+Upper 95.0%-HPDI limit is reached for log10-chi0 = 0.21059887887183626
+Lower 99.0%-HPDI limit is reached for log10-chi0 = -0.6199007056354766
+Upper 99.0%-HPDI limit is reached for log10-chi0 = 0.24670261298972518
+The Bayes estimator for g is 0.8830417914472374 +- 0.0351556548584405
+The Bayes estimator for log10-chi0 is -0.05069853665758791 +- 0.17298237992488902
+The maximum posterior value for g is 0.8656396092935766
+The maximum posterior value for log10-chi0 is 0.04990373237133092
+
+
+MAP: {'g': 0.8656396092935766, 'log10-chi0': 0.04990373237133092}
+Bayes: {'g': {'mean': 0.8830417914472374, 'std': 0.0351556548584405}, 'log10-chi0': {'mean': -0.05069853665758791, 'std': 0.17298237992488902}}

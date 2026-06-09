@@ -1,0 +1,561 @@
+{
+  "model": "conformal_u1_dark_fopt",
+  "agent": "prior-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-08",
+  "branch": "prior_audit",
+  "created_from": [
+    "output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    "output/conformal_u1_dark_fopt/handoff_critique.json",
+    "output/conformal_u1_dark_fopt/handoff_model.json",
+    "output/conformal_u1_dark_fopt/handoff_fopt.json",
+    "output/conformal_u1_dark_fopt/handoff_pta.json",
+    "output/conformal_u1_dark_fopt/handoff_constraints.json",
+    "output/conformal_u1_dark_fopt/ptarcade_bayes.json",
+    "output/conformal_u1_dark_fopt/fopt_benchmarks.csv",
+    "output/conformal_u1_dark_fopt/pta_benchmark_scan.csv",
+    "output/conformal_u1_dark_fopt/constraints_table.csv"
+  ],
+  "commands": [
+    "sed -n '1,220p' .codex/agents/prior-agent.md",
+    "sed -n '1,260p' .codex/skills/prior-audit/SKILL.md",
+    "sed -n '1,220p' docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md",
+    "sed -n '1,220p' docs/HANDOFF_SCHEMAS.md",
+    "jq upstream handoff JSON files and ptarcade_bayes.json",
+    "head upstream CSV files",
+    "jq validation of handoff_prior_audit.json"
+  ],
+  "files_read": [
+    ".codex/agents/prior-agent.md",
+    ".codex/skills/prior-audit/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md",
+    "output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    "output/conformal_u1_dark_fopt/handoff_critique.json",
+    "output/conformal_u1_dark_fopt/handoff_model.json",
+    "output/conformal_u1_dark_fopt/handoff_fopt.json",
+    "output/conformal_u1_dark_fopt/handoff_pta.json",
+    "output/conformal_u1_dark_fopt/handoff_constraints.json",
+    "output/conformal_u1_dark_fopt/ptarcade_bayes.json",
+    "output/conformal_u1_dark_fopt/fopt_benchmarks.csv",
+    "output/conformal_u1_dark_fopt/pta_benchmark_scan.csv",
+    "output/conformal_u1_dark_fopt/constraints_table.csv"
+  ],
+  "files_written": [
+    "output/conformal_u1_dark_fopt/prior_audit_report.md",
+    "output/conformal_u1_dark_fopt/prior_audit_table.csv",
+    "output/conformal_u1_dark_fopt/handoff_prior_audit.json"
+  ],
+  "warnings": [
+    "Several upstream handoffs are warning-status but usable.",
+    "No new physics calculations or scans were performed.",
+    "Highest-severity issues are uncontrolled because the current workflow has not computed thermal history, relic abundance, RG validity, or full supercooling completion diagnostics."
+  ],
+  "errors": [],
+  "approximations": [
+    "Severity rankings are interpretive audit classifications, not new physics exclusions.",
+    "Controlled=true means the workflow either enforces the assumption or records an explicit applicability limitation; it does not mean the assumption is physically validated.",
+    "Required followups include only unresolved items that materially affect interpretation."
+  ],
+  "uncertainty_summary": {
+    "total_items": 18,
+    "severity_distribution": {
+      "1": 0,
+      "2": 0,
+      "3": 2,
+      "4": 2,
+      "5": 2,
+      "6": 2,
+      "7": 5,
+      "8": 5,
+      "9": 0,
+      "10": 0
+    },
+    "controlled_distribution": {
+      "1": 0,
+      "2": 0,
+      "3": 2,
+      "4": 2,
+      "5": 2,
+      "6": 1,
+      "7": 1,
+      "8": 0,
+      "9": 0,
+      "10": 0
+    }
+  },
+  "upstream_statuses": [
+    {
+      "file": "output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+      "agent": "proposer-agent",
+      "status": "warning",
+      "note": "Usable proposal; no numerical FOPT/PTA claims."
+    },
+    {
+      "file": "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+      "agent": "preliminary-librarian-agent",
+      "status": "ok",
+      "note": "Literature benchmark mapping caveats are explicit."
+    },
+    {
+      "file": "output/conformal_u1_dark_fopt/handoff_critique.json",
+      "agent": "critic-agent",
+      "status": "warning",
+      "note": "No red flags; warnings remain for exact-zero portals, beta_lambda positivity, and backend approximations."
+    },
+    {
+      "file": "output/conformal_u1_dark_fopt/handoff_model.json",
+      "agent": "critic-agent",
+      "status": "warning",
+      "note": "Authoritative validated model with warnings."
+    },
+    {
+      "file": "output/conformal_u1_dark_fopt/handoff_fopt.json",
+      "agent": "fopt-agent",
+      "status": "ok",
+      "note": "Semianalytic FOPT scan executed."
+    },
+    {
+      "file": "output/conformal_u1_dark_fopt/handoff_pta.json",
+      "agent": "pta-agent",
+      "status": "warning",
+      "note": "PTArcade and benchmark outputs are usable with DBF-template and MAP-boundary caveats."
+    },
+    {
+      "file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "agent": "constraint-agent",
+      "status": "warning",
+      "note": "No non-PTA published constraint was applied as an exclusion; several constraints require new backend observables."
+    },
+    {
+      "file": "output/conformal_u1_dark_fopt/ptarcade_bayes.json",
+      "agent": "pta-agent",
+      "status": "ok",
+      "note": "Bayes summary present; MAP has y_D=0 boundary."
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "A01",
+      "kind": "assumption",
+      "category": "portal",
+      "description": "The backend fixes hypercharge-dark kinetic mixing exactly to epsilon=0, removing visible dark-photon production and decay channels from the analysis.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "constraint applicability",
+        "thermal history",
+        "laboratory limits",
+        "BBN/CMB interpretation"
+      ],
+      "required_solution": "Either justify exact epsilon=0 as a protected model assumption or add a nonzero-epsilon portal/decay/thermalization scan and recast visible and invisible dark-photon constraints.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_model.json",
+        "section": "parameter_basis.fixed",
+        "note": "epsilon is fixed to zero although kinetic mixing is symmetry-allowed."
+      }
+    },
+    {
+      "id": "A02",
+      "kind": "assumption",
+      "category": "portal",
+      "description": "The backend fixes the Higgs portal exactly to lambda_HP=0, removing scalar mixing, visible scalar decays, and SM thermal contact from the workflow.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "constraint applicability",
+        "thermal history",
+        "dark scalar lifetime",
+        "laboratory limits"
+      ],
+      "required_solution": "Either justify exact lambda_HP=0 as part of the model definition or implement portal-dependent scalar mixing, decay widths, and thermalization checks.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_model.json",
+        "section": "parameter_basis.fixed",
+        "note": "lambda_HP is fixed to zero although the operator is symmetry-allowed."
+      }
+    },
+    {
+      "id": "A03",
+      "kind": "warning",
+      "category": "PTArcade prior",
+      "description": "The PTArcade MAP estimate sits at the physical lower boundary y_D=0, so the posterior should not be interpreted as evidence for an interior Yukawa preference.",
+      "severity": 7,
+      "controlled": true,
+      "affected_outputs": [
+        "PTArcade MAP",
+        "posterior interpretation",
+        "mass and beta_lambda inference"
+      ],
+      "required_solution": "Report y_D as boundary-sensitive and rerun only if a different prior, one-sided interval treatment, or profile-likelihood boundary analysis is needed.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/ptarcade_bayes.json",
+        "section": "map_est",
+        "note": "map_est y_D is 0.0 while the prior lower bound is 0.0."
+      }
+    },
+    {
+      "id": "A04",
+      "kind": "prior",
+      "category": "PTArcade prior",
+      "description": "PTArcade uses a log-uniform prior for v_D over 10^-3.5 to 10 GeV and uniform priors for g_D and y_D; posterior summaries depend on this prior volume.",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": [
+        "PTArcade posterior",
+        "credible regions",
+        "MAP comparison"
+      ],
+      "required_solution": "Perform prior-sensitivity reruns only if quantitative model comparison or robust parameter inference is required.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_pta.json",
+        "section": "ptarcade_analysis.priors",
+        "note": "v_D sampled uniformly in log10_v_D; g_D and y_D sampled uniformly."
+      }
+    },
+    {
+      "id": "A05",
+      "kind": "warning",
+      "category": "physical mask",
+      "description": "The rectangular PTArcade 1-sigma region contains beta_lambda<0 corners, so rectangular mass ranges include unphysical Coleman-Weinberg points unless a beta_lambda>0 mask is enforced.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "1-sigma region interpretation",
+        "m_chi estimates",
+        "constraint-region mapping",
+        "Coleman-Weinberg validity"
+      ],
+      "required_solution": "Apply the beta_lambda>0 mask directly to posterior samples and quote masked credible regions instead of independent rectangular corners.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+        "section": "input_region.derived_masses.beta_lambda_corner_range",
+        "note": "The beta_lambda corner range includes a negative low value."
+      }
+    },
+    {
+      "id": "A06",
+      "kind": "approximation",
+      "category": "FOPT backend",
+      "description": "The FOPT calculation uses the semianalytic conformal single-field small-field/high-temperature polynomial backend rather than a full finite-temperature effective potential and bounce pipeline.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "alpha",
+        "beta/H",
+        "Tn",
+        "Tp",
+        "Treh",
+        "PTA spectrum"
+      ],
+      "required_solution": "Cross-check key posterior and benchmark points with a full finite-temperature potential and bounce/percolation calculation.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_fopt.json",
+        "section": "approximations",
+        "note": "Small-field/high-temperature semianalytic backend is explicitly listed."
+      }
+    },
+    {
+      "id": "A07",
+      "kind": "approximation",
+      "category": "percolation",
+      "description": "Percolation and completion are treated with an approximate backend diagnostic, while several accepted points are strongly supercooled with very large alpha.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "viability of strongest PTA points",
+        "Treh",
+        "false-vacuum completion",
+        "GW amplitude"
+      ],
+      "required_solution": "Implement robust completion, vacuum-domination, reheating, and wall-velocity diagnostics for the preferred region and 14/14 benchmark points.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+        "section": "constraints.C11",
+        "note": "Percolation and completion under strong supercooling is classified as approximate."
+      }
+    },
+    {
+      "id": "A08",
+      "kind": "caveat",
+      "category": "GW template",
+      "description": "The PTA analysis uses the DBF spectrum template as the closest supported template, but its validity is not strict for very strong or supercooled transitions.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "benchmark spectra",
+        "PTArcade likelihood",
+        "peak amplitude",
+        "spectral shape"
+      ],
+      "required_solution": "Compare against templates or simulations valid for runaway/supercooled transitions, or explicitly restrict interpretation to qualitative PTA compatibility.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_pta.json",
+        "section": "template_validity",
+        "note": "DBF template validity status is warning."
+      }
+    },
+    {
+      "id": "A09",
+      "kind": "limitation",
+      "category": "thermal history",
+      "description": "No BBN/CMB/Delta N_eff thermal-history calculation is present for the zero-portal hidden sector, including temperature ratio, decoupling, abundances, or lifetimes.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "BBN applicability",
+        "CMB Delta N_eff",
+        "thermalization",
+        "cosmological viability"
+      ],
+      "required_solution": "Add a thermal-history module computing dark-sector temperature ratio, decoupling, entropy transfer, abundances, and lifetimes through BBN and recombination.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+        "section": "missing_calculations",
+        "note": "thermal_history_neff.py and bbn_cmb_injection.py are listed as high-priority missing modules."
+      }
+    },
+    {
+      "id": "A10",
+      "kind": "limitation",
+      "category": "dark matter",
+      "description": "The workflow does not establish dark fermion stability or relic abundance, so dark-matter and CMB energy-injection interpretations remain unresolved.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "dark matter interpretation",
+        "CMB energy injection",
+        "relic abundance",
+        "constraint applicability"
+      ],
+      "required_solution": "Specify the stability symmetry and compute Boltzmann relic abundance, annihilation channels, and dark-sector temperature dependence.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+        "section": "constraints.C09",
+        "note": "Relic abundance requires a new backend."
+      }
+    },
+    {
+      "id": "A11",
+      "kind": "limitation",
+      "category": "self-interactions",
+      "description": "Velocity-dependent self-interaction constraints cannot be applied without a stable DM assignment, relic fraction, and transfer/viscosity cross sections.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "structure-formation constraints",
+        "SIDM interpretation",
+        "dark matter viability"
+      ],
+      "required_solution": "Compute self-interaction cross sections over dwarf, Milky Way, and cluster velocity scales after fixing DM identity and abundance.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+        "section": "constraints.C10",
+        "note": "Self-interaction bounds are recast_needed."
+      }
+    },
+    {
+      "id": "A12",
+      "kind": "limitation",
+      "category": "RG validity",
+      "description": "No RG running, Landau-pole scale, loop-expansion stability, or scale-variation calculation was performed for the Coleman-Weinberg model.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "Coleman-Weinberg validity",
+        "perturbativity",
+        "UV interpretation",
+        "beta_lambda stability"
+      ],
+      "required_solution": "Implement RG running and Landau-pole checks for g_D, y_D, and lambda_D over the quoted posterior region.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+        "section": "missing_calculations",
+        "note": "cw_rg_validity.py is listed as high priority."
+      }
+    },
+    {
+      "id": "A13",
+      "kind": "caveat",
+      "category": "literature mapping",
+      "description": "Literature benchmark mapping is approximate because source conventions differ in vector mass normalization, charge assignments, portals, kinetic mixing, Yukawa treatment, and RG scale.",
+      "severity": 6,
+      "controlled": true,
+      "affected_outputs": [
+        "benchmark seeds",
+        "novelty interpretation",
+        "parameter-range motivation"
+      ],
+      "required_solution": "Use benchmark points only as scan seeds unless each source model is translated into the target q_Phi=2, epsilon=0, lambda_HP=0 convention.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+        "section": "novelty_notes and benchmark_hints",
+        "note": "Convention and portal mismatches are repeatedly flagged."
+      }
+    },
+    {
+      "id": "A14",
+      "kind": "assumption",
+      "category": "model structure",
+      "description": "The FOPT is assumed to be controlled by a single radial Coleman-Weinberg order parameter, excluding multi-field portal dynamics or additional scalar directions.",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": [
+        "FOPT spectrum",
+        "backend compatibility",
+        "model scope"
+      ],
+      "required_solution": "No followup is required for the current branch unless portals or additional scalar fields are reintroduced.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_model.json",
+        "section": "assumptions",
+        "note": "Single radial background chi is part of the validated backend model."
+      }
+    },
+    {
+      "id": "A15",
+      "kind": "assumption",
+      "category": "fermion bookkeeping",
+      "description": "The backend compresses two degenerate Majorana Weyl eigenstates into one fermion species with dof=4; this is acceptable for FOPT bookkeeping but not a full dark-matter model.",
+      "severity": 4,
+      "controlled": true,
+      "affected_outputs": [
+        "FOPT backend",
+        "fermion mass interpretation",
+        "dark matter interpretation"
+      ],
+      "required_solution": "Retain the explicit two-Weyl-field interpretation in downstream reports and avoid calling the species a Dirac fermion without extra structure.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_critique.json",
+        "section": "validation_particle_content",
+        "note": "Critic-agent fixed and documented the bookkeeping convention."
+      }
+    },
+    {
+      "id": "A16",
+      "kind": "approximation",
+      "category": "PTA benchmark scoring",
+      "description": "Benchmark scoring uses tabulated PTA violin windows over 14 bins and a template-independent f_peak_est guide, not a full likelihood for every benchmark grid point.",
+      "severity": 4,
+      "controlled": true,
+      "affected_outputs": [
+        "benchmark ranking",
+        "PTA visual compatibility",
+        "best-point selection"
+      ],
+      "required_solution": "Use PTArcade likelihood outputs for quantitative inference; treat 14-bin benchmark scores as supporting diagnostics.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_pta.json",
+        "section": "approximations and benchmark_analysis",
+        "note": "Benchmark scoring uses pta_violin_windows.csv and DBF spectra."
+      }
+    },
+    {
+      "id": "A17",
+      "kind": "approximation",
+      "category": "thermal masses",
+      "description": "Explicit thermal-mass expressions in the model handoffs are placeholders and are not direct inputs to the semianalytic backend.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": [
+        "model documentation",
+        "backend input interpretation"
+      ],
+      "required_solution": "No immediate followup is required unless replacing the semianalytic backend with an explicit finite-temperature potential.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_model.json",
+        "section": "thermal_masses",
+        "note": "Thermal masses are marked analytic placeholder only."
+      }
+    },
+    {
+      "id": "A18",
+      "kind": "uncertainty",
+      "category": "chain diagnostics",
+      "description": "PTArcade completed N_samples=100000 but stored 10001 rows after thinning/storage; this is documented and not itself a failure.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": [
+        "posterior diagnostics",
+        "chain provenance"
+      ],
+      "required_solution": "No immediate followup is required unless a formal convergence diagnostic or independent rerun is requested.",
+      "source": {
+        "file": "output/conformal_u1_dark_fopt/handoff_pta.json",
+        "section": "warnings and chain_validation",
+        "note": "Stored rows are consistent with PTArcade storage/thinning."
+      }
+    }
+  ],
+  "required_followups": [
+    {
+      "id": "F01",
+      "priority": "high",
+      "description": "Apply a beta_lambda>0 mask to posterior samples and recompute physical credible regions and derived mass ranges.",
+      "blocked_by": [
+        "Access to final PTArcade posterior samples or chain parsing module"
+      ],
+      "suggested_action": "Create a masked posterior summary script for v_D, g_D, y_D, m_X, m_psi, m_chi, alpha, beta/H, and Treh."
+    },
+    {
+      "id": "F02",
+      "priority": "high",
+      "description": "Compute thermal history, BBN, CMB, and Delta N_eff observables for the exact-zero-portal hidden sector.",
+      "blocked_by": [
+        "No thermal-history backend",
+        "No initial dark-sector temperature-ratio assumption"
+      ],
+      "suggested_action": "Implement a thermal_history_neff.py module with decoupling, entropy transfer, species abundances, and BBN/recombination Delta N_eff checks."
+    },
+    {
+      "id": "F03",
+      "priority": "high",
+      "description": "Cross-check supercooled preferred points with robust percolation, completion, reheating, wall-velocity, and GW-template validity diagnostics.",
+      "blocked_by": [
+        "No full finite-temperature potential and bounce/percolation backend for this model"
+      ],
+      "suggested_action": "Run a full FOPT calculation for MAP, masked posterior representatives, and top 14/14 benchmark points."
+    },
+    {
+      "id": "F04",
+      "priority": "high",
+      "description": "Clarify whether epsilon=0 and lambda_HP=0 are exact protected model assumptions or backend conveniences.",
+      "blocked_by": [
+        "No symmetry or UV argument for exact-zero portals in upstream handoffs"
+      ],
+      "suggested_action": "Either document a protective symmetry/UV condition or add small nonzero portal priors and recast thermalization, decay, and laboratory constraints."
+    },
+    {
+      "id": "F05",
+      "priority": "high",
+      "description": "Establish dark fermion stability and compute relic abundance, annihilation channels, and possible CMB energy-injection observables.",
+      "blocked_by": [
+        "No dark matter stability assignment",
+        "No relic-density backend"
+      ],
+      "suggested_action": "Specify the stabilizing symmetry and implement dark_relic_density.py with the dark-sector temperature ratio as an input."
+    },
+    {
+      "id": "F06",
+      "priority": "medium",
+      "description": "Compute RG running, perturbativity, Landau-pole scale, and scale-variation uncertainty for the Coleman-Weinberg model.",
+      "blocked_by": [
+        "No RG module or beta-function audit for the posterior region"
+      ],
+      "suggested_action": "Implement cw_rg_validity.py and evaluate masked posterior samples."
+    },
+    {
+      "id": "F07",
+      "priority": "medium",
+      "description": "Compute velocity-dependent self-interaction constraints if the dark fermion is interpreted as dark matter.",
+      "blocked_by": [
+        "No relic fraction",
+        "No stable-DM assignment",
+        "No SIDM cross-section backend"
+      ],
+      "suggested_action": "After relic-density resolution, calculate transfer or viscosity cross sections at dwarf, Milky Way, and cluster velocities."
+    }
+  ]
+}

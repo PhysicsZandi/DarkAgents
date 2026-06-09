@@ -1,0 +1,2 @@
+g:Uniform(pmin=0.5, pmax=1.5)
+log10_chi0:Uniform(pmin=-2.0, pmax=2.0)

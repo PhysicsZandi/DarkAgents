@@ -1,0 +1,242 @@
+{
+  "model": "su2cw-dark",
+  "agent": "pta-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-07",
+  "branch": "ptarcade_campaign",
+  "created_from": [
+    "output/su2cw-dark/handoff_fopt.json",
+    "output/su2cw-dark/handoff_critique.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json"
+  ],
+  "commands": [
+    "conda run -n ptarcade python output/su2cw-dark/pta_scan.py",
+    "conda run -n ptarcade python output/su2cw-dark/pta_benchmark_plot.py",
+    "conda run -n ptarcade ptarcade -m output/su2cw-dark/ptarcade_model.py -c output/su2cw-dark/ptarcade_config_smoke.py",
+    "conda run -n ptarcade ptarcade -m output/su2cw-dark/ptarcade_model.py -c output/su2cw-dark/ptarcade_config.py",
+    "conda run -n ptarcade python output/su2cw-dark/ptarcade_plot.py",
+    "conda run -n ptarcade python output/su2cw-dark/pta_ptarcade_plot.py"
+  ],
+  "files_read": [
+    "output/su2cw-dark/handoff_fopt.json",
+    "output/su2cw-dark/handoff_critique.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json",
+    "output/su2cw-dark/fopt_benchmarks.csv",
+    "output/su2cw-dark/fopt_model.py",
+    "docs/SPECTRUM.md",
+    "docs/PTARCADE.md",
+    "docs/HANDOFF_PTA_SCHEMA.md",
+    "backend/spectrum.py",
+    "backend/plot_violins.py",
+    "backend/pta_violin_windows.csv"
+  ],
+  "files_written": [
+    "output/su2cw-dark/pta_spectrum.py",
+    "output/su2cw-dark/pta_scan.py",
+    "output/su2cw-dark/pta_benchmark_scan.csv",
+    "output/su2cw-dark/pta_benchmark_plot.py",
+    "output/su2cw-dark/pta_benchmark_spectrum.pdf",
+    "output/su2cw-dark/ptarcade_model.py",
+    "output/su2cw-dark/ptarcade_config.py",
+    "output/su2cw-dark/ptarcade_config_smoke.py",
+    "output/su2cw-dark/ptarcade_plot.py",
+    "output/su2cw-dark/pta_ptarcade_plot.py",
+    "output/su2cw-dark/pta_posteriors.pdf",
+    "output/su2cw-dark/pta_ptarcade_spectrum.pdf",
+    "output/su2cw-dark/ptarcade_bayes.json",
+    "output/su2cw-dark/handoff_pta.json"
+  ],
+  "warnings": [
+    "Strongly supercooled FOPT: viable points have very large alpha (~1e5 to >1e15 in the PTA-matching window), well above the largest values explicitly displayed in 2511.15687; the dbf amplitude relation is therefore extrapolated there. Because the dbf amplitude saturates as K_sw = alpha/(1+alpha) -> 1 for large alpha, the spectrum is insensitive to the precise alpha value in this regime.",
+    "The PTA-matching region (g~0.85-1.05, chi0~0.4-1.6 GeV) sits at higher chi0 / lower g than the FOPT-handoff f_peak_est anchor benchmarks; the f_peak_est is an order-of-magnitude template-independent estimate, while the true dbf peak frequency/amplitude (set by beta_H and Treh) is matched here by the actual spectrum evaluation."
+  ],
+  "errors": [],
+  "approximations": [
+    "GW spectrum from dissipative-bulk-flow template (2511.15687) with default efficiency ksw=1 and relativistic walls (vw->1).",
+    "FOPT alpha, beta_H, Treh computed by the semianalytic backend (one-loop CW + high-T thermal potential), no caching/interpolation: each sampled point re-evaluated directly."
+  ],
+  "analysis_mode": "benchmark_plus_ptarcade",
+  "pta_parameter_basis": {
+    "independent": {
+      "g": "Dark SU(2)_D gauge coupling (linear prior).",
+      "chi0": "Scalar radial vev <chi> in GeV, sampled as log10_chi0 (log prior)."
+    },
+    "dependent": {
+      "alpha": "FOPT strength, computed by backend from (g, chi0); not a scan/prior axis.",
+      "beta_H": "Inverse FOPT duration beta/H, computed by backend; not a scan/prior axis.",
+      "Treh": "Reheating temperature (temperature convention used in spectrum), computed by backend.",
+      "beta_lambda": "CW combination (9*(g/2)^4 + gb_scalar^4)/(8 pi^2).",
+      "m_chi": "sqrt(beta_lambda)*chi0, CW pseudo-dilaton mass."
+    },
+    "fixed": {
+      "n_W": "9 (three massive dark vectors x 3 polarizations).",
+      "scalar_dof": "1 (radial CW mode).",
+      "vw": "1 (relativistic/runaway walls assumed by bulk-flow template).",
+      "ksw": "1 (default efficiency factor)."
+    }
+  },
+  "spectrum_template": "dbf",
+  "template_validity": {
+    "status": "ok",
+    "reason": "su2cw-dark is a classically-conformal, strongly supercooled FOPT with vacuum-energy domination and relativistic/runaway bubble walls; viable points have alpha >> 1. The higgsless/sound-wave template is validated only for alpha <~ 0.5 (2209.04369) and is excluded. The bulk-flow / dissipative-bulk-flow template of 2511.15687 is constructed and validated for strongly supercooled, large-alpha transitions including cosmic-expansion effects, so dbf is the physically appropriate choice. dbf (steeper UV falloff from plasma dissipation on the shells) is taken as default over pure bf."
+  },
+  "benchmark_analysis": {
+    "scan_summary": {
+      "total_points": 672,
+      "viable_points": 654,
+      "boundary_expansions": [
+        "First scan g in [0.8,1.5], chi0 in [1e-4,0.1] GeV peaked at the chi0=0.1 upper boundary with best 9/14; chi0 range extended upward to [1e-3,10] GeV (and refined 0.1-10 GeV), which produced 29 points scoring 14/14 well inside the new range."
+      ]
+    },
+    "prior_ranges": {
+      "g": [0.85, 1.05],
+      "chi0_GeV": [0.398, 1.585]
+    },
+    "template_comparison": {
+      "dbf": {"best_score": 14, "total_bins": 14, "valid": true},
+      "higgsless": {"valid": false, "reason": "alpha far outside validated range (<~0.5)"}
+    },
+    "best_fit_points": [
+      {
+        "rank": 1,
+        "name": "bench_lo_g",
+        "parameters": {"g": 0.85, "chi0": 1.0},
+        "alpha": 2.124e15,
+        "beta_H": 13.07,
+        "T_star": 0.086945,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": null,
+        "peak_h2OmegaGW": -8.11,
+        "spectrum": {"frequency_Hz": [], "h2OmegaGW": []},
+        "spectrum_file_ref": {
+          "file": "output/su2cw-dark/pta_benchmark_scan.csv",
+          "spectrum_id": "g=0.85,chi0=1.0"
+        }
+      },
+      {
+        "rank": 2,
+        "name": "bench_hi_chi",
+        "parameters": {"g": 0.85, "chi0": 1.584893192461114},
+        "alpha": 4.619e15,
+        "beta_H": 12.60,
+        "T_star": 0.137790,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": null,
+        "peak_h2OmegaGW": -8.12,
+        "spectrum": {"frequency_Hz": [], "h2OmegaGW": []},
+        "spectrum_file_ref": {
+          "file": "output/su2cw-dark/pta_benchmark_scan.csv",
+          "spectrum_id": "g=0.85,chi0=1.5849"
+        }
+      },
+      {
+        "rank": 3,
+        "name": "bench_lo_chi",
+        "parameters": {"g": 0.9, "chi0": 0.3981071705534973},
+        "alpha": 1.814e11,
+        "beta_H": 18.40,
+        "T_star": 0.036599,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": null,
+        "peak_h2OmegaGW": -8.35,
+        "spectrum": {"frequency_Hz": [], "h2OmegaGW": []},
+        "spectrum_file_ref": {
+          "file": "output/su2cw-dark/pta_benchmark_scan.csv",
+          "spectrum_id": "g=0.9,chi0=0.3981"
+        }
+      },
+      {
+        "rank": 4,
+        "name": "bench_hi_g",
+        "parameters": {"g": 1.05, "chi0": 0.5011872336272724},
+        "alpha": 2.231e5,
+        "beta_H": 35.09,
+        "T_star": 0.047886,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": null,
+        "peak_h2OmegaGW": null,
+        "spectrum": {"frequency_Hz": [], "h2OmegaGW": []},
+        "spectrum_file_ref": {
+          "file": "output/su2cw-dark/pta_benchmark_scan.csv",
+          "spectrum_id": "g=1.05,chi0=0.5012"
+        }
+      }
+    ]
+  },
+  "ptarcade_analysis": {
+    "run_status": "ok",
+    "campaign": {
+      "pta_data": "NG15",
+      "mode": "ceffyl",
+      "out_dir": "output/su2cw-dark/chains",
+      "config_file": "output/su2cw-dark/ptarcade_config.py",
+      "model_file": "output/su2cw-dark/ptarcade_model.py",
+      "plot_file": "output/su2cw-dark/ptarcade_plot.py"
+    },
+    "prior_parameter_basis": {
+      "independent": {
+        "g": "Uniform(0.5, 1.5), linear coupling prior, >2x wider than the 14/14 window [0.85,1.05] each side.",
+        "log10_chi0": "Uniform(-2, 2) i.e. chi0 in [1e-2, 1e2] GeV, ~2 decades beyond the 14/14 window [0.40,1.58] GeV on each side."
+      },
+      "dependent": {
+        "alpha": "computed by backend per sample",
+        "beta_H": "computed by backend per sample",
+        "Treh": "computed by backend per sample"
+      },
+      "fixed": {"vw": "1", "ksw": "1", "n_W": "9", "scalar_dof": "1"}
+    },
+    "priors": {
+      "g": {"type": "Uniform", "low": 0.5, "high": 1.5},
+      "log10_chi0": {"type": "Uniform", "low": -2.0, "high": 2.0}
+    },
+    "chain_validation": {
+      "chains_found": true,
+      "finite_samples": true,
+      "notes": "Full campaign N_samples=1e5 (config N_samples=int(1e5)). chain_0 thinned output 10001x6, all finite. Smoke test (N_samples=100) run first in chains_smoke and used only to validate setup. Posterior peaks and 3-sigma regions fall off well inside both priors (g in [0.84,1.06], log10_chi0 in [-0.84,0.23])."
+    },
+    "bayes_estimates": {
+      "bayes_est": {
+        "g": {"mean": 0.8830417914472374, "std": 0.0351556548584405},
+        "log10_chi0": {"mean": -0.05069853665758791, "std": 0.17298237992488902}
+      },
+      "credible_regions": {
+        "sigma_1": {
+          "description": "68% credible region",
+          "bounds": {
+            "g": {"low": 0.8522795712424887, "high": 0.9157628287865598},
+            "log10_chi0": {"low": -0.21784154836376138, "high": 0.1075473775894533}
+          }
+        },
+        "sigma_2": {
+          "description": "95% credible region",
+          "bounds": {
+            "g": {"low": 0.8452065285821837, "high": 0.9797752351736515},
+            "log10_chi0": {"low": -0.4851460912474067, "high": 0.1836219428930118}
+          }
+        },
+        "sigma_3": {
+          "description": "99.7% credible region",
+          "bounds": {
+            "g": {"low": 0.8426255518147977, "high": 1.0591696775529846},
+            "log10_chi0": {"low": -0.8373526795692223, "high": 0.2279136904820963}
+          }
+        }
+      },
+      "evidence": null,
+      "evidence_error": null
+    },
+    "map_estimates": {
+      "map_est": {"g": 0.8656396092935766, "log10_chi0": 0.04990373237133092, "chi0_GeV": 1.1217697703101845},
+      "map_value": null
+    }
+  },
+  "constraint_summary": []
+}

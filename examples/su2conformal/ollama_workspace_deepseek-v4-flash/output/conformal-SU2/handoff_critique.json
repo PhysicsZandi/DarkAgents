@@ -1,0 +1,267 @@
+{
+  "model": "conformal-SU2",
+  "agent": "critic-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/conformal-SU2/handoff_proposed_model.json",
+    "output/conformal-SU2/handoff_librarian_preliminary.json"
+  ],
+  "commands": [],
+  "files_read": [
+    "/Users/mattezandi/Desktop/code/DarkAgents/ollama_workspace/output/conformal-SU2/handoff_proposed_model.json",
+    "/Users/mattezandi/Desktop/code/DarkAgents/ollama_workspace/output/conformal-SU2/handoff_librarian_preliminary.json",
+    "/Users/mattezandi/Desktop/code/DarkAgents/ollama_workspace/backend/semianalytic_pipeline.py",
+    "/Users/mattezandi/Desktop/code/DarkAgents/ollama_workspace/docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "/Users/mattezandi/Desktop/code/DarkAgents/ollama_workspace/docs/HANDOFF_CRITIC_SCHEMA.md",
+    "/Users/mattezandi/Desktop/code/DarkAgents/ollama_workspace/docs/HANDOFF_SCHEMAS.md"
+  ],
+  "files_written": [
+    "/Users/mattezandi/Desktop/code/DarkAgents/ollama_workspace/output/conformal-SU2/handoff_critique.json",
+    "/Users/mattezandi/Desktop/code/DarkAgents/ollama_workspace/output/conformal-SU2/critique.md",
+    "/Users/mattezandi/Desktop/code/DarkAgents/ollama_workspace/output/conformal-SU2/handoff_model.json",
+    "/Users/mattezandi/Desktop/code/DarkAgents/ollama_workspace/output/conformal-SU2/model.md"
+  ],
+  "validation_gauge_groups": [
+    {
+      "item": "SU(2)_X",
+      "status": "ok",
+      "notes": "Gauge group SU(2)_X with coupling g, fully broken by the VEV of a complex scalar doublet. All three generators broken -- no residual U(1). Consistent."
+    }
+  ],
+  "validation_global_symmetries": [
+    {
+      "item": "global_symmetries",
+      "status": "ok",
+      "notes": "No global symmetries are specified. Classical scale invariance is a symmetry of the tree-level Lagrangian but is anomalously broken by the CW mechanism. This is expected for a CW model."
+    }
+  ],
+  "validation_particle_content": [
+    {
+      "item": "Phi (complex scalar doublet)",
+      "status": "ok",
+      "notes": "4 real dof, fundamental of SU(2)_X. Complex doublet, spin 0. After SSB: 1 radial scalar + 3 Goldstones (absorbed as longitudinal modes of gauge bosons). Consistent."
+    },
+    {
+      "item": "W^a_mu (gauge bosons)",
+      "status": "ok",
+      "notes": "3 gauge bosons, adjoint of SU(2)_X. 9 dof in broken phase (3 massive vectors x 3 polarizations). 6 dof in unbroken phase (3 massless vectors x 2 polarizations). Total dof: 4 + 6 = 10 before SSB, 1 + 9 = 10 after SSB. Consistent."
+    }
+  ],
+  "validation_lagrangian_terms": [
+    {
+      "item": "gauge_kinetic: -1/4 * W^a_{munu} * W^{a,munu}",
+      "status": "ok",
+      "notes": "Standard SU(2) Yang-Mills kinetic term. Gauge invariant. Correct."
+    },
+    {
+      "item": "scalar_kinetic: (D_mu Phi)^\\dagger * (D^mu Phi)",
+      "status": "ok",
+      "notes": "Gauge-invariant scalar kinetic term with D_mu = partial_mu + i g W^a_mu sigma^a/2. Correct."
+    },
+    {
+      "item": "scalar_potential: lambda * (Phi^\\dagger * Phi)^2",
+      "status": "ok",
+      "notes": "Classically scale-invariant quartic potential. No tree-level mass term. Gauge invariant. The coupling is radiatively generated via CW and is a dependent parameter. Correct."
+    }
+  ],
+  "validation_free_parameters": [
+    {
+      "item": "g (gauge coupling, [0.1, 3.0])",
+      "status": "ok",
+      "notes": "SU(2)_X gauge coupling. Range within perturbative regime (g < 4*pi). Correct."
+    },
+    {
+      "item": "chi0 (VEV, [0.1, 10000] GeV)",
+      "status": "ok",
+      "notes": "Scalar VEV at zero temperature. Range covers MeV to TeV scales, appropriate for PTA-band GWs (nHz peak frequency from MeV-scale transitions). Correct."
+    }
+  ],
+  "validation_ssb_pattern": [
+    {
+      "item": "SU(2)_X -> nothing",
+      "status": "ok",
+      "notes": "VEV of the neutral component (0, chi0/sqrt(2))^T breaks all three SU(2) generators. Verified: tau^1, tau^2, tau^3 all give non-zero result when acting on the VEV. All gauge bosons acquire equal mass m_W = g*chi0/2. Correct."
+    }
+  ],
+  "validation_vev_convention": [
+    {
+      "item": "Phi_0 = (0, chi0 / sqrt(2))",
+      "status": "ok",
+      "notes": "Standard convention for SU(2) breaking in the neutral direction. The sqrt(2) factor ensures canonical kinetic/normalization for the radial mode. Consistent with field-dependent masses. Correct."
+    }
+  ],
+  "validation_tree_level_potential": [
+    {
+      "item": "V_tree = lambda/4 * chi^4",
+      "status": "ok",
+      "notes": "Tree-level potential in terms of background field chi, expressed as lambda/4 * chi^4. No quadratic mass term. The quartic lambda is radiatively generated and not a free parameter. Consistent."
+    }
+  ],
+  "validation_field_dependent_masses": [
+    {
+      "item": "W^a gauge bosons: m2_of_chi = g**2 * chi**2 / 4, dof=9",
+      "status": "ok",
+      "notes": "Derived by substituting Phi = (0, chi/sqrt(2))^T into (D_mu Phi)^dagger (D^mu Phi). Gives m_W^2 = g^2*chi^2/4 for each of the 3 gauge bosons. Verified analytically. Expression is Python-compatible. Correct."
+    },
+    {
+      "item": "chi (radial scalar): m2_of_chi = beta_lambda * chi**2, dof=1",
+      "status": "ok",
+      "notes": "Radial mode mass from CW mechanism: m_chi^2 = d^2V_eff/dchi^2|_(chi0) = beta_lambda * chi0^2. The field-dependent version is beta_lambda * chi^2. Expression is Python-compatible. Correct after beta_lambda fix."
+    }
+  ],
+  "validation_thermal_masses": [
+    {
+      "item": "W^a longitudinal (Debye): m2_D = g**2 * T**2, dof=3",
+      "status": "ok",
+      "notes": "Standard SU(N) Debye mass formula: m_D^2 = g^2 T^2 (N/3 + N_s/12) where N=2, N_s=4 real scalars (one complex doublet). Gives m_D^2 = g^2 T^2. Expression is Python-compatible. Correct. However, the explanatory note incorrectly states N_s=2 (it should be 4 real scalars)."
+    },
+    {
+      "item": "scalar (chi thermal): m2_D = 3/16 * g**2 * T**2, dof=1",
+      "status": "ok",
+      "notes": "Scalar thermal mass from gauge interactions: m_D^2 = C_f * g^2 * T^2 / 4 with C_f = 3/4 for SU(2) fundamental. Gives m_D^2 = 3*g^2*T^2/16. Expression is Python-compatible. Correct."
+    },
+    {
+      "item": "Goldstones (Debye): m2_D = 3/16 * g**2 * T**2, dof=3",
+      "status": "ok",
+      "notes": "Goldstones are part of the scalar doublet and have the same thermal mass as the radial mode from gauge interactions. In the high-T symmetric phase, all scalar components have the same thermal mass. Expression is Python-compatible. Correct."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "g": {
+        "description": "SU(2)_X gauge coupling",
+        "range": [0.1, 3.0],
+        "latex": "g",
+        "status": "ok",
+        "notes": "Correctly classified as independent scan parameter."
+      },
+      "chi0": {
+        "description": "Scalar VEV at zero temperature",
+        "range": [0.1, 10000.0],
+        "unit": "GeV",
+        "latex": "\\chi_0",
+        "status": "ok",
+        "notes": "Correctly classified as independent scan parameter."
+      }
+    },
+    "dependent": {
+      "beta_lambda": {
+        "description": "Coefficient of the one-loop beta function for the quartic coupling, also proportional to the radial mode mass squared.",
+        "expression": "9 * g**4 / (128 * pi**2)",
+        "latex": "\\beta_\\lambda = \\frac{9g^4}{128\\pi^2}",
+        "status": "fixed",
+        "notes": "Originally '3 * g**4 / (128 * pi**2)'. Fixed because the CW formula sums over 9 real dof (3 gauge bosons x 3 polarizations), each with gb=g/2. The backend computes: dof * gb^4 = 9 * (g/2)^4 = 9*g^4/16, divided by 8*pi^2 gives 9*g^4/(128*pi^2). The proposer erroneously counted 3 gauge boson species instead of 9 real polarization degrees of freedom. This is a minimal fix preserving the model structure."
+      },
+      "m_chi2": {
+        "description": "Mass squared of the radial (pseudo-dilaton) mode at zero temperature",
+        "expression": "beta_lambda * chi0**2",
+        "unit": "GeV^2",
+        "latex": "m_\\chi^2 = \\beta_\\lambda \\chi_0^2",
+        "status": "ok",
+        "notes": "Correct. Scales with the fixed beta_lambda."
+      },
+      "gb_scalar": {
+        "description": "Mass-over-vev ratio for the radial scalar (used as input to the backend)",
+        "expression": "sqrt(beta_lambda)",
+        "latex": "g_b^{(\\chi)} = \\sqrt{\\beta_\\lambda}",
+        "status": "ok",
+        "notes": "Correct. Auto-computed by the backend from its own get_beta_lambda()."
+      },
+      "delta_V": {
+        "description": "Vacuum energy density difference between symmetric and broken phases at zero temperature",
+        "expression": "beta_lambda * chi0**4 / 16",
+        "unit": "GeV^4",
+        "latex": "\\Delta V = \\frac{\\beta_\\lambda \\chi_0^4}{16}",
+        "status": "ok",
+        "notes": "Matches the backend convention. The backend computes delta_V = beta_lambda * chi0^4 / 16 in its get_delta_V() method. Scales with the fixed beta_lambda."
+      }
+    },
+    "fixed": {}
+  },
+  "validation_assumptions": [
+    {
+      "item": "Classical scale invariance at tree level",
+      "status": "ok",
+      "notes": "No explicit mass scales in the tree-level Lagrangian. Consistent with the CW mechanism."
+    },
+    {
+      "item": "Radiative symmetry breaking via CW",
+      "status": "ok",
+      "notes": "Gauge boson loops generate the nontrivial minimum. beta_lambda > 0 satisfied since only bosons contribute."
+    },
+    {
+      "item": "Perturbative regime (g < 4*pi)",
+      "status": "ok",
+      "notes": "Parameter range [0.1, 3.0] is well within the perturbative regime."
+    },
+    {
+      "item": "High-temperature expansion validity",
+      "status": "ok",
+      "notes": "Valid when the barrier is thermally generated. May break down for very strong supercooling (T_n << T_c). Approximation to be noted downstream."
+    },
+    {
+      "item": "No SM coupling",
+      "status": "warning",
+      "notes": "The dark sector has no coupling to the SM. The Delta N_eff constraint from a stable dark sector (arXiv:2306.09411) is a potential physical constraint that should be evaluated downstream."
+    },
+    {
+      "item": "No fermions",
+      "status": "ok",
+      "notes": "Minimal choice for FOPT+GW production. No DM candidate or baryogenesis at tree level. This is an intentional simplification, not an inconsistency."
+    }
+  ],
+  "validation_backend_compatibility": [
+    {
+      "item": "semianalytic_pipeline",
+      "status": "ok",
+      "notes": "Model is compatible. Backend receives boson_gbs={'W': g/2}, boson_dofs={'W': 9}, no fermions. The backend auto-computes the scalar gb from its own get_beta_lambda() and get_scalar_mass() methods. The CW relation is evaluated internally by the backend."
+    }
+  ],
+  "red_flags": [
+    {
+      "id": "CW-beta_lambda-factor-3",
+      "item": "beta_lambda expression inconsistent with gauge boson degrees of freedom",
+      "severity": "red_flag",
+      "resolved": true,
+      "fix": "Changed beta_lambda from '3 * g**4 / (128 * pi**2)' to '9 * g**4 / (128 * pi**2)'.",
+      "reasoning": "The CW formula beta_lambda = (1/(8*pi^2)) * sum_B n_B * gb^4 sums over real degrees of freedom. With 3 massive SU(2) gauge bosons, each with 3 polarization states, the total is 9 real dof. Each has gb = g/2, giving beta_lambda = 9 * (g/2)^4 / (8*pi^2) = 9*g^4/(128*pi^2). The proposer used n_B = 3 (counting gauge boson species) instead of 9 (total real dof). This factor-3 error propagates to m_chi^2, gb_scalar, and delta_V. Fix is minimal and preserves the full model content."
+    }
+  ],
+  "warnings": [
+    {
+      "id": "debye-mass-notes",
+      "item": "Debye mass explanatory note inconsistency",
+      "severity": "warning",
+      "notes": "The explanatory note for the gauge boson Debye mass says 'N_s=2 (one complex doublet = 2 real scalars in fundamental)' which undercounts the scalar content. One complex doublet has 4 real scalar fields, not 2. Using N_s=4 (real scalars) in the formula m_D^2 = g^2 T^2 (N/3 + N_s/12) correctly gives m_D^2 = g^2 T^2. The numerical expression is correct, but the note is internally inconsistent."
+    },
+    {
+      "id": "delta-Neff-constraint",
+      "item": "Stable dark sector contributes to Delta N_eff",
+      "severity": "warning",
+      "notes": "arXiv:2306.09411 (Bringmann et al.) finds that a stable dark sector without SM coupling is constrained by BBN/CMB via Delta N_eff. The proposed model has no SM coupling or decay portal. The downstream constraint-agent should evaluate whether the model satisfies Delta N_eff limits."
+    },
+    {
+      "id": "model-novelty",
+      "item": "Model is not novel (arXiv:2109.11558)",
+      "severity": "warning",
+      "notes": "The exact same model (SU(2)_D with one complex scalar doublet, CW mechanism, nHz GW signal) has been studied in arXiv:2109.11558 (Borah, Dasgupta, Kang, 2021). This is a novelty note from the preliminary librarian, not a physical inconsistency, but downstream users should be aware."
+    }
+  ],
+  "repair_records": [
+    {
+      "original": {
+        "item": "beta_lambda in dependent parameters",
+        "value": "3 * g**4 / (128 * pi**2)"
+      },
+      "fix": {
+        "item": "beta_lambda in dependent parameters",
+        "value": "9 * g**4 / (128 * pi**2)"
+      },
+      "justification": "The CW formula sums over real degrees of freedom: 3 gauge bosons x 3 polarizations = 9 real dof. The proposer used 3 (species count) instead of 9 (real dof count). The backend's get_beta_lambda() computes dof * gb^4 = 9 * (g/2)^4 and would return 9*g^4/(128*pi^2), so the handoff must match this. All downstream dependent parameters (m_chi2, gb_scalar, delta_V) scale proportionally and are correct after this fix.",
+      "minimal": true
+    }
+  ],
+  "authoritative_model_file": "output/conformal-SU2/model.md"
+}

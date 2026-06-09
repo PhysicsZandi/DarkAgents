@@ -1,0 +1,43 @@
+id,kind,category,description,severity,controlled,affected_outputs,source_file,source_section
+A01,assumption,model_building,"Classical scale invariance at tree level: no explicit mass scales in the Lagrangian.",3,TRUE,handoff_model.json|handoff_fopt.json|handoff_pta.json,handoff_model.json,assumptions
+A02,assumption,model_building,"Radiative symmetry breaking via Coleman-Weinberg mechanism at one loop; higher-order corrections neglected.",4,FALSE,handoff_fopt.json|handoff_pta.json,handoff_model.json,assumptions
+A03,assumption,model_building,"No fermions in the dark sector. Deliberate minimal choice for FOPT+GW production.",2,TRUE,handoff_model.json|handoff_fopt.json,handoff_critique.json,validation_assumptions
+A04,assumption,model_building,"No SM coupling. Dark SU(2) sector has no portal coupling to the Standard Model.",5,FALSE,handoff_constraints.json|handoff_pta.json,handoff_critique.json,validation_assumptions
+A05,assumption,model_building,"Perturbative regime holds (g < 4*pi). Satisfied for all preferred points (g < 1.1).",2,TRUE,handoff_model.json|handoff_fopt.json|handoff_pta.json,handoff_model.json,assumptions
+A06,assumption,model_building,"No U(1)_Y factor. Pure SU(2)_X without hypercharge.",1,TRUE,handoff_model.json,handoff_proposed_model.json,gauge_groups
+A07,assumption,model_building,"No RG running of couplings. Fixed renormalization scale set to chi0.",5,FALSE,handoff_fopt.json,handoff_fopt.json,approximations
+A08,approximation,effective_potential,"High-temperature (small-field) expansion of one-loop finite-T effective potential. Valid when m(phi)/T << 1.",6,FALSE,handoff_fopt.json|handoff_pta.json,handoff_model.json,assumptions
+A09,approximation,effective_potential,"Gaussian approximation for false-vacuum fraction used for percolation.",4,FALSE,handoff_fopt.json|handoff_pta.json,handoff_fopt.json,approximations
+A10,approximation,effective_potential,"No Daisy resummation included in thermal effective potential.",5,FALSE,handoff_fopt.json,handoff_fopt.json,approximations
+A11,uncertainty,effective_potential,"Renormalization scale dependence. Scale set to chi0; sensitivity to this choice not quantified.",4,FALSE,handoff_fopt.json,handoff_fopt.json,approximations
+A12,uncertainty,effective_potential,"Scheme dependence of the one-loop CW calculation. Different renormalization schemes give different finite parts.",4,FALSE,handoff_fopt.json,handoff_fopt.json,approximations
+A13,uncertainty,nucleation,"Uncertainty in nucleation temperature calculation. Backend uses simplified bounce action method without cross-validation.",5,FALSE,handoff_fopt.json|handoff_pta.json,handoff_fopt.json,benchmark_summary
+A14,limitation,nucleation,"198/680 FOPT scan points (29%) are numerical failures. Viable region may be biased.",6,FALSE,handoff_fopt.json|handoff_pta.json,handoff_fopt.json,benchmark_summary
+A15,assumption,spectrum_template,"dbf (dissipative bulk flow) template (arXiv:2511.15687) selected for GW spectrum. Designed for strong transitions with alpha >> 1.",5,FALSE,handoff_pta.json,handoff_pta.json,template_choice
+A16,assumption,spectrum_template,"Alternative template (higgsless) considered but discarded. No sound-wave-only template used for moderate alpha.",5,FALSE,handoff_pta.json,handoff_pta.json,template_choice
+A17,uncertainty,spectrum_template,"Wall velocity v_w derived from FOPT pipeline, not a free parameter. Affects kinetic energy fraction and GW amplitude.",4,FALSE,handoff_pta.json,handoff_pta.json,template_choice
+A18,uncertainty,spectrum_template,"Sound-wave vs bulk-flow lifetime not explicitly modeled. For large alpha, bubble collisions may dominate in PTA band.",5,FALSE,handoff_pta.json,handoff_pta.json,warnings
+A19,caveat,spectrum_template,"Efficiency factors (kappa) for kinetic energy conversion not explicitly documented. Internal to dbf template.",4,FALSE,handoff_pta.json,handoff_pta.json,template_choice
+A20,prior,bayesian_analysis,"PTArcade priors: Uniform(g) in [0.5, 3.0], Uniform(log10(chi0)) in [-5, 0.699]. Post-hoc truncation based on FOPT scan.",5,FALSE,handoff_pta.json|ptarcade_bayes.json,handoff_pta.json,ptarcade_campaign
+A21,prior,bayesian_analysis,"Log-uniform prior on chi0 over 5 orders of magnitude. Broad but natural for scale-invariant model.",3,FALSE,handoff_pta.json,handoff_pta.json,ptarcade_campaign
+A22,limitation,bayesian_analysis,"Single MCMC chain with 7501 effective samples. Standard requires multiple chains with Gelman-Rubin R-1 < 0.05.",7,FALSE,handoff_pta.json|ptarcade_bayes.json,handoff_pta.json,warnings
+A23,assumption,bayesian_analysis,"PTArcade ceffyl mode refits to free-spectrum KDEs. Faster but assumes KDEs are accurate approximations.",4,FALSE,handoff_pta.json|ptarcade_bayes.json,handoff_pta.json,approximations
+A24,assumption,bayesian_analysis,"NANOGrav 15yr ceffyl analysis does not include Hellings-Downs correlations (corr=False).",3,FALSE,handoff_pta.json,handoff_pta.json,ptarcade_campaign
+A25,assumption,eternal_inflation,"Eternal inflation filter uses 3 + Tp*I_prime(Tp) < 0. Standard criterion is Gamma/H^4 < 9/(4*pi).",6,FALSE,handoff_pta.json|handoff_fopt.json,semianalytic_pipeline.py,get_check_eternal_inflation
+A26,caveat,eternal_inflation,"Eternal inflation check uses Tp (percolation temperature). Tn or T* might be more appropriate.",3,FALSE,handoff_pta.json,handoff_pta.json,violin_scan
+A27,limitation,literature_comparison,"Factor ~33 alpha discrepancy with arXiv:2109.11558 BP1 (ours: 15, theirs: 0.45). Beta/H matches within 1%.",7,FALSE,handoff_pta.json,handoff_pta.json,literature_comparison
+A28,limitation,cosmological_constraints,"Delta N_eff constraint flagged but NOT resolved. Could invalidate model if dark sector was in equilibrium with SM.",8,FALSE,handoff_constraints.json|handoff_pta.json,handoff_constraints.json,constraints
+A29,limitation,cosmological_constraints,"DM overproduction from stable gauge bosons flagged but NOT resolved. Minimal model is cosmologically inviable without portal.",8,FALSE,handoff_constraints.json|handoff_pta.json,handoff_constraints.json,constraints
+A30,limitation,cosmological_constraints,"SIDM and CMB annihilation constraints flagged but NOT resolved. Subleading to overproduction issue.",6,FALSE,handoff_constraints.json,handoff_constraints.json,constraints
+A31,caveat,cosmological_constraints,"BBN bound partially checked. Best benchmarks safe but marginal points with T_p < 1 MeV exist.",5,FALSE,handoff_constraints.json,handoff_constraints.json,constraints
+A32,uncertainty,fopt_parameters,"Extreme alpha values (10^3 to 10^33) across viable region may indicate HT expansion breakdown at high end.",3,FALSE,handoff_fopt.json|handoff_pta.json,handoff_fopt.json,benchmarks
+A33,limitation,fopt_parameters,"FOPT scan uses sparse grid (680 points, 100x log chi0, 20x linear g). May miss fine features.",3,FALSE,handoff_fopt.json,handoff_fopt.json,benchmark_summary
+A34,assumption,spectrum_template,"f_peak_est is null for many FOPT benchmark points, limiting frequency prediction capability.",4,FALSE,handoff_fopt.json,handoff_fopt.json,benchmarks
+A35,assumption,model_building,"Model not novel: arXiv:2109.11558 studied exact same model for same target signal.",1,TRUE,handoff_librarian_preliminary.json,handoff_librarian_preliminary.json,novelty_verdict
+A36,warning,backend,"Unverifiable paper IDs in earlier handoff stages flagged and corrected by librarian.",2,TRUE,handoff_librarian_preliminary.json,handoff_librarian_preliminary.json,novelty_notes
+A37,caveat,spectrum_template,"dbf template reference (arXiv:2511.15687) cannot be verified through public searches.",7,FALSE,handoff_pta.json,handoff_pta.json,template_choice
+A38,warning,literature_comparison,"Gaussian approximation reference (arXiv:2602.02928) cannot be verified. Standard technique but reference invalid.",3,FALSE,handoff_fopt.json|handoff_model.json,handoff_fopt.json,approximations
+A39,limitation,cosmological_constraints,"Tension between best scan points (chi0 ~ 0.4-0.5 GeV) and MAP posterior (chi0 = 1.12 GeV) not discussed.",4,FALSE,handoff_pta.json|handoff_fopt.json,handoff_pta.json,violin_scan
+A40,limitation,cosmological_constraints,"SIDM and supernova cooling constraints flagged as recast_needed but not performed.",5,FALSE,handoff_constraints.json,handoff_constraints.json,constraints
+A41,uncertainty,cosmological_parameters,"Hubble/g_star interpolated from table with extrapolation at extreme temperatures. Standard approach.",3,TRUE,handoff_fopt.json,semianalytic_pipeline.py,
+A42,caveat,backend,"Numerical derivatives use h = 1e-3*x step size. Convergence of derivative accuracy not validated.",3,FALSE,handoff_fopt.json,semianalytic_pipeline.py,numerical_derivative

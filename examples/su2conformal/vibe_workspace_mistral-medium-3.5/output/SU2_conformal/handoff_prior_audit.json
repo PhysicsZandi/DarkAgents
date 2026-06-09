@@ -1,0 +1,938 @@
+{
+  "model": "SU2_conformal",
+  "agent": "prior-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/SU2_conformal/handoff_model.json (critic-agent)",
+    "output/SU2_conformal/handoff_librarian_preliminary.json (preliminary-librarian-agent)",
+    "output/SU2_conformal/handoff_critique.json (critic-agent)",
+    "output/SU2_conformal/handoff_fopt.json (fopt-agent)",
+    "output/SU2_conformal/handoff_pta.json (pta-agent)",
+    "output/SU2_conformal/handoff_constraints.json (constraint-agent)"
+  ],
+  "commands": [],
+  "files_read": [
+    "output/SU2_conformal/handoff_model.json",
+    "output/SU2_conformal/handoff_librarian_preliminary.json",
+    "output/SU2_conformal/handoff_critique.json",
+    "output/SU2_conformal/handoff_fopt.json",
+    "output/SU2_conformal/handoff_pta.json",
+    "output/SU2_conformal/handoff_constraints.json",
+    "docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/SU2_conformal/handoff_prior_audit.json",
+    "output/SU2_conformal/prior_audit_report.md",
+    "output/SU2_conformal/prior_audit_table.csv"
+  ],
+  "warnings": [],
+  "errors": [],
+  "approximations": [],
+  "uncertainty_summary": {
+    "total_items": 42,
+    "severity_distribution": {
+      "1": 0,
+      "2": 2,
+      "3": 2,
+      "4": 3,
+      "5": 6,
+      "6": 8,
+      "7": 10,
+      "8": 7,
+      "9": 4,
+      "10": 0
+    },
+    "controlled_distribution": {
+      "1": 0,
+      "2": 2,
+      "3": 2,
+      "4": 1,
+      "5": 5,
+      "6": 2,
+      "7": 1,
+      "8": 0,
+      "9": 0,
+      "10": 0
+    }
+  },
+  "upstream_statuses": [
+    {
+      "file": "handoff_model.json",
+      "agent": "critic-agent",
+      "status": "ok"
+    },
+    {
+      "file": "handoff_librarian_preliminary.json",
+      "agent": "preliminary-librarian-agent",
+      "status": "ok"
+    },
+    {
+      "file": "handoff_critique.json",
+      "agent": "critic-agent",
+      "status": "ok"
+    },
+    {
+      "file": "handoff_fopt.json",
+      "agent": "fopt-agent",
+      "status": "ok"
+    },
+    {
+      "file": "handoff_pta.json",
+      "agent": "pta-agent",
+      "status": "ok"
+    },
+    {
+      "file": "handoff_constraints.json",
+      "agent": "constraint-agent",
+      "status": "ok"
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "minimal_field_content",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "Only one scalar doublet (Phi) and SU(2)_D gauge bosons; no additional fields (fermions, extra scalars)",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "FOPT dynamics",
+        "GW spectrum",
+        "parameter space"
+      ],
+      "required_solution": "Add additional fields to test robustness",
+      "source": {
+        "file": "output/SU2_conformal/handoff_model.json",
+        "section": "assumptions",
+        "note": "Simplifies dynamics but may limit parameter space and physical realism"
+      }
+    },
+    {
+      "id": "no_portal_interactions",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "SM-Higgs portal (lambda_HPhi |H|^2 |Phi|^2) and gauge kinetic mixing (epsilon/2 F F') neglected for FOPT dynamics",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": [
+        "FOPT temperature",
+        "GW spectrum",
+        "cosmology",
+        "phenomenology"
+      ],
+      "required_solution": "Include portal couplings and study their impact on FOPT and GW signal",
+      "source": {
+        "file": "output/SU2_conformal/handoff_model.json",
+        "section": "assumptions",
+        "note": "FOPT analysis is for dark sector only; portal effects could modify transition. Makes model secluded."
+      }
+    },
+    {
+      "id": "classical_conformal_invariance",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "Scalar potential has only quartic term at tree level: V = -lambda (Phi^dagger Phi)^2, classically scale-invariant",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "CW mechanism",
+        "mass generation",
+        "FOPT dynamics"
+      ],
+      "required_solution": "Consider explicit mass terms or other symmetry-breaking patterns",
+      "source": {
+        "file": "output/SU2_conformal/handoff_librarian_preliminary.json",
+        "section": "papers[0].assumptions",
+        "note": "Mass scales generated radiatively via CW mechanism. Defines the conformal model class."
+      }
+    },
+    {
+      "id": "custodial_symmetry",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "Accidental SO(3) custodial symmetry of scalar potential protects vector DM stability",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": [
+        "dark matter stability"
+      ],
+      "required_solution": "Explicitly verify custodial symmetry and its implications",
+      "source": {
+        "file": "output/SU2_conformal/handoff_model.json",
+        "section": "global_symmetries",
+        "note": "Explicitly unbroken in model definition. May stabilize vector DM candidates."
+      }
+    },
+    {
+      "id": "unspecified_DM_candidate",
+      "kind": "limitation",
+      "category": "model_building",
+      "description": "Model does not specify dark matter candidate; literature assumes vector DM from SU(2)_D gauge bosons",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": [
+        "DM phenomenology",
+        "model interpretation"
+      ],
+      "required_solution": "Explicitly state DM candidate and production mechanism",
+      "source": {
+        "file": "output/SU2_conformal/handoff_model.json",
+        "section": "notes",
+        "note": "Literature (2109.11558) discusses vector DM from non-thermal production"
+      }
+    },
+    {
+      "id": "thermal_equilibrium_dark",
+      "kind": "assumption",
+      "category": "theoretical",
+      "description": "Dark sector is in thermal equilibrium with itself",
+      "severity": 7,
+      "controlled": true,
+      "affected_outputs": [
+        "thermal effective potential",
+        "nucleation rate"
+      ],
+      "required_solution": "Verify thermalization conditions for all parameter space",
+      "source": {
+        "file": "output/SU2_conformal/handoff_model.json",
+        "section": "assumptions",
+        "note": "Validates use of thermal effective potential"
+      }
+    },
+    {
+      "id": "coupled_to_SM_thermally",
+      "kind": "assumption",
+      "category": "theoretical",
+      "description": "Dark sector temperature T_D = T_SM (xi = 1), assumed thermal equilibrium with SM bath",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "Hubble rate",
+        "g_star",
+        "FOPT temperature",
+        "GW spectrum"
+      ],
+      "required_solution": "Study impact of xi != 1 on cosmology and GW predictions",
+      "source": {
+        "file": "output/SU2_conformal/handoff_model.json",
+        "section": "parameter_basis.fixed",
+        "note": "Determines g_star for Hubble rate calculation. Fixed at xi=1 without justification of coupling mechanism."
+      }
+    },
+    {
+      "id": "boson_dominated_CW",
+      "kind": "assumption",
+      "category": "theoretical",
+      "description": "Boson loops dominate CW beta function; scalar self-coupling contribution to beta_lambda is subdominant compared to gauge sector",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": [
+        "CW relation",
+        "lambda determination",
+        "pseudo-dilaton mass"
+      ],
+      "required_solution": "Include scalar loop corrections to beta_lambda for completeness",
+      "source": {
+        "file": "output/SU2_conformal/handoff_model.json",
+        "section": "assumptions",
+        "note": "Simplifies CW relation to beta_lambda = 3*g_D^4/(64*pi^2). Valid for g_D not too small."
+      }
+    },
+    {
+      "id": "strong_supercooling",
+      "kind": "assumption",
+      "category": "theoretical",
+      "description": "Phase transition occurs at temperatures T << v (strong supercooling regime)",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "high-T expansion validity",
+        "FOPT dynamics",
+        "GW spectrum"
+      ],
+      "required_solution": "Validate approximations in supercooled regime; consider 3D EFT methods",
+      "source": {
+        "file": "output/SU2_conformal/handoff_model.json",
+        "section": "assumptions",
+        "note": "Justifies high-T expansion approximation in pipeline. alpha >> 0.5 in PTA-preferred region."
+      }
+    },
+    {
+      "id": "prior_g_D_model",
+      "kind": "prior",
+      "category": "parameter_range",
+      "description": "SU(2)_D gauge coupling range: g_D in [0.01, 12.56] justified by perturbativity (g_D < 4pi)",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": [
+        "FOPT strength",
+        "perturbative calculations"
+      ],
+      "required_solution": "Extend to non-perturbative regime if needed",
+      "source": {
+        "file": "output/SU2_conformal/handoff_model.json",
+        "section": "free_parameters[0]",
+        "note": "Standard perturbativity bound; upper limit not tested in actual scans."
+      }
+    },
+    {
+      "id": "prior_v_model",
+      "kind": "prior",
+      "category": "parameter_range",
+      "description": "Vacuum expectation value range: v in [100, 1e6] GeV, justified by FOPT temperature range for PTA signal",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": [
+        "GW frequency",
+        "mass scale"
+      ],
+      "required_solution": "Reconcile with PTA-preferred range v ~ 0.6-1.3 GeV",
+      "source": {
+        "file": "output/SU2_conformal/handoff_model.json",
+        "section": "free_parameters[1]",
+        "note": "Original model range differs from PTA-preferred region by orders of magnitude."
+      }
+    },
+    {
+      "id": "prior_g_D_fopt",
+      "kind": "prior",
+      "category": "parameter_range",
+      "description": "FOPT scan used g_D range [0.5, 3.0], narrower than model range [0.01, 12.56]",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": [
+        "FOPT scan coverage",
+        "parameter space exploration"
+      ],
+      "required_solution": "Extend scan to full model range or justify truncation",
+      "source": {
+        "file": "output/SU2_conformal/handoff_fopt.json",
+        "section": "model_parameter_ranges",
+        "note": "Scan range chosen for practical reasons; may miss viable regions at low g_D."
+      }
+    },
+    {
+      "id": "prior_v_fopt",
+      "kind": "prior",
+      "category": "parameter_range",
+      "description": "FOPT scan used v range [0.01, 10] GeV, much lower than original model range [100, 1e6] GeV",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "GW frequency",
+        "FOPT temperature",
+        "PTA signal matching"
+      ],
+      "required_solution": "Justify discrepancy with original model motivation; validate low-v regime",
+      "source": {
+        "file": "output/SU2_conformal/handoff_fopt.json",
+        "section": "warnings[0]",
+        "note": "Lower v range was necessary to obtain f_peak in PTA frequency band. Changes mass scale significantly."
+      }
+    },
+    {
+      "id": "prior_pta_campaign",
+      "kind": "prior",
+      "category": "parameter_range",
+      "description": "PTArcade used log-uniform priors: log10_g_D in [-0.3010, 0.4771] (g_D ~ [0.5, 3.0]), log10_v_GeV in [-2.0, 1.0] (v ~ [0.01, 10] GeV)",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": [
+        "Bayesian inference",
+        "PTA parameter constraints"
+      ],
+      "required_solution": "Test sensitivity to prior choice",
+      "source": {
+        "file": "output/SU2_conformal/handoff_pta.json",
+        "section": "ptarcade_analysis.prior_parameter_basis",
+        "note": "Standard choice for Bayesian parameter inference in PTA analysis."
+      }
+    },
+    {
+      "id": "approx_high_T_expansion",
+      "kind": "approximation",
+      "category": "computational",
+      "description": "High-temperature expansion for thermal effective potential (valid in small field/T regime)",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "thermal potential",
+        "nucleation rate",
+        "Tn",
+        "Tp"
+      ],
+      "required_solution": "Implement 3D EFT (dimensional reduction) for supercooled transitions; validate high-T expansion in strong supercooling regime",
+      "source": {
+        "file": "output/SU2_conformal/handoff_fopt.json",
+        "section": "approximations[0]",
+        "note": "May break down in strong supercooling regime (T_* << v) where alpha >> 0.5. Literature (2312.12413) discusses NLO corrections."
+      }
+    },
+    {
+      "id": "approx_gaussian_percolation",
+      "kind": "approximation",
+      "category": "computational",
+      "description": "Gaussian approximation for false vacuum fraction and percolation condition",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "percolation temperature",
+        "FOPT completion"
+      ],
+      "required_solution": "Use exact percolation criterion or numerical simulations",
+      "source": {
+        "file": "output/SU2_conformal/handoff_fopt.json",
+        "section": "approximations[1]",
+        "note": "Standard approximation in semi-analytic pipelines; accuracy unclear for strong transitions"
+      }
+    },
+    {
+      "id": "approx_fixed_renormalization",
+      "kind": "approximation",
+      "category": "computational",
+      "description": "Fixed renormalization scale mu = v (no RG running of couplings)",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "beta_lambda",
+        "thermal potential",
+        "FOPT parameters"
+      ],
+      "required_solution": "Implement RG running and study scale dependence; compare with literature (2210.07075)",
+      "source": {
+        "file": "output/SU2_conformal/handoff_fopt.json",
+        "section": "approximations[2]",
+        "note": "Literature uses RG-improved effective potential. Scale dependence may affect results."
+      }
+    },
+    {
+      "id": "approx_no_daisy",
+      "kind": "approximation",
+      "category": "computational",
+      "description": "No Daisy resummation for thermal masses (uses high-T expansion without resumming IR-divergent terms)",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "thermal masses",
+        "effective potential",
+        "nucleation rate"
+      ],
+      "required_solution": "Implement Daisy resummation for thermal masses; validate impact on phase transition",
+      "source": {
+        "file": "output/SU2_conformal/handoff_fopt.json",
+        "section": "approximations[3]",
+        "note": "Daisy resummation is particularly important for strongly supercooled transitions (2312.12413)."
+      }
+    },
+    {
+      "id": "approx_CW_automatic",
+      "kind": "approximation",
+      "category": "computational",
+      "description": "Automatic scalar contribution via Coleman-Weinberg mechanism (lambda determined by beta_lambda = 3*g_D^4/(64*pi^2))",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": [
+        "lambda value",
+        "pseudo-dilaton mass",
+        "potential shape"
+      ],
+      "required_solution": "Verify CW relation matches literature and backend implementation",
+      "source": {
+        "file": "output/SU2_conformal/handoff_fopt.json",
+        "section": "approximations[4]",
+        "note": "CW mechanism is central to conformal model; implementation verified against backend."
+      }
+    },
+    {
+      "id": "approx_bulk_flow_template",
+      "kind": "approximation",
+      "category": "computational",
+      "description": "Bulk flow/dissipative bulk flow (dbf) GW spectrum template assumes specific wall velocity (vw=1.0) and sound speed (cs=1/sqrt(3))",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "GW spectrum shape",
+        "amplitude"
+      ],
+      "required_solution": "Study dependence on wall velocity and sound speed; validate template for alpha >> 0.5",
+      "source": {
+        "file": "output/SU2_conformal/handoff_pta.json",
+        "section": "approximations[5]",
+        "note": "dbf template from 2511.15687 selected as validated for large alpha values"
+      }
+    },
+    {
+      "id": "uncertainty_eternal_inflation",
+      "kind": "uncertainty",
+      "category": "computational",
+      "description": "200 points (50%) of FOPT scan failed due to eternal inflation, primarily at higher g_D or v values",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "viable parameter space",
+        "FOPT scan completeness"
+      ],
+      "required_solution": "Investigate eternal inflation regime; understand physical reason for failures; extend scan methodology",
+      "source": {
+        "file": "output/SU2_conformal/handoff_fopt.json",
+        "section": "warnings[2]",
+        "note": "Large failure rate suggests significant parameter space is inaccessible or physically invalid."
+      }
+    },
+    {
+      "id": "uncertainty_large_alpha",
+      "kind": "uncertainty",
+      "category": "theoretical",
+      "description": "Model produces very large alpha values (up to 10^16) in PTA-preferred region due to Coleman-Weinberg mechanism",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": [
+        "GW spectrum template validity",
+        "perturbative calculations",
+        "FOPT dynamics"
+      ],
+      "required_solution": "Validate all approximations (high-T expansion, Daisy resummation, template) in alpha >> 0.5 regime",
+      "source": {
+        "file": "output/SU2_conformal/handoff_pta.json",
+        "section": "warnings[1]",
+        "note": "Strong supercooling regime; many standard approximations may break down. Literature (2312.12413) discusses EFT challenges."
+      }
+    },
+    {
+      "id": "uncertainty_T_peak_discrepancy",
+      "kind": "uncertainty",
+      "category": "computational",
+      "description": "Discrepancy with literature (2109.11558): backend gives T_p ~ 0.1 v while literature reports sub-GeV T_* for v ~ 100 GeV",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "FOPT temperature",
+        "GW frequency",
+        "literature comparison"
+      ],
+      "required_solution": "Investigate origin of discrepancy; verify backend implementation; reconcile conventions",
+      "source": {
+        "file": "output/SU2_conformal/handoff_fopt.json",
+        "section": "warnings[1]",
+        "note": "May be due to different conventions, model details, or backend approximations."
+      }
+    },
+    {
+      "id": "uncertainty_f_peak_below_PTA",
+      "kind": "uncertainty",
+      "category": "observational",
+      "description": "All spectra peak at the lowest PTA frequency bin (-7.53e-09 Hz), suggesting actual peak is below PTA frequency range",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "PTA signal interpretation",
+        "frequency matching"
+      ],
+      "required_solution": "Extend to lower frequencies or verify if spectrum can match within PTA range",
+      "source": {
+        "file": "output/SU2_conformal/handoff_pta.json",
+        "section": "warnings[3]",
+        "note": "Model may inherently produce GW signals at frequencies below PTA sensitivity."
+      }
+    },
+    {
+      "id": "uncertainty_parameter_shift",
+      "kind": "uncertainty",
+      "category": "model_building",
+      "description": "PTA-preferred region has v ~ 0.6-1.3 GeV, much lower than original model range [100, 1e6] GeV, changing all particle masses by 2-3 orders of magnitude",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "mass scale",
+        "phenomenology",
+        "constraint applicability"
+      ],
+      "required_solution": "Re-evaluate model motivation and physical interpretation at low v; check consistency with original literature",
+      "source": {
+        "file": "output/SU2_conformal/handoff_constraints.json",
+        "section": "warnings[0]",
+        "note": "Dark gauge bosons have masses 0.28-0.64 GeV in PTA-preferred region, making them accessible to beam-dump and collider constraints."
+      }
+    },
+    {
+      "id": "uncertainty_secluded_sector",
+      "kind": "uncertainty",
+      "category": "model_building",
+      "description": "No SM portal couplings included; dark sector is secluded, limiting direct production constraints and cosmological connections",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "phenomenology",
+        "cosmology",
+        "testability"
+      ],
+      "required_solution": "Study impact of adding portal couplings; assess naturalness of secluded scenario",
+      "source": {
+        "file": "output/SU2_conformal/handoff_constraints.json",
+        "section": "warnings[3]",
+        "note": "Limits applicability of collider and beam dump constraints; affects DM production mechanisms."
+      }
+    },
+    {
+      "id": "validity_perturbativity",
+      "kind": "caveat",
+      "category": "validity_domain",
+      "description": "All perturbative calculations assume g_D < 4pi ~ 12.56; validity breaks down at stronger couplings",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": [
+        "beta_lambda",
+        "thermal potential",
+        "FOPT parameters"
+      ],
+      "required_solution": "Monitor perturbativity throughout parameter space; flag non-perturbative regions",
+      "source": {
+        "file": "output/SU2_conformal/handoff_model.json",
+        "section": "free_parameters[0].physical_range_justification",
+        "note": "Standard perturbativity bound; scan ranges respect this."
+      }
+    },
+    {
+      "id": "validity_high_T_supercool",
+      "kind": "caveat",
+      "category": "validity_domain",
+      "description": "High-temperature expansion for thermal effective potential valid when T^2 >> m^2 for all particles; may break down in supercooled regime (T_* << v)",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": [
+        "nucleation rate",
+        "Tn",
+        "Tp",
+        "alpha",
+        "beta/H"
+      ],
+      "required_solution": "Implement 3D EFT methods or full thermal potential without high-T expansion; validate in supercooled regime",
+      "source": {
+        "file": "output/SU2_conformal/handoff_constraints.json",
+        "section": "approximations[0]",
+        "note": "Literature (2312.12413, 2210.07075) discusses challenges of EFT description for strongly supercooled transitions."
+      }
+    },
+    {
+      "id": "validity_alpha_template",
+      "kind": "caveat",
+      "category": "validity_domain",
+      "description": "dbf GW spectrum template validated for alpha >> 0.5 (strongly supercooled transitions); higgsless template only valid for alpha <= 0.5",
+      "severity": 6,
+      "controlled": true,
+      "affected_outputs": [
+        "GW spectrum shape",
+        "PTA signal matching"
+      ],
+      "required_solution": "Continue using dbf template; validate against simulations for extreme alpha values (up to 10^16)",
+      "source": {
+        "file": "output/SU2_conformal/handoff_pta.json",
+        "section": "template_validity",
+        "note": "Template choice appropriate for this model's parameter space."
+      }
+    },
+    {
+      "id": "validity_no_portal",
+      "kind": "caveat",
+      "category": "validity_domain",
+      "description": "All constraints requiring portal couplings (beam dump, collider, fixed-target) are not applicable due to epsilon=0, lambda_HPhi=0 assumption",
+      "severity": 6,
+      "controlled": true,
+      "affected_outputs": [
+        "experimental constraints"
+      ],
+      "required_solution": "Document this limitation clearly; consider adding portal couplings for completeness",
+      "source": {
+        "file": "output/SU2_conformal/handoff_constraints.json",
+        "section": "constraints[0,1,2].applicability",
+        "note": "Major limitation: most direct detection constraints cannot be applied to secluded sector."
+      }
+    },
+    {
+      "id": "caveat_dof_ambiguity",
+      "kind": "caveat",
+      "category": "documentation",
+      "description": "Particle_content lists gauge boson A with dof=3 without clarifying these are field components, not degrees of freedom",
+      "severity": 2,
+      "controlled": true,
+      "affected_outputs": [
+        "documentation clarity"
+      ],
+      "required_solution": "Clarify in documentation (already addressed in description)",
+      "source": {
+        "file": "output/SU2_conformal/handoff_critique.json",
+        "section": "warnings[0]",
+        "note": "Minor ambiguity; actual dof correctly handled in field_dependent_masses"
+      }
+    },
+    {
+      "id": "caveat_G_named_goldstone",
+      "kind": "caveat",
+      "category": "documentation",
+      "description": "Field G is named 'Goldstone boson' but has m^2 = lambda chi^2 (massive); physically a pseudo-Goldstone scalar from global symmetry breaking",
+      "severity": 2,
+      "controlled": true,
+      "affected_outputs": [
+        "field naming",
+        "conceptual clarity"
+      ],
+      "required_solution": "Rename to pseudo-Goldstone or massive scalar (already addressed in model.md)",
+      "source": {
+        "file": "output/SU2_conformal/handoff_critique.json",
+        "section": "warnings[1]",
+        "note": "Misleading naming; corrected in model documentation"
+      }
+    },
+    {
+      "id": "caveat_thermal_mass_uniform",
+      "kind": "caveat",
+      "category": "approximation",
+      "description": "W thermal mass formula assumes same thermal correction for all dof, but transverse modes may have different thermal masses than longitudinal",
+      "severity": 4,
+      "controlled": true,
+      "affected_outputs": [
+        "thermal masses",
+        "effective potential accuracy"
+      ],
+      "required_solution": "Investigate mode-dependent thermal masses; validate impact",
+      "source": {
+        "file": "output/SU2_conformal/handoff_critique.json",
+        "section": "warnings[2]",
+        "note": "Approximation consistent with pipeline treatment and literature (2109.11558, 2210.07075)"
+      }
+    },
+    {
+      "id": "limitation_scalar_loop",
+      "kind": "limitation",
+      "category": "theoretical",
+      "description": "Scalar loop contributions to beta_lambda omitted in CW relation; approximation valid for g_D not too small",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": [
+        "CW beta function",
+        "lambda determination"
+      ],
+      "required_solution": "Include scalar loops for completeness; quantify impact",
+      "source": {
+        "file": "output/SU2_conformal/handoff_critique.json",
+        "section": "warnings[3]",
+        "note": "Verified in literature (2109.11558, 2210.07075) as valid approximation"
+      }
+    },
+    {
+      "id": "limitation_bbn",
+      "kind": "limitation",
+      "category": "cosmological",
+      "description": "Light scalars (m_rho ~ 36-86 MeV, m_G ~ 18-43 MeV) in PTA-preferred region may affect BBN if they decay during or after BBN",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "BBN predictions",
+        "light element abundances"
+      ],
+      "required_solution": "Compute scalar decay widths and lifetimes; assess BBN impact",
+      "source": {
+        "file": "output/SU2_conformal/handoff_constraints.json",
+        "section": "constraints[5]",
+        "note": "Requires new backend for scalar decay calculations"
+      }
+    },
+    {
+      "id": "limitation_neff",
+      "kind": "limitation",
+      "category": "cosmological",
+      "description": "Dark sector particles may contribute to N_eff if reheated above decoupling temperature; thermal history not computed",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "CMB observations",
+        "N_eff constraints"
+      ],
+      "required_solution": "Compute dark sector thermal history and decoupling temperature",
+      "source": {
+        "file": "output/SU2_conformal/handoff_constraints.json",
+        "section": "constraints[6]",
+        "note": "Requires new backend for thermal history computation"
+      }
+    },
+    {
+      "id": "limitation_self_interaction",
+      "kind": "limitation",
+      "category": "astrophysical",
+      "description": "Vector DM self-interaction cross section ~ g_D^4 / m_W^2 ~ 10^{-2} to 1 cm^2/g in PTA region may violate galactic/cluster constraints",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "DM self-interaction",
+        "structure formation"
+      ],
+      "required_solution": "Compute dark sector scattering amplitudes; compare with observations",
+      "source": {
+        "file": "output/SU2_conformal/handoff_constraints.json",
+        "section": "constraints[4]",
+        "note": "Requires new backend for dark sector scattering calculations"
+      }
+    },
+    {
+      "id": "limitation_no_running",
+      "kind": "limitation",
+      "category": "computational",
+      "description": "No RG running of couplings; fixed renormalization scale mu = v may introduce scale dependence in results",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "FOPT parameters",
+        "scale dependence"
+      ],
+      "required_solution": "Implement RG running and study scale dependence; compare with literature (2210.07075)",
+      "source": {
+        "file": "output/SU2_conformal/handoff_fopt.json",
+        "section": "approximations[2]",
+        "note": "Literature uses RG-improved effective potential"
+      }
+    },
+    {
+      "id": "warning_strong_supercooling",
+      "kind": "warning",
+      "category": "theoretical",
+      "description": "Strong supercooling regime (alpha >> 0.5, up to 10^16) may affect applicability of multiple approximations (high-T expansion, Daisy resummation, etc.)",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": [
+        "FOPT calculations",
+        "GW predictions"
+      ],
+      "required_solution": "Systematic validation of all approximations in supercooled regime; consider alternative methods (3D EFT)",
+      "source": {
+        "file": "output/SU2_conformal/handoff_constraints.json",
+        "section": "warnings[2]",
+        "note": "Core theoretical uncertainty for this model"
+      }
+    },
+    {
+      "id": "warning_sub_GeV_particles",
+      "kind": "warning",
+      "category": "phenomenological",
+      "description": "PTA-preferred region produces sub-GeV dark gauge bosons (m_W ~ 0.28-0.64 GeV) and light scalars (m_rho ~ 36-86 MeV, m_G ~ 18-43 MeV)",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": [
+        "constraint applicability",
+        "phenomenology"
+      ],
+      "required_solution": "Re-evaluate all constraints for sub-GeV mass range; consider new experimental searches",
+      "source": {
+        "file": "output/SU2_conformal/handoff_constraints.json",
+        "section": "warnings[1]",
+        "note": "Makes particles accessible to beam-dump and collider constraints if portal couplings exist"
+      }
+    },
+    {
+      "id": "warning_template_extrapolation",
+      "kind": "warning",
+      "category": "computational",
+      "description": "dbf template extrapolated to extreme alpha values (up to 10^16); validation may not extend to this regime",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": [
+        "GW spectrum accuracy"
+      ],
+      "required_solution": "Validate template against simulations at extreme alpha; consider alternative templates",
+      "source": {
+        "file": "output/SU2_conformal/handoff_pta.json",
+        "section": "warnings[1]",
+        "note": "Template from 2511.15687 validated for large alpha but not necessarily for alpha ~ 10^16"
+      }
+    },
+    {
+      "id": "warning_eternal_inflation",
+      "kind": "warning",
+      "category": "computational",
+      "description": "50% failure rate due to eternal inflation in FOPT scan; may indicate incomplete parameter space coverage or numerical issues",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": [
+        "viable parameter space",
+        "scan completeness"
+      ],
+      "required_solution": "Investigate eternal inflation criterion; improve numerical stability; understand physical reasons",
+      "source": {
+        "file": "output/SU2_conformal/handoff_fopt.json",
+        "section": "warnings[2]",
+        "note": "Primarily at higher g_D or v values"
+      }
+    }
+  ],
+  "required_followups": [
+    {
+      "id": "validate_high_T_in_supercooling",
+      "priority": "high",
+      "description": "Validate high-temperature expansion and all approximations in strong supercooling regime (alpha >> 0.5)",
+      "blocked_by": [
+        "approx_high_T_expansion",
+        "approx_no_daisy",
+        "limitation_no_running"
+      ],
+      "suggested_action": "Implement 3D EFT (dimensional reduction) methods; compare with literature (2312.12413, 2210.07075)"
+    },
+    {
+      "id": "add_portal_couplings",
+      "priority": "high",
+      "description": "Add SM portal couplings (kinetic mixing, Higgs portal) and study their impact on FOPT and constraints",
+      "blocked_by": [
+        "no_portal_interactions",
+        "uncertainty_secluded_sector"
+      ],
+      "suggested_action": "Extend model with epsilon and lambda_HPhi parameters; re-run FOPT and constraint analysis"
+    },
+    {
+      "id": "extend_scan_range",
+      "priority": "medium",
+      "description": "Reconcile FOPT scan range with original model motivation; validate low-v regime",
+      "blocked_by": [
+        "prior_v_fopt",
+        "uncertainty_parameter_shift"
+      ],
+      "suggested_action": "Run additional scans with v in [100, 1e6] GeV; investigate why PTA prefers low v"
+    },
+    {
+      "id": "compute_scalar_decays",
+      "priority": "medium",
+      "description": "Compute scalar decay widths and lifetimes for BBN analysis",
+      "blocked_by": [
+        "limitation_bbn"
+      ],
+      "suggested_action": "Develop backend for scalar decay calculations; assess BBN impact in PTA-preferred region"
+    },
+    {
+      "id": "compute_DM_self_interaction",
+      "priority": "medium",
+      "description": "Compute dark sector scattering amplitudes for self-interacting DM constraints",
+      "blocked_by": [
+        "limitation_self_interaction"
+      ],
+      "suggested_action": "Develop backend for dark sector scattering; compare with galactic and cluster observations"
+    },
+    {
+      "id": "compute_thermal_history",
+      "priority": "medium",
+      "description": "Compute dark sector thermal history for N_eff and decoupling analysis",
+      "blocked_by": [
+        "limitation_neff"
+      ],
+      "suggested_action": "Develop backend for thermal history computation; compute decoupling temperature from SM"
+    },
+    {
+      "id": "implement_RG_running",
+      "priority": "medium",
+      "description": "Implement RG running of couplings and study scale dependence",
+      "blocked_by": [
+        "limitation_no_running",
+        "approx_fixed_renormalization"
+      ],
+      "suggested_action": "Add RG running to backend; compare with fixed-scale results; quantify scale uncertainty"
+    }
+  ]
+}

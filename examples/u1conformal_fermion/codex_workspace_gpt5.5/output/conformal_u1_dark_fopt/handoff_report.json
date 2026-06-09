@@ -1,0 +1,299 @@
+{
+  "model": "conformal_u1_dark_fopt",
+  "agent": "report-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-08",
+  "branch": "report",
+  "created_from": [
+    "output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    "output/conformal_u1_dark_fopt/handoff_critique.json",
+    "output/conformal_u1_dark_fopt/handoff_model.json",
+    "output/conformal_u1_dark_fopt/handoff_fopt.json",
+    "output/conformal_u1_dark_fopt/handoff_pta.json",
+    "output/conformal_u1_dark_fopt/handoff_constraints.json",
+    "output/conformal_u1_dark_fopt/handoff_prior_audit.json",
+    "output/conformal_u1_dark_fopt/ptarcade_bayes.json"
+  ],
+  "commands": [
+    "pdflatex -interaction=nonstopmode final_report.tex",
+    "pdflatex -interaction=nonstopmode final_report.tex"
+  ],
+  "files_read": [
+    ".codex/agents/report-agent.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_REPORT_SCHEMA.md",
+    "output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    "output/conformal_u1_dark_fopt/handoff_critique.json",
+    "output/conformal_u1_dark_fopt/handoff_model.json",
+    "output/conformal_u1_dark_fopt/handoff_fopt.json",
+    "output/conformal_u1_dark_fopt/handoff_pta.json",
+    "output/conformal_u1_dark_fopt/handoff_constraints.json",
+    "output/conformal_u1_dark_fopt/handoff_prior_audit.json",
+    "output/conformal_u1_dark_fopt/ptarcade_bayes.json",
+    "output/conformal_u1_dark_fopt/pta_benchmark_spectrum.pdf",
+    "output/conformal_u1_dark_fopt/pta_ptarcade_spectrum.pdf",
+    "output/conformal_u1_dark_fopt/pta_posteriors.pdf"
+  ],
+  "files_written": [
+    "output/conformal_u1_dark_fopt/final_report.tex",
+    "output/conformal_u1_dark_fopt/final_report.pdf",
+    "output/conformal_u1_dark_fopt/final_report.aux",
+    "output/conformal_u1_dark_fopt/final_report.log",
+    "output/conformal_u1_dark_fopt/final_report.out",
+    "output/conformal_u1_dark_fopt/handoff_report.json"
+  ],
+  "warnings": [
+    "Several upstream handoffs have warning status; the report treats them as usable with explicit caveats.",
+    "The final conclusion is conditional positive evidence for PTA spectral compatibility, not a completed cosmological viability proof.",
+    "No non-PTA published constraint was applied as an exclusion by the constraints handoff.",
+    "The DBF template was used as the closest supported template, but its validity is warning-level for the strongest supercooled points.",
+    "The PTArcade MAP point is on the physical y_D=0 boundary.",
+    "The rectangular 68% posterior region contains beta_lambda<0 corners; a masked posterior summary is still required.",
+    "LaTeX compilation succeeded with nonfatal overfull/underfull box warnings in tables and display math."
+  ],
+  "errors": [],
+  "approximations": [
+    "Report content is derived from upstream handoff JSONs and does not add new physics calculations.",
+    "Mass-region summaries use handoff-provided rectangular posterior bounds rather than posterior-covariance masking.",
+    "Citation verification follows upstream citation_verified metadata; arXiv:1205.2893 is marked uncertain and not used for an exclusion claim."
+  ],
+  "included_sections": [
+    {
+      "name": "Summary",
+      "status": "included",
+      "source": "all upstream handoffs",
+      "notes": [
+        "Answers the original NANOGrav/FOPT question conditionally."
+      ]
+    },
+    {
+      "name": "Model",
+      "status": "included",
+      "source": "output/conformal_u1_dark_fopt/handoff_model.json",
+      "notes": [
+        "Includes gauge group, fields, charges, Lagrangian terms, parameters, and field-dependent masses."
+      ]
+    },
+    {
+      "name": "Pipeline Status",
+      "status": "included",
+      "source": "output/conformal_u1_dark_fopt/handoff_prior_audit.json",
+      "notes": [
+        "Uses upstream_statuses summary."
+      ]
+    },
+    {
+      "name": "Literature Context",
+      "status": "included",
+      "source": "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+      "notes": [
+        "Includes verified literature findings and novelty verdict."
+      ]
+    },
+    {
+      "name": "FOPT Results",
+      "status": "included",
+      "source": "output/conformal_u1_dark_fopt/handoff_fopt.json",
+      "notes": [
+        "Includes scan counts, representative points, and backend caveats."
+      ]
+    },
+    {
+      "name": "PTA and PTArcade Results",
+      "status": "included",
+      "source": "output/conformal_u1_dark_fopt/handoff_pta.json and output/conformal_u1_dark_fopt/ptarcade_bayes.json",
+      "notes": [
+        "Includes 14/14 benchmark result, posterior/MAP estimates, and DBF template warning."
+      ]
+    },
+    {
+      "name": "Constraints",
+      "status": "included",
+      "source": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "notes": [
+        "Includes non-exclusion status and missing backend calculations."
+      ]
+    },
+    {
+      "name": "Prior and Assumption Audit",
+      "status": "included",
+      "source": "output/conformal_u1_dark_fopt/handoff_prior_audit.json",
+      "notes": [
+        "Includes highest-severity uncontrolled issues and required followups."
+      ]
+    },
+    {
+      "name": "Conclusion",
+      "status": "included",
+      "source": "all upstream handoffs",
+      "notes": [
+        "Distinguishes conditional positive evidence from unresolved cosmology, template, and portal caveats."
+      ]
+    },
+    {
+      "name": "References",
+      "status": "included",
+      "source": "librarian and constraints handoffs",
+      "notes": [
+        "Uncertain citation is marked explicitly and not used as an exclusion."
+      ]
+    }
+  ],
+  "figures_included": [
+    {
+      "label": "pta_benchmark_spectrum",
+      "file": "output/conformal_u1_dark_fopt/pta_benchmark_spectrum.pdf",
+      "caption": "Benchmark DBF spectrum compared with the PTA violin windows.",
+      "source": "output/conformal_u1_dark_fopt/handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "pta_ptarcade_spectrum",
+      "file": "output/conformal_u1_dark_fopt/pta_ptarcade_spectrum.pdf",
+      "caption": "PTArcade MAP spectrum generated from the final chain summary.",
+      "source": "output/conformal_u1_dark_fopt/handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "pta_posteriors",
+      "file": "output/conformal_u1_dark_fopt/pta_posteriors.pdf",
+      "caption": "PTArcade posterior distributions for the model parameters.",
+      "source": "output/conformal_u1_dark_fopt/handoff_pta.json",
+      "notes": []
+    }
+  ],
+  "tables_included": [
+    {
+      "label": "pipeline_status",
+      "file": "output/conformal_u1_dark_fopt/final_report.tex",
+      "caption": "Pipeline status and interpretation.",
+      "source": "output/conformal_u1_dark_fopt/handoff_prior_audit.json",
+      "notes": []
+    },
+    {
+      "label": "fopt_representative_points",
+      "file": "output/conformal_u1_dark_fopt/final_report.tex",
+      "caption": "Representative viable FOPT points.",
+      "source": "output/conformal_u1_dark_fopt/handoff_fopt.json",
+      "notes": []
+    },
+    {
+      "label": "constraint_mapping",
+      "file": "output/conformal_u1_dark_fopt/final_report.tex",
+      "caption": "Constraint applicability mapping.",
+      "source": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "notes": []
+    },
+    {
+      "label": "prior_audit_high_severity",
+      "file": "output/conformal_u1_dark_fopt/final_report.tex",
+      "caption": "Highest-severity prior and assumption audit items.",
+      "source": "output/conformal_u1_dark_fopt/handoff_prior_audit.json",
+      "notes": []
+    }
+  ],
+  "cited_sources": [
+    {
+      "title": "Gravitational waves from a dark U(1)_D phase transition in the light of NANOGrav 12.5 yr data",
+      "arxiv_id": "2105.01007",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data",
+      "arxiv_id": "2501.11619",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+      "arxiv_id": "2502.19478",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "NANOGrav Signal from a Dark Conformal Phase Transition",
+      "arxiv_id": "2306.17086",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Phase transition and vacuum stability in the classically conformal B-L model",
+      "arxiv_id": "",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "BBN constraints on MeV-scale dark sectors. Part I. Sterile decays",
+      "arxiv_id": "1712.03972",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "BBN constraints on MeV-scale dark sectors. Part II. Electromagnetic decays",
+      "arxiv_id": "1808.09324",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Cosmological constraints in extended parameter space from the Planck 2018 Legacy release",
+      "arxiv_id": "1908.01391",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Strong constraints on self-interacting dark matter with light mediators",
+      "arxiv_id": "1612.00845",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "US Cosmic Visions: New Ideas in Dark Matter 2017: Community Report",
+      "arxiv_id": "1707.04591",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "The Dark Photon",
+      "arxiv_id": "2005.01515",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Minimal self-interacting dark matter models with light mediator",
+      "arxiv_id": "1912.11708",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Supercool subtleties of cosmological phase transitions",
+      "arxiv_id": "2212.07559",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Classically conformal B-L extended Standard Model and Higgs vacuum stability",
+      "arxiv_id": "1205.2893",
+      "source_file": "output/conformal_u1_dark_fopt/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": false
+    }
+  ],
+  "compiled_pdf": true,
+  "compile_errors": []
+}

@@ -1,0 +1,291 @@
+{
+  "model": "SU2_conformal",
+  "agent": "proposer-agent",
+  "run_status": "ok",
+  "provenance": [
+    "User request: minimal conformal non-abelian model for NANOGrav FOPT",
+    "Reference: input/u1conformal/prompt.md (U(1) conformal model)",
+    "Backend: docs/BACKEND_COMPATIBILITY.md (semianalytic_pipeline requirements)",
+    "Schema: docs/HANDOFF_PROPOSER_SCHEMA.md"
+  ],
+  "gauge_groups": [
+    {
+      "name": "SU(2)_D",
+      "type": "non-abelian",
+      "rank": 1,
+      "dimension": 3,
+      "description": "Dark SU(2) gauge group"
+    }
+  ],
+  "global_symmetries": [
+    {
+      "name": "SO(3)_custodial",
+      "type": "global",
+      "description": "Accidental custodial symmetry of scalar potential",
+      "explicitly_broken": false,
+      "spontaneously_broken": false
+    }
+  ],
+  "particle_content": [
+    {
+      "name": "Phi",
+      "type": "scalar",
+      "spin": 0,
+      "statistics": "bosonic",
+      "gauge_representations": {
+        "SU(2)_D": "2 (doublet, complex)"
+      },
+      "dof": 4,
+      "electric_charge": 0,
+      "description": "Complex scalar doublet, dark Higgs field"
+    },
+    {
+      "name": "A",
+      "type": "gauge_boson",
+      "spin": 1,
+      "statistics": "bosonic",
+      "gauge_representations": {
+        "SU(2)_D": "3 (adjoint)"
+      },
+      "dof": 3,
+      "description": "SU(2)_D gauge bosons (W^1, W^2, W^3)"
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "scalar_kinetic",
+      "expression": "(D_mu Phi)^dagger (D^mu Phi)",
+      "description": "Covariant kinetic term for scalar doublet",
+      "gauge_invariant": true
+    },
+    {
+      "name": "scalar_potential",
+      "expression": "-lambda * (Phi^dagger Phi)^2",
+      "description": "Classically scale-invariant quartic potential",
+      "gauge_invariant": true
+    },
+    {
+      "name": "gauge_kinetic",
+      "expression": "-1/4 * F^a_{mu nu} F^{a mu nu}",
+      "description": "SU(2) field strength kinetic term",
+      "gauge_invariant": true
+    }
+  ],
+  "free_parameters": [
+    {
+      "name": "g_D",
+      "symbol": "g_D",
+      "range": [0.01, 12.56],
+      "description": "SU(2)_D gauge coupling",
+      "determination": "independent",
+      "physical_range_justification": "Perturbativity: g_D < 4*pi ~ 12.56"
+    },
+    {
+      "name": "v",
+      "symbol": "v",
+      "range": [1e2, 1e6],
+      "units": "GeV",
+      "description": "Vacuum expectation value of background field chi",
+      "determination": "independent",
+      "physical_range_justification": "FOPT temperature range for PTA signal"
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "g_D": {
+        "name": "g_D",
+        "description": "Dark SU(2) gauge coupling",
+        "range": [0.01, 12.56],
+        "can_scan": true
+      },
+      "v": {
+        "name": "v",
+        "description": "Scalar vev",
+        "range": [1e2, 1e6],
+        "units": "GeV",
+        "can_scan": true
+      }
+    },
+    "dependent": {
+      "lambda": {
+        "name": "lambda",
+        "description": "Quartic coupling fixed by Coleman-Weinberg condition",
+        "expression": "beta_lambda",
+        "determination": "Coleman-Weinberg minimization",
+        "can_scan": false
+      },
+      "beta_lambda": {
+        "name": "beta_lambda",
+        "description": "CW beta function for quartic coupling",
+        "expression": "(6 * (g_D / 2)**4) / (8 * pi**2)",
+        "determination": "gauge sector loops",
+        "can_scan": false,
+        "value": "3 * g_D^4 / (32 * pi^2)"
+      },
+      "m_rho": {
+        "name": "m_rho",
+        "description": "Radial scalar (pseudo-dilaton) mass",
+        "expression": "sqrt(beta_lambda) * v",
+        "determination": "CW pseudo-dilaton mass",
+        "can_scan": false
+      },
+      "gb_rho": {
+        "name": "gb_rho",
+        "description": "Radial scalar mass-over-vev ratio",
+        "expression": "sqrt(beta_lambda)",
+        "determination": "from beta_lambda",
+        "can_scan": false
+      }
+    },
+    "fixed": {
+      "xi": {
+        "name": "xi",
+        "description": "Dark sector temperature relative to SM",
+        "value": 1.0,
+        "justification": "Assumed thermal equilibrium with SM bath"
+      }
+    }
+  },
+  "ssb_pattern": [
+    {
+      "before": "SU(2)_D",
+      "after": "U(1)_D",
+      "vev": "v",
+      "breaking_scale": "v",
+      "goldstone_bosons": 1,
+      "massive_gauge_bosons": 2,
+      "massless_gauge_bosons": 1
+    }
+  ],
+  "vev_convention": {
+    "background_field": "chi",
+    "field_definition": "Phi(x) = (0, (chi(x) + rho(x) + i*G(x))/sqrt(2))^T",
+    "vev_value": "chi = v",
+    "normalization": "Phi^dagger Phi = chi^2 / 2 at background",
+    "notes": "chi is the radial background field that drives the phase transition"
+  },
+  "tree_level_potential": [
+    {
+      "expression": "lambda * chi**4 / 4",
+      "variables": ["chi"],
+      "description": "Tree-level potential in terms of background field chi"
+    }
+  ],
+  "field_dependent_masses": [
+    {
+      "particle": "W",
+      "m2_of_chi": "(g_D**2 * chi**2) / 4",
+      "gb": "g_D / 2",
+      "dof": 6,
+      "statistics": "bosonic",
+      "notes": "Two massive gauge bosons (W^+ and W^-), each with 3 dof (polarizations). Massless W^3 gauge boson not included."
+    },
+    {
+      "particle": "rho",
+      "m2_of_chi": "3 * lambda * chi**2",
+      "gb": "sqrt(3 * lambda)",
+      "dof": 1,
+      "statistics": "bosonic",
+      "notes": "Radial scalar fluctuation (pseudo-dilaton). gb is dependent via CW relation."
+    },
+    {
+      "particle": "G",
+      "m2_of_chi": "lambda * chi**2",
+      "gb": "sqrt(lambda)",
+      "dof": 1,
+      "statistics": "bosonic",
+      "notes": "Goldstone boson from SU(2)->U(1) breaking. Uneaten Goldstone mode."
+    }
+  ],
+  "thermal_masses": [
+    {
+      "particle": "W",
+      "m2_of_chi_T": "(g_D**2 * chi**2) / 4 + (g_D**2 * T**2) / 3",
+      "gb": "g_D / 2",
+      "dof": 6,
+      "statistics": "bosonic",
+      "notes": "Thermal mass includes Debye screening for longitudinal mode. Transverse modes have m^2 = (g_D^2 chi^2)/4 only."
+    },
+    {
+      "particle": "rho",
+      "m2_of_chi_T": "3 * lambda * chi**2 + (lambda / 3 + g_D**2 / 8) * T**2",
+      "gb": "sqrt(3 * lambda)",
+      "dof": 1,
+      "statistics": "bosonic",
+      "notes": "Daisy-resummed thermal mass for radial scalar"
+    },
+    {
+      "particle": "G",
+      "m2_of_chi_T": "lambda * chi**2 + (lambda / 3 + g_D**2 / 8) * T**2",
+      "gb": "sqrt(lambda)",
+      "dof": 1,
+      "statistics": "bosonic",
+      "notes": "Daisy-resummed thermal mass for Goldstone"
+    }
+  ],
+  "expression_symbols": [
+    {"symbol": "chi", "description": "Background scalar field", "units": "GeV"},
+    {"symbol": "v", "description": "Vacuum expectation value of chi", "units": "GeV"},
+    {"symbol": "g_D", "description": "SU(2)_D gauge coupling", "units": "dimensionless"},
+    {"symbol": "lambda", "description": "Quartic coupling (dependent via CW)", "units": "dimensionless"},
+    {"symbol": "T", "description": "Temperature", "units": "GeV"},
+    {"symbol": "pi", "description": "Pi constant", "value": 3.141592653589793}
+  ],
+  "backend_compatibility": [
+    {
+      "backend": "semianalytic_pipeline",
+      "status": "compatible",
+      "mapping": {
+        "chi0": "v",
+        "boson_gbs": {"W": "g_D / 2"},
+        "boson_dofs": {"W": 6},
+        "fermion_gfs": {},
+        "fermion_dofs": {}
+      },
+      "notes": "Model is classically scale-invariant with single-field (radial mode chi) dynamics. Tree-level potential is quartic-only. Coleman-Weinberg relation eliminates lambda in favor of g_D and v. High-temperature expansion valid for thermal barrier."
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "minimal_field_content",
+      "description": "Only one scalar doublet and SU(2) gauge bosons; no additional fields",
+      "impact": "Simplifies dynamics but may limit parameter space"
+    },
+    {
+      "id": "no_portal_interactions",
+      "description": "SM-Higgs portal (lambda_HPhi |H|^2 |Phi|^2) and gauge kinetic mixing (epsilon/2 F F') neglected for FOPT dynamics",
+      "impact": "FOPT analysis is for dark sector only; portal effects could modify transition"
+    },
+    {
+      "id": "perturbativity",
+      "description": "g_D < 4*pi for perturbative calculations",
+      "impact": "Restricts gauge coupling range"
+    },
+    {
+      "id": "thermal_equilibrium",
+      "description": "Dark sector is in thermal equilibrium with itself",
+      "impact": "Validates use of thermal effective potential"
+    },
+    {
+      "id": "coupled_to_SM",
+      "description": "Dark sector temperature T_D = T_SM (xi = 1)",
+      "impact": "Determines g_star for Hubble rate calculation"
+    },
+    {
+      "id": "negligible_back_reaction",
+      "description": "Scalar self-coupling contribution to beta_lambda is subdominant compared to gauge sector",
+      "impact": "Simplifies CW relation; valid for g_D not too small"
+    },
+    {
+      "id": "strong_supercooling",
+      "description": "Phase transition occurs at temperatures T << v",
+      "impact": "Justifies high-temperature expansion approximation"
+    },
+    {
+      "id": "boson_dominated_CW",
+      "description": "Boson loops dominate CW beta function (beta_lambda > 0)",
+      "impact": "Ensures radiative symmetry breaking"
+    }
+  ],
+  "notes": "This is a minimal non-abelian conformal model for FOPT. It extends the U(1) conformal model (input/u1conformal/prompt.md) to SU(2) gauge group while maintaining classical scale invariance and minimal field content. The SU(2) structure provides enhanced gauge dynamics that can produce a stronger first-order phase transition compared to U(1), making it more efficient at generating detectable gravitational wave signals."
+}

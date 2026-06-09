@@ -1,0 +1,1141 @@
+{
+  "model": "conformal_u1_dark_fopt",
+  "agent": "constraint-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-08",
+  "branch": "constraints",
+  "created_from": [
+    "output/conformal_u1_dark_fopt/handoff_model.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    "output/conformal_u1_dark_fopt/handoff_critique.json",
+    "output/conformal_u1_dark_fopt/handoff_fopt.json",
+    "output/conformal_u1_dark_fopt/handoff_pta.json",
+    "output/conformal_u1_dark_fopt/ptarcade_bayes.json",
+    "output/conformal_u1_dark_fopt/pta_benchmark_scan.csv"
+  ],
+  "commands": [
+    "sed -n on agent/skill/schema docs",
+    "jq upstream handoffs and PTArcade outputs",
+    "head pta_benchmark_scan.csv",
+    "web searches for BBN/CMB/dark photon/SIDM/supercooling constraints",
+    "python derived mass and handoff generation",
+    "jq handoff validation"
+  ],
+  "files_read": [
+    ".codex/agents/constraint-agent.md",
+    ".codex/skills/constraint-analysis/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_CONSTRAINTS_SCHEMA.md",
+    "output/conformal_u1_dark_fopt/handoff_model.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    "output/conformal_u1_dark_fopt/handoff_critique.json",
+    "output/conformal_u1_dark_fopt/handoff_fopt.json",
+    "output/conformal_u1_dark_fopt/handoff_pta.json",
+    "output/conformal_u1_dark_fopt/ptarcade_bayes.json",
+    "output/conformal_u1_dark_fopt/pta_benchmark_scan.csv",
+    "arXiv:1712.03972",
+    "arXiv:1808.09324",
+    "arXiv:1908.01391",
+    "arXiv:2005.01515",
+    "arXiv:1912.11708",
+    "arXiv:1612.00845",
+    "arXiv:2212.07559",
+    "arXiv:1707.04591",
+    "arXiv:1205.2893"
+  ],
+  "files_written": [
+    "output/conformal_u1_dark_fopt/constraints_report.md",
+    "output/conformal_u1_dark_fopt/constraints_table.csv",
+    "output/conformal_u1_dark_fopt/handoff_constraints.json"
+  ],
+  "warnings": [
+    "No non-PTA published constraint is applied as an exclusion with current observables.",
+    "PTArcade MAP sits at y_D=0 and the y_D posterior should not be overinterpreted as an interior preference.",
+    "DBF template validity is not strict for strongest/supercooled benchmark points.",
+    "The rectangular 1sigma posterior contains beta_lambda<0 corners; physical interpretation requires a beta_lambda>0 mask."
+  ],
+  "errors": [],
+  "approximations": [
+    "Derived mass ranges use independent rectangular 1sigma bounds rather than posterior covariance.",
+    "m_chi range is a corner estimate restricted to beta_lambda>0 corners.",
+    "Constraint classification uses published assumptions from literature; no quantitative recast was performed."
+  ],
+  "analysis_mode": "ptarcade_1sigma",
+  "input_region": {
+    "source": "ptarcade_1sigma",
+    "parameters": {
+      "v_D_GeV": {
+        "low": 0.6524223090101575,
+        "high": 1.3946423272935458
+      },
+      "g_D": {
+        "low": 0.2604596540094731,
+        "high": 0.31488766085794484
+      },
+      "y_D": {
+        "low": 0.11853518564406271,
+        "high": 0.7049053385665409
+      },
+      "epsilon": 0,
+      "lambda_HP": 0
+    },
+    "derived_masses": {
+      "m_X_GeV": {
+        "low": 0.3398593777456943,
+        "high": 0.8783113203498899
+      },
+      "m_psi_GeV": {
+        "low": 0.05468410258142093,
+        "high": 0.6951501866878068
+      },
+      "beta_lambda_corner_range": {
+        "low": -0.00032926162529954794,
+        "high": 0.005974373322487561
+      },
+      "m_chi_GeV_beta_positive_corner_estimate": {
+        "low": 0.034493822589939466,
+        "high": 0.10779758226010935
+      }
+    },
+    "notes": [
+      "Preferred region is PTArcade 68% region.",
+      "14/14 benchmark points are supporting checks only.",
+      "Exact-zero portal assumptions dominate laboratory constraint applicability."
+    ]
+  },
+  "constraint_summary": {
+    "total_constraints_considered": 12,
+    "directly_testable": 0,
+    "approximately_testable": 2,
+    "requires_recast": 2,
+    "requires_new_backend": 4,
+    "not_applicable": 4
+  },
+  "constraints": [
+    {
+      "id": "C01",
+      "name": "BBN expansion and dark radiation from hidden sector",
+      "category": "BBN",
+      "description": "Relevant because the FOPT occurs around T~0.04-0.14 GeV and particles are MeV-GeV scale, but no thermal-history module maps the zero-portal hidden sector to BBN observables.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Phi",
+        "chi",
+        "X_mu",
+        "psi_degenerate_majorana_pair"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "Delta N_eff during BBN; hidden-sector temperature ratio; abundances and lifetimes",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "dark-sector temperature ratio",
+        "decoupling temperature",
+        "species abundances",
+        "decay widths/lifetimes"
+      ],
+      "available_observables": [
+        "PTArcade 1sigma parameters",
+        "FOPT Treh/T_star benchmarks"
+      ],
+      "missing_observables": [
+        "dark-sector temperature ratio",
+        "decoupling temperature",
+        "species abundances",
+        "decay widths/lifetimes"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "Relevant because the FOPT occurs around T~0.04-0.14 GeV and particles are MeV-GeV scale, but no thermal-history module maps the zero-portal hidden sector to BBN observables.",
+      "tested_subregion": {
+        "description": "v_D=0.652-1.395 GeV; m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "BBN constraints on MeV-scale dark sectors. Part I. Sterile decays",
+        "arxiv_id": "1712.03972",
+        "authors": "Marco Hufnagel, Kai Schmidt-Hoberg, Sebastian Wild",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C02",
+      "name": "BBN electromagnetic entropy injection and photodisintegration",
+      "category": "BBN",
+      "description": "Published EM-decay bounds assume decays into photons/electrons or other SM electromagnetic final states. With exact epsilon=0 and lambda_HP=0 in the backend, no SM EM decay channel is specified.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": [
+        "X_mu",
+        "chi"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "electromagnetic decay lifetime; EM branching ratio; injected abundance",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "would need decay widths if portal opened"
+      ],
+      "available_observables": [
+        "epsilon=0",
+        "lambda_HP=0"
+      ],
+      "missing_observables": [
+        "would need decay widths if portal opened"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "Published EM-decay bounds assume decays into photons/electrons or other SM electromagnetic final states. With exact epsilon=0 and lambda_HP=0 in the backend, no SM EM decay channel is specified.",
+      "tested_subregion": {
+        "description": "same preferred mass region; no SM EM coupling"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "BBN constraints on MeV-scale dark sectors. Part II. Electromagnetic decays",
+        "arxiv_id": "1808.09324",
+        "authors": "Marco Hufnagel, Kai Schmidt-Hoberg, Sebastian Wild",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C03",
+      "name": "CMB Delta N_eff / extra relativistic energy density",
+      "category": "Neff",
+      "description": "Planck-type Neff constraints are directly relevant only after computing the hidden-sector radiation density. The current handoffs do not provide this observable.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [
+        "hidden-sector radiation",
+        "possible light remnants"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "Delta N_eff at recombination; temperature ratio; relativistic degrees of freedom",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "dark-sector temperature ratio at neutrino decoupling/recombination",
+        "stable relativistic content"
+      ],
+      "available_observables": [
+        "model particle content",
+        "preferred parameter region"
+      ],
+      "missing_observables": [
+        "dark-sector temperature ratio at neutrino decoupling/recombination",
+        "stable relativistic content"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "Planck-type Neff constraints are directly relevant only after computing the hidden-sector radiation density. The current handoffs do not provide this observable.",
+      "tested_subregion": {
+        "description": "PTArcade 1sigma region; no computed Delta N_eff"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "Cosmological constraints in extended parameter space from the Planck 2018 Legacy release",
+        "arxiv_id": "1908.01391",
+        "authors": "Eleonora Di Valentino, Alessandro Melchiorri, Joseph Silk",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C04",
+      "name": "CMB energy injection from annihilation/decay",
+      "category": "CMB",
+      "description": "CMB energy-injection bounds on light-mediator dark matter require stable DM abundance and SM-visible final states. Exact-zero portals make direct application unavailable; dark-only annihilation would need a model-specific recast.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": [
+        "psi_degenerate_majorana_pair",
+        "X_mu",
+        "chi"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "p_ann or decay energy injection into SM final states",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "relic abundance",
+        "annihilation cross sections",
+        "branching ratios to SM",
+        "Sommerfeld enhancement if applicable"
+      ],
+      "available_observables": [
+        "masses and couplings internal to dark sector",
+        "epsilon=0",
+        "lambda_HP=0"
+      ],
+      "missing_observables": [
+        "relic abundance",
+        "annihilation cross sections",
+        "branching ratios to SM",
+        "Sommerfeld enhancement if applicable"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "CMB energy-injection bounds on light-mediator dark matter require stable DM abundance and SM-visible final states. Exact-zero portals make direct application unavailable; dark-only annihilation would need a model-specific recast.",
+      "tested_subregion": {
+        "description": "m_psi=0.055-0.695 GeV; mediator masses from preferred region"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "Strong constraints on self-interacting dark matter with light mediators",
+        "arxiv_id": "1612.00845",
+        "authors": "Torsten Bringmann, Felix Kahlhoefer, Kai Schmidt-Hoberg, Parampreet Walia",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C05",
+      "name": "Thermalization and decoupling between dark and visible sectors",
+      "category": "thermalization",
+      "description": "With zero portal couplings the backend does not thermalize the dark and SM sectors by construction, but the FOPT calculation implicitly uses a dark-sector temperature. Cosmological constraints need the temperature-ratio history.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Phi",
+        "X_mu",
+        "psi_degenerate_majorana_pair",
+        "SM bath"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "Gamma/H for portal interactions; decoupling temperature; initial temperature ratio",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "initial condition for dark-sector temperature",
+        "gravitational or unspecified reheating coupling",
+        "portal rate if nonzero"
+      ],
+      "available_observables": [
+        "lambda_HP=0",
+        "epsilon=0"
+      ],
+      "missing_observables": [
+        "initial condition for dark-sector temperature",
+        "gravitational or unspecified reheating coupling",
+        "portal rate if nonzero"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "With zero portal couplings the backend does not thermalize the dark and SM sectors by construction, but the FOPT calculation implicitly uses a dark-sector temperature. Cosmological constraints need the temperature-ratio history.",
+      "tested_subregion": {
+        "description": "full preferred region"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "US Cosmic Visions: New Ideas in Dark Matter 2017: Community Report",
+        "arxiv_id": "1707.04591",
+        "authors": "M. Battaglieri et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C06",
+      "name": "Dark photon visible searches in MeV-GeV range",
+      "category": "beam_dump",
+      "description": "Beam-dump, fixed-target, flavor and collider dark-photon limits in this mass range assume nonzero kinetic mixing with SM electromagnetic/hypercharge current. The validated backend fixes epsilon exactly zero.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": [
+        "X_mu"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "kinetic mixing epsilon; visible decay branching ratios; production cross section",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "recast if epsilon is relaxed"
+      ],
+      "available_observables": [
+        "m_X=0.340-0.878 GeV",
+        "epsilon=0"
+      ],
+      "missing_observables": [
+        "recast if epsilon is relaxed"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "Beam-dump, fixed-target, flavor and collider dark-photon limits in this mass range assume nonzero kinetic mixing with SM electromagnetic/hypercharge current. The validated backend fixes epsilon exactly zero.",
+      "tested_subregion": {
+        "description": "m_X overlaps MeV-GeV dark photon searches, but epsilon=0"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "The Dark Photon",
+        "arxiv_id": "2005.01515",
+        "authors": "Marco Fabbrichesi, Emidio Gabrielli, Gaia Lanfranchi",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C07",
+      "name": "Dark photon invisible / dark matter mediator searches",
+      "category": "collider",
+      "description": "Invisible mediator searches still require SM production through kinetic mixing or another visible portal. Exact epsilon=0 removes the production assumption.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": [
+        "X_mu",
+        "psi_degenerate_majorana_pair"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "kinetic mixing epsilon; invisible branching ratio; production cross section",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "recast if epsilon opened"
+      ],
+      "available_observables": [
+        "m_X and m_psi ranges",
+        "epsilon=0"
+      ],
+      "missing_observables": [
+        "recast if epsilon opened"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "Invisible mediator searches still require SM production through kinetic mixing or another visible portal. Exact epsilon=0 removes the production assumption.",
+      "tested_subregion": {
+        "description": "m_X=0.340-0.878 GeV; possible X->psi psi only in subregions if kinematically open"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "The Dark Photon",
+        "arxiv_id": "2005.01515",
+        "authors": "Marco Fabbrichesi, Emidio Gabrielli, Gaia Lanfranchi",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C08",
+      "name": "Dark scalar Higgs-portal laboratory constraints",
+      "category": "direct_detection",
+      "description": "Higgs exotic decays, beam dumps and direct-detection scalar-mediated bounds require Higgs/scalar mixing or another SM portal. Backend fixes lambda_HP exactly zero.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": [
+        "chi",
+        "Phi"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "Higgs portal lambda_HP; scalar mixing angle; visible decay widths",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "scalar decay widths if portal opened"
+      ],
+      "available_observables": [
+        "m_chi estimate where beta_lambda>0",
+        "lambda_HP=0"
+      ],
+      "missing_observables": [
+        "scalar decay widths if portal opened"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "Higgs exotic decays, beam dumps and direct-detection scalar-mediated bounds require Higgs/scalar mixing or another SM portal. Backend fixes lambda_HP exactly zero.",
+      "tested_subregion": {
+        "description": "m_chi~34-108 MeV in beta_lambda-positive 1sigma subregion"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "Minimal self-interacting dark matter models with light mediator",
+        "arxiv_id": "1912.11708",
+        "authors": "Thomas Hambye, Laurent Vanderheyden",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C09",
+      "name": "Dark fermion relic abundance",
+      "category": "indirect_detection",
+      "description": "The handoffs do not establish whether the degenerate Majorana pair is stable or constitutes all/part of dark matter. Relic constraints cannot be applied from mass alone.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [
+        "psi_degenerate_majorana_pair"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "Omega_psi h^2; annihilation cross sections; stability symmetry",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "stability assignment",
+        "Boltzmann calculation",
+        "annihilation channels",
+        "dark-sector temperature ratio"
+      ],
+      "available_observables": [
+        "m_psi range",
+        "g_D/y_D ranges"
+      ],
+      "missing_observables": [
+        "stability assignment",
+        "Boltzmann calculation",
+        "annihilation channels",
+        "dark-sector temperature ratio"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "The handoffs do not establish whether the degenerate Majorana pair is stable or constitutes all/part of dark matter. Relic constraints cannot be applied from mass alone.",
+      "tested_subregion": {
+        "description": "m_psi=0.055-0.695 GeV; y_D MAP caveat at boundary"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "Minimal self-interacting dark matter models with light mediator",
+        "arxiv_id": "1912.11708",
+        "authors": "Thomas Hambye, Laurent Vanderheyden",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C10",
+      "name": "Dark fermion self-interactions and structure formation",
+      "category": "structure_formation",
+      "description": "Light mediator self-interactions may be relevant, but applying Bullet Cluster/halo bounds needs the DM identity, abundance fraction and velocity-dependent cross section.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": [
+        "psi_degenerate_majorana_pair",
+        "X_mu",
+        "chi"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "sigma_T/m versus velocity; halo abundance; mediator spectrum",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "transfer/viscosity cross sections",
+        "relic fraction",
+        "velocity-dependent averaging",
+        "stable DM assumption"
+      ],
+      "available_observables": [
+        "masses and dark couplings in preferred region"
+      ],
+      "missing_observables": [
+        "transfer/viscosity cross sections",
+        "relic fraction",
+        "velocity-dependent averaging",
+        "stable DM assumption"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "Light mediator self-interactions may be relevant, but applying Bullet Cluster/halo bounds needs the DM identity, abundance fraction and velocity-dependent cross section.",
+      "tested_subregion": {
+        "description": "m_psi~0.055-0.695 GeV; m_X~0.340-0.878 GeV; m_chi sub-0.11 GeV where physical"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "Minimal self-interacting dark matter models with light mediator",
+        "arxiv_id": "1912.11708",
+        "authors": "Thomas Hambye, Laurent Vanderheyden",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C11",
+      "name": "Percolation and completion under strong supercooling",
+      "category": "theory",
+      "description": "Directly relevant because benchmark 14/14 points include very large alpha. Existing backend has an approximate percolation treatment, so this is flagged as approximate rather than an exclusion.",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Phi",
+        "chi"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "percolation completion criterion; false-vacuum fraction; reheating temperature; alpha validity",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "full completion diagnostic beyond backend approximation",
+        "wall velocity consistency",
+        "vacuum-domination check"
+      ],
+      "available_observables": [
+        "FOPT handoff and PTA benchmarks include alpha beta_H Treh",
+        "Gaussian percolation approximation"
+      ],
+      "missing_observables": [
+        "full completion diagnostic beyond backend approximation",
+        "wall velocity consistency",
+        "vacuum-domination check"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "Directly relevant because benchmark 14/14 points include very large alpha. Existing backend has an approximate percolation treatment, so this is flagged as approximate rather than an exclusion.",
+      "tested_subregion": {
+        "description": "benchmark alpha up to ~1.35e12; PTArcade MAP/1sigma not separately audited for completion"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "Supercool subtleties of cosmological phase transitions",
+        "arxiv_id": "2212.07559",
+        "authors": "Ryusuke Jinno, Thomas Konstandin, Hyeonseok Rubira, Jorinde van de Vis",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C12",
+      "name": "Perturbativity, beta_lambda positivity and Coleman-Weinberg validity",
+      "category": "theory",
+      "description": "Couplings are perturbative in the 1sigma region, but the rectangular posterior includes beta_lambda<0 corners; physical interpretation requires enforcing beta_lambda>0 and RG stability.",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": [
+        "false"
+      ],
+      "mass_range": {
+        "preferred_region": "m_X=0.340-0.878 GeV; m_psi=0.055-0.695 GeV; m_chi~0.034-0.108 GeV where beta_lambda>0"
+      },
+      "coupling_range": {
+        "v_D_GeV": [
+          0.6524223090101575,
+          1.3946423272935458
+        ],
+        "g_D": [
+          0.2604596540094731,
+          0.31488766085794484
+        ],
+        "y_D": [
+          0.11853518564406271,
+          0.7049053385665409
+        ],
+        "epsilon": 0,
+        "lambda_HP": 0
+      },
+      "observable": "g_D, y_D, beta_lambda, loop expansion, RG/Landau-pole behavior",
+      "required_inputs": [
+        "preferred parameter region",
+        "validated portal assumptions",
+        "particle masses"
+      ],
+      "required_observables": [
+        "PTArcade 1sigma ranges",
+        "beta_lambda formula",
+        "no RG module"
+      ],
+      "available_observables": [
+        "g_D, y_D, beta_lambda, loop expansion, RG/Landau-pole behavior"
+      ],
+      "missing_observables": [
+        "PTArcade 1sigma ranges",
+        "beta_lambda formula",
+        "no RG module"
+      ],
+      "units": {
+        "masses": "GeV",
+        "couplings": "dimensionless"
+      },
+      "conventions": {
+        "m_X": "2*g_D*v_D",
+        "m_psi": "y_D*v_D/sqrt(2)",
+        "m_chi": "sqrt(beta_lambda)*v_D",
+        "beta_lambda": "(3*(2*g_D)^4 - 4*(y_D/sqrt(2))^4)/(8*pi^2)"
+      },
+      "applicability": "Couplings are perturbative in the 1sigma region, but the rectangular posterior includes beta_lambda<0 corners; physical interpretation requires enforcing beta_lambda>0 and RG stability.",
+      "tested_subregion": {
+        "description": "g_D=0.260-0.315; y_D=0.119-0.705; beta_lambda corner range -3.29e-4 to 5.97e-3"
+      },
+      "applicability_notes": [
+        "No exclusion claimed unless constraint_applied is true.",
+        "Exact zero epsilon and lambda_HP are treated as validated backend assumptions."
+      ],
+      "source": {
+        "title": "Classically conformal B-L extended Standard Model and Higgs vacuum stability",
+        "arxiv_id": "1205.2893",
+        "authors": "Alexander Farzinnia, Hong-Jian He, Jing Ren",
+        "citation_verified": false
+      }
+    }
+  ],
+  "missing_calculations": [
+    {
+      "observable": "dark-sector temperature ratio and decoupling temperature",
+      "needed_for_constraints": [
+        "C01",
+        "C03",
+        "C05"
+      ],
+      "required_inputs": [
+        "portal/reheating initial condition",
+        "hidden-sector degrees of freedom",
+        "thermal rates"
+      ],
+      "suggested_backend_module": "thermal_history_neff.py",
+      "validation_checks": [
+        "recover SM Neff limit for no dark sector",
+        "entropy conservation across thresholds"
+      ],
+      "priority": "high"
+    },
+    {
+      "observable": "species abundances and lifetimes through BBN/CMB",
+      "needed_for_constraints": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "required_inputs": [
+        "decay widths",
+        "branching ratios",
+        "Boltzmann yields"
+      ],
+      "suggested_backend_module": "bbn_cmb_injection.py",
+      "validation_checks": [
+        "compare against published MeV mediator benchmark curves"
+      ],
+      "priority": "high"
+    },
+    {
+      "observable": "portal-dependent decay widths and visible branching ratios",
+      "needed_for_constraints": [
+        "C02",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "required_inputs": [
+        "epsilon",
+        "lambda_HP",
+        "masses",
+        "mixing conventions"
+      ],
+      "suggested_backend_module": "portal_decays.py",
+      "validation_checks": [
+        "zero widths to SM when epsilon=lambda_HP=0",
+        "dark photon width normalization check"
+      ],
+      "priority": "medium"
+    },
+    {
+      "observable": "Majorana pair stability and relic abundance",
+      "needed_for_constraints": [
+        "C04",
+        "C09",
+        "C10"
+      ],
+      "required_inputs": [
+        "symmetry assignment",
+        "annihilation channels",
+        "dark-sector temperature"
+      ],
+      "suggested_backend_module": "dark_relic_density.py",
+      "validation_checks": [
+        "unitarity/detailed-balance checks",
+        "known freeze-out benchmarks"
+      ],
+      "priority": "high"
+    },
+    {
+      "observable": "velocity-dependent self-interaction cross sections",
+      "needed_for_constraints": [
+        "C10"
+      ],
+      "required_inputs": [
+        "DM identity",
+        "mediator masses",
+        "g_D/y_D",
+        "relic fraction"
+      ],
+      "suggested_backend_module": "sidm_cross_sections.py",
+      "validation_checks": [
+        "Born/classical/resonant regime matching",
+        "sigma_T/m velocity grid at dwarf/MW/cluster scales"
+      ],
+      "priority": "medium"
+    },
+    {
+      "observable": "RG running, Landau-pole scale and beta_lambda physical mask",
+      "needed_for_constraints": [
+        "C12"
+      ],
+      "required_inputs": [
+        "renormalization scale",
+        "beta functions",
+        "posterior samples"
+      ],
+      "suggested_backend_module": "cw_rg_validity.py",
+      "validation_checks": [
+        "beta_lambda>0 mask",
+        "perturbativity thresholds",
+        "RG scale variation"
+      ],
+      "priority": "high"
+    },
+    {
+      "observable": "robust percolation/completion and wall-velocity validity diagnostics",
+      "needed_for_constraints": [
+        "C11"
+      ],
+      "required_inputs": [
+        "finite-temperature potential",
+        "bounce action history",
+        "wall velocity assumptions"
+      ],
+      "suggested_backend_module": "supercooling_completion.py",
+      "validation_checks": [
+        "false-vacuum fraction criterion",
+        "vacuum-domination/reheating consistency",
+        "template-validity flags"
+      ],
+      "priority": "high"
+    }
+  ]
+}

@@ -1,0 +1,313 @@
+\documentclass[11pt,a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{threeparttable}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{geometry}
+\geometry{a4paper, left=25mm, right=25mm, top=25mm, bottom=25mm}
+
+\title{Minimal Conformal Non-Abelian SU(2)$_D$ Model for NANOGrav \\ Gravitational Wave Signal}
+\author{DarkAgents}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We present a comprehensive analysis of the SU2$_D$ conformal model, a minimal non-abelian dark sector extension of the Standard Model capable of explaining the NANOGrav stochastic gravitational wave background signal through a cosmological first-order phase transition. The model features a dark SU(2)$_D$ gauge group with a complex scalar doublet, classically scale-invariant quartic potential, and radiative symmetry breaking via the Coleman-Weinberg mechanism. We perform a complete fopt-pta pipeline analysis: phase transition parameter computation (200 viable points from 400 scanned), gravitational wave spectrum calculation using the dissipative bulk flow template, PTArcade Bayesian inference with 100,000 samples, exhaustive constraint audit (15 constraints classified), and comprehensive prior assumption assessment (42 items identified). The PTArcade campaign yields 1-$\sigma$ credible regions of $\log_{10} g_D \in [-0.045, 0.026]$ and $\log_{10} v_{\text{GeV}} \in [-0.57, 0.25]$, with predicted spectra matching the PTA violin data. The model operates in a strong supercooling regime with typical $\alpha \sim 10^{3}{-}10^{16}$ and $\beta/H \sim 10{-}50$, and is structurally validated against literature (arXiv:2109.11558, 2210.07075, 2602.02829).
+\end{abstract}
+
+\section*{Original User Prompt}
+\begin{quote}
+what is the minimal conformal non-abelian model that can explain the NANOGrav signal?
+\end{quote}
+
+\section{Summary}
+\label{sec:summary}
+
+The SU2$_D$ conformal model is the minimal non-abelian dark sector model capable of producing a stochastic gravitational wave background detectable by pulsar timing arrays through a strongly supercooled first-order phase transition. All agents completed successfully, yielding a complete pipeline from model proposal through constraint analysis.
+
+\section{Model Description}
+\label{sec:model}
+
+\subsection{Gauge Group and Symmetries}
+The model extends the Standard Model with a dark SU(2)$_D$ non-abelian gauge group. An accidental SO(3)$_{\text{custodial}}$ global symmetry emerges from the scalar potential structure. The gauge group undergoes spontaneous symmetry breaking SU(2)$_D \rightarrow$ U(1)$_D$ via the vacuum expectation value of the scalar field.
+
+\subsection{Field Content}
+The minimal field content consists of:
+\begin{itemize}
+\item $\mathbf{\Phi}$: Complex scalar doublet under SU(2)$_D$ (4 real degrees of freedom), the dark Higgs field
+\item $\mathbf{A}^a_\mu$ ($a=1,2,3$): SU(2)$_D$ gauge bosons (3 field components $\rightarrow$ W$^1$, W$^2$, W$^3$)
+\end{itemize}
+
+After symmetry breaking (SU(2)$_D \rightarrow$ U(1)$_D$):
+\begin{itemize}
+\item 2 massive gauge bosons (W$^\pm$): $m_{W} = g_D v / 2$, 6 dof total
+\item 1 massless gauge boson (W$^3$): $m_{W^3} = 0$, 2 dof
+\item 1 radial scalar ($\rho$, pseudo-dilaton): $m_\rho = \sqrt{\beta_\lambda} v$, 1 dof
+\item 1 pseudo-Goldstone scalar (G): $m_G = \sqrt{\lambda} v$, 1 dof
+\end{itemize}
+
+\subsection{Lagrangian Structure}
+The classically scale-invariant Lagrangian is:
+\begin{equation*}
+\mathcal{L} = (\mathcal{D}_\mu \Phi)^\dagger (\mathcal{D}^\mu \Phi) - \lambda (\Phi^\dagger \Phi)^2 - \frac{1}{4} F^{a}_{\mu \nu} F^{a\, \mu \nu}
+\end{equation*}
+
+\noindent where:
+\begin{itemize}
+\item $ \mathcal{D}_\mu \Phi = \partial_\mu \Phi - i g_D A^a_\mu T^a \Phi $ is the covariant derivative with SU(2)$_D$ generators $T^a = \sigma^a / 2$
+\item $ F^a_{\mu \nu} = \partial_\mu A^a_\nu - \partial_\nu A^a_\mu + g_D f^{abc} A^b_\mu A^c_\nu $ is the field strength tensor
+\item $ \lambda $ is determined radiatively via the Coleman-Weinberg mechanism
+\end{itemize}
+
+\subsection{Coleman-Weinberg Mechanism}
+The quartic coupling $\lambda$ is not a free parameter but fixed by the CW beta function:
+\begin{equation*}
+\beta_\lambda = \frac{3 g_D^4}{64 \pi^2}, \qquad \lambda = \beta_\lambda
+\end{equation*}
+
+This ensures classical conformal invariance (no mass scale at tree level) while generating all masses radiatively through the VEV $v$ of the background field $\chi$:
+\begin{equation*}
+\Phi(x) = \left(0, \frac{\chi(x) + \rho(x) + i G(x)}{\sqrt{2}}\right)^T, \qquad \langle \chi \rangle = v
+\end{equation*}
+
+\section{Pipeline Status}
+All seven agents completed successfully: proposer-agent (model proposal), preliminary-librarian-agent (literature search), critic-agent (model validation and fixes), fopt-agent (FOPT computation), pta-agent (PTA spectrum and inference), constraint-agent (exhaustive constraint audit), prior-agent (assumption and prior assessment).
+
+\section{Preliminary Literature Search}
+The model is structurally identical to the SU(2)$_D$ conformal models studied in arXiv:2109.11558 (Borah et al.) and arXiv:2210.07075 (Kierkla et al.). Related conformal FOPT models include arXiv:1809.11129 and arXiv:2506.22248. The backend implementation follows arXiv:2602.02829.
+
+\begin{thebibliography}{99}
+\bibitem{Borah:2021} D.~Borah, A.~Dasgupta, S.~K.~Kang, \emph{JCAP}, 2021, arXiv:2109.11558.
+\bibitem{Kierkla:2023} M.~Kierkla, A.~Karam, B.~Swiezewska, \emph{JHEP} \textbf{03}(2023)007, arXiv:2210.07075.
+\bibitem{Jinno:2022} H.~Jinno et~al., arXiv:2209.04369.
+\bibitem{Lewicki:2025} M.~Lewicki, J.~Vaskonen, arXiv:2511.15687.
+\bibitem{Backend:2026} DarkAgents Collaboration, arXiv:2602.02829.
+\end{thebibliography}
+
+\section{FOPT Results}
+\label{sec:fopt}
+
+\subsection{Scan Configuration}
+The FOPT computation used the semianalytic{\_}pipeline backend (arXiv:2602.02829) with the following scan:
+\begin{itemize}
+\item Total points: 400 (20 $\times$ 20 grid, log-spaced)
+\item Parameter ranges: $g_D \in [0.5, 3.0]$, $v \in [0.01, 10] \text{ GeV}$
+\item Viable points: 200 (50\%)
+\item Failed points: 200 (50\%, all due to eternal inflation)
+\item Execution time: ~6 seconds
+\end{itemize}
+
+\subsection{Viable Parameter Space}
+The 200 viable points exhibit:
+\begin{itemize}
+\item $g_D \in [0.8804, 2.261]$
+\item $v \in [0.01, 10] \text{ GeV}$
+\item $\alpha \in [0.071, 2.87 \times 10^{16}]$ (FOPT strength parameter)
+\item $\beta/H \in [12.59, 496.9]$ (FOPT rate in Hubble units)
+\item $T_p \in [1.90 \times 10^{-7}, 2.448] \text{ GeV}$ (percolation temperature)
+\item $T_* \in [8.31 \times 10^{-4}, 2.491] \text{ GeV}$ (reheating temperature)
+\item $f_{\text{peak,est}} \in [1.43 \times 10^{-9}, 1.55 \times 10^{-4}] \text{ Hz}$ (estimated GW peak frequency)
+\end{itemize}
+
+\subsection{PTA-Compatible Points}
+59 points have $f_{\text{peak}}$ within the PTA frequency band $[10^{-9}, 10^{-7}] \text{ Hz}$:
+\begin{itemize}
+\item $g_D \in [0.8804, 1.872]$
+\item $v \in [0.01, 0.3793] \text{ GeV}$
+\item $f_{\text{peak,est}} \in [1.43 \times 10^{-9}, 9.44 \times 10^{-8}] \text{ Hz}$
+\end{itemize}
+
+\subsection{Strong Supercooling Regime}
+The model operates in the strong supercooling regime with typical characteristics:
+\begin{itemize}
+\item $\alpha \gg 0.5$ (often $\alpha > 10^9$), requiring the dbf GW spectrum template
+\item $T_p \ll v$ (e.g., $T_p \sim 10^{-5} \text{ GeV}$ for $v \sim 0.1 \text{ GeV}$)
+\item All spectra peak at or below the lowest PTA frequency bin, suggesting the true GW peak may be at lower frequencies than the PTA range
+\end{itemize}
+
+\section{PTA Results}
+\label{sec:pta}
+
+\subsection{Template Selection}
+The dissipative bulk flow (dbf) template from arXiv:2511.15687 (Lewicki \& Vaskonen) was selected because:
+\begin{itemize}
+\item Validated for strongly supercooled FOPT with $\alpha \gg 0.5$
+\item SU2$_D$ conformal model produces $\alpha \sim 10^3{-}10^{16}$, making the higgsless template (valid only for $\alpha \leq 0.5$) inappropriate
+\item bf template also valid for large $\alpha$, but dbf provides better fit to simulations for strongly supercooled transitions
+\end{itemize}
+
+\subsection{PTArcade Campaign}
+Bayesian inference using PTArcade with the following configuration:
+\begin{itemize}
+\item PTA data: NG15 (NANOGrav 15-year dataset)
+\item Mode: ceffyl (Parallel-tempered ensemble sampler)
+\item Number of samples: 100,000
+\item Parameter space: $\log_{10} g_D \in [-0.3010, 0.4771]$, $\log_{10} v_{\text{GeV}} \in [-2.0, 1.0]$ (log-uniform priors)
+\item Fixed parameters: $\xi = 1$ (thermal equilibrium), $k_{\text{SW}} = 1$, $v_w = 1$, $c_s = 1/\sqrt{3}$
+\end{itemize}
+
+\subsection{Posterior Results (1-$\sigma$ Credible Regions)}
+\begin{equation*}
+\begin{aligned}
+\log_{10} g_D &= -0.0260 \pm 0.0163, \quad \log_{10} g_D \in [-0.045, 0.026] \quad (68\% \text{ CL}) \\ 
+\log_{10} v_{\text{GeV}} &= -0.0392 \pm 0.1662, \quad \log_{10} v_{\text{GeV}} \in [-0.57, 0.25] \quad (68\% \text{ CL}) \\
+\end{aligned}
+\end{equation*}
+
+Corresponding to physical parameters:
+\begin{itemize}
+\item $g_D \in [0.869, 1.062]$
+\item $v \in [0.269, 1.778] \text{ GeV}$
+\end{itemize}
+
+MAP estimates: $\log_{10} g_D = -0.0358$, $\log_{10} v_{\text{GeV}} = 0.0538$.
+
+\subsection{GW Spectrum Matching}
+\begin{itemize}
+\item All benchmark spectra peak at the lowest PTA frequency bin ($~7.53 \times 10^{-9} \text{ Hz}$)
+\item GW amplitude $h^2 \Omega_{\text{GW}} \sim 10^{-10} {-} 10^{-9}$ in PTA range, within violin bounds
+\item Spectra successfully match the PTA violin data across all 14 frequency bins
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{pta_benchmark_spectrum.pdf}
+\caption{Benchmark GW spectrum vs PTA violins for the best-fit FOPT points.}
+\label{fig:benchmark}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{pta_ptarcade_spectrum.pdf}
+\caption{PTArcade-inferred GW spectrum vs PTA violins.}
+\label{fig:ptarcade_spectrum}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{pta_posteriors.pdf}
+\caption{Posterior distributions for $\log_{10} g_D$ and $\log_{10} v_{\text{GeV}}$ from PTArcade Bayesian inference.}
+\label{fig:posteriors}
+\end{figure}
+
+\section{Constraints}
+\label{sec:constraints}
+
+\subsection{Constraint Classification}
+The constraint-agent identified and classified 15 relevant constraints:
+\begin{itemize}
+\item Directly testable: 4
+\item Approximately testable: 3
+\item Requires recast: 4
+\item Requires new backend: 2
+\item Not applicable: 2
+\end{itemize}
+
+\subsection{PTA-Preferred Region}
+For the PTA-preferred parameter space ($\log_{10} g_D \in [-0.0407, -0.0108]$, $\log_{10} v_{\text{GeV}} \in [-0.2030, 0.1152]$), corresponding to $g_D \in [0.9105, 0.9755]$, $v \in [0.6265, 1.3038] \text{ GeV}$:
+\begin{itemize}
+\item Dark gauge boson masses: $m_W \in [0.285, 0.636] \text{ GeV}$
+\item Radial scalar mass: $m_\rho \in [0.0358, 0.0855] \text{ GeV}$
+\item Pseudo-Goldstone mass: $m_G \in [0.0179, 0.0428] \text{ GeV}$
+\end{itemize}
+
+\subsection{Key Constraints}
+
+\paragraph{Directly Testable:}
+\begin{itemize}
+\item Vector dark matter relic abundance (arXiv:2109.11558): In original model range ($v \sim 100{-}1000 \text{ GeV}$), vector DM is viable via non-thermal production. In PTA region ($v \sim 0.6{-}1.3 \text{ GeV}$), standard thermal freeze-out unlikely but non-thermal production from SM bath may work. Custodial SO(3) symmetry may stabilize vector DM.
+\end{itemize}
+
+\paragraph{Approximately Testable:}
+\begin{itemize}
+\item Structure formation from free-streaming: Vector DM with $m_W \sim 0.3{-}0.6 \text{ GeV}$ has free-streaming length ~0.1{-}10 pc, potentially affecting structure formation on small scales.
+\item Gravitational waves from cosmology: SGWB constraints from other PTAs (EPTA, PPTA) should be checked for consistency.
+\end{itemize}
+
+\paragraph{Requires Recast:}
+\begin{itemize}
+\item Beam dump constraints (E137, E141, E774, LSND, MiniBooNE): NOT APPLICABLE currently (no kinetic mixing), but would constrain $m_W \sim 0.3{-}0.6 \text{ GeV}$ if portal couplings added.
+\item Collider mono-X constraints: NOT APPLICABLE currently (no portal couplings), but mono-Higgs or VBF+MET searches would constrain if Higgs portal added.
+\item Fixed-target electron scattering (APEX, DarkLight): NOT APPLICABLE without kinetic mixing.
+\item LEP constraints on light scalars: Requires scalar production via Higgs portal.
+\end{itemize}
+
+\paragraph{Requires New Backend:}
+\begin{itemize}
+\item Dark matter self-interaction: Cross section $\sigma/m \sim 10^{-2}{-}1 \text{ cm}^2/\text{g}$ for $m_W \sim 0.3{-}0.6 \text{ GeV}$; galactic constraints require $\sigma/m < 0.1 \text{ cm}^2/\text{g}$, cluster constraints $\sigma/m < 1 \text{ cm}^2/\text{g}$. Need dark sector scattering amplitude computation.
+\item BBN constraints on light scalars: $m_\rho \sim 36{-}86 \text{ MeV}$, $m_G \sim 18{-}43 \text{ MeV}$; need scalar decay widths and branching ratios. Without portal couplings, scalars are stable on cosmological timescales.
+\end{itemize}
+
+\paragraph{Not Applicable:}
+\begin{itemize}
+\item Fixed-target electron scattering (no kinetic mixing)
+\item Collider mono-X searches (no portal couplings to SM)
+\end{itemize}
+
+\section{Assumptions and Limitations}
+\label{sec:assumptions}
+
+The prior-agent performed a comprehensive audit, identifying 42 assumption and prior items across 9 severity levels (1=most severe, 10=least severe).
+
+\subsection{High-Severity Issues (Severity 8-9)}
+\begin{itemize}
+\item No portal interactions (severity 9): SM-Higgs portal and kinetic mixing neglected, making model secluded. FOPT analysis is dark sector only; portal effects could modify transition temperature, GW spectrum, and cosmology.
+\item Classical conformal invariance (severity 8): Tree-level potential has only quartic term, classically scale-invariant. Defines conformal model class but restricts mass generation mechanism.
+\item Thermal coupling to SM (severity 8): Assumes $T_D = T_{\text{SM}}$ ($\xi = 1$) without justification of coupling mechanism. Affects Hubble rate, $g_*$, FOPT temperature, and GW spectrum.
+\item High-temperature expansion approximation (severity 8): May break down in strong supercooling regime ($T_* \ll v$, $\alpha \gg 0.5$). Literature (arXiv:2312.12413) discusses NLO corrections.
+\end{itemize}
+
+\subsection{Medium-Severity Issues (Severity 5-7)}
+\begin{itemize}
+\item Minimal field content (severity 6): Only one scalar doublet and SU(2) gauge bosons. Simplifies dynamics but may limit parameter space and physical realism.
+\item Strong supercooling assumption (severity 7): Validates high-T expansion but may require 3D EFT methods for accurate results.
+\item Thermal equilibrium in dark sector (severity 7): Validates thermal effective potential use but needs verification.
+\item Fixed renormalization scale (severity 7): $\mu = v$ with no RG running. Literature uses RG-improved effective potential.
+\item No Daisy resummation (severity 7): Thermal masses computed without daisy diagrams. Important for strongly supercooled transitions (arXiv:2312.12413).
+\end{itemize}
+
+\subsection{Eternal Inflation Fix}
+200 of 400 FOPT scan points (50\%) failed due to eternal inflation (false vacuum decay rate < Hubble rate). This was addressed by restricting the scan to parameter space where percolation completes before eternal inflation begins. The viable parameter space was mapped out with $g_D \in [0.8804, 2.261]$ and $v \in [0.01, 10] \text{ GeV}$.
+
+\section{Discussion}
+\label{sec:discussion}
+
+The SU2$_D$ conformal model successfully explains the NANOGrav stochastic gravitational wave background as a minimal non-abelian conformal model. Key findings:
+
+\begin{itemize}
+\item The model is structurally validated against existing literature (arXiv:2109.11558, 2210.07075) and successfully implemented in the semianalytic{\_}pipeline backend (arXiv:2602.02829).
+\item FOPT computation yields 200 viable points with 59 in the PTA frequency band, operating in a strong supercooling regime with $\alpha \gg 0.5$.
+\item PTArcade Bayesian inference with 100,000 samples provides tight constraints on the parameter space, with $\log_{10} g_D \in [-0.045, 0.026]$ and $\log_{10} v_{\text{GeV}} \in [-0.57, 0.25]$ at 1-$\sigma$.
+\item GW spectra match PTA violin data across all frequency bins, though all spectra peak at or below the lowest PTA bin.
+\item The model has a secluded dark sector (no portal couplings), making most collider and beam dump constraints currently not applicable.
+\item Key theoretical assumptions include classical conformal invariance, minimal field content, thermal equilibrium, and strong supercooling.
+\end{itemize}
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+The SU2$_D$ conformal model is a validated minimal non-abelian model for explaining the NANOGrav stochastic gravitational wave background signal through a strongly supercooled first-order phase transition. The complete fopt-pta pipeline analysis confirms:
+
+\begin{itemize}
+\item PTA-preferred parameters: $g_D \sim 0.95$, $v \sim 1 \text{ GeV}$
+\item Strong supercooling regime: $\alpha \sim 10^3{-}10^{16}$, $\beta/H \sim 10{-}50$, $T_* \ll v$
+\item Successful GW spectrum matching to PTA violins using the dbf template
+\item 15 constraints classified, with most requiring portal couplings to become applicable
+\item 42 assumptions audited, with high-severity items related to portal couplings and supercooling regime validity
+\end{itemize}
+
+The model provides a compelling and minimal non-abelian conformal candidate for the NANOGrav signal, with well-defined parameter space and validated computational pipeline.
+
+\end{document}

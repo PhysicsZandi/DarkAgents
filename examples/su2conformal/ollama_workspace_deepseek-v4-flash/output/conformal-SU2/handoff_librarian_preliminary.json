@@ -1,0 +1,333 @@
+{
+  "model": "conformal-SU2",
+  "agent": "preliminary-librarian-agent",
+  "run_status": "ok",
+  "scan_mode": "preliminary_scan",
+  "papers": [
+    {
+      "arxiv_id": "2109.11558",
+      "title": "A first order dark SU(2)_D phase transition with vector dark matter in the light of NANOGrav 12.5 yr data",
+      "authors": ["Debasish Borah", "Arnab Dasgupta", "Sin Kyu Kang"],
+      "year": 2021,
+      "journal": "JCAP",
+      "relevance_score": 10,
+      "brief_description": "Studies a dark SU(2)_D gauge extension with classical conformal invariance, containing only a complex scalar doublet and no dark fermions. The FOPT at sub-GeV temperatures produces nHz GWs consistent with NANOGrav 12.5 yr data. This is the most directly relevant paper: it studies exactly a classically scale-invariant SU(2) with a single complex scalar doublet, with the same target signal (nHz GWs from FOPT). The model Lagrangian includes a purely quartic scalar potential (no tree-level mass), gauge kinetic term, and covariant derivative for the doublet. No Higgs portal or SM Higgs is included in the dark sector -- only the doublet and SU(2)_D gauge bosons.",
+      "model_studied": "Dark SU(2)_D gauge theory with classically conformal scalar potential, one complex scalar doublet, no dark fermions. The tree-level scalar potential is V = lambda (Phi^dagger Phi)^2 with no mass term. Symmetry breaking via Coleman-Weinberg mechanism. Portal coupling to SM Higgs is negligible (lambda_2 ~ 10^-9 for DM freeze-in scenario).",
+      "similarity_to_target": "Exact same model: classically scale-invariant SU(2) with one complex scalar doublet, SSB SU(2)->nothing via CW mechanism, no fermions, same target signal (nHz GW from FOPT for NANOGrav).",
+      "paper_classification": "same_model",
+      "metadata_only": false,
+      "experimental_constraints": ["NANOGrav 12.5 yr PTA data", "CMB (Planck) constraints on Delta N_eff", "BBN constraints", "DM relic density from freeze-in mechanism"],
+      "observables": ["GW energy-density spectrum Omega_GW(f) at nHz frequencies", "DM relic density Omega_DM h^2", "Dark gauge boson mass M_{Z_D}"],
+      "benchmark_points": [
+        {
+          "name": "BP1",
+          "parameters": {"g_D": 1.37, "M_{Z_D}": "8.23 MeV", "T_n": "1.8 MeV", "T_p": "8.23 MeV", "alpha": 0.45, "beta/H": 143, "v_w": 0.887},
+          "confidence": "direct",
+          "notes": "Benchmark from Table 1 of 2109.11558. Strong FOPT producing GW consistent with NANOGrav 12.5 yr data. g_D=1.37 is within the proposed model's range [0.1,3.0]. The MeV-scale VEV maps to nHz GW peak frequency."
+        },
+        {
+          "name": "BP2",
+          "parameters": {"g_D": 1.37, "M_{Z_D}": "817 keV", "T_n": "190 keV", "T_p": "817 keV", "alpha": 0.36, "beta/H": 151, "v_w": 0.872},
+          "confidence": "direct",
+          "notes": "Benchmark from Table 1 of 2109.11558. Lower VEV (keV-scale gauge boson mass) producing GW in the nHz band. Same coupling g_D=1.37 but with weaker transition strength."
+        }
+      ],
+      "assumptions": ["Classical conformal invariance (no tree-level mass terms)", "Coleman-Weinberg radiative symmetry breaking at one loop", "Negligible portal coupling to SM Higgs (lambda_2 ~ 10^-9 for DM freeze-in)", "High-temperature expansion of one-loop finite-T effective potential", "Daisy resummation of thermal masses for gauge bosons", "GW spectrum includes bubble collisions, sound waves, and turbulence"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2602.09092",
+      "title": "Tuning the violins: dark sector phase transition models for the PTA signal",
+      "authors": ["Torsten Bringmann", "Thomas Konstandin", "Jonas Matuszak", "Kai Schmidt-Hoberg", "Carlo Tasillo"],
+      "year": 2026,
+      "journal": "arXiv preprint (submitted to JHEP)",
+      "relevance_score": 10,
+      "brief_description": "Comprehensive study of three dark sector FOPT model classes for the PTA signal using PTArcade. The conformal (Coleman-Weinberg) model -- a classically scale-invariant U(1)' with a complex scalar -- stands out as the most generic, least tuned explanation. Provides detailed benchmark points from Bayesian MCMC fits to NANOGrav 15 yr data. Structurally similar to the SU(2) case (CW mechanism in a gauge theory with one scalar doublet).",
+      "model_studied": "Conformal dark U(1)' model with a complex scalar (dark Higgs). Tree-level potential V = lambda |phi|^4. Symmetry breaking via Coleman-Weinberg mechanism. Also: Abelian dark Higgs (with tree-level mass) and flip-flop (two-singlet) models for comparison. The conformal model has no dimensionful parameters at tree level.",
+      "similarity_to_target": "Structurally similar: U(1)' gauge group instead of SU(2), but same CW mechanism with one complex scalar, same target signal (PTA nHz GWs from FOPT), same classically scale-invariant tree-level potential. The SU(2) case would have 3x the gauge degrees of freedom (9 vs 3), strengthening the transition.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": ["NANOGrav 15 yr PTA data (Bayesian fit with PTArcade)", "BBN (Delta N_eff)", "CMB constraints"],
+      "observables": ["GW energy-density spectrum Omega_GW(f) (nHz)", "PTArcade log-likelihood", "Phase transition parameters (alpha, beta/H, T_p, T_reh)"],
+      "benchmark_points": [
+        {
+          "name": "Conformal best-fit (BP-CW)",
+          "parameters": {"g": 0.692, "v": "0.14 GeV (140 MeV)", "T_nuc": "3.16 MeV", "T_p": "2.58 MeV", "T_reh": "14.5 MeV", "alpha": 821, "beta/H": 57.9, "ln_L": -103.28},
+          "confidence": "adaptable",
+          "notes": "Best-fit benchmark from Tables 2 and 3 of 2602.09092. U(1)' gauge theory, not SU(2). The conformal model naturally produces alpha ~ O(10^2-10^6) and beta/H ~ O(30-100). For SU(2), the additional gauge dof will strengthen the transition and increase the bounce action, shifting the benchmarks. The VEV scale (~100 MeV) and transition temperatures (MeV scale) are in the range that produces nHz GWs."
+        }
+      ],
+      "assumptions": ["Conformal dark U(1)' with Coleman-Weinberg mechanism", "RG-improved effective potential", "PTArcade pipeline for MCMC fitting", "Sound wave dominated GW spectrum", "Daisy resummation included"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2501.11619",
+      "title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data",
+      "authors": ["Joao Goncalves", "Danny Marfatia", "Antonio P. Morais", "Roman Pasechnik"],
+      "year": 2025,
+      "journal": "Physics Letters B 869 (2025) 139829",
+      "relevance_score": 8,
+      "brief_description": "Shows that supercooled FOPTs in conformal dark U(1)' models can explain the nHz SGWB from NANOGrav. Addresses concerns about percolation in supercooled transitions by showing Euclidean action asymptotically approaches zero as T->0. Provides best-fit parameters for NANOGrav 15 yr data using PTArcade. Structurally similar to the minimal SU(2) model but with U(1)' gauge group.",
+      "model_studied": "Conformal dark U(1)' model with a complex scalar (dark Higgs). Classically scale-invariant potential. Communicates with SM via kinetic mixing and/or Higgs portal.",
+      "similarity_to_target": "Structurally similar: U(1)' vs SU(2) gauge group but same CW mechanism and same target signal.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": ["NANOGrav 15 yr data (PTArcade MCMC)", "BBN (Delta N_eff)", "CMB constraints"],
+      "observables": ["GW spectrum (nHz range)", "PTArcade posterior distributions", "Euclidean action temperature dependence"],
+      "benchmark_points": [
+        {
+          "name": "Best-fit",
+          "parameters": {"g_L": 0.59, "M_{h2}": "12.4 MeV", "M_{Z'}": "107.3 MeV", "T_RH": "11.7 MeV", "alpha": "~O(10^5)", "beta/H": 39.5},
+          "confidence": "qualitative",
+          "notes": "Best-fit from 2501.11619 for a conformal dark U(1)' model. Provides useful qualitative guidance for CW-type transitions: very strong supercooling (alpha ~10^5), slow transitions (beta/H ~39.5), VEV ~100 MeV giving transition temperatures ~10 MeV. For SU(2), the larger number of gauge dof will modify these numbers, but the qualitative picture (extremely strong supercooling, slow transitions) carries over."
+        }
+      ],
+      "assumptions": ["Conformal dark U(1)' with RG-improved potential", "CosmoTransitions for bounce action", "LISA Cosmo WG templates for GW spectra", "Supercooled transition with guaranteed percolation (action -> 0 as T -> 0)", "Dark sector decays to SM before BBN"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2210.07075",
+      "title": "Conformal model for gravitational waves and dark matter: A status update",
+      "authors": ["Maciej Kierkla", "Alexandros Karam", "Bogumila Swiezewska"],
+      "year": 2023,
+      "journal": "JHEP 03 (2023) 007",
+      "relevance_score": 8,
+      "brief_description": "Updated analysis of the SU(2)cSM model: SM plus an SU(2)_X gauge group with a scalar doublet. Uses RG-improved effective potential, includes percolation condition for the first time. Provides GW signals for LISA (mHz range, not nHz). Very relevant for understanding SU(2) CW dynamics but GW signal is in a different frequency band.",
+      "model_studied": "SU(2)cSM: SM extended with SU(2)_X gauge group and one scalar doublet (singlet under SM). Tree-level potential: V = (lambda_1/4) h^4 + (lambda_2/4) h^2 phi^2 + (lambda_3/4) phi^4. Higgs portal coupling to SM included.",
+      "similarity_to_target": "Structurally similar: same SU(2)_X gauge group and scalar doublet, but includes SM Higgs doublet and Higgs portal coupling. The purely dark SU(2) model corresponds to the limit where the SM Higgs is decoupled (lambda_2 -> 0) and the portal is turned off. However, benchmark points give TeV-scale VEVs and GeV-scale transition temperatures, producing GW in LISA (mHz) band rather than PTA (nHz) band.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": ["Higgs mixing constraints", "LHC bounds on new scalars", "DM relic density", "Percolation condition (P > 0.34)"],
+      "observables": ["GW spectrum Omega_GW(f) (mHz range, LISA band)", "DM relic abundance of SU(2)_X gauge bosons", "Phase transition parameters (alpha, beta/H, T_n, T_c)"],
+      "benchmark_points": [
+        {
+          "name": "BP1",
+          "parameters": {"g_X": 0.83, "w (vev)": "2200 GeV", "T_c": "281 GeV", "T_n": "22 GeV", "alpha": 597, "beta/H": 449},
+          "confidence": "qualitative",
+          "notes": "From Table 1 of 2210.07075. Shows that SU(2)_X CW model produces very strong transitions (alpha~600) with relatively fast bubble nucleation (beta/H~449). The TeV-scale VEV gives transition temperatures of O(10-100 GeV), mapping to mHz GWs, not nHz. However, scaling down the VEV to MeV-GeV scale would shift the peak frequency to nHz range."
+        },
+        {
+          "name": "BP7",
+          "parameters": {"g_X": 0.85, "w (vev)": "2411 GeV", "T_c": "318 GeV", "T_n": "28 GeV", "alpha": 361, "beta/H": 434},
+          "confidence": "qualitative",
+          "notes": "Preferred benchmark from 2210.07075. g_X=0.85 is within the proposed model's parameter range. Provides qualitative insight into SU(2) CW dynamics."
+        }
+      ],
+      "assumptions": ["RG-improved effective potential", "Percolation condition (P > 0.34)", "Efficient reheating after PT (Gamma_phi > H)", "Gildener-Weinberg one-loop analysis with two-field potential", "GW from sound waves (dominant) and bubble collisions"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "1809.11129",
+      "title": "Gravitational waves from conformal symmetry breaking",
+      "authors": ["Tomislav Prokopec", "Jonas Rezacek", "Bogumila Swiezewska"],
+      "year": 2019,
+      "journal": "JCAP 02 (2019) 009",
+      "relevance_score": 7,
+      "brief_description": "Earlier analysis of the SU(2)cSM model with full two-field effective potential and a 2PI-inspired thermal gap equation. Uses a full two-field analysis (not just Gildener-Weinberg approximation). GW signals in LISA band (mHz). Important for methodology but target signal is not PTA/nHz.",
+      "model_studied": "SU(2)cSM: SM + SU(2)_X gauge group + one scalar doublet of SU(2)_X. Two-field analysis with full one-loop effective potential.",
+      "similarity_to_target": "Structurally similar: same SU(2)_X with scalar doublet, but includes SM Higgs. GW target is LISA (mHz) not PTA (nHz).",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": ["LHC Higgs coupling constraints", "Collider bounds on new scalars", "DM direct detection"],
+      "observables": ["GW spectrum (LISA band, mHz)", "Critical temperature", "Nucleation temperature"],
+      "benchmark_points": [],
+      "assumptions": ["Full two-field effective potential (not just Gildener-Weinberg)", "2PI-inspired thermal gap equation for resummation (found negligible impact)", "Standard daisy resummation used for most analysis", "GW from bubble collisions and sound waves"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2502.19478",
+      "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+      "authors": ["Sowmiya Balan", "Torsten Bringmann", "Felix Kahlhoefer", "Jonas Matuszak", "Carlo Tasillo"],
+      "year": 2025,
+      "journal": "JCAP 08 (2025) 062",
+      "relevance_score": 7,
+      "brief_description": "Studies a classically conformal dark U(1)' sector with sub-GeV DM and nHz GWs from FOPT. Includes detailed constraints from BBN, CMB, and dark photon searches. Structurally similar to the minimal SU(2) model but with U(1)' gauge group and an additional Dirac fermion DM candidate.",
+      "model_studied": "Conformal dark U(1)' with a complex scalar (dark Higgs) and a Dirac fermion DM candidate chi. Coleman-Weinberg mechanism generates the mass scale. Two scenarios: coupled (via effective operators to electrons) and secluded (via kinetic mixing only).",
+      "similarity_to_target": "Structurally similar: U(1)' instead of SU(2), same CW mechanism, same target signal (nHz GW from PTA). Includes an extra fermion DM candidate not present in the minimal model.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": ["BBN (Delta N_eff)", "CMB", "Dark photon searches (BaBar, NA64, LSND, MiniBooNE)", "DM direct and indirect detection", "LDMX, Belle II, NA64mu (future reach)"],
+      "observables": ["GW spectrum (nHz)", "DM relic density", "Dark photon constraints", "Delta N_eff constraints"],
+      "benchmark_points": [
+        {
+          "name": "Preferred parameter region",
+          "parameters": {"g": "0.57-0.75", "v": "60-900 MeV", "DM mass": "10-200 MeV", "alpha": ">>1", "beta/H": "15-45", "GW peak freq": "~10^{-8} Hz"},
+          "confidence": "qualitative",
+          "notes": "From 2502.19478. Provides a parameter range for conformal dark sectors with nHz GWs. The gauge coupling range (0.57-0.75) and VEV range (60-900 MeV) give transition temperatures that produce nHz GWs. For the SU(2) case, these ranges would shift due to the additional gauge degrees of freedom."
+        }
+      ],
+      "assumptions": ["Conformal dark U(1)' with CW mechanism", "DM can be coupled (via effective operators) or secluded (via kinetic mixing)", "PTArcade/PTA fitting", "Daisy resummation for thermal masses"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2306.09411",
+      "title": "Does NANOGrav observe a dark sector phase transition?",
+      "authors": ["Torsten Bringmann", "Paul Frederik Depta", "Thomas Konstandin", "Kai Schmidt-Hoberg", "Carlo Tasillo"],
+      "year": 2023,
+      "journal": "JCAP 11 (2023) 053",
+      "relevance_score": 6,
+      "brief_description": "Bayesian analysis of dark sector phase transitions as explanation of NANOGrav 12.5 yr data. Finds stable dark sectors strongly disfavored (Neff constraint), but decaying dark sectors remain viable with Bayes factor ~200. Important for understanding phenomenological constraints on dark FOPT scenarios.",
+      "model_studied": "Phenomenological dark sector phase transition (not model-specific). Uses GW templates from sound waves and bubble collisions for generic dark FOPT.",
+      "similarity_to_target": "Same target signal: studies whether any dark FOPT can explain NANOGrav signal. Not model-specific but provides important constraints for any dark sector FOPT scenario.",
+      "paper_classification": "same_target_signal_different_model",
+      "metadata_only": false,
+      "experimental_constraints": ["NANOGrav 12.5 yr data", "BBN (N_eff)", "CMB (Planck)", "Bayesian model comparison"],
+      "observables": ["Bayes factors for DSPT vs SMBHB", "Posterior distributions for alpha, beta/H, T_n"],
+      "benchmark_points": [],
+      "assumptions": ["Dark sector FOPT with phenomenological GW templates", "Sound wave dominated or bubble collision dominated spectra", "Stable vs decaying dark sector scenarios", "Full Bayesian global fit with enterprise and PTMCMC"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2306.14856",
+      "title": "Primordial gravitational waves in the nano-Hertz regime and PTA data -- towards solving the GW inverse problem",
+      "authors": ["Eric Madge", "Enrico Morgante", "Cristina Puchades-Ibanez", "Nicklas Ramberg", "Wolfram Ratzinger", "Sebastian Schenk", "Pedro Schwaller"],
+      "year": 2023,
+      "journal": "arXiv:2306.14856",
+      "relevance_score": 6,
+      "brief_description": "Proposes benchmark models for PTA signals including a U(1) Coleman-Weinberg phase transition. Provides viable parameter space regions for nHz GWs from various early universe sources. The CW benchmark is structurally similar to the conformal SU(2) model.",
+      "model_studied": "U(1) Coleman-Weinberg model as a benchmark for nHz GWs from first-order phase transitions. Also: domain walls, cosmic strings, axion dynamics, scalar fluctuations.",
+      "similarity_to_target": "Structurally similar: U(1) CW model benchmark for PTA signals. Same mechanism (CW) but different gauge group.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": true,
+      "experimental_constraints": ["NANOGrav, EPTA, PPTA, IPTA data", "BBN", "CMB"],
+      "observables": ["GW spectrum (nHz range)", "PTA compatibility regions"],
+      "benchmark_points": [],
+      "assumptions": ["U(1) Coleman-Weinberg model as benchmark for nHz GWs", "Supercooled phase transition"],
+      "citation_verified": true
+    }
+  ],
+  "searched_sources": [
+    {
+      "query": "classically scale invariant SU(2) scalar doublet gravitational waves first order phase transition",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "conformal SU(2) phase transition NANOGrav gravitational waves",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "scale invariant SU(2) Coleman-Weinberg gravitational wave PTA",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "arxiv 2109.11558 dark SU(2) NANOGrav",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "arxiv 2602.09092 conformal phase transition PTA",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "arxiv 2501.11619 supercooled phase transitions conformal NANOGrav",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "arxiv 2210.07075 conformal model gravitational waves dark matter",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "arxiv 1809.11129 gravitational waves conformal symmetry breaking",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "arxiv 2306.14856 primordial gravitational waves nano-Hertz PTA",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "arxiv 2306.09411 NANOGrav dark phase transition",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "conformal SU(2) one complex scalar doublet radiative symmetry breaking gravitational waves",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "Borah Dasgupta Kang SU(2) NANOGrav benchmark alpha T beta table",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "Bringmann 2602.09092 conformal benchmark g v alpha beta Treh",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "Coleman-Weinberg SU(2) benchmark gravitational waves phase transition PTArcade",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "pure SU(2) Coleman-Weinberg one complex scalar doublet gravitational waves",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "minimal conformal SU(2) gauge theory single scalar doublet radiative symmetry breaking",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "SU(2) gauge theory scalar doublet first order phase transition gravitational wave nHz PTA",
+      "domain": "arxiv.org, inspirehep.net"
+    },
+    {
+      "query": "2502.19478 conformal sub-GeV dark matter gravitational wave",
+      "domain": "arxiv.org, inspirehep.net"
+    }
+  ],
+  "novelty_verdict": "model_not_novel",
+  "novelty_notes": "The exact same model -- a classically scale-invariant SU(2) gauge theory with one complex scalar doublet, producing nHz GWs from a first-order phase transition -- has already been studied in arXiv:2109.11558 (Borah, Dasgupta, Kang, 2021). This paper matches exactly the proposed model's gauge group, field content (SU(2)_D with one complex scalar doublet, no fermions), scalar potential (purely quartic, classically conformal), SSB pattern (SU(2)->nothing via CW), and target signal (nHz GWs from FOPT to explain NANOGrav data). Additionally, the structurally similar conformal U(1)' model has been studied for the same target signal in arXiv:2602.09092 and arXiv:2501.11619. The SU(2)cSM model (arXiv:2210.07075, arXiv:1809.11129) studies a closely related SU(2)_X model with an additional SM Higgs sector, producing GW signals in the LISA (mHz) band rather than the PTA (nHz) band. The previous unverified handoff claimed papers like 2006.02713, 2204.02988, and 2006.04903 existed, but these arXiv IDs could not be verified through live searches -- they do not correspond to published papers on this topic. The only verified directly matching paper is 2109.11558.",
+  "benchmark_hints": [
+    {
+      "source": "arXiv:2109.11558 (Borah et al., 2021)",
+      "parameters": {"g_D": 1.37, "M_{Z_D}": "8.23 MeV", "T_n": "1.8 MeV", "alpha": 0.45, "beta/H": 143, "v_w": 0.887},
+      "confidence": "direct",
+      "conventions": {
+        "vev_convention": "Phi_0 = v_D/sqrt(2) (same as proposed model)",
+        "gauge_boson_mass": "M_{Z_D} = g_D * v_D / 2 (same as proposed model: m_W = g * chi0 / 2)",
+        "potential": "V = lambda (Phi^dagger Phi)^2 (tree-level, classically conformal)",
+        "alpha_definition": "alpha = eps = (Delta V - T*d(Delta V)/dT) / rho_rad at T_n",
+        "beta/H_definition": "beta/H = T * d(S_3/T)/dT evaluated at T_nuc"
+      },
+      "notes": "DIRECT MATCH: Exact same model (SU(2)_D with one complex scalar doublet, classical conformal invariance, same target signal). The benchmark points give coupling g_D = 1.37 (well within the proposed model's [0.1, 3.0] range) and VEVs that produce MeV-scale gauge boson masses, giving nHz GW signals. The transition temperatures (MeV scale) are well below the GeV scale, producing GWs in the PTA band. The VEV convention is the same as the proposed model (doublet expanded as (0, v_D/sqrt(2))). Conventions for alpha and beta/H are compatible with standard definitions. The main difference: Borah et al. include a tiny portal coupling lambda_2 ~ 10^-9 for DM freeze-in, but for the purely GW analysis, this portal is negligible."
+    },
+    {
+      "source": "arXiv:2602.09092 (Bringmann et al., 2026)",
+      "parameters": {"g": 0.692, "v": "0.14 GeV (140 MeV)", "T_nuc": "3.16 MeV", "T_p": "2.58 MeV", "T_reh": "14.5 MeV", "alpha": 821, "beta/H": 57.9},
+      "confidence": "adaptable",
+      "conventions": {
+        "gauge_group": "U(1)' (not SU(2))",
+        "model_class": "conformal dark sector with Coleman-Weinberg mechanism"
+      },
+      "notes": "ADAPTABLE: U(1)' gauge group instead of SU(2), but same CW mechanism. This is the most comprehensive PTArcade-based fit. The conformal model is identified as the 'most generic, least tuned' explanation for the PTA signal. For SU(2), the gauge bosons contribute 3x the degrees of freedom (9 vs 3 for a massive vector), which will strengthen the transition and modify the benchmark. The U(1)' benchmark provides useful qualitative guidance: conformal CW models naturally produce alpha ~ O(10^2-10^6) and beta/H ~ O(30-100). The VEV scale (~100 MeV) gives transition temperatures in the MeV range, producing nHz GWs."
+    },
+    {
+      "source": "arXiv:2210.07075 (Kierkla et al., 2023)",
+      "parameters": {"g_X": [0.83, 1.01], "w (vev)": "1.4-3.6 TeV", "T_n": "22-64 GeV", "alpha": "131-597", "beta/H": "238-449"},
+      "confidence": "qualitative",
+      "conventions": {
+        "gauge_group": "SU(2)_X (same SU(2))",
+        "extra_content": "Includes SM Higgs doublet (Higgs portal coupling)",
+        "target_signal": "LISA band (mHz), not PTA band (nHz)"
+      },
+      "notes": "QUALITATIVE: Same gauge group (SU(2)_X) but with an additional SM Higgs doublet and Higgs portal coupling. The benchmark points produce GW signals in the mHz range (LISA band) because the VEV is at TeV scale giving transition temperatures O(10-100 GeV). The model structure is very similar: the purely dark SU(2) model corresponds to decoupling the SM Higgs by setting the portal coupling to zero. The qualitative behavior (strong supercooling, large alpha values, relatively large beta/H) carries over to the minimal SU(2) model."
+    }
+  ],
+  "constraint_summary": [
+    "Percolation condition: For SU(2)_X models with strong supercooling, the percolation condition (P > 0.34) significantly constrains the parameter space. Kierkla et al. (2023) found that MX > 10^6 GeV fails percolation, but for PTA-relevant scales (MV ~ MeV-GeV), this constraint is not active because the bubble nucleation rate becomes large enough at low temperatures.",
+    "BBN/CMB (Delta N_eff): Bringmann et al. (2023, JCAP) found that stable dark sectors are strongly disfavored by Neff constraints. For the minimal SU(2) model without any coupling to the SM (a genuinely stable dark sector), the energy released during the FOPT would remain in the dark sector and contribute to Neff. This is a significant constraint. Borah et al. (2021) assume a negligible portal coupling to the SM for DM production, which implies the dark sector is effectively stable and would contribute to Neff.",
+    "BBN timing: The phase transition must complete before BBN (T > ~1 MeV). All benchmark points from the literature satisfy this: Borah et al. give T_n ~ 190 keV - 1.8 MeV, Bringmann et al. give T_p ~ 2.6 MeV. The lower end (190 keV) is marginally below BBN temperature, which could be problematic.",
+    "Dark matter overproduction: In the minimal SU(2) model without a portal to the SM, the massive gauge bosons are stable. Unless there is a mechanism to deplete their abundance (e.g., freeze-in via tiny portal as in Borah et al.), they could overclose the Universe. This is a potential issue for the completely secluded dark sector.",
+    "Perturbativity: g < 4*pi is required. The benchmarks use g = 0.6-1.4, well within the perturbative regime."
+  ],
+  "theory_uncertainties": [
+    "Renormalisation-scale dependence: Kierkla et al. (2023) showed that fixed-scale potential calculations can give qualitatively different results from RG-improved calculations. The choice of renormalisation scale affects whether the PT completes and which GW source dominates.",
+    "Percolation vs nucleation temperature: The use of T_n vs T_p (percolation) can change the predicted GW spectrum significantly.",
+    "GW spectrum template uncertainties: Different templates (sound wave vs bubble collision, finite-lifetime effects) can change the predicted GW amplitude by up to 3 orders of magnitude (Guo et al., 2021, 2103.06933).",
+    "High-temperature expansion validity: For strong supercooling (T_n << T_c), the high-T expansion may break down. Full numerical evaluation of thermal integrals would be more reliable.",
+    "Daisy resummation: Different resummation schemes (Parwani vs Arnold-Espinosa) can give different predictions for the critical temperature and nucleation rate.",
+    "The previous unverified handoff claimed paper IDs (2006.02713, 2204.02988, 2006.04903, 2103.09824, 2110.02921, 2009.13556, 1906.04260, 2105.04639, 2004.09398) could not be verified through actual arXiv/INSPIRE searches. These IDs do not correspond to existing papers on these topics."
+  ],
+  "recommended_next_steps": [
+    "1. The model is NOT NOVEL: arXiv:2109.11558 (Borah et al., 2021) already studied exactly the same model (classically conformal SU(2)_D with one complex scalar doublet) for the same target signal (nHz GWs from FOPT to explain NANOGrav 12.5 yr data). Their benchmark points (g_D = 1.37, M_{Z_D} ~ MeV) can be used as direct input.",
+    "2. Since the literature already contains the exact same model and benchmark points, the fopt-agent can use the parameters from Borah et al. (2021) as a starting point and scan the g-chi0 parameter space around the MeV-scale VEV region.",
+    "3. The Delta N_eff constraint is critical: a stable dark SU(2) sector with no decay channel will contribute to Neff and likely be constrained by BBN/CMB. The critic-agent should evaluate whether the proposed model has any mechanism to avoid this constraint (e.g., decays to SM, or a sufficiently low reheat temperature).",
+    "4. The critic-agent should also evaluate whether the proposed model is sufficiently distinct from the existing literature to warrant further analysis, given that 2109.11558 covers the exact same model and target signal.",
+    "5. The previous handoff's papers (2006.02713, 2204.02988, etc.) are NOT verifiable and should not be relied upon. Only citation_verified=true papers should be used downstream."
+  ]
+}

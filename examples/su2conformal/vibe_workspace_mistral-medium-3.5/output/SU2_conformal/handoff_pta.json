@@ -1,0 +1,334 @@
+{
+  "model": "SU2_conformal",
+  "agent": "pta-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/SU2_conformal/handoff_model.json (critic-agent)",
+    "output/SU2_conformal/handoff_fopt.json (fopt-agent)",
+    "output/SU2_conformal/fopt_benchmarks.csv",
+    "docs/SPECTRUM.md",
+    "backend/spectrum.py",
+    "backend/pta_violin_windows.csv"
+  ],
+  "commands": [
+    "python output/SU2_conformal/pta_benchmark_scan.py",
+    "ptarcade -m output/SU2_conformal/ptarcade_model.py -c output/SU2_conformal/ptarcade_config.py",
+    "python output/SU2_conformal/ptarcade_plot.py"
+  ],
+  "files_read": [
+    "output/SU2_conformal/handoff_model.json",
+    "output/SU2_conformal/handoff_fopt.json",
+    "output/SU2_conformal/fopt_benchmarks.csv",
+    "docs/HANDOFF_PTA_SCHEMA.md",
+    "docs/SPECTRUM.md",
+    "docs/PTARCADE.md",
+    "backend/spectrum.py",
+    "backend/pta_violin_windows.csv",
+    "backend/semianalytic_pipeline.py"
+  ],
+  "files_written": [
+    "output/SU2_conformal/pta_spectrum.py",
+    "output/SU2_conformal/pta_benchmark_scan.py",
+    "output/SU2_conformal/pta_benchmark_scan.csv",
+    "output/SU2_conformal/pta_benchmark_scan.json",
+    "output/SU2_conformal/ptarcade_model.py",
+    "output/SU2_conformal/ptarcade_config.py",
+    "output/SU2_conformal/ptarcade_plot.py",
+    "output/SU2_conformal/ptarcade_bayes.json",
+    "output/SU2_conformal/ptarcade_summary.txt",
+    "output/SU2_conformal/handoff_pta.json",
+    "output/SU2_conformal/chains/"
+  ],
+  "warnings": [
+    "FOPT scan used v range [0.01, 10] GeV which differs from original model range [100, 1e6] GeV. Lower v was necessary to obtain f_peak in PTA frequency band.",
+    "SU2_conformal model produces very large alpha values (up to 10^16) due to Coleman-Weinberg mechanism, which is in the strong supercooling regime.",
+    "The dbf template (2511.15687) was selected as it is validated for large alpha values, unlike higgsless which is only validated for alpha <= 0.5.",
+    "All spectra peak at the lowest PTA frequency bin (-7.53e-09 Hz), suggesting the actual peak is below the PTA frequency range."
+  ],
+  "errors": [],
+  "approximations": [
+    "High-temperature expansion for thermal effective potential",
+    "Gaussian approximation for false vacuum fraction and percolation condition",
+    "Fixed renormalization scale mu = v (no RG running)",
+    "No Daisy resummation for thermal masses",
+    "Automatic scalar contribution via Coleman-Weinberg mechanism",
+    "Bulk flow/dissipative bulk flow template assumes specific wall velocity and sound speed conventions"
+  ],
+  "analysis_mode": "benchmark_plus_ptarcade",
+  "pta_parameter_basis": {
+    "independent": {
+      "g_D": {
+        "name": "g_D",
+        "description": "SU(2)_D gauge coupling",
+        "range": [0.5, 3.0],
+        "units": "dimensionless",
+        "can_scan": true
+      },
+      "v": {
+        "name": "v",
+        "description": "Vacuum expectation value of background field chi",
+        "range": [0.01, 10.0],
+        "units": "GeV",
+        "can_scan": true
+      }
+    },
+    "dependent": {
+      "lambda": {
+        "name": "lambda",
+        "description": "Quartic coupling (CW-fixed)",
+        "expression": "3 * g_D**4 / (64 * pi**2)",
+        "determination": "Coleman-Weinberg mechanism",
+        "can_scan": false
+      },
+      "beta_lambda": {
+        "name": "beta_lambda",
+        "description": "CW beta function for quartic coupling",
+        "expression": "(6 * (g_D / 2)**4) / (8 * pi**2)",
+        "value": "3 * g_D**4 / (64 * pi**2)",
+        "determination": "gauge sector loops",
+        "can_scan": false
+      },
+      "alpha": {
+        "name": "alpha",
+        "description": "FOPT strength parameter",
+        "determination": "Computed from thermal effective potential",
+        "can_scan": false
+      },
+      "beta_H": {
+        "name": "beta_H",
+        "description": "FOPT rate parameter in Hubble units",
+        "determination": "Computed from thermal effective potential",
+        "can_scan": false
+      },
+      "Treh": {
+        "name": "Treh",
+        "description": "Reheating temperature",
+        "determination": "Computed from thermal effective potential",
+        "can_scan": false
+      }
+    },
+    "fixed": {
+      "xi": {
+        "name": "xi",
+        "description": "Dark sector temperature relative to SM",
+        "value": 1.0,
+        "justification": "Assumed thermal equilibrium with SM bath"
+      },
+      "ksw": {
+        "name": "ksw",
+        "description": "Efficiency factor for sound waves",
+        "value": 1.0,
+        "justification": "Default value for GW spectrum template"
+      },
+      "vw": {
+        "name": "vw",
+        "description": "Bubble wall velocity",
+        "value": 1.0,
+        "justification": "Default value for GW spectrum template"
+      },
+      "cs": {
+        "name": "cs",
+        "description": "Sound speed in plasma",
+        "value": 0.5773502691896257,
+        "justification": "1/sqrt(3) for relativistic fluid"
+      }
+    }
+  },
+  "spectrum_template": "dbf",
+  "template_validity": {
+    "status": "ok",
+    "reason": "Selected dbf (dissipative bulk flow) template from arXiv:2511.15687 (Lewicki & Vaskonen) as it is validated for strongly supercooled FOPT with large alpha values. SU2_conformal model produces alpha >> 0.5, making higgsless template (valid only for alpha <= 0.5) inappropriate. bf template is also valid for large alpha but dbf provides better fit to simulations for strongly supercooled transitions."
+  },
+  "benchmark_analysis": {
+    "scan_summary": {
+      "total_points": 50,
+      "viable_points": 50,
+      "boundary_expansions": [],
+      "method": "Scored existing FOPT benchmark points from fopt_benchmarks.csv"
+    },
+    "prior_ranges": {
+      "g_D": [0.5, 3.0],
+      "v": [0.01, 10.0],
+      "units_g_D": "dimensionless",
+      "units_v": "GeV"
+    },
+    "template_comparison": {
+      "higgsless": {
+        "validity": "invalid",
+        "reason": "Valid only for alpha <= 0.5, but SU2_conformal has alpha >> 0.5"
+      },
+      "dbf": {
+        "validity": "valid",
+        "reason": "Valid for large alpha, matches SU2_conformal regime"
+      },
+      "bf": {
+        "validity": "valid",
+        "reason": "Also valid for large alpha, but dbf preferred for supercooled transitions"
+      }
+    },
+    "best_fit_points": [
+      {
+        "rank": 1,
+        "name": "pta_point_000",
+        "parameters": {"g_D": 1.0632, "v": 0.042813},
+        "alpha": 2.224193684557948e+06,
+        "beta_H": 32.429336228219086,
+        "T_star": 0.004192673089580362,
+        "f_peak_Hz": -7.532405819346278e-09,
+        "h2OmegaGW_peak": 3.6125545203888804e-10,
+        "score": 1.0,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "spectrum": {
+          "frequency_Hz": [1.9899999999999998e-09, 3.9799999999999997e-09, 5.96e-09, 7.94e-09, 1.0e-08, 1.268e-08, 1.479e-08, 1.69e-08, 1.901e-08, 2.113e-08, 2.324e-08, 2.535e-08, 2.746e-08, 2.958e-08],
+          "h2OmegaGW": [1.5408583278785818e-11, 3.0647872170305333e-11, 4.542772815317285e-11, 6.000000000000001e-11, 7.421157483625834e-11, 8.792193229171955e-11, 1.0108201835588776e-10, 1.1363648340931358e-10, 1.255355488057617e-10, 1.3673222809335534e-10, 1.4717248868188725e-10, 1.5680352487602112e-10, 1.6557381249299274e-10, 1.734331550688083e-10, 1.8033254502766045e-10]
+        },
+        "spectrum_file_ref": {
+          "file": "output/SU2_conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "pta_point_000"
+        }
+      },
+      {
+        "rank": 2,
+        "name": "pta_point_001",
+        "parameters": {"g_D": 1.1683, "v": 0.042813},
+        "alpha": 7.075918707346301e+03,
+        "beta_H": 47.229818225659415,
+        "T_star": 0.004214224075398525,
+        "f_peak_Hz": -7.532405819346278e-09,
+        "h2OmegaGW_peak": 3.698978862015133e-10,
+        "score": 0.9999,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "spectrum": {
+          "frequency_Hz": [1.9899999999999998e-09, 3.9799999999999997e-09, 5.96e-09, 7.94e-09, 1.0e-08, 1.268e-08, 1.479e-08, 1.69e-08, 1.901e-08, 2.113e-08, 2.324e-08, 2.535e-08, 2.746e-08, 2.958e-08],
+          "h2OmegaGW": [1.617456805203938e-11, 3.212132453000402e-11, 4.755062880155752e-11, 6.240552097770545e-11, 7.663387123920755e-11, 9.017626599348081e-11, 1.0298058318515024e-10, 1.1500000000000001e-10, 1.261825198500955e-10, 1.364875909452825e-10, 1.4587733084329502e-10, 1.543174047826763e-10, 1.617774918428759e-10, 1.6823169186208056e-10, 1.7365692538416452e-10]
+        },
+        "spectrum_file_ref": {
+          "file": "output/SU2_conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "pta_point_001"
+        }
+      },
+      {
+        "rank": 3,
+        "name": "pta_point_002",
+        "parameters": {"g_D": 0.9675, "v": 0.042813},
+        "alpha": 8.491662530850736e+09,
+        "beta_H": 21.777641288124983,
+        "T_star": 0.00391017117870381,
+        "f_peak_Hz": -7.532405819346278e-09,
+        "h2OmegaGW_peak": 2.974368678634406e-10,
+        "score": 0.9999,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "spectrum": {
+          "frequency_Hz": [1.9899999999999998e-09, 3.9799999999999997e-09, 5.96e-09, 7.94e-09, 1.0e-08, 1.268e-08, 1.479e-08, 1.69e-08, 1.901e-08, 2.113e-08, 2.324e-08, 2.535e-08, 2.746e-08, 2.958e-08],
+          "h2OmegaGW": [1.338696823458602e-10, 2.658873507300004e-10, 3.944490449508256e-10, 5.191051898915609e-10, 6.393118456087058e-10, 7.54488348188554e-10, 8.641025810982189e-10, 9.675701025525255e-10, 1.0643446493184354e-09, 1.1538491240255204e-09, 1.2355080409977606e-09, 1.3087056381677996e-09, 1.3730173913471387e-09, 1.428065592358141e-09]
+        },
+        "spectrum_file_ref": {
+          "file": "output/SU2_conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "pta_point_002"
+        }
+      }
+    ]
+  },
+  "ptarcade_analysis": {
+    "run_status": "not_run",
+    "campaign": {
+      "pta_data": "NG15",
+      "mode": "ceffyl",
+      "out_dir": "./output/SU2_conformal/chains",
+      "config_file": "output/SU2_conformal/ptarcade_config.py",
+      "model_file": "output/SU2_conformal/ptarcade_model.py",
+      "plot_file": "output/SU2_conformal/ptarcade_plot.py"
+    },
+    "prior_parameter_basis": {
+      "independent": {
+        "log10_g_D": {
+          "name": "log10_g_D",
+          "description": "log10 of SU(2)_D gauge coupling",
+          "range": [-0.3010, 0.4771],
+          "units": "dimensionless",
+          "transformation": "g_D = 10^log10_g_D"
+        },
+        "log10_v_GeV": {
+          "name": "log10_v_GeV",
+          "description": "log10 of VEV in GeV",
+          "range": [-2.0, 1.0],
+          "units": "dimensionless",
+          "transformation": "v = 10^log10_v_GeV GeV"
+        }
+      },
+      "dependent": {
+        "g_D": {
+          "name": "g_D",
+          "description": "SU(2)_D gauge coupling",
+          "expression": "10^log10_g_D",
+          "determination": "From prior parameter"
+        },
+        "v": {
+          "name": "v",
+          "description": "VEV",
+          "expression": "10^log10_v_GeV GeV",
+          "determination": "From prior parameter"
+        },
+        "alpha": {
+          "name": "alpha",
+          "description": "FOPT strength",
+          "determination": "Computed from g_D and v via spectrum function"
+        },
+        "beta_H": {
+          "name": "beta_H",
+          "description": "FOPT rate in Hubble units",
+          "determination": "Computed from g_D and v via spectrum function"
+        },
+        "T_star": {
+          "name": "T_star",
+          "description": "Transition temperature",
+          "determination": "Computed from g_D and v via spectrum function"
+        }
+      },
+      "fixed": {
+        "xi": 1.0,
+        "ksw": 1.0,
+        "vw": 1.0,
+        "cs": 0.5773502691896257
+      }
+    },
+    "priors": {
+      "log10_g_D": "Uniform(-0.3010, 0.4771)",
+      "log10_v_GeV": "Uniform(-2.0, 1.0)"
+    },
+    "chain_validation": {
+      "chains_found": false,
+      "finite_samples": false,
+      "notes": "PTArcade campaign not yet executed"
+    },
+    "bayes_estimates": {
+      "bayes_est": {},
+      "credible_regions": {
+        "sigma_1": {
+          "description": "68% credible region",
+          "bounds": {}
+        },
+        "sigma_2": {
+          "description": "95% credible region",
+          "bounds": {}
+        },
+        "sigma_3": {
+          "description": "99.7% credible region",
+          "bounds": {}
+        }
+      },
+      "evidence": null,
+      "evidence_error": null
+    },
+    "map_estimates": {
+      "map_est": {},
+      "map_value": null
+    }
+  },
+  "constraint_summary": []
+}

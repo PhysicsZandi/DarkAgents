@@ -1,0 +1,632 @@
+{
+  "model": "conformal-SU2",
+  "agent": "prior-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "prior_audit",
+  "created_from": [
+    "output/conformal-SU2/handoff_proposed_model.json",
+    "output/conformal-SU2/handoff_librarian_preliminary.json",
+    "output/conformal-SU2/handoff_critique.json",
+    "output/conformal-SU2/handoff_model.json",
+    "output/conformal-SU2/handoff_fopt.json",
+    "output/conformal-SU2/handoff_pta.json",
+    "output/conformal-SU2/handoff_constraints.json",
+    "output/conformal-SU2/ptarcade_bayes.json"
+  ],
+  "commands": [
+    "WebSearch: eternal inflation condition Gamma/H^4 false vacuum decay check supercooled phase transition criterion",
+    "WebSearch: dbf dissipative bulk flow gravitational wave template arXiv 2511.15687 validation regime alpha strong transition",
+    "WebSearch: Coleman-Weinberg effective potential renormalization scale dependence one-loop approximation validity higher-order corrections",
+    "WebSearch: high-temperature expansion finite temperature effective potential validity breakdown supercooling small field expansion",
+    "WebSearch: PTArcade ceffyl mode NANOGrav 15yr free spectrum modeling assumptions Bayesian MCMC convergence single chain",
+    "WebSearch: Gaussian approximation false vacuum fraction percolation phase transition arXiv 2602.02928",
+    "WebSearch: NG15 ceffyl 30f NANOGrav posteriors single chain convergence effective samples 7501 N=100k",
+    "WebSearch: arXiv 2109.11558 Borah Dasgupta Kang SU(2) phase transition alpha definition convention energy density vacuum latent heat",
+    "WebSearch: PTA gravitational wave spectrum sound wave lifetime suppression Hubble time alpha large effect GW amplitude",
+    "WebFetch: https://ar5iv.labs.arxiv.org/html/2109.11558",
+    "WebFetch: https://arxiv.org/abs/2602.09092"
+  ],
+  "files_read": [
+    "output/conformal-SU2/handoff_proposed_model.json",
+    "output/conformal-SU2/handoff_librarian_preliminary.json",
+    "output/conformal-SU2/handoff_critique.json",
+    "output/conformal-SU2/handoff_model.json",
+    "output/conformal-SU2/handoff_fopt.json",
+    "output/conformal-SU2/handoff_pta.json",
+    "output/conformal-SU2/handoff_constraints.json",
+    "output/conformal-SU2/ptarcade_bayes.json",
+    "backend/semianalytic_pipeline.py",
+    ".claude/skills/prior-audit/SKILL.md",
+    ".claude/agents/prior-agent.md",
+    "docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/conformal-SU2/handoff_prior_audit.json",
+    "output/conformal-SU2/prior_audit_report.md",
+    "output/conformal-SU2/prior_audit_table.csv"
+  ],
+  "warnings": [
+    "The dbf template paper (arXiv:2511.15687) is not verifiable through public searches -- it may not yet be published or indexed. Its validation regime and assumptions must be treated as unverified.",
+    "arXiv:2602.02928 (Gaussian approximation reference) is also not verifiable through public searches. The Gaussian approximation is a standard technique but the specific reference cannot be validated.",
+    "The PTArcade chain has only 7501 effective samples from a single MCMC chain. Standard PTA analyses use multiple chains with Gelman-Rubin R-1 < 0.05 convergence criterion.",
+    "The PTA prior boundaries (g in [0.5, 3.0], log10_chi0 in [-5, 0.699]) were adjusted from the model ranges (g in [0.1, 3.0], chi0 in [0.1, 10000] GeV) after the FOPT scan identified the viable region. Posterior mass does not hit boundaries, but this is a post-hoc truncation that could introduce selection bias.",
+    "Delta N_eff and DM overproduction constraints are unmitigated -- no backend module was developed to quantify them.",
+    "Literature comparison with arXiv:2109.11558 BP1 shows a factor~33 discrepancy in alpha (ours: 15, theirs: 0.45) attributed to DOF counting, but this systematic offset is not propagated to the PTArcade posteriors.",
+    "No RG improvement or Daisy resummation is included in the effective potential calculation."
+  ],
+  "errors": [],
+  "approximations": [],
+  "upstream_statuses": [
+    "handoff_proposed_model.json: ok",
+    "handoff_librarian_preliminary.json: ok",
+    "handoff_critique.json: warning",
+    "handoff_model.json: ok",
+    "handoff_fopt.json: ok",
+    "handoff_pta.json: ok",
+    "handoff_constraints.json: ok"
+  ],
+  "uncertainty_summary": {
+    "total_items": 42,
+    "severity_distribution": {
+      "1": 2,
+      "2": 4,
+      "3": 8,
+      "4": 6,
+      "5": 9,
+      "6": 4,
+      "7": 3,
+      "8": 3,
+      "9": 2,
+      "10": 1
+    },
+    "controlled_distribution": {
+      "1": 2,
+      "2": 4,
+      "3": 5,
+      "4": 2,
+      "5": 2,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0
+    }
+  },
+  "assumptions": [
+    {
+      "id": "A01",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "Classical scale invariance at tree level: no explicit mass scales in the Lagrangian. This is the defining assumption of the model and leads to dimensional transmutation.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": ["handoff_model.json", "handoff_fopt.json", "handoff_pta.json"],
+      "required_solution": "No solution needed -- this is the defining model hypothesis. Users should be aware that small explicit breaking terms would change the phenomenology.",
+      "source": {"file": "handoff_model.json", "section": "assumptions", "note": "Classically scale-invariant at tree level"}
+    },
+    {
+      "id": "A02",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "Radiative symmetry breaking via the Coleman-Weinberg mechanism at one loop. Higher-order corrections (two-loop and beyond) are neglected.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json", "handoff_pta.json"],
+      "required_solution": "Two-loop CW corrections or RG improvement could change the beta_lambda coefficient and the shape of the effective potential, affecting nucleation dynamics and GW predictions.",
+      "source": {"file": "handoff_model.json", "section": "assumptions", "note": "CW mechanism at one loop; higher-order corrections neglected"}
+    },
+    {
+      "id": "A03",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "No fermions in the dark sector. The model contains only the SU(2)_X gauge bosons (9 dof) and one complex scalar doublet (4 dof).",
+      "severity": 2,
+      "controlled": true,
+      "affected_outputs": ["handoff_model.json", "handoff_fopt.json"],
+      "required_solution": "This is a deliberate minimal choice. Adding fermions would modify the CW beta function and could introduce DM candidates or baryogenesis mechanisms.",
+      "source": {"file": "handoff_critique.json", "section": "validation_assumptions", "note": "No fermions. Minimal choice for FOPT+GW production."}
+    },
+    {
+      "id": "A04",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "No SM coupling. The dark SU(2) sector has no portal coupling to the Standard Model (no Higgs mixing, no kinetic mixing, no Yukawa couplings).",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["handoff_constraints.json", "handoff_pta.json"],
+      "required_solution": "Adding even a tiny portal (lambda_2 ~ 10^{-9} as in arXiv:2109.11558) changes the cosmological constraints qualitatively. The current assumption makes Delta N_eff and DM overproduction constraints severe. A dedicated thermal history model is needed.",
+      "source": {"file": "handoff_critique.json", "section": "validation_assumptions", "note": "No SM coupling. Warning raised about Delta N_eff constraint."}
+    },
+    {
+      "id": "A05",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "Perturbative regime holds (g < 4*pi) for the gauge coupling. The one-loop CW calculation and perturbative expansion are reliable only in this regime.",
+      "severity": 2,
+      "controlled": true,
+      "affected_outputs": ["handoff_model.json", "handoff_fopt.json", "handoff_pta.json"],
+      "required_solution": "All preferred points have g < 1.1, safely within the perturbative regime. No action needed.",
+      "source": {"file": "handoff_model.json", "section": "assumptions", "note": "Perturbative regime (g < 4*pi)"}
+    },
+    {
+      "id": "A06",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "No U(1)_Y factor. Pure SU(2)_X without hypercharge, so there is no Z-boson-like mixing, no photon in the dark sector, and no DD term contributions.",
+      "severity": 1,
+      "controlled": true,
+      "affected_outputs": ["handoff_model.json"],
+      "required_solution": "This is a self-consistent model choice. Adding a U(1) would introduce an extra gauge boson and D-term contributions.",
+      "source": {"file": "handoff_proposed_model.json", "section": "gauge_groups", "note": "Pure SU(2)_X"}
+    },
+    {
+      "id": "A07",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "No RG running of couplings. The effective potential is computed at fixed renormalization scale (set to chi0) without RG improvement.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json"],
+      "required_solution": "Kierkla et al. (2023) showed that fixed-scale potential calculations can give qualitatively different results from RG-improved calculations. For strong supercooling where the field traverses many orders of magnitude, RG running can be significant.",
+      "source": {"file": "handoff_fopt.json", "section": "approximations", "note": "Renormalisation scale set to the VEV chi0. No RG running included."}
+    },
+    {
+      "id": "A08",
+      "kind": "approximation",
+      "category": "effective_potential",
+      "description": "High-temperature (small-field) expansion of the one-loop finite-temperature effective potential. This expansion is valid when m(phi)/T << 1, i.e., for small field values and high temperatures.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json", "handoff_pta.json"],
+      "required_solution": "For strong supercooling (T_n << T_c, very large alpha), the field value at the true minimum can be much larger than T, where the HT expansion breaks down. However, the bounce trajectory stays in the HT-valid region. The broken-phase physics (minimum depth) uses the zero-T CW potential. This partial validity is a known subtlety discussed in Kierkla et al. (2023) and arXiv:2312.12413. A 3D EFT approach (dimensional reduction) would provide a more systematic treatment.",
+      "source": {"file": "handoff_model.json", "section": "assumptions", "note": "High-temperature expansion valid for the parameter space of interest"}
+    },
+    {
+      "id": "A09",
+      "kind": "approximation",
+      "category": "effective_potential",
+      "description": "Gaussian approximation for the false-vacuum fraction, used to compute percolation. The nucleation rate is expanded to second order around the nucleation time. The backend uses this approximation as implemented.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json", "handoff_pta.json"],
+      "required_solution": "The Gaussian approximation becomes necessary when beta/H is small and the linear approximation breaks down near the minimum of S_3/T. For the conformal SU(2) model where beta/H ranges from O(10) to O(100), the Gaussian correction may be modest but its impact on the percolation temperature is not quantified.",
+      "source": {"file": "handoff_fopt.json", "section": "approximations", "note": "Gaussian approximation for false-vacuum fraction (arXiv:2602.02928)"}
+    },
+    {
+      "id": "A10",
+      "kind": "approximation",
+      "category": "effective_potential",
+      "description": "No Daisy resummation is included in the thermal effective potential. Daisy diagrams (ring diagrams) are important for resumming the most infrared-divergent contributions at high temperature, especially for longitudinal gauge boson modes.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json"],
+      "required_solution": "The absence of Daisy resummation can affect the critical temperature, nucleation rate, and the shape of the thermal barrier. For SU(2) gauge theories, Debye screening provides a thermal mass for longitudinal modes that should be consistently resummed. Including Parwani or Arnold-Espinosa resummation would improve reliability.",
+      "source": {"file": "handoff_fopt.json", "section": "approximations", "note": "No Daisy resummation included"}
+    },
+    {
+      "id": "A11",
+      "kind": "uncertainty",
+      "category": "effective_potential",
+      "description": "Renormalization scale dependence. The renormalisation scale is set to chi0 (the zero-temperature VEV) for the CW potential. Different scale choices would shift the log terms in the CW potential.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json"],
+      "required_solution": "Setting mu = chi0 is a standard but arbitrary choice. A more rigorous approach would use a field-dependent renormalisation scale (mu ~ max(chi, T)) or full RG improvement. The sensitivity to this choice is not quantified.",
+      "source": {"file": "handoff_fopt.json", "section": "approximations", "note": "Renormalisation scale set to the VEV chi0"}
+    },
+    {
+      "id": "A12",
+      "kind": "uncertainty",
+      "category": "effective_potential",
+      "description": "Scheme dependence of the CW calculation. The one-loop effective potential is computed in a specific renormalization scheme (likely MS-bar or on-shell). Different schemes give different finite parts that can affect the predicted minimum and mass spectrum.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json"],
+      "required_solution": "The CW scheme (Coleman-Weinberg renormalization condition) ensures the potential is uniquely determined by RG functions to all orders, but the scheme conversion from MS-bar is non-trivial at two loops. Not quantified in this pipeline.",
+      "source": {"file": "handoff_fopt.json", "section": "approximations", "note": "CW mechanism at one loop"}
+    },
+    {
+      "id": "A13",
+      "kind": "uncertainty",
+      "category": "nucleation",
+      "description": "Uncertainty in the nucleation temperature calculation. The bounce action S_3/T is computed using the semi-analytic backend's method, which may differ from full CosmoTransitions or BubbleProfiler results.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json", "handoff_pta.json"],
+      "required_solution": "Cross-comparison with dedicated bounce action solvers (CosmoTransitions, BubbleProfiler, FindBounce) would quantify this uncertainty. The backend uses a simplified approach.",
+      "source": {"file": "handoff_fopt.json", "section": "benchmark_summary", "note": "482 viable points out of 680 total. 198 numerical failures (non-finite backend output)."}
+    },
+    {
+      "id": "A14",
+      "kind": "limitation",
+      "category": "nucleation",
+      "description": "198 out of 680 FOPT scan points (29%) are numerical failures due to non-finite backend output. These failures are concentrated at low g (< 0.5) and at parameter extremes. The viable region may be biased by these numerical failures.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json", "handoff_pta.json"],
+      "required_solution": "Understanding and fixing the numerical failures (likely related to the smallness of the bounce action or extreme parameter ratios) would allow coverage of the full parameter space. The current 71% success rate introduces potential selection bias.",
+      "source": {"file": "handoff_fopt.json", "section": "benchmark_summary", "note": "680 total points: 482 viable, 198 numerical failures"}
+    },
+    {
+      "id": "A15",
+      "kind": "assumption",
+      "category": "spectrum_template",
+      "description": "The dbf (dissipative bulk flow) template from arXiv:2511.15687 is selected for the GW spectrum. This template is designed for strong transitions (alpha >> 1) and accounts for dissipative effects in fluid motion.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json"],
+      "required_solution": "The dbf template paper (arXiv:2511.15687) cannot be verified through public searches -- it may not be published or indexed yet. The template's validity for the intermediate alpha regime (alpha ~ O(1-10)) is acknowledged as less established. Users should verify the dbf template assumptions directly with the authors' code or documentation.",
+      "source": {"file": "handoff_pta.json", "section": "template_choice", "note": "Selected dbf template; caveats about validity for moderate alpha."}
+    },
+    {
+      "id": "A16",
+      "kind": "assumption",
+      "category": "spectrum_template",
+      "description": "The high-gless template (arXiv:2209.04369) was considered as alternative but discarded because it is validated only for alpha up to ~0.5. No sound-wave-only template was used even though sound waves are often the dominant GW source for transitions with alpha < 10^3.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json"],
+      "required_solution": "Cross-validation of the dbf template against sound-wave templates (Caprini et al. 2024, arXiv:2409.03651) for the moderate-alpha region would improve confidence. Some scanned points have alpha ~ O(1-10) where a different template might be more appropriate.",
+      "source": {"file": "handoff_pta.json", "section": "template_choice", "note": "Alternative templates considered: [higgsless]. dbf validated for alpha > 0.1."}
+    },
+    {
+      "id": "A17",
+      "kind": "uncertainty",
+      "category": "spectrum_template",
+      "description": "Wall velocity v_w is not a free parameter but derived from the FOPT pipeline. The wall velocity determines the kinetic energy fraction and affects the GW amplitude significantly.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json"],
+      "required_solution": "Fixed v_w is a known simplification. The wall velocity in strongly supercooled transitions depends on the friction from the plasma, which is not modeled. Treating v_w as an additional free parameter with a physically motivated prior would be more rigorous.",
+      "source": {"file": "handoff_pta.json", "section": "template_choice", "note": "wall_velocity_assumption: Derived from the FOPT pipeline (not fixed)"}
+    },
+    {
+      "id": "A18",
+      "kind": "uncertainty",
+      "category": "spectrum_template",
+      "description": "Sound-wave vs bulk-flow lifetime: The dbf template accounts for dissipative bulk flow effects, but the sound-wave lifetime suppression factor and whether the source lasts less than a Hubble time are not explicitly modeled.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json"],
+      "required_solution": "For large alpha (the preferred region), sound waves are expected to be suppressed relative to bubble collisions. Recent work (arXiv:2409.03651, arXiv:2602.14324) shows that for supercooled transitions, bubble collisions may dominate over sound waves in the PTA band. The dbf template may not capture this regime correctly.",
+      "source": {"file": "handoff_pta.json", "section": "warnings", "note": "The dbf template is used for all points, including those with moderate alpha~O(1-10) where its validity is less established."}
+    },
+    {
+      "id": "A19",
+      "kind": "caveat",
+      "category": "spectrum_template",
+      "description": "Efficiency factors (kappa) for kinetic energy conversion are not explicitly described. The GW amplitude depends on how much vacuum energy goes into fluid motion vs. scalar field gradients.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json"],
+      "required_solution": "The efficiency factors are likely internal to the dbf template but not validated against dedicated hydrodynamic simulations for this specific SU(2) model.",
+      "source": {"file": "handoff_pta.json", "section": "template_choice", "note": "Efficiency factors not separately documented"}
+    },
+    {
+      "id": "A20",
+      "kind": "prior",
+      "category": "bayesian_analysis",
+      "description": "PTArcade priors: Uniform(g) in [0.5, 3.0], Uniform(log10(chi0)) in [-5, 0.699]. The prior range for g was truncated from the model range [0.1, 3.0] to [0.5, 3.0] based on the FOPT viable region.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json", "ptarcade_bayes.json"],
+      "required_solution": "The prior boundaries were adjusted post-hoc based on FOPT scan results. While no posterior mass hits the boundaries (good), this truncation excludes potentially viable low-g models that produce weaker transitions but could still contribute to the PTA signal. A proper analysis should use the full model range and let the data drive the truncation.",
+      "source": {"file": "handoff_pta.json", "section": "ptarcade_campaign", "note": "Prior ranges: g in [0.5, 3.0], log10_chi0 in [-5, 0.699]"}
+    },
+    {
+      "id": "A21",
+      "kind": "prior",
+      "category": "bayesian_analysis",
+      "description": "The prior on chi0 is log-uniform over [-5, 0.699] in log10(chi0/GeV), which is a 5-order-of-magnitude range. This is broad but not physically motivated -- it was determined by the FOPT scan's viable region.",
+      "severity": 3,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json"],
+      "required_solution": "A more physically motivated prior could use the scale invariance of the model (chi0 is the only mass scale, so a log prior is natural). The range is consistent with the nHz GW band for perturbative couplings.",
+      "source": {"file": "handoff_pta.json", "section": "ptarcade_campaign", "note": "log10_chi0: Uniform(-5.0, 0.699)"}
+    },
+    {
+      "id": "A22",
+      "kind": "limitation",
+      "category": "bayesian_analysis",
+      "description": "Single MCMC chain with only 7501 effective samples after thinning (100k samples, 10x thinning, 25% burn-in). Standard PTA analyses use multiple chains with Gelman-Rubin R-1 < 0.05 convergence criterion.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json", "ptarcade_bayes.json"],
+      "required_solution": "Running multiple independent chains (at least 2-4) and checking the Gelman-Rubin statistic would verify convergence. The current single-chain result may not have fully explored the posterior, especially if the posterior has non-trivial correlations or multi-modality.",
+      "source": {"file": "handoff_pta.json", "section": "warnings", "note": "7501 effective samples after thinning. Convergence could be improved with more chains or longer burn-in."}
+    },
+    {
+      "id": "A23",
+      "kind": "assumption",
+      "category": "bayesian_analysis",
+      "description": "PTArcade ceffyl mode is used, which refits the GW model to pre-computed free-spectrum KDEs (violin plots) rather than the full time-domain likelihood. This is an approximation that assumes the free-spectrum posteriors are Gaussian-like.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json", "ptarcade_bayes.json"],
+      "required_solution": "The ceffyl approximation is standard and validated in the PTArcade pipeline. It is orders of magnitude faster than the full enterprise likelihood, but assumes the free-spectrum KDEs are accurate. The NG15 data uses 14 frequency components.",
+      "source": {"file": "handoff_pta.json", "section": "approximations", "note": "PTArcade uses ceffyl mode with free spectrum modeling"}
+    },
+    {
+      "id": "A24",
+      "kind": "assumption",
+      "category": "bayesian_analysis",
+      "description": "The NANOGrav 15-year dataset is used with the ceffyl mode, which includes the free-spectrum modeling of the common red-noise process (CURN/HD). The analysis does not include Hellings-Downs correlations (corr=False in PTArcade config).",
+      "severity": 3,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json"],
+      "required_solution": "The posteriors are for a common red-noise process, not a Hellings-Downs-correlated GWB. This is a standard first step; including spatial correlations would be the next level of analysis.",
+      "source": {"file": "handoff_pta.json", "section": "ptarcade_campaign", "note": "NG15 dataset, ceffyl mode, free spectrum modeling"}
+    },
+    {
+      "id": "A25",
+      "kind": "assumption",
+      "category": "bayesian_analysis",
+      "description": "The eternal inflation filter is applied to PTArcade samples, rejecting points where 3 + Tp * I_prime(Tp) < 0. This is the condition used by the backend to flag false vacua that decay too slowly.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json", "handoff_fopt.json"],
+      "required_solution": "The condition 3 + T * I'(T) < 0 used in the backend is a simplified criterion. The more standard eternal inflation condition from the literature is Gamma/H^4 < 9/(4*pi) (Rudelius 2019, arXiv:1905.05198). These conditions are related but not identical. The backend condition checks the derivative of the action, while the literature condition checks the absolute nucleation rate against the Hubble rate. A cross-check against the standard criterion would validate the filter.",
+      "source": {"file": "backend/semianalytic_pipeline.py", "section": "get_check_eternal_inflation", "note": "Returns False if 3 + Tp * I_prime(Tp) < 0"}
+    },
+    {
+      "id": "A26",
+      "kind": "caveat",
+      "category": "eternal_inflation",
+      "description": "The eternal inflation filter uses the percolation temperature Tp, which may not be the most appropriate temperature for evaluating the eternal inflation condition. The nucleation temperature Tn or the reheating temperature Treh might be more appropriate.",
+      "severity": 3,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json"],
+      "required_solution": "A sensitivity study checking the eternal inflation condition at Tn, Tp, and T* (transition temperature) would show whether the choice matters. 14/1660 scan points were excluded, so the practical impact may be small.",
+      "source": {"file": "handoff_pta.json", "section": "violin_scan", "note": "14 points excluded by eternal inflation check"}
+    },
+    {
+      "id": "A27",
+      "kind": "limitation",
+      "category": "literature_comparison",
+      "description": "Alpha comparison with arXiv:2109.11558 BP1 shows a factor~33 discrepancy (ours: 15, theirs: 0.45). This is attributed to DOF counting differences but the exact origin is not fully resolved.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json"],
+      "required_solution": "A systematic comparison of alpha definitions, conventions for Delta V, and DOF counting between the two analyses is needed. The discrepancy suggests a systematic shift that, if applied to the literature results, could change the conclusion about which models fit the PTA data. The beta/H comparison matches within 1% (144 vs 143), so the discrepancy is specific to alpha.",
+      "source": {"file": "handoff_pta.json", "section": "literature_comparison", "note": "alpha: ours: 15, theirs: 0.45 (different dof counting)"}
+    },
+    {
+      "id": "A28",
+      "kind": "limitation",
+      "category": "cosmological_constraints",
+      "description": "Delta N_eff constraint is flagged as critical but NOT resolved. A stable dark SU(2) sector with 13 bosonic dof contributes Delta N_eff ~ 0.64 * xi^4 for xi = T_D/T_SM. If in equilibrium, this exceeds all bounds.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": ["handoff_constraints.json", "handoff_pta.json"],
+      "required_solution": "A dedicated Delta N_eff calculator using the thermal history from the FOPT scan (T_reh, alpha, particle masses) is listed as a missing calculation. The constraint could invalidate the model unless the dark sector decays to SM before BBN or was never in equilibrium.",
+      "source": {"file": "handoff_constraints.json", "section": "constraints", "note": "C01: Delta N_eff from stable dark radiation. Applicability: requires_new_backend. Not resolved."}
+    },
+    {
+      "id": "A29",
+      "kind": "limitation",
+      "category": "cosmological_constraints",
+      "description": "Dark matter overproduction constraint is flagged but NOT resolved. The SU(2) gauge bosons (m_W ~ 0.26-0.58 GeV in the 1-sigma region) are stable in the secluded limit and would overclose the Universe via standard freeze-out.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": ["handoff_constraints.json", "handoff_pta.json"],
+      "required_solution": "A relic abundance calculation (Boltzmann solver) for the SU(2) gauge bosons is listed as a missing calculation. Without a freeze-in portal or annihilation mechanism, overproduction is inevitable. Borah et al. (2021) use a tiny Higgs portal (lambda_2 ~ 10^{-9}) for freeze-in, which is not included in the minimal model.",
+      "source": {"file": "handoff_constraints.json", "section": "constraints", "note": "C03: DM overproduction. Applicability: recast_needed. Not resolved."}
+    },
+    {
+      "id": "A30",
+      "kind": "limitation",
+      "category": "cosmological_constraints",
+      "description": "Self-interacting dark matter and CMB annihilation constraints are flagged but NOT resolved. These are conditional on whether gauge bosons are DM and whether a portal exists.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["handoff_constraints.json"],
+      "required_solution": "These constraints are subleading to the overproduction issue (A29). They become relevant only if a mechanism produces the correct DM abundance.",
+      "source": {"file": "handoff_constraints.json", "section": "constraints", "note": "C04: SIDM. C07: CMB annihilation. Both unresolved."}
+    },
+    {
+      "id": "A31",
+      "kind": "caveat",
+      "category": "cosmological_constraints",
+      "description": "BBN lower bound on percolation temperature is checked but not fully resolved. Best benchmarks satisfy T_reh > 3 MeV, but some marginal scan points have T_p ~ 0.1-0.5 MeV.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["handoff_constraints.json"],
+      "required_solution": "The PTA-preferred region (1-sigma) has T_reh ~ 14 MeV, which is safe. However, the marginal points with T_p < 1 MeV would violate BBN bounds and should be explicitly excluded from viable regions.",
+      "source": {"file": "handoff_constraints.json", "section": "constraints", "note": "C02: BBN bound. Partially checked."}
+    },
+    {
+      "id": "A32",
+      "kind": "uncertainty",
+      "category": "fopt_parameters",
+      "description": "The effect of the scale uncertainty on alpha and beta/H is not quantified. Alpha ranges from O(10^3) to O(10^33) across the viable parameter space, and beta/H from O(10) to O(150). These huge ranges are a feature of CW models.",
+      "severity": 3,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json", "handoff_pta.json"],
+      "required_solution": "The extreme alpha values (> 10^30 for some points) may indicate a breakdown of the HT expansion or nucleation calculation at those points. A validity cut on alpha (e.g., alpha < 10^6) could be considered, as in the literature (arXiv:2602.09092).",
+      "source": {"file": "handoff_fopt.json", "section": "benchmarks", "note": "alpha values from 10^3 to 10^33 across viable points"}
+    },
+    {
+      "id": "A33",
+      "kind": "limitation",
+      "category": "fopt_parameters",
+      "description": "The FOPT scan uses 100 log-spaced points in chi0 and 20 linearly spaced in g (680 total points). This is a sparse grid that may miss fine features in the parameter space.",
+      "severity": 3,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json"],
+      "required_solution": "A finer scan or adaptive sampling would better resolve the transition between viable and failed regions. The 29% failure rate may indicate hard boundaries where the backend diverges.",
+      "source": {"file": "handoff_fopt.json", "section": "benchmark_summary", "note": "680 total scan points"}
+    },
+    {
+      "id": "A34",
+      "kind": "assumption",
+      "category": "spectrum_template",
+      "description": "The GW spectrum peak frequency estimation uses a template-independent redshifted peak frequency (`f_peak_est` in the FOPT JSON). Many benchmark points have `f_peak_est = null`.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json"],
+      "required_solution": "The null values for f_peak_est indicate that the peak frequency calculation failed for many points, including some viable ones. This limits the ability to predict which frequencies are targeted.",
+      "source": {"file": "handoff_fopt.json", "section": "benchmarks", "note": "f_peak_est is null for many points"}
+    },
+    {
+      "id": "A35",
+      "kind": "assumption",
+      "category": "model_building",
+      "description": "The model is not novel. arXiv:2109.11558 (Borah, Dasgupta, Kang, 2021) studied exactly the same model (SU(2)_D with one complex scalar doublet, CW mechanism, nHz GW signal).",
+      "severity": 1,
+      "controlled": true,
+      "affected_outputs": ["handoff_librarian_preliminary.json"],
+      "required_solution": "This is a note for downstream users, not a physical error. The analysis still provides value as an independent verification with newer PTA data (NG15 vs NG12.5).",
+      "source": {"file": "handoff_librarian_preliminary.json", "section": "novelty_verdict", "note": "model_not_novel"}
+    },
+    {
+      "id": "A36",
+      "kind": "warning",
+      "category": "backend",
+      "description": "The preliminary librarian's earlier claim of non-verifiable paper IDs (2006.02713, 2204.02988, 2006.04903, etc.) highlights a potential systematic issue with earlier handoff stages.",
+      "severity": 2,
+      "controlled": true,
+      "affected_outputs": ["handoff_librarian_preliminary.json"],
+      "required_solution": "The current librarian verified all paper IDs and flagged unverifiable ones. This is now correctly documented.",
+      "source": {"file": "handoff_librarian_preliminary.json", "section": "novelty_notes", "note": "Unverifiable paper IDs flagged."}
+    },
+    {
+      "id": "A37",
+      "kind": "caveat",
+      "category": "spectrum_template",
+      "description": "The dbf template paper reference (arXiv:2511.15687) cannot be verified. Web searches could not find this paper, suggesting it may not be published or its arXiv ID may be incorrect.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json"],
+      "required_solution": "The template reference must be verified. If the paper is unpublished, the template assumptions should be documented separately or a published alternative template (e.g., arXiv:2409.03651 for sound waves, or bubble collision templates) should be used.",
+      "source": {"file": "handoff_pta.json", "section": "template_choice", "note": "dbf template (arXiv:2511.15687)"}
+    },
+    {
+      "id": "A38",
+      "kind": "warning",
+      "category": "literature_comparison",
+      "description": "The Gaussian approximation reference (arXiv:2602.02928) cannot be verified. This arXiv ID (February 2026) may not yet be published.",
+      "severity": 3,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json", "handoff_model.json"],
+      "required_solution": "The Gaussian approximation is a standard technique (see Mégevand & Ramirez 2016, arXiv:1611.05853), but the specific reference should be updated or replaced with a verifiable one.",
+      "source": {"file": "handoff_fopt.json", "section": "approximations", "note": "Gaussian approximation for false-vacuum fraction (arXiv:2602.02928)"}
+    },
+    {
+      "id": "A39",
+      "kind": "limitation",
+      "category": "cosmological_constraints",
+      "description": "The 1-sigma PTA-preferred region has g in [0.852, 0.912] and chi0 in [0.62, 1.27] GeV. The best 14/14 benchmark points have lower chi0 (0.39-0.50 GeV) and higher g (0.90-1.05). This tension between scan and MCMC results is not discussed.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": ["handoff_pta.json", "handoff_fopt.json"],
+      "required_solution": "The best scan points (14/14 frequency bins matched) are at chi0 ~ 0.4-0.5 GeV, while the MAP from PTArcade is at chi0 = 1.12 GeV. This shift needs explanation -- does the PTArcade posterior prefer higher chi0 because of the data or because of the prior volume?",
+      "source": {"file": "handoff_pta.json", "section": "violin_scan", "note": "Best scan points at chi0=0.39-0.5 GeV; MAP at chi0=1.12 GeV"}
+    },
+    {
+      "id": "A40",
+      "kind": "limitation",
+      "category": "cosmological_constraints",
+      "description": "Self-interaction cross section and supernova cooling constraints are flagged but require non-trivial recasts that were not performed. These are conditional on the DM model and portal assumptions.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["handoff_constraints.json"],
+      "required_solution": "These constraints (C04, C08) are subleading to the overproduction issue. They become relevant only if the DM problem is solved.",
+      "source": {"file": "handoff_constraints.json", "section": "constraints", "note": "C04, C08: recast_needed, not performed."}
+    },
+    {
+      "id": "A41",
+      "kind": "uncertainty",
+      "category": "cosmological_parameters",
+      "description": "The Hubble parameter and SM effective degrees of freedom are interpolated from a table (T_vs_g_gs_GeV.csv). The extrapolation behavior at very low T (sub-MeV) and very high T is not validated.",
+      "severity": 3,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json"],
+      "required_solution": "Most transition temperatures are in the MeV range where the g_star interpolation should be reliable. The backend uses linear extrapolation for temperatures outside the table range.",
+      "source": {"file": "backend/semianalytic_pipeline.py", "section": "", "note": "gstar interpolated from T_vs_g_gs_GeV.csv"}
+    },
+    {
+      "id": "A42",
+      "kind": "caveat",
+      "category": "backend",
+      "description": "The backend uses numerical derivatives (central difference with h = 1e-3 * x) for critical quantities like S_3/T derivatives. This choice of step size affects the accuracy of beta/H and the eternal inflation check.",
+      "severity": 3,
+      "controlled": false,
+      "affected_outputs": ["handoff_fopt.json"],
+      "required_solution": "A convergence test of the numerical derivative step size would validate that beta/H and the eternal inflation check are accurate. The 1e-3 relative step is reasonable but not validated.",
+      "source": {"file": "backend/semianalytic_pipeline.py", "section": "numerical_derivative", "note": "h = x * 1e-3"}
+    }
+  ],
+  "required_followups": [
+    {
+      "id": "F01",
+      "priority": "high",
+      "description": "Resolve the Delta N_eff constraint with a dedicated calculation using the full thermal history from the FOPT scan outputs (T_reh, alpha, particle masses, equation of state).",
+      "blocked_by": ["A28", "A04"],
+      "suggested_action": "Implement a Delta N_eff calculator module as suggested in the constraints missing_calculations section. This is needed to determine whether the model survives BBN+CMB bounds."
+    },
+    {
+      "id": "F02",
+      "priority": "high",
+      "description": "Resolve the dark matter overproduction constraint with a dedicated relic abundance calculation for SU(2) gauge bosons.",
+      "blocked_by": ["A29", "A04"],
+      "suggested_action": "Implement a Boltzmann solver or use MicrOMEGAs for the SU(2) vector DM relic abundance. Compare with the freeze-in scenario of Borah et al. (2021)."
+    },
+    {
+      "id": "F03",
+      "priority": "high",
+      "description": "Cross-check the eternal inflation condition used (3 + T*I'(T) < 0) against the standard literature criterion (Gamma/H^4 < 9/(4*pi)).",
+      "blocked_by": ["A25"],
+      "suggested_action": "Implement the standard eternal inflation check from Rudelius (2019) and compare the fraction of excluded points. Validate that 14/1660 is robust."
+    },
+    {
+      "id": "F04",
+      "priority": "high",
+      "description": "Run additional PTArcade MCMC chains (at least 2-4) to verify convergence using the Gelman-Rubin R-1 < 0.05 criterion.",
+      "blocked_by": ["A22"],
+      "suggested_action": "Run 3 additional chains with different random seeds, then merge and compute the Gelman-Rubin statistic. Report whether the 1-sigma posteriors are stable."
+    },
+    {
+      "id": "F05",
+      "priority": "medium",
+      "description": "Resolve the alpha convention discrepancy with arXiv:2109.11558 BP1 (ours: 15, theirs: 0.45).",
+      "blocked_by": ["A27"],
+      "suggested_action": "Compute alpha for the same benchmark point using both conventions (this pipeline's backend vs. the DOF counting used in Borah et al. 2021). Document the systematic offset and its impact on literature comparisons."
+    },
+    {
+      "id": "F06",
+      "priority": "medium",
+      "description": "Validate the dbf template (arXiv:2511.15687) or replace it with a published alternative.",
+      "blocked_by": ["A37", "A15"],
+      "suggested_action": "If arXiv:2511.15687 cannot be verified, implement a published template such as the sound-wave template from Caprini et al. (2024, arXiv:2409.03651) or the bubble-collision template for strongly supercooled transitions."
+    },
+    {
+      "id": "F07",
+      "priority": "medium",
+      "description": "Quantify the RG scale uncertainty by recomputing the FOPT scan with mu = chi0/10 and mu = 10*chi0.",
+      "blocked_by": ["A07", "A11"],
+      "suggested_action": "Perform a sensitivity scan at a few benchmark points with renormalization scale variation to estimate the uncertainty in alpha and beta/H."
+    },
+    {
+      "id": "F08",
+      "priority": "medium",
+      "description": "Include Daisy resummation in the thermal effective potential to improve the nucleation rate calculation.",
+      "blocked_by": ["A10"],
+      "suggested_action": "Implement the Parwani or Arnold-Espinosa resummation scheme for the SU(2) gauge bosons and quantify the impact on the critical temperature and percolation temperature."
+    },
+    {
+      "id": "F09",
+      "priority": "low",
+      "description": "Investigate and fix the 198 numerical failures (29%) in the FOPT scan to ensure full parameter space coverage.",
+      "blocked_by": ["A14"],
+      "suggested_action": "Diagnose the 'non-finite backend output' errors and determine whether they are due to physical boundaries (no FOPT) or numerical issues."
+    },
+    {
+      "id": "F10",
+      "priority": "low",
+      "description": "Investigate the tension between best scan points (chi0 ~ 0.4-0.5 GeV) and MAP posterior (chi0 = 1.12 GeV).",
+      "blocked_by": ["A39"],
+      "suggested_action": "Determine whether the shift is due to the prior volume, the GW template, or the PTA data. Re-run with the best scan points as starting points for the MCMC to check consistency."
+    }
+  ]
+}

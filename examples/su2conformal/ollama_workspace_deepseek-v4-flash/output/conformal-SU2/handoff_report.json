@@ -1,0 +1,363 @@
+{
+  "model": "conformal-SU2",
+  "agent": "report-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-07",
+  "branch": "report",
+  "created_from": [
+    "output/conformal-SU2/handoff_proposed_model.json",
+    "output/conformal-SU2/handoff_librarian_preliminary.json",
+    "output/conformal-SU2/handoff_critique.json",
+    "output/conformal-SU2/handoff_model.json",
+    "output/conformal-SU2/handoff_fopt.json",
+    "output/conformal-SU2/handoff_pta.json",
+    "output/conformal-SU2/handoff_constraints.json",
+    "output/conformal-SU2/handoff_prior_audit.json",
+    "output/conformal-SU2/ptarcade_bayes.json",
+    "output/conformal-SU2/fopt_report.md",
+    "output/conformal-SU2/pta_report.md",
+    "output/conformal-SU2/constraints_report.md",
+    "output/conformal-SU2/prior_audit_report.md",
+    "output/conformal-SU2/critique.md",
+    "output/conformal-SU2/model.md"
+  ],
+  "commands": [
+    "cd /Users/mattezandi/Desktop/code/DarkAgents/ollama_workspace/output/conformal-SU2 && pdflatex -interaction=nonstopmode final_report.tex (5 passes)"
+  ],
+  "files_read": [
+    "output/conformal-SU2/handoff_proposed_model.json",
+    "output/conformal-SU2/handoff_librarian_preliminary.json",
+    "output/conformal-SU2/handoff_critique.json",
+    "output/conformal-SU2/handoff_model.json",
+    "output/conformal-SU2/handoff_fopt.json",
+    "output/conformal-SU2/handoff_pta.json",
+    "output/conformal-SU2/handoff_constraints.json",
+    "output/conformal-SU2/handoff_prior_audit.json",
+    "output/conformal-SU2/ptarcade_bayes.json",
+    "output/conformal-SU2/fopt_report.md",
+    "output/conformal-SU2/pta_report.md",
+    "output/conformal-SU2/constraints_report.md",
+    "output/conformal-SU2/prior_audit_report.md",
+    "output/conformal-SU2/critique.md",
+    "output/conformal-SU2/model.md",
+    "docs/HANDOFF_REPORT_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/conformal-SU2/final_report.tex",
+    "output/conformal-SU2/final_report.pdf",
+    "output/conformal-SU2/handoff_report.json"
+  ],
+  "warnings": [
+    "The dbf GW template (cited as arXiv:2511.15687) could not be verified through public searches. The reference is included with a caveat note in the report.",
+    "The semianalytic pipeline reference was verified as arXiv:2602.02829 (not 2602.02928 as cited in some upstream handoffs); the corrected ID is used.",
+    "The PTArcade posterior PDF was named conformal-SU2_posteriors.pdf rather than pta_posteriors.pdf; the LaTeX file uses the correct filename.",
+    "Float specifier warnings from LaTeX (h -> ht) are benign and do not affect the output."
+  ],
+  "errors": [],
+  "approximations": [
+    "High-temperature expansion of the one-loop finite-T effective potential",
+    "Gaussian approximation for false-vacuum fraction (arXiv:2602.02829)",
+    "CW mechanism at one loop; higher-order corrections neglected",
+    "No RG running or Daisy resummation included",
+    "dbf GW template used for all points, including moderate-alpha regime where its validity is less established",
+    "PTArcade ceffyl mode as approximation to full time-domain likelihood",
+    "Single MCMC chain (7501 effective samples) without Gelman-Rubin convergence diagnostic"
+  ],
+  "included_sections": [
+    {
+      "name": "Abstract",
+      "status": "included",
+      "source": "All upstream handoffs",
+      "notes": []
+    },
+    {
+      "name": "Introduction",
+      "status": "included",
+      "source": "All upstream handoffs",
+      "notes": []
+    },
+    {
+      "name": "The Model",
+      "status": "included",
+      "source": "handoff_proposed_model.json, handoff_critique.json, handoff_model.json",
+      "notes": [
+        "Includes gauge group, particle content, Lagrangian, SSB pattern, CW mechanism, free and dependent parameters"
+      ]
+    },
+    {
+      "name": "First-Order Phase Transition",
+      "status": "included",
+      "source": "handoff_fopt.json",
+      "notes": [
+        "Includes semianalytic pipeline method, two-stage scan strategy, results summary table, literature comparison with Borah et al. (2021)"
+      ]
+    },
+    {
+      "name": "Gravitational-Wave Spectrum",
+      "status": "included",
+      "source": "handoff_fopt.json, handoff_pta.json",
+      "notes": [
+        "Includes template choice, benchmark scan against NANOGrav violins, best 14/14 benchmarks table, benchmark spectrum figure"
+      ]
+    },
+    {
+      "name": "PTArcade Bayesian Analysis",
+      "status": "included",
+      "source": "handoff_pta.json, ptarcade_bayes.json",
+      "notes": [
+        "Includes posterior table, posterior distribution figure, MAP spectrum figure"
+      ]
+    },
+    {
+      "name": "Constraints",
+      "status": "included",
+      "source": "handoff_constraints.json",
+      "notes": [
+        "11 constraints summarised with table; Delta N_eff and DM overproduction discussed as key unresolved constraints"
+      ]
+    },
+    {
+      "name": "Assumptions and Limitations",
+      "status": "included",
+      "source": "handoff_prior_audit.json",
+      "notes": [
+        "42 assumptions audited; severity distribution table; critical unresolved assumptions table; 10 required follow-ups"
+      ]
+    },
+    {
+      "name": "Discussion",
+      "status": "included",
+      "source": "All upstream handoffs",
+      "notes": [
+        "Caveats on dbf template verifiability, secluded dark sector, MCMC convergence, model novelty"
+      ]
+    },
+    {
+      "name": "Conclusions",
+      "status": "included",
+      "source": "All upstream handoffs",
+      "notes": [
+        "Direct answer to the original user question"
+      ]
+    },
+    {
+      "name": "References",
+      "status": "included",
+      "source": "All upstream handoffs",
+      "notes": [
+        "19 references including verified arXiv papers, Coleman-Weinberg original, NANOGrav, PTArcade"
+      ]
+    }
+  ],
+  "figures_included": [
+    {
+      "label": "fig:benchmark_spectrum",
+      "file": "pta_benchmark_spectrum.pdf",
+      "caption": "GW spectra for best conformal SU(2)_X benchmarks overlaid on NANOGrav 15-year violins",
+      "source": "PTA agent output",
+      "notes": []
+    },
+    {
+      "label": "fig:posteriors",
+      "file": "conformal-SU2_posteriors.pdf",
+      "caption": "Posterior distributions for g and log10(chi0) from PTArcade Bayesian analysis",
+      "source": "PTA agent output",
+      "notes": []
+    },
+    {
+      "label": "fig:ptarcade_spectrum",
+      "file": "pta_ptarcade_spectrum.pdf",
+      "caption": "GW spectrum at the PTArcade MAP point overlaid on NANOGrav 15-year violins",
+      "source": "PTA agent output",
+      "notes": []
+    }
+  ],
+  "tables_included": [
+    {
+      "label": "tab:fields",
+      "file": "final_report.tex",
+      "caption": "Particle content of the minimal conformal SU(2)_X model",
+      "source": "handoff_proposed_model.json, handoff_model.json",
+      "notes": []
+    },
+    {
+      "label": "tab:fopt_stats",
+      "file": "final_report.tex",
+      "caption": "FOPT scan statistics",
+      "source": "handoff_fopt.json",
+      "notes": []
+    },
+    {
+      "label": "tab:lit_compare",
+      "file": "final_report.tex",
+      "caption": "Comparison of FOPT parameters with Borah et al. (2021)",
+      "source": "handoff_fopt.json, handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "tab:best_benchmarks",
+      "file": "final_report.tex",
+      "caption": "Best benchmark points achieving 14/14 in-violin bins",
+      "source": "handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "tab:ptarcade_priors",
+      "file": "final_report.tex",
+      "caption": "PTArcade priors",
+      "source": "handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "tab:posteriors",
+      "file": "final_report.tex",
+      "caption": "Posterior constraints from PTArcade analysis",
+      "source": "handoff_pta.json, ptarcade_bayes.json",
+      "notes": []
+    },
+    {
+      "label": "tab:constraints",
+      "file": "final_report.tex",
+      "caption": "Summary of considered constraints",
+      "source": "handoff_constraints.json",
+      "notes": []
+    },
+    {
+      "label": "tab:audit_summary",
+      "file": "final_report.tex",
+      "caption": "Severity distribution of audited assumptions",
+      "source": "handoff_prior_audit.json",
+      "notes": []
+    },
+    {
+      "label": "tab:critical_assumptions",
+      "file": "final_report.tex",
+      "caption": "Most critical unresolved assumptions and limitations",
+      "source": "handoff_prior_audit.json",
+      "notes": []
+    }
+  ],
+  "cited_sources": [
+    {
+      "title": "Cosmological phase transitions: from particle physics to gravitational waves, semi-analytically",
+      "arxiv_id": "2602.02829",
+      "source_file": "handoff_fopt.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Tuning the violins: dark sector phase transition models for the PTA signal",
+      "arxiv_id": "2602.09092",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "A first order dark SU(2)_D phase transition with vector dark matter in the light of NANOGrav 12.5 yr data",
+      "arxiv_id": "2109.11558",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Does NANOGrav observe a dark sector phase transition?",
+      "arxiv_id": "2306.09411",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "The NANOGrav 15-year Data Set: Evidence for a Gravitational-Wave Background",
+      "arxiv_id": "2306.16213",
+      "source_file": "independent_web_search",
+      "source_type": "paper",
+      "citation_verified": true
+    },
+    {
+      "title": "Radiative Corrections as the Origin of Spontaneous Symmetry Breaking",
+      "arxiv_id": null,
+      "source_file": "independent_knowledge",
+      "source_type": "paper",
+      "citation_verified": true
+    },
+    {
+      "title": "Dissipative bulk-flow GW template",
+      "arxiv_id": "2511.15687",
+      "source_file": "handoff_pta.json",
+      "source_type": "paper",
+      "citation_verified": false
+    },
+    {
+      "title": "PTArcade: A fast Bayesian analysis pipeline for PTA data",
+      "arxiv_id": "2306.16377",
+      "source_file": "independent_web_search",
+      "source_type": "paper",
+      "citation_verified": true
+    },
+    {
+      "title": "Probing Physics Beyond the Standard Model: Limits from BBN and the CMB Independently and Combined",
+      "arxiv_id": "2207.13133",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "BBN constraints on MeV-scale phase transitions",
+      "arxiv_id": "2109.14765",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Minimal SU(2) vector dark matter",
+      "arxiv_id": "2301.00041",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data",
+      "arxiv_id": "2501.11619",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Gravitational waves from first-order phase transitions: from weak to strong",
+      "arxiv_id": "2409.03651",
+      "source_file": "independent_web_search",
+      "source_type": "paper",
+      "citation_verified": true
+    },
+    {
+      "title": "Velocity-dependent Self-interacting Dark Matter from Groups and Clusters of Galaxies",
+      "arxiv_id": "2006.12515",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Equivalence Principle Violations and Couplings of a Light Dilaton",
+      "arxiv_id": "1007.2792",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Conformal model for gravitational waves and dark matter: A status update",
+      "arxiv_id": "2210.07075",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Search for Invisible Decays of a Dark Photon Produced in e+e- Collisions at BaBar",
+      "arxiv_id": "1702.03327",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    }
+  ],
+  "compiled_pdf": true,
+  "compile_errors": []
+}

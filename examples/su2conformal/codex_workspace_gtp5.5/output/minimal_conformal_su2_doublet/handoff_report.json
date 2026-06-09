@@ -1,0 +1,308 @@
+{
+  "model": "minimal_conformal_su2_doublet",
+  "agent": "report-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "report",
+  "created_from": [
+    "output/minimal_conformal_su2_doublet/handoff_model.json",
+    "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+    "output/minimal_conformal_su2_doublet/handoff_critique.json",
+    "output/minimal_conformal_su2_doublet/handoff_fopt.json",
+    "output/minimal_conformal_su2_doublet/handoff_pta.json",
+    "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+    "output/minimal_conformal_su2_doublet/handoff_prior_audit.json",
+    "docs/HANDOFF_REPORT_SCHEMA.md"
+  ],
+  "commands": [
+    "sed -n '1,220p' .codex/agents/report-agent.md",
+    "sed -n '1,220p' docs/HANDOFF_REPORT_SCHEMA.md",
+    "ls -la output/minimal_conformal_su2_doublet",
+    "jq summaries over required handoff JSON files",
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex (run 1, failed: text-mode underscore in SU(2)_D macro)",
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex (run 2, failed: macro used display math delimiter inside display equation)",
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex (run 3, failed: missing amssymb for varnothing)",
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex (run 4, succeeded with unresolved references pending rerun)",
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex (run 5, succeeded)",
+    "ls -l final_report.tex final_report.pdf final_report.log",
+    "pdfinfo final_report.pdf",
+    "grep -E \"(Undefined|Fatal|Error|Warning|Overfull|Underfull)\" final_report.log"
+  ],
+  "files_read": [
+    ".codex/agents/report-agent.md",
+    "docs/HANDOFF_REPORT_SCHEMA.md",
+    "output/minimal_conformal_su2_doublet/handoff_model.json",
+    "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+    "output/minimal_conformal_su2_doublet/handoff_critique.json",
+    "output/minimal_conformal_su2_doublet/handoff_fopt.json",
+    "output/minimal_conformal_su2_doublet/handoff_pta.json",
+    "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+    "output/minimal_conformal_su2_doublet/handoff_prior_audit.json",
+    "output/minimal_conformal_su2_doublet/pta_benchmark_spectrum.pdf",
+    "output/minimal_conformal_su2_doublet/pta_ptarcade_spectrum.pdf",
+    "output/minimal_conformal_su2_doublet/pta_posteriors.pdf",
+    "output/minimal_conformal_su2_doublet/final_report.tex",
+    "output/minimal_conformal_su2_doublet/final_report.log",
+    "output/minimal_conformal_su2_doublet/final_report.pdf"
+  ],
+  "files_written": [
+    "output/minimal_conformal_su2_doublet/final_report.tex",
+    "output/minimal_conformal_su2_doublet/final_report.pdf",
+    "output/minimal_conformal_su2_doublet/final_report.aux",
+    "output/minimal_conformal_su2_doublet/final_report.log",
+    "output/minimal_conformal_su2_doublet/final_report.out",
+    "output/minimal_conformal_su2_doublet/handoff_report.json"
+  ],
+  "warnings": [
+    "Report run_status is warning because the upstream pipeline has warning statuses and the final interpretation is conditional.",
+    "The exact core model is not novel; arXiv:2109.11558 is same-model precedent.",
+    "PTA result depends on DBF template validity at extremely large alpha and on backend efficiency/wall-dynamics assumptions.",
+    "Constraints stage did not derive an exclusion mostly because thermal-history, BBN/CMB, Delta N_eff, relic-density, and self-interaction observables are missing.",
+    "One decoupled-hidden-sector constraints item in handoff_constraints.json was citation_verified=false and was not cited in the final bibliography.",
+    "LaTeX completed with nonfatal typography/caption warnings: underfull boxes, one 4.96 pt overfull hbox, and caption hypcap warnings."
+  ],
+  "errors": [],
+  "approximations": [
+    "FOPT results use the semianalytic conformal high-temperature/polynomial backend and Gaussian percolation approximation from handoff_fopt.json.",
+    "PTA benchmark and PTArcade spectra use the DBF template with backend defaults; wall velocity and microscopic efficiency are not independently computed.",
+    "The report uses handoff citation_verified metadata and excludes unverified citations; no broad literature re-search was performed beyond handoff metadata because the required citations were already marked verified."
+  ],
+  "included_sections": [
+    {
+      "name": "Summary",
+      "status": "included",
+      "source": "all required handoff JSON files",
+      "notes": [
+        "Preserves minimal conformal SU(2)_D doublet conclusion, same-model precedent, FOPT/PTA outputs, and caveats."
+      ]
+    },
+    {
+      "name": "Prompt",
+      "status": "included",
+      "source": "task prompt",
+      "notes": [
+        "Exact original prompt included as provided."
+      ]
+    },
+    {
+      "name": "Model description",
+      "status": "included",
+      "source": "handoff_model.json and handoff_critique.json",
+      "notes": [
+        "Uses critic-authoritative vector-mass convention m_WD = gD chi / 2."
+      ]
+    },
+    {
+      "name": "Pipeline status",
+      "status": "included",
+      "source": "all upstream handoff run_status fields",
+      "notes": [
+        "Table distinguishes ok from warning statuses."
+      ]
+    },
+    {
+      "name": "Preliminary literature search",
+      "status": "included",
+      "source": "handoff_librarian_preliminary.json",
+      "notes": [
+        "Includes arXiv:2109.11558 same-model precedent and convention warning."
+      ]
+    },
+    {
+      "name": "FOPT results",
+      "status": "included",
+      "source": "handoff_fopt.json",
+      "notes": [
+        "Includes scan summary, representative steering points, and backend caveats."
+      ]
+    },
+    {
+      "name": "PTA results",
+      "status": "included",
+      "source": "handoff_pta.json",
+      "notes": [
+        "Includes benchmark score 13/14, PTArcade MAP/posterior, N_samples=100000, DBF template choice, and caveats."
+      ]
+    },
+    {
+      "name": "Constraints",
+      "status": "included",
+      "source": "handoff_constraints.json",
+      "notes": [
+        "Includes direct, not-applicable, and requires-new-backend classification and missing calculations."
+      ]
+    },
+    {
+      "name": "Assumptions and limitations",
+      "status": "included",
+      "source": "handoff_prior_audit.json",
+      "notes": [
+        "Emphasizes high-severity thermal-history, cosmology, dark-matter, and template-validity limitations."
+      ]
+    },
+    {
+      "name": "Conclusions",
+      "status": "included",
+      "source": "all required handoff JSON files",
+      "notes": [
+        "Separates robust, conditional, blocked, and uncontrolled claims."
+      ]
+    },
+    {
+      "name": "Reference list",
+      "status": "included",
+      "source": "handoff_librarian_preliminary.json and handoff_constraints.json",
+      "notes": [
+        "Only citation-verified or standard bibliographic entries from handoff metadata were cited; citation_verified=false item was excluded."
+      ]
+    }
+  ],
+  "figures_included": [
+    {
+      "label": "fig:pta_benchmark",
+      "file": "output/minimal_conformal_su2_doublet/pta_benchmark_spectrum.pdf",
+      "caption": "Benchmark DBF spectrum compared with PTA violin windows. The best benchmark score is 13/14.",
+      "source": "handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "fig:pta_ptarcade",
+      "file": "output/minimal_conformal_su2_doublet/pta_ptarcade_spectrum.pdf",
+      "caption": "PTArcade MAP DBF spectrum for the accepted widened-prior run.",
+      "source": "handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "fig:pta_posteriors",
+      "file": "output/minimal_conformal_su2_doublet/pta_posteriors.pdf",
+      "caption": "PTArcade posterior distributions for the fitted parameter basis.",
+      "source": "handoff_pta.json",
+      "notes": []
+    }
+  ],
+  "tables_included": [
+    {
+      "label": "pipeline_status",
+      "file": "output/minimal_conformal_su2_doublet/final_report.tex",
+      "caption": "Pipeline status table.",
+      "source": "all upstream handoff run_status fields",
+      "notes": []
+    },
+    {
+      "label": "tab:fopt",
+      "file": "output/minimal_conformal_su2_doublet/final_report.tex",
+      "caption": "Representative FOPT steering points.",
+      "source": "handoff_fopt.json",
+      "notes": [
+        "f_est values are order-of-magnitude steering estimates only."
+      ]
+    },
+    {
+      "label": "tab:constraints",
+      "file": "output/minimal_conformal_su2_doublet/final_report.tex",
+      "caption": "Constraint classification.",
+      "source": "handoff_constraints.json",
+      "notes": [
+        "No exclusion means no exclusion with available observables, not proven viability."
+      ]
+    }
+  ],
+  "cited_sources": [
+    {
+      "title": "A first order dark SU(2)_D phase transition with vector dark matter in the light of NANOGrav 12.5 yr data",
+      "arxiv_id": "2109.11558",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+      "arxiv_id": "2502.19478",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "NANOGrav Signal from a Dark Conformal Phase Transition",
+      "arxiv_id": "2306.17086",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data",
+      "arxiv_id": "2501.11619",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Does NANOGrav observe a dark sector phase transition?",
+      "arxiv_id": "2306.09411",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Refined Bounds on MeV-scale Thermal Dark Sectors from BBN and the CMB",
+      "arxiv_id": "1910.01649",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Addendum: Refined bounds on MeV-scale thermal dark sectors from BBN and the CMB",
+      "arxiv_id": "2107.11232",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Planck 2018 results. VI. Cosmological parameters",
+      "arxiv_id": "1807.06209",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Dark Matter Self-interactions and Small Scale Structure",
+      "arxiv_id": "1705.02358",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Direct constraints on the dark matter self-interaction cross-section from the merging galaxy cluster 1E0657-56",
+      "arxiv_id": "astro-ph/0309303",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Dark Matter through the Higgs portal",
+      "arxiv_id": "1903.03616",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Dark Sectors 2016 Workshop: Community Report",
+      "arxiv_id": "1608.08632",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "US Cosmic Visions: New Ideas in Dark Matter 2017: Community Report",
+      "arxiv_id": "1707.04591",
+      "source_file": "output/minimal_conformal_su2_doublet/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    }
+  ],
+  "compiled_pdf": true,
+  "compile_errors": [
+    "Runs 1-3 failed during iterative LaTeX syntax fixes before the final source was produced: unsafe SU(2)_D macro in text, macro delimiter use inside display math, and missing amssymb for varnothing.",
+    "Final run succeeded and produced a readable 8-page PDF. Remaining log messages are nonfatal typography/caption warnings: underfull boxes, one 4.96 pt overfull hbox, and caption hypcap warnings."
+  ]
+}

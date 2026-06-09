@@ -1,0 +1,293 @@
+{
+  "model": "u1conformal_fermion",
+  "agent": "proposer-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-08",
+  "branch": "fopt-pta",
+  "created_from": [
+    "terminal prompt: conformal U(1) BSM extension with dark scalar, dark gauge boson, dark fermion"
+  ],
+  "commands": [],
+  "files_read": [
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    ".claude/agents/proposer-agent.md",
+    ".claude/skills/model-proposal/SKILL.md"
+  ],
+  "files_written": [
+    "output/u1conformal_fermion/proposed_model.md",
+    "output/u1conformal_fermion/handoff_proposed_model.json"
+  ],
+  "warnings": [],
+  "errors": [],
+  "approximations": [
+    "Higgs portal coupling set to zero (lambda_HPhi = 0)",
+    "Gauge kinetic mixing set to zero (epsilon = 0)",
+    "Dark sector thermalised with SM (xi = T_dark/T_SM = 1)",
+    "High-temperature expansion of finite-T effective potential valid in supercooling regime",
+    "Gaussian approximation for false vacuum fraction",
+    "Single-field approximation for FOPT analysis"
+  ],
+  "gauge_groups": [
+    {
+      "name": "U(1)_D",
+      "rank": 1,
+      "coupling": "g_D",
+      "notes": "Dark U(1) gauge symmetry; anomaly-free with the chosen fermion content"
+    }
+  ],
+  "global_symmetries": [
+    {
+      "name": "Classical scale invariance",
+      "type": "global_anomalous",
+      "notes": "No dimensionful parameters in tree-level Lagrangian; broken radiatively by CW mechanism"
+    }
+  ],
+  "particle_content": [
+    {
+      "name": "Phi",
+      "type": "complex_scalar",
+      "spin": 0,
+      "u1d_charge": 1,
+      "dof": 2,
+      "statistics": "Bose",
+      "notes": "Dark Higgs; radial mode acquires vev triggering U(1)_D SSB"
+    },
+    {
+      "name": "Aprime",
+      "type": "gauge_boson",
+      "spin": 1,
+      "u1d_charge": 0,
+      "dof": 3,
+      "statistics": "Bose",
+      "notes": "Dark photon; gets mass g_D v via Higgs mechanism"
+    },
+    {
+      "name": "psi_1",
+      "type": "dirac_fermion",
+      "spin": 0.5,
+      "u1d_charge": 0.5,
+      "dof": 4,
+      "statistics": "Fermi",
+      "notes": "First dark Dirac fermion; vector-like (L and R same charge); anomaly-free"
+    },
+    {
+      "name": "psi_2",
+      "type": "dirac_fermion",
+      "spin": 0.5,
+      "u1d_charge": -0.5,
+      "dof": 4,
+      "statistics": "Fermi",
+      "notes": "Second dark Dirac fermion; vector-like (L and R same charge); anomaly-free"
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "gauge_kinetic",
+      "expression": "-1/4 * Fprime_mu_nu * Fprime^mu_nu",
+      "notes": "Dark U(1)_D gauge kinetic term; no kinetic mixing with SM U(1)_Y at tree level"
+    },
+    {
+      "name": "scalar_kinetic",
+      "expression": "(D_mu Phi) * conjugate(D^mu Phi)",
+      "notes": "Kinetic term for complex scalar; D_mu = d_mu + i * g_D * A'_mu"
+    },
+    {
+      "name": "fermion_kinetic_psi1",
+      "expression": "I * psi1_bar * gamma^mu * D_mu * psi1",
+      "notes": "Kinetic term for psi_1; D_mu = d_mu + i * g_D * (1/2) * A'_mu"
+    },
+    {
+      "name": "fermion_kinetic_psi2",
+      "expression": "I * psi2_bar * gamma^mu * D_mu * psi2",
+      "notes": "Kinetic term for psi_2; D_mu = d_mu - i * g_D * (1/2) * A'_mu"
+    },
+    {
+      "name": "yukawa",
+      "expression": "y_psi * Phi * psi1_bar * psi2 + h.c.",
+      "notes": "Renormalizable gauge-invariant Yukawa coupling; after SSB generates Dirac mass m_psi = y_psi * v / sqrt(2)"
+    },
+    {
+      "name": "scalar_potential",
+      "expression": "lambda_Phi * (Phi* * Phi)^2",
+      "notes": "Tree-level conformal scalar potential; no mass term; lambda_Phi fixed by CW condition"
+    }
+  ],
+  "free_parameters": [
+    {
+      "name": "g_D",
+      "range": [0.1, 4.0],
+      "determination": "scanned",
+      "notes": "Dark U(1)_D gauge coupling; perturbativity requires g_D < 4*pi"
+    },
+    {
+      "name": "y_psi",
+      "range": [0.0, 1.0],
+      "determination": "scanned",
+      "notes": "Yukawa coupling; CW condition requires y_psi < (3/2)^(1/4) * g_D approx 1.11 * g_D"
+    },
+    {
+      "name": "v",
+      "range": [100.0, 10000.0],
+      "determination": "scanned",
+      "units": "GeV",
+      "notes": "Dark Higgs vev; sets the overall mass scale of the dark sector"
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "g_D": {
+        "type": "dimensionless",
+        "range": [0.1, 4.0],
+        "notes": "Dark gauge coupling; scanned in MCMC"
+      },
+      "y_psi": {
+        "type": "dimensionless",
+        "range": [0.0, 1.0],
+        "notes": "Yukawa coupling; scanned in MCMC; constrained by CW condition beta_lambda > 0"
+      },
+      "v": {
+        "type": "dimensionful",
+        "range": [100.0, 10000.0],
+        "units": "GeV",
+        "notes": "Dark Higgs vev; scanned in MCMC"
+      }
+    },
+    "dependent": {
+      "lambda_Phi": {
+        "type": "dimensionless",
+        "relation": "beta_lambda = (3 * g_D**4 - 2 * y_psi**4) / (8 * pi**2)",
+        "notes": "CW-fixed quartic coupling; NOT scanned; beta_lambda > 0 required for radiative SSB"
+      },
+      "m_chi": {
+        "type": "dimensionful",
+        "relation": "m_chi**2 = beta_lambda * v**2",
+        "units": "GeV",
+        "notes": "Physical mass of the CW pseudo-dilaton (radial scalar mode)"
+      },
+      "m_Aprime": {
+        "type": "dimensionful",
+        "relation": "m_Aprime = g_D * v",
+        "units": "GeV",
+        "notes": "Physical dark photon mass"
+      },
+      "m_psi": {
+        "type": "dimensionful",
+        "relation": "m_psi = y_psi * v / sqrt(2)",
+        "units": "GeV",
+        "notes": "Mass of each Dirac fermion mass eigenstate from psi_1-psi_2 mixing"
+      },
+      "gb_scalar": {
+        "type": "dimensionless",
+        "relation": "gb_scalar = sqrt(beta_lambda)",
+        "notes": "Scalar self-coupling gb for backend; fixed by particle content; subleading in potential"
+      }
+    },
+    "fixed": {
+      "xi": {
+        "value": 1.0,
+        "notes": "T_dark / T_SM temperature ratio; assumes dark sector thermalised with SM"
+      },
+      "epsilon_kinetic_mixing": {
+        "value": 0.0,
+        "notes": "Gauge kinetic mixing between U(1)_D and U(1)_Y; set to zero at tree level"
+      },
+      "lambda_HPhi": {
+        "value": 0.0,
+        "notes": "Higgs portal coupling |H|^2|Phi|^2; set to zero (no tree-level mixing)"
+      }
+    }
+  },
+  "ssb_pattern": [
+    "U(1)_D -> nothing; complex scalar Phi acquires vev v, giving masses to gauge boson and fermions"
+  ],
+  "vev_convention": "Phi = (chi + v) / sqrt(2) * exp(I * theta / v) in unitary gauge; radial mode chi is the background field with <chi> = v",
+  "tree_level_potential": [
+    {
+      "name": "V_tree",
+      "expression": "lambda_Phi * chi**4 / 4",
+      "notes": "Tree-level scalar potential in radial background field chi; classically scale-invariant"
+    }
+  ],
+  "field_dependent_masses": [
+    {
+      "particle": "Aprime",
+      "m2_of_chi": "g_D**2 * chi**2",
+      "dof": 3,
+      "statistics": "Bose",
+      "notes": "Dark gauge boson transverse modes; gets mass from covariant derivative of Phi"
+    },
+    {
+      "particle": "chi",
+      "m2_of_chi": "beta_lambda * chi**2",
+      "dof": 1,
+      "statistics": "Bose",
+      "notes": "Radial scalar mode; mass from CW potential; subleading in FOPT dynamics (gb=0 in backend)"
+    },
+    {
+      "particle": "psi (mass eigenstates)",
+      "m2_of_chi": "y_psi**2 * chi**2 / 2",
+      "dof": 8,
+      "statistics": "Fermi",
+      "notes": "Two Dirac fermion mass eigenstates from psi_1-psi_2 mixing; each with m^2 = y_psi^2 * chi^2 / 2"
+    }
+  ],
+  "thermal_masses": [
+    {
+      "particle": "Aprime (longitudinal)",
+      "Pi_of_T": "(3 * g_D**2 + 2 * y_psi**2) * T**2 / 12",
+      "notes": "Debye/thermal mass squared for longitudinal gauge boson mode; g2sq = 3*g_D^2 + 2*y_psi^2 in backend notation"
+    },
+    {
+      "particle": "chi (scalar)",
+      "Pi_of_T": "(3 * g_D**2 + 2 * y_psi**2) * T**2 / 12",
+      "notes": "Thermal mass squared for radial scalar; same g2sq coefficient as gauge boson"
+    },
+    {
+      "particle": "Goldstone theta",
+      "Pi_of_T": "g_D**2 * T**2 / 3",
+      "notes": "Thermal mass for Goldstone mode (eaten by A'_mu); contributes to thermal barrier"
+    }
+  ],
+  "expression_symbols": [
+    "g_D",
+    "y_psi",
+    "v",
+    "chi",
+    "chi0",
+    "lambda_Phi",
+    "pi",
+    "beta_lambda",
+    "m_chi",
+    "m_Aprime",
+    "m_psi",
+    "gb_scalar",
+    "T",
+    "xi"
+  ],
+  "assumptions": [
+    "Two Dirac fermions (psi_1, psi_2) are required because a single Dirac fermion cannot simultaneously satisfy gauge invariance of the Yukawa term, anomaly cancellation, and non-zero scalar charge under U(1)_D",
+    "The Higgs portal coupling lambda_HPhi is set to zero; no tree-level mixing between SM and dark scalar sectors",
+    "Gauge kinetic mixing epsilon between U(1)_D and U(1)_Y is set to zero at all scales",
+    "Dark sector is assumed to be in thermal equilibrium with the SM (xi = T_dark/T_SM = 1)",
+    "The Coleman-Weinberg mechanism is the sole source of symmetry breaking; no tree-level mass term exists",
+    "The high-temperature expansion of the finite-temperature effective potential is valid for the FOPT regime (supercooling regime with small field/T)",
+    "The Gaussian approximation for the false vacuum fraction is valid for computing the percolation temperature",
+    "Perturbative control: g_D, y_psi < 4*pi"
+  ],
+  "backend_compatibility": [
+    {
+      "backend": "semianalytic_pipeline",
+      "status": "compatible",
+      "mapping": {
+        "chi0": "v",
+        "boson_gbs": "{\"gauge\": g_D, \"scalar\": 0}",
+        "boson_dofs": "{\"gauge\": 3, \"scalar\": 1}",
+        "fermion_gfs": "{\"psi\": y_psi / sqrt(2)}",
+        "fermion_dofs": "{\"psi\": 8}"
+      },
+      "notes": "Model satisfies single-field conformal criterion: tree-level potential has only quartic term, masses proportional to single vev. The backend gb_scalar parameter is set to sqrt(beta_lambda) and is subleading."
+    }
+  ]
+}

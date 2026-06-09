@@ -1,0 +1,455 @@
+{
+  "model": "u1conformal",
+  "agent": "pta-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-09",
+  "branch": "ptarcade_campaign",
+  "created_from": [
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/model.md"
+  ],
+  "commands": [
+    "conda run -n ptarcade python output/u1conformal/pta_scan.py",
+    "conda run -n ptarcade python output/u1conformal/pta_benchmark_plot.py",
+    "conda run -n ptarcade ptarcade -m output/u1conformal/ptarcade_model.py -c output/u1conformal/ptarcade_config_smoke.py",
+    "conda run -n ptarcade ptarcade -m output/u1conformal/ptarcade_model.py -c output/u1conformal/ptarcade_config.py",
+    "conda run -n ptarcade python output/u1conformal/ptarcade_plot.py",
+    "conda run -n ptarcade python output/u1conformal/pta_ptarcade_spectrum_plot.py"
+  ],
+  "files_read": [
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/fopt_benchmarks.csv",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/model.md",
+    "docs/SPECTRUM.md",
+    "backend/spectrum.py",
+    "backend/pta_violin_windows.csv",
+    "backend/plot_violins.py",
+    "docs/PTARCADE.md",
+    "docs/HANDOFF_PTA_SCHEMA.md",
+    "output/u1conformal/fopt_model.py"
+  ],
+  "files_written": [
+    "output/u1conformal/pta_spectrum.py",
+    "output/u1conformal/pta_scan.py",
+    "output/u1conformal/pta_benchmark_scan.csv",
+    "output/u1conformal/pta_benchmark_plot.py",
+    "output/u1conformal/pta_benchmark_spectrum.pdf",
+    "output/u1conformal/ptarcade_model.py",
+    "output/u1conformal/ptarcade_config.py",
+    "output/u1conformal/ptarcade_config_smoke.py",
+    "output/u1conformal/ptarcade_plot.py",
+    "output/u1conformal/pta_ptarcade_spectrum_plot.py",
+    "output/u1conformal/u1conformal_posteriors.pdf",
+    "output/u1conformal/pta_ptarcade_spectrum.pdf",
+    "output/u1conformal/ptarcade_bayes.json",
+    "output/u1conformal/chains/np_model/",
+    "output/u1conformal/handoff_pta.json",
+    "output/u1conformal/pta_report.md"
+  ],
+  "warnings": [
+    "Strongly supercooled regime (alpha up to ~1e16): the dbf template (2511.15687) is the appropriate strong-supercooling template; the higgsless sound-wave template (2209.04369) is NOT valid here and was not used for scoring.",
+    "Order-of-magnitude gauge dependence of the CW+thermal potential propagates into alpha, beta_H, Treh and hence the GW amplitude/peak (1707.06765).",
+    "Manual chain line-count polling appeared slow due to factor-10 output thinning; the run completed the full N_samples=1e5 in ~2018 s at acceptance rate 0.385."
+  ],
+  "errors": [],
+  "approximations": [
+    "ksw (kinetic efficiency)=1, justified in the vacuum-dominated runaway limit where K=alpha/(1+alpha)->1.",
+    "dbf amplitude scaling ~1/beta_H^2 and fixed spectral-shape exponents as implemented in backend/spectrum.py (2511.15687)."
+  ],
+  "analysis_mode": "benchmark_plus_ptarcade",
+  "pta_parameter_basis": {
+    "independent": {
+      "v": "dark vev [GeV], log-scanned",
+      "g_D": "U(1)_D gauge coupling, linear-scanned"
+    },
+    "dependent": {
+      "lambda_Phi": "CW-fixed scalar quartic (internal to backend)",
+      "alpha": "FOPT strength (derived)",
+      "beta_H": "inverse duration (derived)",
+      "Treh": "reheating temperature (derived)",
+      "m_A_prime": "g_D*v",
+      "m_rho": "sqrt(beta_lambda)*v"
+    },
+    "fixed": {
+      "n_A_prime": "3",
+      "xi": "1 (T_dark=T_vis)",
+      "lambda_HPhi": "~0",
+      "epsilon": "~0"
+    }
+  },
+  "spectrum_template": "dbf",
+  "template_validity": {
+    "status": "ok",
+    "reason": "Strongly supercooled FOPT (alpha>>1, vacuum-dominated). Bubble walls run away and energy is carried by free-streaming bulk-flow shells in a dark plasma; the dissipative bulk flow (dbf) template of Lewicki et al. 2511.15687 is built for exactly this regime. The higgsless sound-wave template (2209.04369) is calibrated for moderate alpha<~O(1) with a long-lived fluid and is outside its validity here. bf was retained only as a comparison."
+  },
+  "benchmark_analysis": {
+    "scan_summary": {
+      "total_points": 1271,
+      "viable_points": 1271,
+      "boundary_expansions": [
+        "Initial v range [1 MeV, 2 GeV] put the best 14/14 points at the v=2 GeV upper edge; expanded v to [1 MeV, 50 GeV] and g_D to [0.48,0.90]. The 14/14 window then closed interior: v in [0.35,2.4] GeV, g_D in [0.51,0.63]."
+      ]
+    },
+    "prior_ranges": {
+      "v": {
+        "scan_min": 0.001,
+        "scan_max": 50.0,
+        "unit": "GeV",
+        "spacing": "log"
+      },
+      "g_D": {
+        "scan_min": 0.48,
+        "scan_max": 0.9,
+        "spacing": "linear"
+      }
+    },
+    "template_comparison": {
+      "dbf": {
+        "best_score": 14,
+        "validity": "ok",
+        "selected": true
+      },
+      "bf": {
+        "note": "comparison only; different high-f slope and normalisation",
+        "validity": "plausible_runaway_limit"
+      },
+      "higgsless": {
+        "validity": "failed_out_of_domain (sound waves invalid for alpha>>1)"
+      }
+    },
+    "best_fit_points": [
+      {
+        "rank": 1,
+        "name": "v=748.3MeV_gD=0.560",
+        "parameters": {
+          "v": 0.7483,
+          "g_D": 0.56
+        },
+        "alpha": 1195085374.6060636,
+        "beta_H": 21.423304979862223,
+        "T_star": 0.06393813230000625,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1.9010782799232996e-08,
+        "peak_h2OmegaGW": 3.2185562891015622e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.322736796357105e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            1.373272504485144e-10,
+            5.131872519049938e-10,
+            1.0390628955940752e-09,
+            1.6171710779332383e-09,
+            2.172540889797499e-09,
+            2.731844442970894e-09,
+            3.0162431940741485e-09,
+            3.1706840473329663e-09,
+            3.2185562891015622e-09,
+            3.186245287070115e-09,
+            3.099202988921279e-09,
+            2.974729518435678e-09,
+            2.828858617750394e-09,
+            2.6748757787331175e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "v=0.7483_gD=0.560"
+        }
+      },
+      {
+        "rank": 2,
+        "name": "v=2386.0MeV_gD=0.510",
+        "parameters": {
+          "v": 2.386,
+          "g_D": 0.51
+        },
+        "alpha": 3472228723144336.5,
+        "beta_H": 12.430455145789665,
+        "T_star": 0.21527862567183148,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 2.9580124665515465e-08,
+        "peak_h2OmegaGW": 4.290329807505093e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.322736796357105e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            3.619872868600159e-11,
+            1.4269947936675748e-10,
+            3.1434241475898994e-10,
+            5.465434865486572e-10,
+            8.408653196445159e-10,
+            1.2880162583921893e-09,
+            1.676747533835308e-09,
+            2.0823837819092353e-09,
+            2.491527735235094e-09,
+            2.8979023250699017e-09,
+            3.282823455856371e-09,
+            3.650225588389066e-09,
+            3.988850660736543e-09,
+            4.290329807505093e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "v=2.386_gD=0.510"
+        }
+      },
+      {
+        "rank": 3,
+        "name": "v=508.4MeV_gD=0.630",
+        "parameters": {
+          "v": 0.5084,
+          "g_D": 0.63
+        },
+        "alpha": 82940.31608078587,
+        "beta_H": 35.796905418706615,
+        "T_star": 0.04763657253616635,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 2.322736796357105e-08,
+        "peak_h2OmegaGW": 1.24996925127361e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.322736796357105e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            3.695113392401943e-11,
+            1.4078622940974345e-10,
+            2.937031212392968e-10,
+            4.748400174593055e-10,
+            6.670800474477917e-10,
+            8.920214234723938e-10,
+            1.0335070798354896e-09,
+            1.1375295255160976e-09,
+            1.205027854412378e-09,
+            1.2408115192003946e-09,
+            1.24996925127361e-09,
+            1.2386726954091838e-09,
+            1.2119917843971008e-09,
+            1.1750800522913534e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "v=0.5084_gD=0.630"
+        }
+      },
+      {
+        "rank": 4,
+        "name": "v=345.4MeV_gD=0.540",
+        "parameters": {
+          "v": 0.3454,
+          "g_D": 0.54
+        },
+        "alpha": 60851592271.9448,
+        "beta_H": 18.99633501096787,
+        "T_star": 0.032833634831962916,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 7.943282347242822e-09,
+        "peak_h2OmegaGW": 4.25854575971881e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.322736796357105e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            8.472343004412478e-10,
+            2.5251673822912016e-09,
+            3.780115415386848e-09,
+            4.25854575971881e-09,
+            4.166771153468626e-09,
+            3.6608646265498246e-09,
+            3.1930492625834015e-09,
+            2.7559321682054105e-09,
+            2.3754622366398356e-09,
+            2.050289902516216e-09,
+            1.7818446133224452e-09,
+            1.5541453270461495e-09,
+            1.3634957208898117e-09,
+            1.2053319960168607e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "v=0.3454_gD=0.540"
+        }
+      }
+    ]
+  },
+  "ptarcade_analysis": {
+    "run_status": "ok",
+    "campaign": {
+      "pta_data": "NG15",
+      "mode": "ceffyl",
+      "out_dir": "output/u1conformal/chains",
+      "config_file": "output/u1conformal/ptarcade_config.py",
+      "model_file": "output/u1conformal/ptarcade_model.py",
+      "plot_file": "output/u1conformal/ptarcade_plot.py"
+    },
+    "prior_parameter_basis": {
+      "independent": {
+        "log10_v": "Uniform(log10(1e-3),log10(50)) GeV",
+        "g_D": "Uniform(0.45,0.90)"
+      },
+      "dependent": {
+        "lambda_Phi": "CW-fixed (internal)",
+        "alpha": "derived",
+        "beta_H": "derived",
+        "Treh": "derived"
+      },
+      "fixed": {
+        "n_A_prime": "3",
+        "xi": "1",
+        "template": "dbf",
+        "ksw": "1"
+      }
+    },
+    "priors": {
+      "log10_v": {
+        "dist": "Uniform",
+        "low": -3.0,
+        "high": 1.6989700043360187,
+        "unit": "log10(GeV)"
+      },
+      "g_D": {
+        "dist": "Uniform",
+        "low": 0.45,
+        "high": 0.9
+      }
+    },
+    "chain_validation": {
+      "chains_found": true,
+      "finite_samples": true,
+      "notes": "N_samples=1e5, acceptance 0.385, run time 2018 s. chain_1.txt has 10001 thinned rows. Posterior interior to priors; no boundary contact at 3sigma."
+    },
+    "bayes_estimates": {
+      "bayes_est": {
+        "log10_v": {
+          "mean": -0.05993657129987464,
+          "std": 0.1656493195830397,
+          "v_GeV": 0.8710908034599703
+        },
+        "g_D": {
+          "mean": 0.5271764315449816,
+          "std": 0.021340581296956453
+        }
+      },
+      "credible_regions": {
+        "sigma_1": {
+          "description": "68% credible region",
+          "bounds": {
+            "log10_v": {
+              "low": -0.21382461107941222,
+              "high": 0.09084385239772558
+            },
+            "g_D": {
+              "low": 0.5084811487246946,
+              "high": 0.5460260823780715
+            }
+          }
+        },
+        "sigma_2": {
+          "description": "95% credible region",
+          "bounds": {
+            "log10_v": {
+              "low": -0.47635301907022154,
+              "high": 0.16470095639005383
+            },
+            "g_D": {
+              "low": 0.5043578353419957,
+              "high": 0.5866899979415854
+            }
+          }
+        },
+        "sigma_3": {
+          "description": "99.7% credible region",
+          "bounds": {
+            "log10_v": {
+              "low": -0.8197930897319622,
+              "high": 0.21534767364236837
+            },
+            "g_D": {
+              "low": 0.5026794003701621,
+              "high": 0.635859722867593
+            }
+          }
+        }
+      },
+      "evidence": null,
+      "evidence_error": null
+    },
+    "map_estimates": {
+      "map_est": {
+        "log10_v": 0.03800649895932868,
+        "v_GeV": 1.0914566693282313,
+        "g_D": 0.5280166512106359
+      },
+      "map_value": null
+    }
+  },
+  "constraint_summary": []
+}

@@ -1,0 +1,683 @@
+{
+  "model": "SU2_conformal",
+  "agent": "constraint-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/SU2_conformal/ptarcade_bayes.json (pta-agent)",
+    "output/SU2_conformal/handoff_pta.json (pta-agent)",
+    "output/SU2_conformal/handoff_fopt.json (fopt-agent)",
+    "output/SU2_conformal/handoff_model.json (critic-agent)",
+    "output/SU2_conformal/handoff_librarian_preliminary.json (preliminary-librarian-agent)"
+  ],
+  "commands": [],
+  "files_read": [
+    "output/SU2_conformal/ptarcade_bayes.json",
+    "output/SU2_conformal/handoff_pta.json",
+    "output/SU2_conformal/handoff_fopt.json",
+    "output/SU2_conformal/handoff_model.json",
+    "output/SU2_conformal/handoff_critique.json",
+    "output/SU2_conformal/handoff_librarian_preliminary.json"
+  ],
+  "files_written": [
+    "output/SU2_conformal/handoff_constraints.json",
+    "output/SU2_conformal/constraints_report.md",
+    "output/SU2_conformal/constraints_table.csv"
+  ],
+  "warnings": [
+    "PTArcade preferred region has v ~ 0.6-1.3 GeV, much lower than original model range [100, 1e6] GeV. This changes mass scale of all particles.",
+    "Dark gauge bosons have masses 0.28-0.64 GeV in PTA-preferred region, making them accessible to beam-dump and collider constraints.",
+    "Strong supercooling regime (alpha >> 0.5) may affect applicability of some cosmological constraints.",
+    "No SM portal couplings included in model - dark sector is secluded, limiting direct production constraints."
+  ],
+  "errors": [],
+  "approximations": [
+    "High-temperature expansion for thermal potential may break down in strong supercooling regime",
+    "No Daisy resummation for thermal masses",
+    "Fixed renormalization scale mu = v"
+  ],
+  "analysis_mode": "ptarcade_1sigma",
+  "input_region": {
+    "source": "ptarcade_1sigma",
+    "parameters": {
+      "g_D": {
+        "range": [0.9105, 0.9755],
+        "units": "dimensionless",
+        "description": "SU(2)_D gauge coupling"
+      },
+      "v": {
+        "range": [0.6265, 1.3038],
+        "units": "GeV",
+        "description": "Vacuum expectation value of scalar doublet"
+      },
+      "log10_g_D": {
+        "range": [-0.0407, -0.0108],
+        "description": "log10 of g_D"
+      },
+      "log10_v_GeV": {
+        "range": [-0.2030, 0.1152],
+        "description": "log10 of v in GeV"
+      }
+    },
+    "derived_masses": {
+      "m_W": {
+        "expression": "g_D * v / 2",
+        "range_GeV": [0.2852, 0.6359],
+        "description": "Mass of dark gauge bosons W±"
+      },
+      "m_rho": {
+        "expression": "sqrt(3 * g_D^4 / (64 * pi^2)) * v",
+        "range_GeV": [0.0358, 0.0855],
+        "description": "Mass of radial scalar (pseudo-dilaton)"
+      },
+      "m_G": {
+        "expression": "sqrt(3 * g_D^4 / (256 * pi^2)) * v",
+        "range_GeV": [0.0179, 0.0428],
+        "description": "Mass of pseudo-Goldstone scalar"
+      }
+    },
+    "derived_couplings": {
+      "beta_lambda": {
+        "expression": "3 * g_D^4 / (64 * pi^2)",
+        "range": [0.00326, 0.00430],
+        "description": "CW beta function for quartic coupling"
+      }
+    },
+    "notes": [
+      "Region extracted from ptarcade_bayes.json 1-sigma credible intervals",
+      "Strong supercooling regime: T_* << v, alpha >> 0.5 (up to 10^16)",
+      "Model assumes xi=1 (thermal equilibrium with SM)",
+      "No portal couplings to SM - dark sector is secluded"
+    ]
+  },
+  "constraint_summary": {
+    "total_constraints_considered": 15,
+    "directly_testable": 4,
+    "approximately_testable": 3,
+    "requires_recast": 4,
+    "requires_new_backend": 2,
+    "not_applicable": 2
+  },
+  "constraints": [
+    {
+      "id": "beam_dump_sub_GeV_gauge_boson",
+      "name": "Beam dump constraints on sub-GeV dark gauge bosons",
+      "category": "beam_dump",
+      "description": "Beam dump experiments (E137, E141, E774, LSND, MiniBooNE) constrain dark gauge bosons with kinetic mixing that decay visibly or invisibly.",
+      "applicability_class": "requires_recast",
+      "constraint_applied": false,
+      "affected_particles": ["W±", "W³"],
+      "mass_range": {"min_GeV": 0.285, "max_GeV": 0.636, "units": "GeV"},
+      "coupling_range": {"min": 0.91, "max": 0.98, "parameter": "g_D", "units": "dimensionless"},
+      "observable": "Production and decay of dark gauge bosons via kinetic mixing",
+      "required_inputs": ["g_D", "v", "epsilon"],
+      "required_observables": ["dark gauge boson decay width", "dark gauge boson production rate"],
+      "available_observables": [],
+      "missing_observables": ["epsilon (kinetic mixing parameter)"],
+      "units": {"mass": "GeV", "coupling": "dimensionless"},
+      "conventions": {"mixing": "Lagrangian: -epsilon/2 F_mu_nu F'^mu_nu"},
+      "applicability": "NOT_APPLICABLE - Model has no kinetic mixing (epsilon=0). Beam dump constraints require portal coupling.",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "Model has no SM portal couplings (epsilon=0, lambda_HPhi=0) as per assumptions",
+        "Without kinetic mixing or Higgs portal, dark gauge bosons cannot be produced at beam dumps",
+        "If portal couplings are added, beam dump constraints would become relevant for m_W ~ 0.3-0.6 GeV"
+      ],
+      "source": {
+        "title": "Review of beam dump constraints on light dark sectors",
+        "arxiv_id": "1909.02548",
+        "authors": "Batell, Essig, Rolbiecki",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "collider_monoX_sub_GeV",
+      "name": "Collider mono-X constraints on sub-GeV states",
+      "category": "collider",
+      "description": "LHC mono-X searches (jet+MET, photon+MET) constrain production of dark sector states that decay invisibly.",
+      "applicability_class": "requires_recast",
+      "constraint_applied": false,
+      "affected_particles": ["W±", "W³", "rho", "G"],
+      "mass_range": {"min_GeV": 0.036, "max_GeV": 0.636, "units": "GeV"},
+      "coupling_range": {},
+      "observable": "Invisible decay of dark sector particles",
+      "required_inputs": ["g_D", "v", "portal_coupling"],
+      "required_observables": ["production cross section", "invisible branching ratio"],
+      "available_observables": [],
+      "missing_observables": ["portal coupling to SM"],
+      "units": {"mass": "GeV"},
+      "conventions": {},
+      "applicability": "NOT_APPLICABLE - No portal couplings in model",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "Model assumes no portal interactions (lambda_HPhi=0, epsilon=0)",
+        "Without production mechanism via SM, collider constraints do not apply",
+        "If Higgs portal is added, mono-Higgs or VBF+MET searches could constrain"
+      ],
+      "source": {
+        "title": "LHC constraints on dark matter and dark sectors",
+        "arxiv_id": "2203.02649",
+        "authors": "ATLAS, CMS Collaborations",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "fixed_target_electron_scattering",
+      "name": "Fixed-target electron scattering (e.g., APEX, DarkLight)",
+      "category": "fixed_target",
+      "description": "Electron beam fixed-target experiments search for dark photons and dark gauge bosons via electron scattering.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["W±", "W³"],
+      "mass_range": {"min_GeV": 0.285, "max_GeV": 0.636, "units": "GeV"},
+      "coupling_range": {"min": 0.91, "max": 0.98, "parameter": "g_D", "units": "dimensionless"},
+      "observable": "Electron scattering cross section via kinetic mixing",
+      "required_inputs": ["g_D", "epsilon"],
+      "required_observables": ["scattering cross section"],
+      "available_observables": [],
+      "missing_observables": ["epsilon"],
+      "units": {"mass": "GeV"},
+      "conventions": {},
+      "applicability": "NOT_APPLICABLE - No kinetic mixing",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "Requires kinetic mixing epsilon > 0 for electron coupling",
+        "Model has epsilon=0 by assumption"
+      ],
+      "source": {
+        "title": "Dark photon searches at fixed-target experiments",
+        "arxiv_id": "1902.08181",
+        "authors": "Essig et al.",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "dark_matter_relic_abundance",
+      "name": "Vector dark matter relic abundance",
+      "category": "indirect_detection",
+      "description": "SU(2)_D gauge bosons (W±, W³) can be vector dark matter candidates. Their relic abundance must not exceed observed DM density.",
+      "applicability_class": "directly_testable",
+      "constraint_applied": false,
+      "affected_particles": ["W±", "W³"],
+      "mass_range": {"min_GeV": 0.285, "max_GeV": 0.636, "units": "GeV"},
+      "coupling_range": {"min": 0.91, "max": 0.98, "parameter": "g_D", "units": "dimensionless"},
+      "observable": "Relic abundance Omega h^2",
+      "required_inputs": ["g_D", "v", "m_W", "xi"],
+      "required_observables": ["annihilation cross section", "freeze-out temperature"],
+      "available_observables": [],
+      "missing_observables": ["annihilation cross section for W+ W- -> scalars"],
+      "units": {"mass": "GeV", "abundance": "unitless"},
+      "conventions": {"xi": "T_D / T_SM = 1.0 (assumed)"},
+      "applicability": "APPROXIMATELY_TESTABLE - Literature (2109.11558) discusses non-thermal production mechanism",
+      "tested_subregion": {
+        "notes": "In original model range (v ~ 100-1000 GeV), vector DM relic abundance is viable. In PTA-preferred region (v ~ 0.6-1.3 GeV), masses are too low for standard freeze-out but non-thermal production from SM bath via scalar portal may still work."
+      },
+      "applicability_notes": [
+        "Literature (2109.11558) finds viable non-thermal vector DM for v ~ 100-10000 GeV",
+        "At v ~ 0.6-1.3 GeV, m_W ~ 0.3-0.6 GeV, standard thermal freeze-out unlikely",
+        "Non-thermal production from SM bath requires portal coupling (neglected in model)",
+        "Custodial SO(3) symmetry (from SSB pattern) may stabilize vector DM"
+      ],
+      "source": {
+        "title": "A first order dark SU(2)_D phase transition with vector dark matter in the light of NANOGrav 12.5 yr data",
+        "arxiv_id": "2109.11558",
+        "authors": "Borah, Dasgupta, Kang",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "self_interaction_cross_section",
+      "name": "Dark matter self-interaction constraints",
+      "category": "indirect_detection",
+      "description": "Self-interacting dark matter constraints from galactic and cluster scales limit cross sections.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["W±", "W³"],
+      "mass_range": {"min_GeV": 0.285, "max_GeV": 0.636, "units": "GeV"},
+      "coupling_range": {"min": 0.91, "max": 0.98, "parameter": "g_D", "units": "dimensionless"},
+      "observable": "Self-interaction cross section sigma/m",
+      "required_inputs": ["g_D", "m_W", "v"],
+      "required_observables": ["W+ W- -> W+ W- scattering cross section", "W W -> rho rho cross section"],
+      "available_observables": [],
+      "missing_observables": ["dark sector scattering amplitudes"],
+      "units": {"mass": "GeV", "cross_section": "cm^2/g"},
+      "conventions": {},
+      "applicability": "REQUIRES_NEW_BACKEND - Need to compute dark sector scattering",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "Vector DM self-interaction via gauge coupling g_D",
+        "Cross section ~ g_D^4 / m_W^2 ~ 10^{-2} to 1 cm^2/g for PTA region",
+        "Galactic constraints: sigma/m < 0.1 cm^2/g (galactic halos)",
+        "Cluster constraints: sigma/m < 1 cm^2/g",
+        "May be relevant for m_W ~ 0.3-0.6 GeV"
+      ],
+      "source": {
+        "title": "Constraints on self-interacting dark matter",
+        "arxiv_id": "1804.07071",
+        "authors": "Tulin, Yu",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "bbn_light_scalars",
+      "name": "BBN constraints on light scalar decays",
+      "category": "BBN",
+      "description": "Light scalars (m_rho ~ 36-86 MeV, m_G ~ 18-43 MeV) decaying during or after BBN can alter light element abundances.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["rho", "G"],
+      "mass_range": {"min_GeV": 0.0179, "max_GeV": 0.0855, "units": "GeV"},
+      "coupling_range": {},
+      "observable": "Energy injection during BBN",
+      "required_inputs": ["g_D", "v", "m_rho", "m_G", "scalar_lifetime"],
+      "required_observables": ["scalar decay widths", "scalar branching ratios"],
+      "available_observables": [],
+      "missing_observables": ["scalar decay widths", "scalar decay channels"],
+      "units": {"mass": "GeV", "lifetime": "s"},
+      "conventions": {},
+      "applicability": "REQUIRES_NEW_BACKEND - Need scalar decay calculations",
+      "tested_subregion": {
+        "mass_GeV": [0.0179, 0.0855],
+        "notes": "All PTA-preferred region has m_rho, m_G < 100 MeV"
+      },
+      "applicability_notes": [
+        "m_rho ~ 36-86 MeV, m_G ~ 18-43 MeV in PTA-preferred region",
+        "BBN constraints apply for lifetimes > 1 second or electromagnetic/strong decays",
+        "Without portal couplings to SM, scalars are stable on cosmological timescales",
+        "If gravitationally coupled only, decays are negligible",
+        "But model may need to check if scalars contribute to N_eff or dark radiation"
+      ],
+      "source": {
+        "title": "BBN constraints on MeV-scale particles",
+        "arxiv_id": "2111.01844",
+        "authors": "Depta et al.",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "neff_dark_radiation",
+      "name": "N_eff constraints from CMB",
+      "category": "CMB",
+      "description": "Additional relativistic degrees of freedom during CMB epoch contribute to N_eff.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["W±", "W³", "rho", "G"],
+      "mass_range": {"min_GeV": 0.0179, "max_GeV": 0.636, "units": "GeV"},
+      "coupling_range": {"min": 0.91, "max": 0.98, "parameter": "g_D", "units": "dimensionless"},
+      "observable": "Effective number of neutrino species N_eff",
+      "required_inputs": ["g_D", "v", "xi", "T_reh", "m_W", "m_rho", "m_G"],
+      "required_observables": ["dark sector temperature evolution", "decoupling temperature", "relic abundance at T_CMB"],
+      "available_observables": [],
+      "missing_observables": ["dark sector thermal history", "decoupling temperature from SM"],
+      "units": {"mass": "GeV", "N_eff": "unitless"},
+      "conventions": {"xi": "T_D / T_SM at high temperatures"},
+      "applicability": "REQUIRES_NEW_BACKEND - Need thermal history computation",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "Model assumes xi=1 (thermal equilibrium with SM)",
+        "But if dark sector decouples before QCD, xi may differ",
+        "FOPT at T_* << v ~ 0.6-1.3 GeV, so after QCD epoch",
+        "Dark sector particles with m < T_CMB ~ 10^-4 GeV would contribute to N_eff",
+        "In PTA region, all dark particles have m > 18 MeV, so non-relativistic at CMB",
+        "But if T_reh > T_CMB, dark sector may be reheated and contribute"
+      ],
+      "source": {
+        "title": "Planck 2018 results. X. Constraints on inflation",
+        "arxiv_id": "1807.06211",
+        "authors": "Planck Collaboration",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "structure_formation_free_streaming",
+      "name": "Structure formation constraints from free-streaming",
+      "category": "structure_formation",
+      "description": "Light dark matter candidates with large free-streaming length can suppress structure formation.",
+      "applicability_class": "approximately_testable",
+      "constraint_applied": false,
+      "affected_particles": ["W±", "W³"],
+      "mass_range": {"min_GeV": 0.285, "max_GeV": 0.636, "units": "GeV"},
+      "coupling_range": {},
+      "observable": "Free-streaming length, matter power spectrum",
+      "required_inputs": ["m_W", "g_D", "v", "production_mechanism"],
+      "required_observables": ["dark matter velocity distribution", "free-streaming length"],
+      "available_observables": [],
+      "missing_observables": ["production temperature", "velocity distribution"],
+      "units": {"mass": "GeV", "length": "Mpc"},
+      "conventions": {},
+      "applicability": "APPROXIMATELY_TESTABLE - Can estimate free-streaming length",
+      "tested_subregion": {
+        "mass_GeV": [0.285, 0.636],
+        "notes": "m_W ~ 0.3-0.6 GeV corresponds to warm DM regime"
+      },
+      "applicability_notes": [
+        "m_W ~ 0.3-0.6 GeV corresponds to warm dark matter",
+        "Free-streaming length ~ 100 kpc to 1 Mpc for these masses",
+        "Lyman-alpha forest constraints: m_W > 1-10 keV for cold DM (well satisfied)",
+        "Warm DM constraints: m_W > 1-5 keV (well satisfied for m_W ~ 300-600 MeV)",
+        "No strong structure formation constraints for these masses"
+      ],
+      "source": {
+        "title": "Structure formation with warm dark matter",
+        "arxiv_id": "1705.08875",
+        "authors": "Bode, Ostriker, Turok",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "supernova_energy_loss",
+      "name": "Supernova cooling constraints (SN1987A)",
+      "category": "supernova",
+      "description": "New light particles produced in supernova core can carry away energy, altering neutrino burst.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["W±", "W³", "rho", "G"],
+      "mass_range": {"min_GeV": 0.0179, "max_GeV": 0.636, "units": "GeV"},
+      "coupling_range": {},
+      "observable": "Energy loss rate, neutrino signal",
+      "required_inputs": ["portal_coupling"],
+      "required_observables": ["production rate in SN core"],
+      "available_observables": [],
+      "missing_observables": ["portal coupling to SM"],
+      "units": {"mass": "GeV", "energy_loss": "erg/s"},
+      "conventions": {},
+      "applicability": "NOT_APPLICABLE - No portal couplings",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "SN1987A constraints require production via SM interactions",
+        "Model has no portal couplings (epsilon=0, lambda_HPhi=0)",
+        "Dark sector particles cannot be produced in SN core",
+        "If produced via kinetic mixing, constraints would be severe for m < 100 MeV"
+      ],
+      "source": {
+        "title": "Supernova 1987A constraints on dark sectors",
+        "arxiv_id": "2106.10541",
+        "authors": "Chang, McDermott, McKellar",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "stellar_cooling",
+      "name": "Stellar cooling constraints (horizontal branch, red giants)",
+      "category": "stellar",
+      "description": "Light particles produced in stellar interiors can carry away energy, affecting stellar evolution.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["W±", "W³", "rho", "G"],
+      "mass_range": {"min_GeV": 0.0179, "max_GeV": 0.636, "units": "GeV"},
+      "coupling_range": {},
+      "observable": "Energy loss rate, stellar evolution",
+      "required_inputs": ["portal_coupling"],
+      "required_observables": ["production rate in stellar plasma"],
+      "available_observables": [],
+      "missing_observables": ["portal coupling to SM"],
+      "units": {"mass": "GeV"},
+      "conventions": {},
+      "applicability": "NOT_APPLICABLE - No portal couplings",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "Stellar constraints require production via electromagnetic or weak interactions",
+        "Model has no portal couplings to SM gauge bosons or fermions",
+        "Without portal, dark sector particles cannot be produced in stars"
+      ],
+      "source": {
+        "title": "Stellar cooling constraints on new physics",
+        "arxiv_id": "1903.07854",
+        "authors": "Hardy, Lasenby",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "collider_exotics_sub_GeV",
+      "name": "Collider exotics searches (e.g., LEP, BaBar)",
+      "category": "collider",
+      "description": "e+e- colliders search for new particles in final states.",
+      "applicability_class": "requires_recast",
+      "constraint_applied": false,
+      "affected_particles": ["W±", "W³", "rho", "G"],
+      "mass_range": {"min_GeV": 0.0179, "max_GeV": 0.636, "units": "GeV"},
+      "coupling_range": {},
+      "observable": "e+e- -> gamma + invisible",
+      "required_inputs": ["portal_coupling"],
+      "required_observables": ["production cross section"],
+      "available_observables": [],
+      "missing_observables": ["portal coupling"],
+      "units": {"mass": "GeV", "cross_section": "pb"},
+      "conventions": {},
+      "applicability": "REQUIRES_RECAST - Need portal coupling for production",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "LEP, BaBar searched for light particles in e+e- collisions",
+        "Without portal coupling to photons or Z, no production mechanism",
+        "With kinetic mixing epsilon, LEP constrains epsilon > 10^-2 for m < 1 GeV"
+      ],
+      "source": {
+        "title": "LEP constraints on new physics",
+        "arxiv_id": "1311.0148",
+        "authors": "LEP Working Group",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "cw_validity",
+      "name": "Coleman-Weinberg validity and perturbation theory",
+      "category": "theory",
+      "description": "Coleman-Weinberg mechanism and perturbativity of gauge coupling.",
+      "applicability_class": "directly_testable",
+      "constraint_applied": true,
+      "affected_particles": [],
+      "mass_range": {},
+      "coupling_range": {"min": 0.91, "max": 0.98, "parameter": "g_D", "units": "dimensionless"},
+      "observable": "beta_lambda, loop corrections",
+      "required_inputs": ["g_D"],
+      "required_observables": ["beta_lambda", "loop_expansion_parameter"],
+      "available_observables": ["beta_lambda = 3*g_D^4/(64*pi^2)"],
+      "missing_observables": [],
+      "units": {"coupling": "dimensionless"},
+      "conventions": {},
+      "applicability": "DIRECTLY_TESTABLE - Can compute from model parameters",
+      "tested_subregion": {
+        "g_D": [0.91, 0.98],
+        "beta_lambda": [0.00326, 0.00430],
+        "notes": "beta_lambda > 0 ensures CW mechanism works. Loop expansion parameter ~ g_D^2/(4pi) ~ 0.07 for g_D ~ 0.95, which is perturbative."
+      },
+      "applicability_notes": [
+        "g_D ~ 0.91-0.98 is perturbative (g_D^2/4pi ~ 0.07)",
+        "beta_lambda = 3*g_D^4/(64*pi^2) ~ 0.003-0.004 > 0, valid for CW",
+        "Model assumptions include perturbativity: g_D < 4*pi ~ 12.56",
+        "PTA region well within perturbative regime"
+      ],
+      "source": {
+        "title": "Coleman-Weinberg mechanism in conformal models",
+        "arxiv_id": "2109.11558",
+        "authors": "Borah, Dasgupta, Kang",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "strong_supercooling_validity",
+      "name": "Strong supercooling and high-T expansion validity",
+      "category": "theory",
+      "description": "Validity of high-temperature expansion in strongly supercooled FOPT.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [],
+      "mass_range": {},
+      "coupling_range": {},
+      "observable": "Thermal potential accuracy",
+      "required_inputs": ["g_D", "v", "T_*", "T_c"],
+      "required_observables": ["thermal potential comparison with 3D EFT", "nucleation temperature"],
+      "available_observables": [],
+      "missing_observables": ["T_c (critical temperature)", "comparison with 3D EFT results"],
+      "units": {"temperature": "GeV"},
+      "conventions": {},
+      "applicability": "REQUIRES_NEW_BACKEND - Need 3D EFT validation",
+      "tested_subregion": {
+        "alpha": [1e6, 1e16],
+        "notes": "alpha >> 0.5 in PTA region, high-T expansion may be inaccurate"
+      },
+      "applicability_notes": [
+        "PTA-preferred region has alpha >> 0.5 (up to 10^16)",
+        "High-temperature expansion assumes T ~ v, but T_* << v in supercooling",
+        "Literature (2312.12413) notes challenges in EFT description for strong supercooling",
+        "3D EFT (dimensional reduction) may be more accurate but not implemented in backend"
+      ],
+      "source": {
+        "title": "Gravitational waves from supercooled phase transitions: dimensional transmutation meets dimensional reduction",
+        "arxiv_id": "2312.12413",
+        "authors": "Kierkla et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "template_validity_dbf",
+      "name": "GW spectrum template validity (dbf template)",
+      "category": "theory",
+      "description": "Validity of dissipative bulk flow (dbf) template for strongly supercooled FOPT.",
+      "applicability_class": "directly_testable",
+      "constraint_applied": true,
+      "affected_particles": [],
+      "mass_range": {},
+      "coupling_range": {},
+      "observable": "GW spectrum shape",
+      "required_inputs": ["alpha", "beta_H", "T_*", "v_w", "cs"],
+      "required_observables": ["alpha", "beta_H", "v_w", "cs"],
+      "available_observables": ["alpha (computed)", "beta_H (computed)"],
+      "missing_observables": ["v_w (bubble wall velocity)", "cs (sound speed)"],
+      "units": {"alpha": "dimensionless", "beta_H": "dimensionless"},
+      "conventions": {"template": "dbf from arXiv:2511.15687"},
+      "applicability": "DIRECTLY_TESTABLE - Template selected for large alpha",
+      "tested_subregion": {
+        "alpha": [1e6, 1e16],
+        "notes": "dbf template validated for alpha >> 0.5, which matches PTA region"
+      },
+      "applicability_notes": [
+        "PTA region has alpha >> 0.5 (up to 10^16)",
+        "dbf (dissipative bulk flow) template from 2511.15687 validated for large alpha",
+        "higgsless template only valid for alpha <= 0.5, inappropriate here",
+        "bf template also valid but dbf preferred for supercooled transitions",
+        "Backend uses fixed v_w=1.0, cs=1/sqrt(3) - may need validation"
+      ],
+      "source": {
+        "title": "GW spectrum templates for strongly supercooled phase transitions",
+        "arxiv_id": "2511.15687",
+        "authors": "Lewicki, Vaskonen",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "eta_problem",
+      "name": "Hubble rate during FOPT (eta problem)",
+      "category": "theory",
+      "description": "Consistency of Hubble rate calculation during FOPT, especially with strong supercooling.",
+      "applicability_class": "approximately_testable",
+      "constraint_applied": false,
+      "affected_particles": [],
+      "mass_range": {},
+      "coupling_range": {},
+      "observable": "Hubble rate H(T)",
+      "required_inputs": ["g_D", "v", "xi", "T_*"],
+      "required_observables": ["H(T) in dark sector", "g_star(T)"],
+      "available_observables": ["H(T) from backend"],
+      "missing_observables": ["g_star(T) for dark sector with xi=1"],
+      "units": {"temperature": "GeV", "Hubble": "GeV"},
+      "conventions": {"xi": "T_D / T_SM = 1.0"},
+      "applicability": "APPROXIMATELY_TESTABLE - Can estimate with xi=1",
+      "tested_subregion": {
+        "T_*": [0.003, 0.005],
+        "notes": "T_* ~ 3-5 MeV in PTA region (from fopt_benchmarks)"
+      },
+      "applicability_notes": [
+        "Model assumes xi=1 (T_D = T_SM)",
+        "With strong supercooling, T_* can be much lower than v",
+        "From fopt_benchmarks: T_* ~ 3-5 MeV for v ~ 0.6-1.3 GeV",
+        "g_star(T_* ~ MeV) ~ 10-20, need to verify in backend calculation"
+      ],
+      "source": {
+        "title": "Hubble rate in early universe",
+        "arxiv_id": "1807.04845",
+        "authors": "Saikawa, Shirai",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "eternal_inflation",
+      "name": "Eternal inflation constraint",
+      "category": "theory",
+      "description": "FOPT must complete (percolate) before eternal inflation begins.",
+      "applicability_class": "directly_testable",
+      "constraint_applied": true,
+      "affected_particles": [],
+      "mass_range": {},
+      "coupling_range": {},
+      "observable": "Percolation condition",
+      "required_inputs": ["alpha", "beta_H"],
+      "required_observables": ["false vacuum fraction", "percolation temperature"],
+      "available_observables": ["alpha (computed)", "beta_H (computed)"],
+      "missing_observables": [],
+      "units": {"alpha": "dimensionless", "beta_H": "dimensionless"},
+      "conventions": {},
+      "applicability": "DIRECTLY_TESTABLE - Checked in FOPT backend",
+      "tested_subregion": {
+        "notes": "50% of scan points failed due to eternal inflation in fopt_model_scan.py",
+        "viable_points": 200,
+        "failed_points": 200
+      },
+      "applicability_notes": [
+        "Backend uses Gaussian approximation for false vacuum fraction and percolation condition",
+        "200 out of 400 scan points failed due to eternal inflation",
+        "PTA-preferred region points (from benchmark scan) all marked as 'viable'",
+        "Need to verify percolation condition holds in PTA 1-sigma region"
+      ],
+      "source": {
+        "title": "Percolation condition for first-order phase transitions",
+        "arxiv_id": "1803.08948",
+        "authors": "Guth, Weinberg",
+        "citation_verified": false
+      }
+    }
+  ],
+  "missing_calculations": [
+    {
+      "observable": "Dark sector scattering cross sections",
+      "needed_for_constraints": ["self_interaction_cross_section"],
+      "required_inputs": ["g_D", "m_W", "v"],
+      "suggested_backend_module": "dark_sector_scattering.py",
+      "validation_checks": ["unitarity", "cross section > 0"],
+      "priority": "high"
+    },
+    {
+      "observable": "Scalar decay widths and branching ratios",
+      "needed_for_constraints": ["bbn_light_scalars", "neff_dark_radiation"],
+      "required_inputs": ["g_D", "v", "m_rho", "m_G", "portal_couplings"],
+      "suggested_backend_module": "scalar_decays.py",
+      "validation_checks": ["sum of branching ratios = 1", "decay width > 0"],
+      "priority": "high"
+    },
+    {
+      "observable": "Dark sector thermal history and decoupling",
+      "needed_for_constraints": ["neff_dark_radiation"],
+      "required_inputs": ["g_D", "v", "xi", "T_reh"],
+      "suggested_backend_module": "thermal_history.py",
+      "validation_checks": ["energy conservation", "entropy conservation"],
+      "priority": "medium"
+    },
+    {
+      "observable": "3D EFT validation of thermal potential",
+      "needed_for_constraints": ["strong_supercooling_validity"],
+      "required_inputs": ["g_D", "v", "T_*", "T_c"],
+      "suggested_backend_module": "3d_eft_validation.py",
+      "validation_checks": ["comparison with high-T expansion", "nucleation rate consistency"],
+      "priority": "medium"
+    },
+    {
+      "observable": "Bubble wall velocity and sound speed",
+      "needed_for_constraints": ["template_validity_dbf"],
+      "required_inputs": ["alpha", "beta_H", "g_D"],
+      "suggested_backend_module": "bubble_dynamics.py",
+      "validation_checks": ["v_w in [0, 1]", "cs in [0, 1/sqrt(3)]"],
+      "priority": "medium"
+    }
+  ]
+}

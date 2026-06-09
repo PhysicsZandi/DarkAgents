@@ -1,0 +1,957 @@
+{
+  "model": "u1conformal_fermion",
+  "agent": "preliminary-librarian-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-08",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/u1conformal_fermion/handoff_proposed_model.json"
+  ],
+  "commands": [],
+  "files_read": [
+    "output/u1conformal_fermion/handoff_proposed_model.json",
+    "docs/HANDOFF_LIBRARIAN_PRELIMINARY_SCHEMA.md",
+    ".claude/agents/preliminary-librarian-agent.md",
+    ".claude/skills/preliminary-literature-search/SKILL.md"
+  ],
+  "files_written": [
+    "output/u1conformal_fermion/librarian_preliminary_report.md",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json"
+  ],
+  "warnings": [],
+  "errors": [],
+  "approximations": [
+    "Literature search limited to arXiv and INSPIRE-HEP; may miss relevant conference proceedings or older papers",
+    "Benchmark hints labeled with confidence (adaptable/qualitative) may require adjustment for exact model",
+    "Zero Higgs portal and kinetic mixing assumptions not explicitly tested in most similar papers"
+  ],
+  "scan_mode": "preliminary_scan",
+  "papers": [
+    {
+      "arxiv_id": "2212.04784",
+      "title": "Gravitational waves and dark matter from classical scale invariance",
+      "authors": [
+        "Valentin V. Khoze",
+        "Daniel L. Milne"
+      ],
+      "year": 2023,
+      "journal": "Phys. Rev. D 107, 095012",
+      "relevance_score": 10,
+      "brief_description": "Studies a minimal classically conformal U(1)_D dark sector with a complex scalar S, two Dirac fermions chi_1, chi_2 (with opposite U(1)_D charges for anomaly cancellation), and a dark gauge boson Z'. Uses the Gildener-Weinberg/Coleman-Weinberg mechanism for radiative symmetry breaking. The fermion charge assignments are: chi_L^1 (+1/2), chi_R^1 (-1/2), chi_L^2 (-1/2), chi_R^2 (+1/2). This is structurally identical to the target model. Couples to SM via Higgs portal. Provides benchmark points (BP1-BP5) for scalar masses, mixing angles, DM masses, and relic density. Computes GW signals from strong FOPT and compares to LISA/DECIGO/BBO sensitivities.",
+      "model_studied": "GSM x U(1)_D with complex scalar S (charge +1), two Dirac fermions chi_1, chi_2 (charges +/- 1/2), dark gauge boson Z'. Tree-level potential V_0 = (lambda_H/4)h^4 + (lambda_S/4)s^4 - (lambda_P/4)h^2s^2. Yukawa terms y_{1,D} chi_bar_L^1 S chi_R^1 + y_{2,D} chi_bar_L^2 S chi_R^2 + h.c.",
+      "similarity_to_target": "Structurally identical. Both have U(1)_D gauge group, complex scalar, two Dirac fermions with charges +/- 1/2, dark gauge boson, and classically conformal/CW symmetry breaking. The Khoze-Milne model includes a Higgs portal coupling lambda_P while the target model sets lambda_HPhi=0, but this is a minor difference.",
+      "paper_classification": "same_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "Collider constraints on scalar mixing (sin_theta < 0.44 from HiggsSignals/HiggsBounds)",
+        "Direct detection constraints (XENON/LZ)",
+        "Perturbative unitarity bounds",
+        "Vacuum stability conditions"
+      ],
+      "observables": [
+        "GW spectrum from bubble collisions, sound waves, turbulence",
+        "Dark matter relic density",
+        "DM-nucleon scattering cross section"
+      ],
+      "benchmark_points": [
+        {
+          "label": "BP1",
+          "parameters": {
+            "sin_theta": 0.3,
+            "M_h2": "151 GeV",
+            "M_chi1": "59.5 GeV",
+            "M_chi2": "59.5 GeV",
+            "Omega_h2": 0.07
+          },
+          "notes": "Degenerate fermions; DM near scalar resonance. GW signals in mHz range. No explicit g_D or vev values tabulated."
+        },
+        {
+          "label": "BP2",
+          "parameters": {
+            "sin_theta": 0.1,
+            "M_h2": "320 GeV",
+            "M_chi1": "150 GeV",
+            "M_chi2": "155 GeV",
+            "Omega_h2": 0.078
+          },
+          "notes": "Small mixing; DM near resonance."
+        },
+        {
+          "label": "BP3",
+          "parameters": {
+            "sin_theta": 0.4,
+            "M_h2": "121 GeV",
+            "M_chi1": "591 GeV",
+            "M_chi2": "592 GeV",
+            "Omega_h2": 0.118
+          },
+          "notes": "Large mixing; heavy DM regime."
+        },
+        {
+          "label": "BP4",
+          "parameters": {
+            "sin_theta": 0.2,
+            "M_h2": "331 GeV",
+            "M_chi1": "61 GeV",
+            "M_chi2": "161 GeV",
+            "Omega_h2": 0.077
+          },
+          "notes": "Non-degenerate fermions (Delta M = 100 GeV)."
+        },
+        {
+          "label": "BP5",
+          "parameters": {
+            "sin_theta": 0.3,
+            "M_h2": "120 GeV",
+            "M_chi1": "901 GeV",
+            "M_chi2": "1001 GeV",
+            "Omega_h2": 0.118
+          },
+          "notes": "Heavy DM (TeV-scale); DM enhanced by phase space."
+        }
+      ],
+      "assumptions": [
+        "Classical scale invariance at tree level",
+        "Gildener-Weinberg dimensional transmutation",
+        "Higgs portal coupling",
+        "One-loop effective potential with daisy resummation"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2502.19478",
+      "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+      "authors": [
+        "Sowmiya Balan",
+        "Torsten Bringmann",
+        "Felix Kahlhoefer",
+        "Jonas Matuszak",
+        "Carlo Tasillo"
+      ],
+      "year": 2025,
+      "journal": "JCAP 08 (2025) 062",
+      "relevance_score": 9,
+      "brief_description": "Studies a classically conformal U(1)' dark sector with a complex scalar Phi, a dark photon A', and two Weyl fermions (chi_L with charge +1/2, chi_R with charge -1/2) forming a single Dirac fermion DM candidate. Uses Coleman-Weinberg dimensional transmutation. Connects PTA gravitational wave signals (nHz range) to sub-GeV DM. Provides two explicit benchmark points with full parameter values including g=0.677/0.601, y=0.224/0.234, v=173/692 MeV, and detailed PT parameters (alpha, beta/H, T_p, T_reh). Considers coupled and secluded dark sector scenarios.",
+      "model_studied": "U(1)' x SM with complex scalar Phi (Q=1), two Weyl fermions chi_L (Q=+1/2), chi_R (Q=-1/2) forming Dirac DM, dark photon A'. Kinetic mixing kappa between U(1)' and U(1)_Y. Tree-level potential: V = lambda (Phi*Phi)^2. CW condition: lambda = 11/(48 pi^2) (10 lambda^2 + 3g^4 - y^4). DM mass m_chi = y v / sqrt(2).",
+      "similarity_to_target": "Very similar. Same gauge group (U(1)'), same complex scalar, same fermion charge assignments (+1/2, -1/2). Main difference: single Dirac fermion DM vs two Dirac fermions in target. The model is a subset of the target model's particle content. The CW condition lambda = 11/(48 pi^2)(10 lambda^2 + 3g^4 - y^4) differs from target's beta_lambda = (3g_D^4 - 2y_psi^4)/(8 pi^2) because Balan et al. include scalar loop contributions (10 lambda^2/3 term) that the target model omits by setting gb_scalar to 0.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "Kinetic mixing constraints (beam dump, LHCb, BaBar, NA64, LDMX)",
+        "BBN constraints on late-decaying particles",
+        "CMB constraints on Delta N_eff",
+        "Stellar cooling bounds on dark photons"
+      ],
+      "observables": [
+        "SGWB from supercooled FOPT (nHz range)",
+        "Dark matter relic abundance",
+        "Dark matter direct/indirect detection"
+      ],
+      "benchmark_points": [
+        {
+          "label": "Point A (coupled DS)",
+          "parameters": {
+            "g": 0.677,
+            "y": 0.224,
+            "v": "173 MeV",
+            "kappa": "2.29e-6",
+            "m_A'": "117 MeV",
+            "m_phi": "36.3 MeV",
+            "m_chi": "27.4 MeV",
+            "T_p": "2.28 MeV",
+            "T_reh": "16.8 MeV",
+            "alpha": 4700.0,
+            "beta_over_H": 33.7,
+            "delta": -0.322
+          },
+          "notes": "Forbidden DM: m_chi < m_phi. Effective coupling to electrons; dark sector stays in equilibrium with SM."
+        },
+        {
+          "label": "Point B (secluded DS)",
+          "parameters": {
+            "g": 0.601,
+            "y": 0.234,
+            "v": "692 MeV",
+            "kappa": "2.7e-4",
+            "m_A'": "416 MeV",
+            "m_phi": "114 MeV",
+            "m_chi": "115 MeV",
+            "T_p": "1.21 MeV",
+            "T_reh": "55.9 MeV",
+            "alpha": 9480000.0,
+            "beta_over_H": 18.0,
+            "delta": 0.00648
+          },
+          "notes": "DM slightly heavier than Higgs. Secluded DS: only kinetic mixing portal; dark Higgs decays via loops."
+        }
+      ],
+      "assumptions": [
+        "Classical scale invariance",
+        "Coleman-Weinberg dimensional transmutation",
+        "Two Weyl fermions form Dirac DM",
+        "Kinetic mixing is the only portal",
+        "High-temperature expansion for effective potential"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2501.11619",
+      "title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data",
+      "authors": [
+        "Joao Goncalves",
+        "Danny Marfatia",
+        "Antonio P. Morais",
+        "Roman Pasechnik"
+      ],
+      "year": 2025,
+      "journal": "Phys. Lett. B 869 (2025) 139829",
+      "relevance_score": 8,
+      "brief_description": "Demonstrates that supercooled FOPTs in dark U(1)' models with a conformal dark sector explain the nHz NANOGrav signal. Overcomes criticism that supercooled FOPTs cannot complete on cosmological timescales. Provides a best-fit point from NANOGrav 15-year data: g_L=0.59, M_h2=12.4 MeV, M_Z'=107.3 MeV, T_RH=11.7 MeV, alpha=2.60e5, beta/H=39.5. Shows that conformal models circumvent percolation and reheating issues present in non-conformal models.",
+      "model_studied": "Dark U(1)' with conformal dark sector. Complex scalar sigma (dark Higgs), dark Z' boson. No explicit fermions in the dark sector. Couples to SM via Higgs portal lambda_{sigma h}.",
+      "similarity_to_target": "Partially similar. Same gauge group (U(1)') and classically conformal symmetry breaking, but lacks the fermion content of the target model. The CW mechanism and supercooling analysis are directly transferable. The benchmark mass scales (~10-100 MeV) match the PTA-favored range that the target model seeks.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "Portal coupling |lambda_{sigma h}| < 1e-10",
+        "BBN constraints",
+        "CMB/Delta N_eff constraints"
+      ],
+      "observables": [
+        "SGWB from supercooled FOPT (nHz range)",
+        "NANOGrav 15-year data fit"
+      ],
+      "benchmark_points": [
+        {
+          "label": "Best-fit (NANOGrav 15yr)",
+          "parameters": {
+            "g_L": 0.59,
+            "M_h2": "12.4 MeV",
+            "M_Z'": "107.3 MeV",
+            "T_RH": "11.7 MeV",
+            "alpha": 260000.0,
+            "beta_over_H": 39.5,
+            "lambda_sigma": -0.045,
+            "|lambda_{sigma h}|": "< 1e-10"
+          },
+          "notes": "Dark sector masses 10-100 MeV at 68% CL. Coupling g_L in [0.57, 0.86]. 68% CL favored region: M_Z', M_h2 ~ 10-100 MeV."
+        }
+      ],
+      "assumptions": [
+        "RG-improved thermal potential",
+        "Conformal only in dark sector",
+        "SM has explicit mass term for Higgs",
+        "Bubble wall velocity v_w = 1 (runaway)",
+        "Euclidean action approaches zero as T->0"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2105.01007",
+      "title": "Gravitational waves from a dark U(1)_D phase transition in the light of NANOGrav 12.5 yr data",
+      "authors": [
+        "Debasish Borah",
+        "Arnab Dasgupta",
+        "Sin Kyu Kang"
+      ],
+      "year": 2021,
+      "journal": "Phys. Rev. D 104, 063501",
+      "relevance_score": 8,
+      "brief_description": "Studies a classically conformal U(1)_D extension with a complex scalar Phi and a vector-like singlet fermion Psi. Finds strong FOPT below electroweak scale with GWs in nHz range explaining NANOGrav 12.5 yr data. Provides explicit benchmark: g_D=0.32, m_Z_D=12.6 MeV, T_*=2.25 MeV, alpha_*=0.68, beta/H_*=82.4. GW spectrum dominated by sound waves. Discusses non-thermal DM (FIMP) and neutrino mass generation.",
+      "model_studied": "U(1)_D extension with complex scalar Phi (charge 2n_1) and vector-like singlet fermion Psi (charge n_1). Tree-level CW scalar potential. SM particles neutral under U(1)_D.",
+      "similarity_to_target": "Similar. Same gauge group (U(1)_D) and classically conformal/CW mechanism. Model differs from target in having a single vector-like fermion (not two Dirac fermions) with different charge assignments. The benchmark point with MeV-scale masses and nHz GWs is directly relevant for target model parameter space exploration.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "BBN constraints",
+        "CMB constraints",
+        "Dark matter direct detection (for FIMP scenario)"
+      ],
+      "observables": [
+        "GW spectrum from bubble collisions, sound waves, turbulence",
+        "Dark matter relic abundance (FIMP)",
+        "Neutrino masses (radiative/inverse seesaw)"
+      ],
+      "benchmark_points": [
+        {
+          "label": "NANOGrav 12.5yr benchmark",
+          "parameters": {
+            "g_D": 0.32,
+            "m_Z_D": "12.6 MeV",
+            "T_*": "2.25 MeV",
+            "T_p": "1.9 MeV",
+            "alpha_*": 0.68,
+            "beta_over_H_*": 82.4,
+            "v_w": 0.91
+          },
+          "notes": "GW peak in nHz range. Sound waves dominate. NANOGrav 12.5 yr compatible at 95% CL."
+        }
+      ],
+      "assumptions": [
+        "Classical scale invariance",
+        "Coleman-Weinberg radiative symmetry breaking",
+        "Non-thermal (FIMP) dark matter with tiny U(1)_D charge ~ 1e-10",
+        "Gauge kinetic mixing set to zero"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2412.16282",
+      "title": "The Sound of Dark Sectors in Pulsar Timing Arrays",
+      "authors": [
+        "Amitayus Banik",
+        "Yanou Cui",
+        "Yu-Dai Tsai",
+        "Yuhsin Tsai"
+      ],
+      "year": 2024,
+      "journal": "",
+      "relevance_score": 8,
+      "brief_description": "Systematically studies minimal dark sector models (U(1), SU(2), SU(3)) with a complex scalar and optionally dark fermions to explain PTA GW signals. Provides best-fit Lagrangian parameters. For U(1) with fermion y_D=0.8: mu=2.7 MeV, lambda=0.06, g_D=1.5, T_*=2.5 MeV, alpha_*=0.76, beta/H_*=38 (chi^2=29). Without fermions: mu=2.4 MeV, lambda=0.03, g_D=1.2, T_*=2.4 MeV, alpha_*=0.96, beta/H_*=47 (chi^2=36). Shows including fermions extends viable parameter space.",
+      "model_studied": "U(1) dark sector with complex scalar (dark Higgs), dark gauge boson, optionally dark fermion Psi charged under U(1) and singlet fermion chi with Yukawa y_D Psi_bar Phi chi. Tree-level potential with mu^2, lambda terms.",
+      "similarity_to_target": "Similar structural setup (U(1) dark sector with scalar, gauge boson, fermions) focused on PTA signal. The model differs in having a dimensionful mass term mu^2 (not fully conformal) and different fermion structure. The best-fit parameters and methodology for fitting PTA data are directly relevant for the target model.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "BBN constraints on Delta N_eff",
+        "CMB constraints",
+        "Dark matter direct detection bounds"
+      ],
+      "observables": [
+        "GW spectrum from FOPT (PTA nHz band)",
+        "Dark matter (dark Higgs) abundance"
+      ],
+      "benchmark_points": [
+        {
+          "label": "U(1) pure gauge best fit",
+          "parameters": {
+            "mu": "2.4 MeV",
+            "lambda": 0.03,
+            "g_D": 1.2,
+            "y_D": 0.0,
+            "T_*": "2.4 MeV",
+            "alpha_*": 0.96,
+            "beta_over_H_*": 47,
+            "chi_sq": 36
+          },
+          "notes": "Pure gauge U(1) without fermions. GW signal dominated by sound waves."
+        },
+        {
+          "label": "U(1) plus fermion best fit",
+          "parameters": {
+            "mu": "2.7 MeV",
+            "lambda": 0.06,
+            "g_D": 1.5,
+            "y_D": 0.8,
+            "T_*": "2.5 MeV",
+            "alpha_*": 0.76,
+            "beta_over_H_*": 38,
+            "chi_sq": 29
+          },
+          "notes": "Best overall chi^2. Including fermions (y_D=0.8) extends viable parameter space."
+        }
+      ],
+      "assumptions": [
+        "Tree-level potential with mu^2 and lambda terms (not fully conformal)",
+        "Gaussian approximation for false vacuum fraction",
+        "Sound waves dominant GW source",
+        "Single-field approximation"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2501.15649",
+      "title": "Supercooled Dark Scalar Phase Transitions explanation of NANOGrav data",
+      "authors": [
+        "Francesco Costa",
+        "Jaime Hoefken Zink",
+        "Michele Lucente",
+        "Silvia Pascoli",
+        "Salvador Rosauro-Alcaraz"
+      ],
+      "year": 2025,
+      "journal": "Phys. Lett. B 868 (2025) 139634",
+      "relevance_score": 7,
+      "brief_description": "Studies a minimal U(1) dark scalar model with supercooled FOPT to explain NANOGrav data. Provides four benchmark points (BP1-BP4) with v_phi from 0.5-10 GeV, lambda_phi=0.006-0.01, g_D=0.75-0.86, producing FOPT parameters T_p=12-194 MeV, alpha=102-523, H_*R_* = 0.48-1.40. Shows that supercooling requires g_D ~ g_D^roll, leading to m_Z' >> m_phi hierarchy. GW from sound waves dominates.",
+      "model_studied": "Minimal U(1)_D with complex scalar phi. No fermions. Gauge boson Z'. Classically conformal potential with CW mechanism.",
+      "similarity_to_target": "Partially similar. Same U(1)_D gauge group and CW mechanism, but no fermions. The benchmark points with GeV-scale vevs and MeV-scale masses are relevant for understanding the parameter space where the target model might produce PTA signals.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "BBN",
+        "CMB/Delta N_eff"
+      ],
+      "observables": [
+        "GW spectrum from supercooled FOPT (nHz range)",
+        "NANOGrav 15-year data fit"
+      ],
+      "benchmark_points": [
+        {
+          "label": "BP1",
+          "parameters": {
+            "v_phi": "0.5 GeV",
+            "lambda_phi": 0.006,
+            "g_D": 0.75,
+            "T_p": "12.54 MeV",
+            "H_*R_*": 0.4771,
+            "alpha": 342.34,
+            "m_phi": "0.055 GeV",
+            "m_Z'": "0.375 GeV"
+          },
+          "notes": "Strong supercooling. m_Z' >> m_phi. g_D ~ g_D^roll condition."
+        },
+        {
+          "label": "BP2",
+          "parameters": {
+            "v_phi": "1.0 GeV",
+            "lambda_phi": 0.006,
+            "g_D": 0.75,
+            "T_p": "22.54 MeV",
+            "H_*R_*": 0.7729,
+            "alpha": 522.85,
+            "m_phi": "0.110 GeV",
+            "m_Z'": "0.750 GeV"
+          },
+          "notes": "Same couplings as BP1, larger vev."
+        },
+        {
+          "label": "BP3",
+          "parameters": {
+            "v_phi": "10.0 GeV",
+            "lambda_phi": 0.006,
+            "g_D": 0.75,
+            "T_p": "193.87 MeV",
+            "H_*R_*": 1.399,
+            "alpha": 463.12,
+            "m_phi": "1.10 GeV",
+            "m_Z'": "7.50 GeV"
+          },
+          "notes": "Largest vev, highest T_p."
+        },
+        {
+          "label": "BP4",
+          "parameters": {
+            "v_phi": "1.0 GeV",
+            "lambda_phi": 0.01,
+            "g_D": 0.86,
+            "T_p": "38.03 MeV",
+            "H_*R_*": 0.8804,
+            "alpha": 102.16,
+            "m_phi": "0.144 GeV",
+            "m_Z'": "0.862 GeV"
+          },
+          "notes": "Different (lambda, g) combination producing smaller alpha."
+        }
+      ],
+      "assumptions": [
+        "RG-improved effective potential",
+        "g_D ~ g_D^roll (supercooling condition)",
+        "Sound waves dominate GW",
+        "Vacuum domination phase tracked carefully"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2602.14866",
+      "title": "Gauge-independent gravitational waves from a minimal dark U(1) sector with viable dark matter candidates",
+      "authors": [
+        "Wan-Zhe Feng",
+        "Zi-Hui Zhang"
+      ],
+      "year": 2026,
+      "journal": "",
+      "relevance_score": 7,
+      "brief_description": "Provides a gauge-independent treatment of FOPTs and GWs in a minimal U(1)_x dark sector with dark Higgs, dark photon, and optionally a vectorlike dark fermion. Uses Nielsen identities to eliminate gauge dependence. Performs Monte Carlo scans mapping microscopic parameters to GW amplitudes. Finds supercooled transitions produce stronger signals. Provides benchmarks connecting FOPT phenomenology to dark photon and dark fermion DM. Notes that v_x in [10, 100] MeV produces PTA-band nHz signals, while v_x in [1, 100] GeV gives LISA-band mHz signals.",
+      "model_studied": "U(1)_x dark sector with complex scalar (dark Higgs), dark photon, optionally vectorlike dark fermion chi. Coupling to SM via Higgs portal or kinetic mixing.",
+      "similarity_to_target": "Similar. U(1)_x dark sector with scalar, gauge boson, and optional fermion. Fully conformal/CW setup. The gauge-independent methodology and the parameter scans relating v_x, m_A', and GW observables are directly relevant. The key finding that m_A' > m_h_x is required for FOPT is a constraint for the target model.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "Dark photon constraints (beam dump, collider, stellar cooling)",
+        "Dark matter direct detection",
+        "BBN/CMB"
+      ],
+      "observables": [
+        "GW spectrum (gauge-independent)",
+        "Dark matter relic abundance",
+        "Dark photon/dark fermion DM viability"
+      ],
+      "benchmark_points": [
+        {
+          "label": "PTA-range benchmark",
+          "parameters": {
+            "v_x": "10-100 MeV range",
+            "mA_gt_mhx": true,
+            "Tp_over_mA": "0.1 (supercooled)"
+          },
+          "notes": "For v_x in [10,100] MeV, peak frequencies approach nHz PTA band. Supercooled transitions produce stronger signals."
+        },
+        {
+          "label": "LISA-range benchmark",
+          "parameters": {
+            "v_x": "1-100 GeV range"
+          },
+          "notes": "For v_x in [1,100] GeV, peak frequencies in mHz LISA band."
+        }
+      ],
+      "assumptions": [
+        "Nielsen identity for gauge independence",
+        "Controlled derivative expansion",
+        "Power counting for high-T and low-T regimes",
+        "Single-field approximation for bounce action"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2308.16219",
+      "title": "Forbidden conformal dark matter at a GeV",
+      "authors": [
+        "Steven Ferrante",
+        "Ameen Ismail",
+        "Seung J. Lee",
+        "Yunha Lee"
+      ],
+      "year": 2023,
+      "journal": "JHEP 11 (2023) 186",
+      "relevance_score": 5,
+      "brief_description": "Proposes DM as composite of spontaneously broken CFT (holographic dual of warped extra dimension). The conformal phase transition is supercooled and strongly first-order, producing GW signals consistent with NANOGrav for dilaton masses m_sigma ~ 0.1-3 GeV. Uses forbidden DM mechanism where DM annihilates to dilatons. While the model framework is very different (5D holographic instead of 4D perturbative U(1)), the conformal PT + PTA connection is relevant context.",
+      "model_studied": "Composite DM from spontaneously broken CFT, described via 5D AdS/CFT dual. Dilaton sigma as PNGB of broken conformal symmetry. DM particle phi is composite on IR brane.",
+      "similarity_to_target": "Different model framework (5D holographic vs 4D perturbative U(1)), but shares the concept of classically conformal sector with a strongly supercooled FOPT producing nHz GWs. Not directly useful for benchmark parameters but provides context on the conformal PT + PTA connection.",
+      "paper_classification": "same_target_signal_different_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "Direct detection (PandaX-4T, XENONnT, LZ): m_phi < 7 GeV",
+        "Beam dump (CHARM): dilaton constraints",
+        "Self-interaction constraints",
+        "LLP experiments (FASER2, MATHUSLA, SHiP): future sensitivity"
+      ],
+      "observables": [
+        "GW from supercooled conformal PT",
+        "DM relic abundance (forbidden DM)",
+        "LLP signals at FASER2/MATHUSLA/SHiP"
+      ],
+      "benchmark_points": [
+        {
+          "label": "NANOGrav-favored dilaton mass range",
+          "parameters": {
+            "m_sigma": "0.1-3 GeV",
+            "m_phi": "0.1-10 GeV",
+            "Delta": "~0.1-0.5",
+            "f": "~m_sigma",
+            "T_R": "0.017-3.3 GeV",
+            "beta_GW/H": "<27"
+          },
+          "notes": "NANOGrav-favored at 95% CL. Strongly supercooled: T_n/T_c at most O(1%)."
+        }
+      ],
+      "assumptions": [
+        "AdS/CFT correspondence",
+        "5D dual of 4D CFT",
+        "Goldberger-Wise stabilization",
+        "Forbidden DM mechanism",
+        "Bubble collisions dominant GW source"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2601.12319",
+      "title": "Forbidden dark matter assisted by first-order phase transition and associated gravitational waves",
+      "authors": [
+        "Satyabrata Mahapatra",
+        "Partha Kumar Paul",
+        "Narendra Sahu"
+      ],
+      "year": 2026,
+      "journal": "",
+      "relevance_score": 6,
+      "brief_description": "Studies a U(1)_D gauge extension with a Dirac fermion DM (charge +1) and complex scalar Phi (charge -1). Uses forbidden DM mechanism. Provides explicit benchmark points (BP1-BP4) with DM masses from 32 MeV to 6.1 GeV, vevs from 100 MeV to 20 GeV, g_D from 0.38 to 0.81, producing GWs from nHz (PTA) to mHz (LISA) range. The model has different charge assignments than the target model but covers the same mass/coupling range.",
+      "model_studied": "U(1)_D with Dirac fermion chi (charge +1), complex scalar Phi (charge -1), dark gauge boson X_D. Tree-level scalar potential. Forbidden DM annihilation chi chi_bar -> X_D phi.",
+      "similarity_to_target": "Partially similar. Same U(1)_D gauge group with scalar and fermion content, but has single Dirac fermion with charge +1 instead of two with charges +/-1/2. Not fully conformal (tree-level mass term may be present). The benchmark parameter ranges are relevant but the charge assignments and CW mechanism differ.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "CMB constraints on DM annihilation",
+        "Indirect detection bounds",
+        "BBN bounds on new physics"
+      ],
+      "observables": [
+        "GW spectrum from FOPT",
+        "DM relic abundance (forbidden channel)",
+        "Correlation between DM mass and T_n"
+      ],
+      "benchmark_points": [
+        {
+          "label": "BP1",
+          "parameters": {
+            "M_chi": "31.77 MeV",
+            "M_X_D": "77.71 MeV",
+            "M_phi": "11.79 MeV",
+            "lambda_Phi": 0.00695,
+            "v_phi": "100 MeV",
+            "g_D": 0.777,
+            "T_c": "25.27 MeV",
+            "T_n": "6.91 MeV",
+            "alpha": 7.89,
+            "beta_over_H": 141.4
+          },
+          "notes": "MeV-scale DM. GW in nHz range (PTA)."
+        },
+        {
+          "label": "BP2",
+          "parameters": {
+            "M_chi": "71.62 MeV",
+            "M_X_D": "188.33 MeV",
+            "M_phi": "14.06 MeV",
+            "lambda_Phi": 0.000396,
+            "v_phi": "500 MeV",
+            "g_D": 0.377,
+            "T_c": "60.44 MeV",
+            "T_n": "11.28 MeV",
+            "alpha": 40.67,
+            "beta_over_H": 1947
+          },
+          "notes": "Large alpha, very slow transition."
+        },
+        {
+          "label": "BP3",
+          "parameters": {
+            "M_chi": "351.6 MeV",
+            "M_X_D": "812.9 MeV",
+            "M_phi": "129.3 MeV",
+            "lambda_Phi": 0.00823,
+            "v_phi": "1000 MeV",
+            "g_D": 0.813,
+            "T_c": "266.2 MeV",
+            "T_n": "87.03 MeV",
+            "alpha": 2.69,
+            "beta_over_H": 169.2
+          },
+          "notes": "GeV-scale DM. GW near LISA band."
+        },
+        {
+          "label": "BP4",
+          "parameters": {
+            "M_chi": "6130 MeV",
+            "M_X_D": "12795 MeV",
+            "M_phi": "1853 MeV",
+            "lambda_Phi": 0.00429,
+            "v_phi": "20000 MeV",
+            "g_D": 0.64,
+            "T_c": "4825 MeV",
+            "T_n": "2925 MeV",
+            "alpha": 0.054,
+            "beta_over_H": 950.1
+          },
+          "notes": "Large vev (20 GeV). Weak transition (alpha << 1). High frequency GW."
+        }
+      ],
+      "assumptions": [
+        "Tree-level scalar potential with quartic",
+        "Forbidden DM annihilation mechanism",
+        "Bubble wall velocity v_w = 0.95"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2602.14324",
+      "title": "Gravitational waves from supercooled phase transitions and pulsar timing array signals",
+      "authors": [
+        "Jinzheng Li",
+        "Pran Nath"
+      ],
+      "year": 2026,
+      "journal": "Phys. Rev. D 111, 123007",
+      "relevance_score": 5,
+      "brief_description": "Studies supercooled FOPTs in a hidden U(1)_X sector with complex scalar, Dirac fermion, and kinetic mixing portal. Emphasizes importance of synchronous hidden/visible sector temperature evolution (xi = T_h/T) for accurate GW predictions. Demonstrates that neglecting xi evolution can lead to discrepancies of up to 4 orders of magnitude in GW power. Uses mean bubble separation R_* instead of beta/H for supercooled transitions. Provides 5 benchmark points (BP1-BP5) with DM and PTA-relevant parameters.",
+      "model_studied": "U(1)_X hidden sector with complex scalar Phi, Dirac fermion q (charged under U(1)_X), gauge boson. Kinetic mixing portal. CW potential.",
+      "similarity_to_target": "Partially similar. U(1)_X setup with scalar and fermion. The key lessons on thermal history evolution, R_* vs beta/H analysis, and runaway bubble dynamics are important methodological considerations for the target model analysis. The benchmark points with GeV-scale masses produce PTA-detectable GWs.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "BBN constraints",
+        "CMB/Delta N_eff constraints",
+        "Dark matter relic density bounds"
+      ],
+      "observables": [
+        "GW from supercooled FOPT with evolving xi(T)",
+        "Dark matter relic abundance"
+      ],
+      "benchmark_points": [
+        {
+          "label": "BP1",
+          "parameters": {
+            "m_q": "28.69 GeV",
+            "g_x": 2.147,
+            "m_A": "3.67 GeV",
+            "m_phi": "1.28 GeV",
+            "T_h_p": "0.197 GeV",
+            "alpha_tot": 0.298,
+            "alpha_h": 1769,
+            "beta_over_H_*": -308.89,
+            "Omega_DM": 0.039,
+            "xi_p": 0.408
+          },
+          "notes": "Published PRD version. Negative beta/H indicates supercooled regime with R_* analysis needed."
+        },
+        {
+          "label": "BP2",
+          "parameters": {
+            "m_q": "32.28 GeV",
+            "g_x": 2.824,
+            "m_A": "25.81 GeV",
+            "m_phi": "11.35 GeV",
+            "T_h_p": "1.592 GeV",
+            "alpha_tot": 1.509,
+            "alpha_h": 1096,
+            "beta_over_H_*": -261.7,
+            "Omega_DM": 0.109,
+            "xi_p": 0.804
+          },
+          "notes": "Best DM relic abundance (Omega_DM ~ 0.109)."
+        }
+      ],
+      "assumptions": [
+        "Separate entropy conservation for hidden/visible sectors",
+        "Mean bubble separation R_* instead of beta/H for supercooled PTs",
+        "Runaway bubble regime (detonation type)",
+        "Kinetic mixing portal to SM"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2306.17086",
+      "title": "NANOGrav Signal from a Dark Conformal Phase Transition",
+      "authors": [
+        "Kazuki Fujikura",
+        "Yonatan Girmohanta",
+        "Yuichiro Nakai",
+        "Motoo Suzuki"
+      ],
+      "year": 2023,
+      "journal": "Phys. Lett. B 846 (2023) 138203",
+      "relevance_score": 4,
+      "brief_description": "Uses a 5D holographic description of a confining first-order phase transition in a nearly-conformal dark sector to explain the NANOGrav signal. Different model framework but shows the general phenomenology of supercooled conformal PTs generating nHz GWs.",
+      "model_studied": "5D AdS-Schwarzschild to RS spacetime transition. Nearly-conformal dark sector with 5D holographic dual. Dilaton/radion potential from dark Yang-Mills field.",
+      "similarity_to_target": "Background context only. Shares the concept of a conformal phase transition producing nHz GWs but uses a completely different model framework (5D holographic, confining PT) vs 4D perturbative U(1) with CW mechanism. Not a source of benchmark parameters for the target model.",
+      "paper_classification": "same_target_signal_different_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "BBN constraints",
+        "Delta N_eff bounds (secluded: Delta N_eff ~ 0.6)",
+        "CMB constraints"
+      ],
+      "observables": [
+        "GW from confining PT (nHz range)",
+        "Delta N_eff"
+      ],
+      "benchmark_points": [],
+      "assumptions": [
+        "AdS/CFT correspondence",
+        "Large-N approximation",
+        "Goldberger-Wise stabilization",
+        "Runaway bubble wall"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "1907.08899",
+      "title": "Gravitational waves from scale-invariant vector dark matter model: Probing below the neutrino-floor",
+      "authors": [
+        "Ahmad Mohamadnejad"
+      ],
+      "year": 2020,
+      "journal": "Eur. Phys. J. C 80, 553 (2020)",
+      "relevance_score": 3,
+      "brief_description": "Studies a scale-invariant U(1)_D model with vector DM (dark gauge boson). Uses Gildener-Weinberg framework. Finds strongly first-order phase transition with alpha=24, beta/H=808 at T_n=47 GeV. GW peak at ~0.005 Hz (LISA band). Dark matter at TeV scale. Not directly applicable to PTA nHz signal.",
+      "model_studied": "Scale-invariant U(1)_D with vector DM (dark photon is DM). Complex scalar. Higgs portal coupling.",
+      "similarity_to_target": "Background context. Same U(1)_D gauge group and scale invariance, but vector DM instead of fermions. The GW signal is at mHz (LISA) frequencies, not nHz (PTA), because the TeV-scale vev gives much higher mass scales.",
+      "paper_classification": "background_context_only",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "Direct detection (LUX, XENON1T)",
+        "Collider constraints (LHC)",
+        "Perturbative unitarity"
+      ],
+      "observables": [
+        "GW from strongly first-order EWPT",
+        "Vector DM relic abundance",
+        "DM-nucleon scattering below neutrino floor"
+      ],
+      "benchmark_points": [
+        {
+          "label": "Benchmark",
+          "parameters": {
+            "m_V": "1.13 TeV",
+            "g_v": 0.565,
+            "m_phi": "124 GeV",
+            "T_c": "339 GeV",
+            "T_n": "47 GeV",
+            "alpha": 24,
+            "beta_over_H": 808,
+            "GW_peak_freq": "~0.005 Hz"
+          },
+          "notes": "GW peak in LISA band (mHz), not PTA (nHz). TeV-scale vev."
+        }
+      ],
+      "assumptions": [
+        "Gildener-Weinberg mechanism",
+        "Higgs portal",
+        "Vector DM (dark photon)"
+      ],
+      "citation_verified": true
+    }
+  ],
+  "searched_sources": [
+    {
+      "name": "arXiv",
+      "queries": [
+        "conformal U(1) dark sector Coleman-Weinberg phase transition GW PTA",
+        "classically scale invariant U(1) dark photon fermion FOPT",
+        "U(1)_D dark sector conformal symmetry breaking fermion singlet GW",
+        "conformal U(1) dark sector CW fermion two Dirac benchmark g_D y_psi vev",
+        "Coleman-Weinberg U(1)_D two fermions singlet GW FOPT PTA benchmark",
+        "Khoze Milne 2212.04784 benchmark points g_D vev",
+        "Balan Bringmann 2502.19478 benchmarks g v y",
+        "Costa Hoefken 2501.15649 benchmark v_phi lambda g_D",
+        "Banik Cui Tsai 2412.16282 benchmark U(1) parameters"
+      ]
+    },
+    {
+      "name": "INSPIRE-HEP",
+      "queries": [
+        "conformal U(1)_D dark sector phase transition gravitational waves",
+        "Coleman-Weinberg U(1)_D fermion gravitational waves"
+      ]
+    },
+    {
+      "name": "Web search",
+      "queries": [
+        "arXiv:2511.15687",
+        "arXiv:2209.04369",
+        "arXiv:2602.02928",
+        "arXiv:2306.16667",
+        "arXiv:2401.12150",
+        "arXiv:2404.03435"
+      ]
+    }
+  ],
+  "novelty_verdict": "The exact model proposed (classically scale-invariant U(1)_D with complex scalar Phi, two Dirac fermions psi_1 (+1/2) and psi_2 (-1/2), and dark gauge boson) has been studied in the literature. arXiv:2212.04784 (Khoze and Milne, 2023) studies a structurally identical model with the same particle content, U(1)_D charge assignments, and CW/Gildener-Weinberg symmetry breaking. However, their analysis focuses on TeV-scale DM with LISA-band (mHz) GW signals rather than the PTA nHz signal. No paper has studied the exact same model (U(1)_D with two Dirac fermions, scalar-only portal lambda_HPhi=0) specifically for the PTA nHz GW signal.",
+  "novelty_notes": "The target model's combination of (a) classically conformal U(1)_D with two Dirac fermions, (b) zero Higgs portal and zero kinetic mixing, (c) targeting the PTA nHz GW signal, and (d) using the specific CW condition beta_lambda = (3g_D^4 - 2y_psi^4)/(8pi^2) with gb_scalar=0 appears novel in the literature. Closest papers: Khoze-Milne (same structure but different mass scale/parameter space and includes Higgs portal); Balan et al. (single Dirac fermion instead of two, different CW condition). The novelty lies in the PTA-specific parameter space for this particular particle content.",
+  "benchmark_hints": [
+    {
+      "source": "arXiv:2502.19478 (Balan et al.)",
+      "parameters": {
+        "g": 0.677,
+        "y": 0.224,
+        "v": "173 MeV",
+        "m_A'": "117 MeV",
+        "m_phi": "36.3 MeV",
+        "m_chi": "27.4 MeV",
+        "alpha": 4700.0,
+        "beta/H": 33.7,
+        "T_p": "2.28 MeV"
+      },
+      "confidence": "adaptable",
+      "conventions": {
+        "vev_nominal": "v = 173 MeV",
+        "mass_relation": "m_chi = y v / sqrt(2), m_A' = g v",
+        "cw_condition": "lambda = 11/(48pi^2)(10lambda^2 + 3g^4 - y^4)",
+        "difference": "Balan et al. include scalar loop (10lambda^2) in CW condition; target model sets gb_scalar=0 giving beta_lambda = (3g_D^4 - 2y_psi^4)/(8pi^2)"
+      },
+      "notes": "Single Dirac fermion vs two Dirac fermions. The g, y, v values can serve as starting points for the target model scan but need adjustment due to different CW condition. The alpha, beta/H, T_p values indicate the supercooling regime needed for PTA signal."
+    },
+    {
+      "source": "arXiv:2501.11619 (Goncalves et al.)",
+      "parameters": {
+        "g_L": 0.59,
+        "M_h2": "12.4 MeV",
+        "M_Z'": "107.3 MeV",
+        "alpha": 260000.0,
+        "beta/H": 39.5,
+        "T_RH": "11.7 MeV"
+      },
+      "confidence": "qualitative",
+      "conventions": {
+        "mass_scale": "M_Z' ~ 100 MeV, M_h2 ~ 10 MeV",
+        "supercooling": "alpha >> 1",
+        "reheating": "T_RH ~ 10 MeV"
+      },
+      "notes": "No fermions in this model. The benchmark shows that PTA-favored mass scales are ~10-100 MeV with g_D ~ 0.6. The target model's CW condition with fermions will modify the allowed parameter space."
+    },
+    {
+      "source": "arXiv:2105.01007 (Borah et al.)",
+      "parameters": {
+        "g_D": 0.32,
+        "m_Z_D": "12.6 MeV",
+        "T_*": "2.25 MeV",
+        "alpha_*": 0.68,
+        "beta/H_*": 82.4
+      },
+      "confidence": "qualitative",
+      "conventions": {
+        "nucleation_temp": "T_* ~ 2 MeV",
+        "gw_source": "sound waves dominate for moderate alpha"
+      },
+      "notes": "Single vector-like fermion with different charge assignment. Smaller g_D=0.32 gives weaker transition (alpha=0.68). Provides lower bound on parameter space for PTA signal."
+    },
+    {
+      "source": "arXiv:2412.16282 (Banik et al.)",
+      "parameters": {
+        "g_D": 1.5,
+        "lambda": 0.06,
+        "mu": "2.7 MeV",
+        "y_D": 0.8,
+        "T_*": "2.5 MeV",
+        "alpha_*": 0.76,
+        "beta/H_*": 38
+      },
+      "confidence": "qualitative",
+      "conventions": {
+        "tree_potential": "V = mu^2 Phi*Phi + lambda (Phi*Phi)^2 (NOT fully conformal)",
+        "fermion_structure": "Yukawa y_D Psi_bar Phi chi with vectorlike Psi + singlet chi"
+      },
+      "notes": "Not a fully conformal model (has mu^2 mass term). Shows that fermion couplings (y_D=0.8) with g_D=1.5 produce best fit to NANOGrav. The tree-level mass term changes the PT dynamics."
+    },
+    {
+      "source": "arXiv:2212.04784 (Khoze and Milne)",
+      "parameters": {
+        "sin_theta": {
+          "BP1": 0.3,
+          "BP2": 0.1,
+          "BP3": 0.4,
+          "BP4": 0.2,
+          "BP5": 0.3
+        },
+        "M_h2": {
+          "BP1": "151 GeV",
+          "BP2": "320 GeV",
+          "BP3": "121 GeV",
+          "BP4": "331 GeV",
+          "BP5": "120 GeV"
+        },
+        "M_chi1": {
+          "BP1": "59.5 GeV",
+          "BP2": "150 GeV",
+          "BP3": "591 GeV",
+          "BP4": "61 GeV",
+          "BP5": "901 GeV"
+        }
+      },
+      "confidence": "unusable",
+      "conventions": {
+        "mass_scale": "TeV-scale vev, GeV-scale particles",
+        "gw_range": "mHz (LISA band), not nHz (PTA band)"
+      },
+      "notes": "Same model structure but completely different parameter space (TeV-scale vev -> LISA-band GW). Not directly useful for PTA signal. Demonstrates structural identity but different target signal."
+    }
+  ],
+  "constraint_summary": [],
+  "theory_uncertainties": [],
+  "recommended_next_steps": [
+    "The Khoze-Milne paper (2212.04784) provides the closest model match. Their benchmark points target LISA-band GW, not PTA. The target model should scan parameter space with MeV-scale vevs (not GeV-TeV) to shift the GW peak to nHz frequencies.",
+    "Use Balan et al. (2502.19478) benchmark points as initial guess for g ~ 0.6-0.7, y ~ 0.2-0.4, v ~ 100-700 MeV, but adapt for two Dirac fermions (doubling fermion DOF) and different CW condition.",
+    "The PTA-favored region from multiple papers consistently shows: g_D ~ 0.3-1.5, mass scales ~ 10-100 MeV, T_n ~ 1-200 MeV, alpha ~ 0.7 to 10^6 (supercooled), beta/H ~ 20-200.",
+    "The key novelty angle: the target model with two Dirac fermions (instead of one) and gb_scalar=0 in the CW condition has not been studied for PTA signals. The scalar loop contributions omitted from the CW condition (setting gb_scalar=0, using beta_lambda = (3g_D^4 - 2y_psi^4)/(8pi^2)) is a distinctive feature that may change the supercooling behavior and GW predictions.",
+    "Critical constraint from Feng-Zhang (2602.14866): m_A' > m_chi (dark photon heavier than dark Higgs) is required for FOPT. For the target model, this means g_D v > m_chi = y_psi v / sqrt(2) => g_D > y_psi / sqrt(2). This should be checked against parameter space.",
+    "The zero Higgs portal and zero kinetic mixing assumptions should be checked for consistency with BBN and CMB constraints on long-lived dark sector particles."
+  ]
+}

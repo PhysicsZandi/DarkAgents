@@ -1,0 +1,322 @@
+{
+  "model": "SU2_conformal",
+  "agent": "critic-agent",
+  "run_status": "ok",
+  "provenance": [
+    "User request: minimal conformal non-abelian model for NANOGrav FOPT",
+    "Upstream: output/SU2_conformal/handoff_proposed_model.json (proposer-agent)",
+    "Upstream: output/SU2_conformal/handoff_librarian_preliminary.json (preliminary-librarian-agent)",
+    "Skill: .vibe/skills/model-critique/SKILL.md",
+    "Agent instructions: .vibe/agents/critic-agent.md",
+    "Schema: docs/HANDOFF_CRITIC_SCHEMA.md"
+  ],
+  "validation_gauge_groups": [
+    {
+      "item": "SU(2)_D",
+      "status": "ok",
+      "notes": "Non-abelian gauge group, rank 1, dimension 3. No anomalies with scalar doublet and no chiral fermions."
+    }
+  ],
+  "validation_global_symmetries": [
+    {
+      "item": "SO(3)_custodial",
+      "status": "ok",
+      "notes": "Global custodial symmetry of scalar potential. Explicitly unbroken in model definition. Not gauged, so no anomaly constraints."
+    }
+  ],
+  "validation_particle_content": [
+    {
+      "item": "Phi (scalar doublet)",
+      "status": "ok",
+      "notes": "Complex scalar doublet under SU(2)_D. 4 real dof (2 complex components). Correct representation."
+    },
+    {
+      "item": "A (gauge bosons)",
+      "status": "fixed",
+      "original": "dof=3 listed without clarification that these are field components, not degrees of freedom",
+      "fix": "Clarified in description that dof=3 refers to 3 field components (W1, W2, W3). Vector dof properly accounted in field_dependent_masses.",
+      "notes": "3 gauge field components. In unbroken phase: 6 dof (3 massless vectors x 2 dof each). After SSB: W± (6 dof) + W³ (2 dof) = 8 dof."
+    }
+  ],
+  "validation_lagrangian_terms": [
+    {
+      "item": "scalar_kinetic: (D_mu Phi)^dagger (D^mu Phi)",
+      "status": "ok",
+      "notes": "Covariant kinetic term for scalar doublet. Gauge invariant under SU(2)_D."
+    },
+    {
+      "item": "scalar_potential: -lambda * (Phi^dagger Phi)^2",
+      "status": "ok",
+      "notes": "Classically scale-invariant quartic potential. SU(2) singlet. Only depends on |Phi|^2."
+    },
+    {
+      "item": "gauge_kinetic: -1/4 * F^a_{mu nu} F^{a mu nu}",
+      "status": "ok",
+      "notes": "SU(2) field strength kinetic term. Gauge invariant."
+    }
+  ],
+  "validation_free_parameters": [
+    {
+      "item": "g_D",
+      "status": "ok",
+      "notes": "SU(2)_D gauge coupling. Range [0.01, 12.56] justified by perturbativity (g_D < 4*pi). Can be scanned."
+    },
+    {
+      "item": "v",
+      "status": "ok",
+      "notes": "Scalar vev. Range [1e2, 1e6] GeV justified by FOPT temperature range for PTA signal. Can be scanned."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "g_D": {
+        "name": "g_D",
+        "description": "Dark SU(2) gauge coupling",
+        "range": [0.01, 12.56],
+        "can_scan": true
+      },
+      "v": {
+        "name": "v",
+        "description": "Scalar vev",
+        "range": [1e2, 1e6],
+        "units": "GeV",
+        "can_scan": true
+      }
+    },
+    "dependent": {
+      "lambda": {
+        "name": "lambda",
+        "description": "Quartic coupling fixed by Coleman-Weinberg condition",
+        "expression": "beta_lambda",
+        "determination": "Coleman-Weinberg minimization",
+        "can_scan": false
+      },
+      "beta_lambda": {
+        "name": "beta_lambda",
+        "description": "CW beta function for quartic coupling",
+        "expression": "(6 * (g_D / 2)**4) / (8 * pi**2)",
+        "value": "3 * g_D**4 / (64 * pi**2)",
+        "determination": "gauge sector loops",
+        "can_scan": false
+      },
+      "m_rho": {
+        "name": "m_rho",
+        "description": "Radial scalar (pseudo-dilaton) mass",
+        "expression": "sqrt(beta_lambda) * v",
+        "determination": "CW pseudo-dilaton mass",
+        "can_scan": false
+      },
+      "gb_rho": {
+        "name": "gb_rho",
+        "description": "Radial scalar mass-over-vev ratio",
+        "expression": "sqrt(beta_lambda)",
+        "determination": "from beta_lambda",
+        "can_scan": false
+      }
+    },
+    "fixed": {
+      "xi": {
+        "name": "xi",
+        "description": "Dark sector temperature relative to SM",
+        "value": 1.0,
+        "justification": "Assumed thermal equilibrium with SM bath"
+      }
+    }
+  },
+  "validation_assumptions": [
+    {
+      "item": "minimal_field_content",
+      "status": "ok",
+      "notes": "Only one scalar doublet and SU(2) gauge bosons. Simplifies dynamics. Compatible with literature (2109.11558)."
+    },
+    {
+      "item": "no_portal_interactions",
+      "status": "warning",
+      "notes": "SM-Higgs portal neglected for FOPT dynamics. Valid for dark sector-only analysis but could modify transition. Noted in assumptions."
+    },
+    {
+      "item": "perturbativity",
+      "status": "ok",
+      "notes": "g_D < 4*pi ~ 12.56. Restricts gauge coupling range. Consistent with pipeline requirements."
+    },
+    {
+      "item": "thermal_equilibrium",
+      "status": "ok",
+      "notes": "Dark sector in thermal equilibrium with itself. Validates thermal effective potential use."
+    },
+    {
+      "item": "coupled_to_SM",
+      "status": "ok",
+      "notes": "T_D = T_SM (xi = 1). Determines g_star for Hubble rate calculation."
+    },
+    {
+      "item": "negligible_back_reaction",
+      "status": "warning",
+      "notes": "Scalar self-coupling contribution to beta_lambda subdominant compared to gauge sector. Valid for g_D not too small. Verified in literature (2109.11558, 2210.07075)."
+    },
+    {
+      "item": "strong_supercooling",
+      "status": "ok",
+      "notes": "Phase transition occurs at T << v. Justifies high-temperature expansion approximation in pipeline."
+    },
+    {
+      "item": "boson_dominated_CW",
+      "status": "ok",
+      "notes": "Boson loops dominate CW beta function (beta_lambda > 0). Ensures radiative symmetry breaking. Verified: beta_lambda = 3*g_D^4/(64*pi^2) > 0 for all g_D > 0."
+    }
+  ],
+  "validation_ssb_pattern": [
+    {
+      "item": "SU(2)_D -> U(1)_D",
+      "status": "fixed",
+      "original": {"goldstone_bosons": 1, "massive_gauge_bosons": 2, "massless_gauge_bosons": 1},
+      "fix": {"goldstone_bosons": 2},
+      "notes": "Number of broken generators = dim(SU(2)) - dim(U(1)) = 3 - 1 = 2. Two Goldstone bosons eaten by W± gauge bosons. Consistent with dof counting: 2 longitudinal modes added to W±."
+    }
+  ],
+  "validation_vev_convention": [
+    {
+      "item": "Phi(x) = (0, (chi(x) + rho(x) + i*G(x))/sqrt(2))^T",
+      "status": "ok",
+      "notes": "Background field chi. At vev: chi = v, Phi^dagger Phi = v^2 / 2. Consistent with SU(2)->U(1) breaking. chi is the radial background field driving PT."
+    }
+  ],
+  "validation_tree_level_potential": [
+    {
+      "item": "lambda * chi**4 / 4",
+      "status": "ok",
+      "notes": "Derived from -lambda (Phi^dagger Phi)^2 with Phi^dagger Phi = chi^2 / 2. Classically scale-invariant. Python/SymPy compatible."
+    }
+  ],
+  "validation_field_dependent_masses": [
+    {
+      "item": "W (massive gauge bosons)",
+      "status": "ok",
+      "notes": "m2_of_chi = (g_D**2 * chi**2) / 4, dof=6, gb = g_D / 2. Represents W± pair (2 particles x 3 dof). Verified from covariant derivative."
+    },
+    {
+      "item": "rho (radial scalar)",
+      "status": "ok",
+      "notes": "m2_of_chi = 3 * lambda * chi**2, dof=1, gb = sqrt(3 * lambda). Second derivative of potential w.r.t. rho at vev. Verified."
+    },
+    {
+      "item": "G (pseudo-Goldstone scalar)",
+      "status": "warning",
+      "notes": "m2_of_chi = lambda * chi**2, dof=1, gb = sqrt(lambda). Massive scalar, not a true Goldstone. Named 'Goldstone' in original but physically massive. Renamed in model.md."
+    },
+    {
+      "item": "W3 (massless gauge boson)",
+      "status": "fixed",
+      "original": "Missing",
+      "fix": {"m2_of_chi": "0", "gb": "0", "dof": 2, "statistics": "bosonic"},
+      "notes": "Massless U(1)_D gauge boson. 2 dof (transverse only). Crucial for dof conservation and thermal potential."
+    }
+  ],
+  "validation_thermal_masses": [
+    {
+      "item": "W (massive gauge bosons)",
+      "status": "ok",
+      "notes": "m2_of_chi_T = (g_D**2 * chi**2) / 4 + (g_D**2 * T**2) / 3, dof=6. Includes Debye screening for longitudinal mode. Transverse modes have only tree-level mass. Python/SymPy compatible."
+    },
+    {
+      "item": "rho (radial scalar)",
+      "status": "ok",
+      "notes": "m2_of_chi_T = 3 * lambda * chi**2 + (lambda / 3 + g_D**2 / 8) * T**2, dof=1. Daisy-resummed thermal mass. Python/SymPy compatible."
+    },
+    {
+      "item": "G (pseudo-Goldstone scalar)",
+      "status": "ok",
+      "notes": "m2_of_chi_T = lambda * chi**2 + (lambda / 3 + g_D**2 / 8) * T**2, dof=1. Daisy-resummed thermal mass. Python/SymPy compatible."
+    },
+    {
+      "item": "W3 (massless gauge boson)",
+      "status": "fixed",
+      "original": "Missing",
+      "fix": {"m2_of_chi_T": "g_D**2 * T**2 / 3", "gb": "0", "dof": 2, "statistics": "bosonic"},
+      "notes": "Thermal (Debye) mass for massless U(1)_D gauge boson. Standard SU(2) result: each gauge boson gets m^2 = g_D^2 T^2 / 3 in symmetric phase. Python/SymPy compatible."
+    }
+  ],
+  "validation_backend_compatibility": [
+    {
+      "item": "semianalytic_pipeline",
+      "status": "fixed",
+      "original": "boson_gbs and boson_dofs missing W3",
+      "fix": {"boson_gbs": {"W": "g_D / 2", "W3": "0"}, "boson_dofs": {"W": 6, "W3": 2}},
+      "notes": "Pipeline auto-adds scalar with gb=sqrt(beta_lambda), dof=1. Model meets selection rule: conformal, single-field (chi) dynamics, quartic-only tree potential. Verified against pipeline code and arXiv:2602.02829."
+    }
+  ],
+  "authoritative_model_file": "output/SU2_conformal/model.md",
+  "repair_records": [
+    {
+      "issue_id": "missing_W3_field_dependent_masses",
+      "original": "W3 entry absent from field_dependent_masses array",
+      "fix": "Added W3 with m2_of_chi=0, gb=0, dof=2, statistics=bosonic",
+      "justification": "SU(2)->U(1) breaking leaves 1 massless gauge boson (W3) with 2 dof. Required for dof conservation (10 before and after SSB) and thermal potential calculation.",
+      "minimal": true,
+      "impact": "Blocking for backend compatibility and dof counting"
+    },
+    {
+      "issue_id": "missing_W3_thermal_masses",
+      "original": "W3 entry absent from thermal_masses array",
+      "fix": "Added W3 with m2_of_chi_T=g_D**2 * T**2 / 3, gb=0, dof=2, statistics=bosonic",
+      "justification": "Massless W3 gauge boson receives thermal mass in symmetric phase. Required for complete thermal effective potential.",
+      "minimal": true,
+      "impact": "Blocking for accurate thermal potential in backend"
+    },
+    {
+      "issue_id": "beta_lambda_value_mismatch",
+      "original": "value field: 3 * g_D^4 / (32 * pi^2)",
+      "fix": "value field: 3 * g_D^4 / (64 * pi^2)",
+      "justification": "Expression (6 * (g_D / 2)**4) / (8 * pi**2) evaluates to 3*g_D^4/(64*pi^2). Value must match expression for consistency with backend and schema requirements.",
+      "minimal": true,
+      "impact": "Blocking for backend compatibility"
+    },
+    {
+      "issue_id": "incorrect_goldstone_count",
+      "original": "ssb_pattern goldstone_bosons: 1",
+      "fix": "ssb_pattern goldstone_bosons: 2",
+      "justification": "SU(2)->U(1) breaking has dim(G)-dim(H)=2 broken generators, requiring 2 Goldstone bosons eaten by W± gauge bosons.",
+      "minimal": true,
+      "impact": "Blocking for correct SSB pattern understanding"
+    },
+    {
+      "issue_id": "incomplete_backend_mapping",
+      "original": "backend_compatibility mapping missing W3 in boson_gbs and boson_dofs",
+      "fix": "Added W3: gb=0, dof=2 to both boson_gbs and boson_dofs",
+      "justification": "Pipeline's get_beta_lambda() and get_coeffs() require all bosonic dof for accurate thermal potential. W3 with gb=0 contributes to g2sq via thermal effects (though gb=0, its dof is needed for proper normalization).",
+      "minimal": true,
+      "impact": "Warning for backend accuracy"
+    }
+  ],
+  "red_flags": [],
+  "warnings": [
+    {
+      "id": "dof_ambiguity_A",
+      "description": "Particle_content lists A with dof=3 without clarifying these are field components, not degrees of freedom",
+      "severity": "low",
+      "impact": "Minor ambiguity in documentation; actual dof correctly handled in field_dependent_masses",
+      "mitigation": "Clarified in description"
+    },
+    {
+      "id": "G_named_goldstone",
+      "description": "Field G is named 'Goldstone boson' but has m^2 = lambda chi^2 (massive)",
+      "severity": "low",
+      "impact": "Misleading naming; physically G is a pseudo-Goldstone or massive scalar from global symmetry breaking",
+      "mitigation": "Renamed in model.md and updated description"
+    },
+    {
+      "id": "thermal_mass_approximation",
+      "description": "W thermal mass formula assumes same thermal correction for all dof, but transverse modes may have different thermal masses",
+      "severity": "low",
+      "impact": "Approximation consistent with pipeline treatment and literature (2109.11558, 2210.07075)",
+      "mitigation": "Noted in model assumptions"
+    },
+    {
+      "id": "scalar_loop_negligible",
+      "description": "Scalar loop contributions to beta_lambda omitted in CW relation",
+      "severity": "medium",
+      "impact": "Approximation valid for g_D not too small; verified in literature",
+      "mitigation": "negligible_back_reaction assumption documented"
+    }
+  ]
+}

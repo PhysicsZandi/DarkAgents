@@ -1,0 +1,1196 @@
+{
+  "model": "u1conformal_fermion",
+  "agent": "constraint-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-08",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json",
+    "output/u1conformal_fermion/handoff_critique.json",
+    "output/u1conformal_fermion/handoff_fopt.json",
+    "output/u1conformal_fermion/handoff_pta.json",
+    "output/u1conformal_fermion/ptarcade_bayes.json"
+  ],
+  "commands": [
+    "python3 mass_hierarchy_analysis (computed derived masses, lifetimes, decay channels in 1-sigma region)",
+    "WebSearch targeted queries for dark photon constraints, dark sector BBN/CMB constraints, Delta N_eff, perturbative unitarity, dark phase transitions, self-interacting DM, cosmic strings",
+    "WebFetch on arXiv:2109.03246, arXiv:2405.08534, arXiv:2511.15785, arXiv:2109.14765, arXiv:2304.06576, arXiv:2603.08430"
+  ],
+  "files_read": [
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json",
+    "output/u1conformal_fermion/handoff_critique.json",
+    "output/u1conformal_fermion/handoff_fopt.json",
+    "output/u1conformal_fermion/handoff_pta.json",
+    "output/u1conformal_fermion/ptarcade_bayes.json",
+    "docs/HANDOFF_CONSTRAINTS_SCHEMA.md",
+    "docs/BACKEND_COMPATIBILITY.md"
+  ],
+  "files_written": [
+    "output/u1conformal_fermion/handoff_constraints.json",
+    "output/u1conformal_fermion/constraints_report.md",
+    "output/u1conformal_fermion/constraints_table.csv"
+  ],
+  "warnings": [
+    "The assumption xi = T_dark/T_SM = 1 is inconsistent with zero portal couplings (epsilon=0, lambda_HPhi=0). Without any portal, the dark sector cannot thermalise with the SM bath after reheating. The temperature ratio is a free parameter that should be self-consistently computed.",
+    "Chi (dark Higgs) is the lightest dark sector particle for most of the 1-sigma PTArcade region (21/24 sampled viable points). It is stable under the model assumptions, making it a dark matter candidate. Its relic abundance has not been computed.",
+    "The A' -> psi+ psi- decay is prompt (tau ~ 10^-12-10^-13 s), well before BBN (tau << 1 s). This ensures no BBN energy injection from A' decays.",
+    "The PTArcade 1-sigma posterior region (v ~ 0.65-1.45 GeV) has all dark sector masses > 30 MeV. This differs significantly from the FOPT benchmarks (v ~ 10-20 MeV). The masses in the PTArcade region are all non-relativistic at BBN, so the Delta N_eff contribution from relativistic relics is negligible.",
+    "Without a portal to the SM, standard dark photon constraints (beam dumps, colliders, stellar cooling, SN1987A) are not applicable, as they all rely on kinetic mixing or some form of SM coupling."
+  ],
+  "errors": [],
+  "approximations": [
+    "Decay width calculations use tree-level formulae; loop-level corrections may modify lifetimes slightly but not the order-of-magnitude conclusions",
+    "Dark matter relic abundance has not been computed; therefore DM overproduction is assessed as a missing calculation, not an exclusion",
+    "The Delta N_eff contribution from the dark sector depends on the unknown decoupling temperature history; the estimate assumes the phase transition reheats only the dark sector"
+  ],
+  "analysis_mode": "ptarcade_1sigma",
+  "input_region": {
+    "source": "ptarcade_1sigma",
+    "parameters": {
+      "g_D": {
+        "type": "dimensionless",
+        "1sigma_range": [
+          0.5256,
+          0.6476
+        ],
+        "units": "",
+        "notes": "Dark U(1)_D gauge coupling; 68% credible interval from PTArcade posterior"
+      },
+      "y_psi": {
+        "type": "dimensionless",
+        "1sigma_range": [
+          0.1095,
+          0.6045
+        ],
+        "units": "",
+        "notes": "Yukawa coupling; 68% credible interval from PTArcade posterior; beta_lambda > 0 lower bound depends on g_D"
+      },
+      "v": {
+        "type": "dimensionful",
+        "1sigma_range": [
+          0.6495,
+          1.4484
+        ],
+        "units": "GeV",
+        "notes": "Dark Higgs vev; 68% credible interval from PTArcade posterior; derived from log10_v range [-0.1874, 0.1609]"
+      }
+    },
+    "derived_masses": {
+      "m_Aprime": {
+        "description": "Dark photon mass = g_D * v",
+        "range_1sigma": [
+          0.3414,
+          0.938
+        ],
+        "units": "GeV",
+        "notes": "Dark photon mass range across 1-sigma region; typical values 350-940 MeV"
+      },
+      "m_psi": {
+        "description": "Dark fermion mass = y_psi * v / sqrt(2)",
+        "range_1sigma": [
+          0.0503,
+          0.6191
+        ],
+        "units": "GeV",
+        "notes": "Dirac fermion mass; typical range 50-620 MeV across 1-sigma region"
+      },
+      "m_chi": {
+        "description": "CW pseudo-dilaton mass = sqrt(beta_lambda) * v",
+        "range_1sigma": [
+          0.021,
+          0.119
+        ],
+        "units": "GeV",
+        "notes": "Dark Higgs (radial scalar) mass; typical range 20-120 MeV across 1-sigma region; lightest DS particle in most of the region"
+      },
+      "beta_lambda": {
+        "description": "CW beta function = (3*g_D^4 - 2*y_psi^4)/(8*pi^2)",
+        "range_1sigma": [
+          0.0003,
+          0.0067
+        ],
+        "units": "",
+        "notes": "Positive throughout viable 1-sigma region; controls scalar mass"
+      }
+    },
+    "notes": [
+      "MAP point: g_D=0.5316, y_psi=0.1088, v=1.19 GeV -> m_A=631 MeV, m_psi=91 MeV, m_chi=65 MeV",
+      "The PTArcade posterior was obtained using log10_v prior Uniform(-4, 1), so v ranges from 10^-4 GeV to 10 GeV",
+      "1-sigma derived masses computed at the extremes of the 1-sigma credible intervals for each parameter"
+    ]
+  },
+  "constraint_summary": {
+    "total_constraints_considered": 17,
+    "directly_testable": 0,
+    "approximately_testable": 1,
+    "requires_recast": 0,
+    "requires_new_backend": 10,
+    "not_applicable": 6
+  },
+  "constraints": [
+    {
+      "id": "C01",
+      "name": "Dark photon beam dump / collider constraints (E137, NA64, BaBar, LHCb, etc.)",
+      "category": "beam_dump",
+      "description": "Constraints on dark photon A' from fixed-target and collider experiments including E137, NA64, BaBar, LHCb, CHARM, KLOE, NA48/2. These set limits on epsilon (kinetic mixing) vs m_A' in the MeV-GeV range.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Aprime"
+      ],
+      "mass_range": {
+        "minimum": 0.3414,
+        "maximum": 0.938,
+        "units": "GeV"
+      },
+      "coupling_range": {},
+      "observable": "Kinetic mixing epsilon",
+      "required_inputs": [
+        "epsilon_kinetic_mixing"
+      ],
+      "required_observables": [
+        "A' production cross-section in SM processes",
+        "A' -> SM decay branching ratios"
+      ],
+      "available_observables": [
+        "m_Aprime from fopt_benchmarks.csv"
+      ],
+      "missing_observables": [
+        "epsilon is set to zero in the model (fixed parameter)"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Not applicable under model assumptions. The model sets epsilon = 0 at tree level. All beam dump and collider constraints on dark photons rely on non-zero kinetic mixing to produce A' from SM particles or to make it decay to SM final states. Without epsilon, A' is invisible to all SM-based experiments. If epsilon were generated radiatively (e.g., through heavy mediator fermions at loop level), it would likely be tiny (epsilon << 10^{-4}) and still escape current limits.",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "The DarkCast compilation shows beam dump constraints exclude epsilon > 10^{-5}-10^{-4} for m_A' in 300-900 MeV range",
+        "Zero epsilon is a tree-level assumption; loop-level epsilon from 2-loop Higgs-W exchange could generate epsilon ~ 10^{-16} or smaller",
+        "If the assumption is relaxed (epsilon != 0), these constraints would become the most stringent collider bounds on the model"
+      ],
+      "source": {
+        "title": "Status of Dark Photons",
+        "arxiv_id": "2405.08534",
+        "authors": "James M. Cline",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C02",
+      "name": "Dark photon stellar cooling bounds (HB stars, red giants, Sun)",
+      "category": "stellar",
+      "description": "Constraints from energy loss in horizontal branch stars, red giants, and the Sun from dark photon production. These constrain epsilon for m_A' < ~100 keV (Sun) and m_A' < ~100 MeV (HB/RG).",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Aprime"
+      ],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {},
+      "observable": "Stellar energy loss rate",
+      "required_inputs": [
+        "epsilon_kinetic_mixing",
+        "A' mass",
+        "stellar temperature and density profiles"
+      ],
+      "required_observables": [
+        "A' production rate in stellar plasma via plasmon decay gamma* -> A'"
+      ],
+      "available_observables": [],
+      "missing_observables": [
+        "epsilon is zero; no coupling to stellar plasma"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Not applicable under model assumptions. Stellar cooling bounds rely on epsilon to couple A' to the SM thermal bath in stars. With epsilon = 0, A' is not produced in stars.",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "For epsilon != 0, stellar constraints are strongest for m_A' < 100 keV (Sun) and m_A' < 100 MeV (HB/RG stars)",
+        "The m_A' range in this model (300-900 MeV) is above typical stellar cooling sensitivity even for non-zero epsilon"
+      ],
+      "source": {
+        "title": "The Heavy Dark Photon Handbook",
+        "arxiv_id": "2511.15785",
+        "authors": "Caputo, Park, Yun",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C03",
+      "name": "Supernova 1987A cooling constraint",
+      "category": "supernova",
+      "description": "Constraint on dark photon emission from SN1987A core. The bound sets epsilon < 10^{-9}-10^{-10} for m_A' in the 1-100 MeV range from the requirement that the dark photon luminosity does not exceed the neutrino luminosity.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Aprime"
+      ],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {},
+      "observable": "SN1987A neutrino luminosity constraint",
+      "required_inputs": [
+        "epsilon_kinetic_mixing",
+        "m_A'",
+        "SN core temperature and density profile"
+      ],
+      "required_observables": [
+        "A' production rate in SN core via nucleon-nucleon bremsstrahlung, electron-positron annihilation"
+      ],
+      "available_observables": [],
+      "missing_observables": [
+        "epsilon = 0; no production mechanism in SN core"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Not applicable under model assumptions. The SN1987A cooling constraint requires epsilon to couple A' to nucleons and leptons in the supernova core. With epsilon = 0, A' is not produced in SN cores. Moreover, the A' mass (300-900 MeV in the 1-sigma region) is above the range where SN cooling bounds are strongest (1-100 MeV).",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "If epsilon != 0: SN1987A bound excludes epsilon > 10^{-9}-10^{-10} for m_A' < ~100 MeV",
+        "For m_A' > 100 MeV, the SN bound weakens and becomes irrelevant by ~300 MeV",
+        "Heavy Dark Photon Handbook shows fireball formation constraints also require epsilon > ~10^{-10} for m_A' > 2m_e"
+      ],
+      "source": {
+        "title": "The Heavy Dark Photon Handbook",
+        "arxiv_id": "2511.15785",
+        "authors": "Caputo, Park, Yun",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C04",
+      "name": "BBN constraints on late-decaying particles / energy injection",
+      "category": "BBN",
+      "description": "Constraints from Big Bang Nucleosynthesis on particles that decay and inject electromagnetic or hadronic energy after T ~ 1 MeV (t ~ 1 s). The dark sector particles must either decay before BBN or be sufficiently diluted to avoid disrupting light element abundances.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Aprime",
+        "chi",
+        "psi_1",
+        "psi_2"
+      ],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {},
+      "observable": "Particle lifetime, abundance at BBN, energy injection rate",
+      "required_inputs": [
+        "m_Aprime",
+        "m_psi",
+        "m_chi",
+        "g_D",
+        "y_psi",
+        "v",
+        "dark sector temperature history",
+        "relic abundance of each particle before decay"
+      ],
+      "required_observables": [
+        "A' -> psi+ psi- decay width (tree-level available)",
+        "chi decay width (if kinematically allowed)",
+        "psi_1, psi_2 stability (if lightest, they do not decay)",
+        "Relic abundance of each dark sector particle after phase transition"
+      ],
+      "available_observables": [
+        "masses from fopt_benchmarks.csv and PTArcade posterior"
+      ],
+      "missing_observables": [
+        "Relic abundance of dark sector particles after FOPT reheating",
+        "Possible late decay of chi if it is not the lightest particle",
+        "Entropy dilution factor from the phase transition"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Requires new calculation. Preliminary analysis shows: (1) A' decays to psi+ psi- promptly (tau ~ 10^{-13}-10^{-12} s << 1s), so A' is BBN-safe; (2) chi is the lightest DS particle in most of the 1-sigma region and is stable; (3) If chi is stable, no BBN constraints from chi decay; (4) The FOPT itself occurs at T_reh ~ 1-200 MeV (depending on point), which is before or during BBN. The latent heat release reheats only the dark sector, which could affect the SM expansion rate only through gravitational interactions.",
+      "tested_subregion": {
+        "description": "In the 1-sigma PTArcade region, all DS particles are > 30 MeV and non-relativistic at BBN. Only the stable lightest particle (chi in most of region) persists. For the FOPT benchmark region (v ~ MeV-scale), the same conclusion holds: A' decays promptly.",
+        "safe": true,
+        "notes": "A' decay is always prompt (tau ~ 10^{-13}-10^{-12} s). BBN constraints are not automatically violated, but a full calculation requires the relic abundance of chi (stable DM candidate)."
+      },
+      "applicability_notes": [
+        "Joint CMB+BBN analysis (Giovanetti et al. PRL 129, 021302) excludes DM masses below ~4 MeV for DM coupled via dark photon",
+        "This bound applies to DM that annihilates to SM via dark photon mediator - requires epsilon != 0",
+        "For the secluded case, the bound does not directly apply because dark sector particles cannot decay to SM"
+      ],
+      "source": {
+        "title": "Joint CMB and BBN Constraints on Light Dark Sectors with Dark Radiation",
+        "arxiv_id": "2109.03246",
+        "authors": "Giovanetti, Lisanti, Liu, Ruderman",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C05",
+      "name": "CMB Delta N_eff constraint from dark radiation",
+      "category": "Neff",
+      "description": "Constraints on the effective number of neutrino species N_eff from Planck 2018 and combined CMB datasets. Dark sector degrees of freedom that remain relativistic at BBN/CMB contribute to Delta N_eff and are constrained to Delta N_eff < 0.28 (Planck 2018, 95% CL).",
+      "applicability_class": "direct",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Aprime",
+        "chi",
+        "psi_1",
+        "psi_2"
+      ],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {},
+      "observable": "Delta N_eff = (4/7) * g*_ds * (T_ds/T_nu)^4 for relativistic dark sector particles at BBN/CMB",
+      "required_inputs": [
+        "dark sector particle masses",
+        "dark sector temperature T_ds at BBN/CMB epoch",
+        "xi = T_ds/T_SM at BBN/CMB"
+      ],
+      "required_observables": [
+        "Mass of each dark sector particle (available from PTArcade posterior)",
+        "Temperature of dark sector at BBN epoch (requires thermal history calculation)",
+        "xi = T_ds/T_SM evolution from phase transition to BBN"
+      ],
+      "available_observables": [
+        "masses are available from the PTArcade posterior"
+      ],
+      "missing_observables": [
+        "Dark sector temperature evolution after FOPT reheating",
+        "xi(T) = T_ds(T)/T_SM(T) throughout cosmological history",
+        "Self-consistent decoupling temperature of the dark sector"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Directly applicable but satisfied for the 1-sigma PTArcade region. All dark sector particles have masses > 30 MeV, making them non-relativistic at BBN (T ~ 1 MeV). Therefore they contribute to matter density, NOT to radiation density (N_eff). The Delta N_eff constraint is automatically satisfied if the dark sector reheats above its mass threshold and then becomes non-relativistic before BBN. However, the assumption xi = 1 is inconsistent with zero portal couplings and must be addressed.",
+      "tested_subregion": {
+        "description": "In the 1-sigma PTArcade region, m_A' > 340 MeV, m_psi > 50 MeV, m_chi > 20 MeV. All are >> T_BBN ~ 1 MeV. No relativistic relics at BBN/CMB.",
+        "safe": true,
+        "notes": "For the FOPT benchmark points (v ~ 10-20 MeV), m_chi ~ 1-2 MeV which could be borderline relativistic at BBN. This sub-MeV region is not in the 1-sigma PTArcade posterior."
+      },
+      "applicability_notes": [
+        "Planck 2018: N_eff = 2.99 +/- 0.17 (1sigma), Delta N_eff < 0.28 (95% CL)",
+        "Future CMB-S4: Delta N_eff < 0.06 at 95% CL",
+        "For a relativistic dark sector with g*_ds ~ 11 and xi = 1: Delta N_eff ~ 6.3, ruled out",
+        "Key point: DS particles in the 1-sigma region are non-relativistic at BBN, making this constraint automatically satisfied",
+        "But the phase transition reheats the DS to T_reh ~ 1-200 MeV, after which it cools. If any DS particle were lighter than MeV, it would contribute to Neff"
+      ],
+      "source": {
+        "title": "Planck 2018 results. VI. Cosmological parameters",
+        "arxiv_id": "1807.06209",
+        "authors": "Planck Collaboration",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C06",
+      "name": "CMB constraints from dark matter annihilation/decay",
+      "category": "CMB",
+      "description": "Planck CMB anisotropy constraints on energy injection from dark matter annihilation or decay. For DM masses in the MeV-GeV range, annihilation during or after recombination would distort the CMB power spectrum.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [
+        "chi",
+        "psi_1",
+        "psi_2"
+      ],
+      "mass_range": {
+        "minimum": 0.021,
+        "maximum": 0.619,
+        "units": "GeV"
+      },
+      "coupling_range": {},
+      "observable": "DM annihilation cross-section <sigma v> or decay rate, energy injection efficiency f_eff(z)",
+      "required_inputs": [
+        "DM mass",
+        "DM annihilation cross-section or decay rate",
+        "DM relic abundance"
+      ],
+      "required_observables": [
+        "chi chi -> (A A, psi psi) annihilation cross-section (if chi is DM)",
+        "psi+ psi- -> (A, chi) annihilation cross-section (if psi is DM)",
+        "chi relic abundance (needs freeze-out/freeze-in calculation)",
+        "psi relic abundance (needs freeze-out/freeze-in calculation)"
+      ],
+      "available_observables": [
+        "masses available from PTArcade posterior"
+      ],
+      "missing_observables": [
+        "Dark matter relic abundance (requires Boltzmann solver - new backend module)",
+        "DM annihilation cross-section to dark sector final states (tree-level calculation possible)",
+        "If DM is self-conjugate (chi is real scalar), s-wave annihilation dominates"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Requires new backend calculation. In this secluded model, DM particles can only annihilate within the dark sector (not to SM). CMB constraints on DM annihilation to invisible final states are weaker than those to SM charged particles. The Planck bound (p-wave: <sigma v> < 3x10^{-26} cm^3/s for s-wave) applies only if DM annihilates to SM charged particles. For dark-sector-only final states, the CMB constraint is indirect (energy injection heats the IGM) and requires computing the actual cascade.",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "Planck 2018: p-wave DM annihilation <sigma v> < 3x10^{-28} cm^3/s (for annihilation to e+e-) for m_DM ~ GeV",
+        "For final states without SM charged particles, the constraint is less stringent",
+        "A complete calculation requires relic abundance + annihilation cross-section + energy cascade"
+      ],
+      "source": {
+        "title": "Planck 2018 results. VI. Cosmological parameters",
+        "arxiv_id": "1807.06209",
+        "authors": "Planck Collaboration",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C07",
+      "name": "Dark matter relic abundance (overproduction bound)",
+      "category": "theory",
+      "description": "If the lightest dark sector particle is stable, it must not overclose the universe. The relic abundance must satisfy Omega_DM h^2 < 0.12. Thermal freeze-out or freeze-in relic density must be computed.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [
+        "chi",
+        "psi_1",
+        "psi_2"
+      ],
+      "mass_range": {
+        "minimum": 0.021,
+        "maximum": 0.619,
+        "units": "GeV"
+      },
+      "coupling_range": {
+        "g_D": [
+          0.5256,
+          0.6476
+        ],
+        "y_psi": [
+          0.1095,
+          0.6045
+        ]
+      },
+      "observable": "Omega_DM h^2 from thermal freeze-out or freeze-in",
+      "required_inputs": [
+        "DM mass",
+        "DM-SM coupling (zero)",
+        "DM-dark sector coupling",
+        "dark sector temperature evolution"
+      ],
+      "required_observables": [
+        "chi self-annihilation cross-section (chi chi -> A A via gauge coupling)",
+        "chi psi annihilation cross-section (if m_chi > m_psi)",
+        "psi psi_bar annihilation cross-section (psi psi_bar -> A' -> ... )",
+        "Dark sector thermal history (decoupling temperature, entropy dilution)"
+      ],
+      "available_observables": [
+        "masses, gauge couplings from PTArcade posterior"
+      ],
+      "missing_observables": [
+        "chi annihilation cross-section (requires matrix element calculation - new backend module)",
+        "psi annihilation cross-section (requires matrix element calculation - new backend module)",
+        "Thermal freeze-out calculation (requires Boltzmann solver - new backend module)",
+        "If freeze-in: dark sector production rate from SM (zero for secluded case)"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Requires new backend calculation. At the MAP point, chi (m_chi = 65 MeV) is the lightest DS particle and is stable. Its relic abundance from thermal freeze-out within the dark sector has not been computed. For the 1-sigma region, the dark sector was reheated to T_reh ~ 1-200 MeV during the FOPT, after which it cools independently. Whether chi reaches thermal equilibrium within the dark sector and then freezes out depends on chi self-interaction and annihilation rates.",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "In secluded freeze-out, DM annihilates to other dark sector particles which then decay to SM",
+        "But in this model, dark sector particles cannot decay to SM (no portal)",
+        "So the dark sector either forms its own thermal bath, or DM is produced via freeze-in",
+        "If chi is the lightest and stable, its relic density is set by 3->2 processes or by chi chi -> A A",
+        "Overproduction would require Omega_DM > 0.12; underproduction is not a constraint"
+      ],
+      "source": {
+        "title": "Planck 2018 results. VI. Cosmological parameters",
+        "arxiv_id": "1807.06209",
+        "authors": "Planck Collaboration",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C08",
+      "name": "Perturbative unitarity bound on g_D and y_psi",
+      "category": "theory",
+      "description": "Perturbative unitarity of 2->2 scattering amplitudes requires couplings to satisfy |Re(a_0)| < 1/2. For U(1)_D models, this translates to bounds on g_D and the scalar-vector coupling combinations.",
+      "applicability_class": "direct",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Aprime",
+        "chi",
+        "psi_1",
+        "psi_2"
+      ],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {
+        "g_D": [
+          0.1,
+          4.0
+        ],
+        "y_psi": [
+          0.0,
+          1.0
+        ]
+      },
+      "observable": "Partial wave unitarity of coupled-channel amplitudes",
+      "required_inputs": [
+        "g_D",
+        "y_psi",
+        "m_Aprime",
+        "m_chi"
+      ],
+      "required_observables": [
+        "S-matrix eigenvalues for A'A' -> A'A', A'A' <-> chi chi, chi chi -> chi chi"
+      ],
+      "available_observables": [
+        "g_D and masses from PTArcade posterior; computations needed for unitarity bounds at specific masses"
+      ],
+      "missing_observables": [
+        "Full coupled-channel unitarity analysis at the DS energy scale (requires amplitude calculation)"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Directly applicable but requires dedicated calculation. The rough bound g_D < 4*pi (from 4-fermion scattering) is satisfied by the full 1-sigma region (g_D < 0.65). More stringent bounds come from specific coupled-channel computations: for g_D ~ 0.7, the bound m_A' > 0.8 GeV applies for m_chi = 2 GeV (Araki et al. 2406.17760). The 1-sigma region has m_A' = 340-940 MeV and m_chi = 20-120 MeV, so this specific bound requires recalculation for the actual mass hierarchy.",
+      "tested_subregion": {
+        "description": "g_D in 1-sigma region is [0.5256, 0.6476], well below 4*pi. The more stringent coupled-channel bound (Araki et al. 2406.17760) applies for different mass hierarchies and needs recalculation.",
+        "potentially_safe": true,
+        "notes": "The robust perturbativity bound g_D < 4*pi is satisfied. Model-specific unitarity bounds from vector-scalar scattering require dedicated computation at the actual mass scales."
+      },
+      "applicability_notes": [
+        "Araki et al. (2406.17760): for g'=0.7 and sqrt(s)=10 TeV, unitarity excludes m_A' < 0.8 GeV (for m_phi=2 GeV)",
+        "Li et al. (2405.18226): m_s < sqrt(2*pi) * m_A'/g_D from vector-scalar unitarity",
+        "For g_D=0.58, m_A'=0.58 GeV: bound gives m_chi < sqrt(2*pi) * 0.58/0.58 = 2.5 GeV -> satisfied",
+        "Standard perturbativity: g_D < 4*pi and y_psi < sqrt(4*pi) are both satisfied"
+      ],
+      "source": {
+        "title": "Dark photon pair production via off-shell dark Higgs at FASER",
+        "arxiv_id": "2406.17760",
+        "authors": "Araki, Asai, Nakashima, Shimomura",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C09",
+      "name": "Vacuum stability / CW consistency condition",
+      "category": "theory",
+      "description": "The Coleman-Weinberg mechanism requires beta_lambda > 0 for radiative symmetry breaking. This gives the condition 3*g_D^4 > 2*y_psi^4, or equivalently y_psi < (3/2)^(1/4)*g_D.",
+      "applicability_class": "direct",
+      "constraint_applied": true,
+      "affected_particles": [
+        "chi"
+      ],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {
+        "g_D": [
+          0.1,
+          4.0
+        ],
+        "y_psi": [
+          0.0,
+          1.0
+        ]
+      },
+      "observable": "beta_lambda = (3*g_D^4 - 2*y_psi^4)/(8*pi^2) > 0",
+      "required_inputs": [
+        "g_D",
+        "y_psi"
+      ],
+      "required_observables": [
+        "beta_lambda"
+      ],
+      "available_observables": [
+        "beta_lambda computed in fopt_results.json and fopt_benchmarks.csv"
+      ],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {},
+      "applicability": "Directly applicable and already enforced by upstream agents. The FOPT scan and PTArcade analysis both filter points with beta_lambda < 0. The 1-sigma PTArcade region automatically satisfies this constraint.",
+      "tested_subregion": {
+        "description": "All viable points satisfy beta_lambda > 0. Points with y_psi > (3/2)^(1/4)*g_D are excluded.",
+        "fully_excluded": false,
+        "safe": true,
+        "notes": "This is an internal consistency condition that was already used to filter viable points in the FOPT and PTA analyses."
+      },
+      "applicability_notes": [
+        "Derived from: beta_lambda = (3*g_D^4 - 2*y_psi^4)/(8*pi^2) > 0",
+        "The 1-sigma PTArcade region has g_D ~ 0.53-0.65, giving (3/2)^(1/4)*g_D ~ 0.59-0.72",
+        "The y_psi 1-sigma range is [0.109, 0.604], partially exceeding the bound for the lowest g_D values",
+        "The MCMC naturally enforces this condition, so the posterior only contains valid points"
+      ],
+      "source": {
+        "title": "Same as handoff_model.json - validated by critic agent",
+        "arxiv_id": "",
+        "authors": "Pipeline validation",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C10",
+      "name": "Supercooling condition (Feng-Zhang condition)",
+      "category": "theory",
+      "description": "For a viable supercooled first-order phase transition, the dark photon must be heavier than the dark fermions: m_A' > m_psi. This gives g_D > y_psi/sqrt(2) and prevents fermion backreaction from suppressing the transition.",
+      "applicability_class": "direct",
+      "constraint_applied": true,
+      "affected_particles": [
+        "Aprime",
+        "psi_1",
+        "psi_2"
+      ],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {
+        "g_D": [
+          0.1,
+          4.0
+        ],
+        "y_psi": [
+          0.0,
+          1.0
+        ]
+      },
+      "observable": "m_A' > m_psi => g_D > y_psi/sqrt(2)",
+      "required_inputs": [
+        "g_D",
+        "y_psi"
+      ],
+      "required_observables": [
+        "m_Aprime = g_D * v",
+        "m_psi = y_psi * v/sqrt(2)"
+      ],
+      "available_observables": [
+        "masses available from fopt_benchmarks.csv"
+      ],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {},
+      "applicability": "Directly applicable and already enforced by upstream agents. The FOPT scan excludes points failing this condition as 'physical failures'. The 1-sigma PTArcade region automatically satisfies this constraint.",
+      "tested_subregion": {
+        "description": "MAP point: g_D=0.5316, y_psi/sqrt(2)=0.0769, condition satisfied (0.5316 > 0.0769).",
+        "safe": true,
+        "notes": "The 1-sigma region has g_D in [0.5256, 0.6476] while y_psi/sqrt(2) ranges from [0.077, 0.427]. The condition is marginally satisfied for the most extreme points (g_D=0.5256, y_psi=0.6045, so g_D=0.5256 > y_psi/sqrt(2)=0.427, satisfied)."
+      },
+      "applicability_notes": [
+        "Derived from Feng-Zhang (2602.14866): m_A' > m_chi (dark photon heavier than dark Higgs) is required for FOPT",
+        "In this model: m_A' > m_psi is the relevant condition (not m_chi)",
+        "This condition was added to the model documentation by the critic agent"
+      ],
+      "source": {
+        "title": "Gauge-independent gravitational waves from a minimal dark U(1) sector",
+        "arxiv_id": "2602.14866",
+        "authors": "Feng, Zhang",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C11",
+      "name": "Dark matter self-interaction constraints (Bullet Cluster, dwarf galaxies)",
+      "category": "structure_formation",
+      "description": "If the lightest dark sector particle (chi or psi) constitutes dark matter, its self-interaction cross-section is constrained by observations of the Bullet Cluster (sigma/m < ~1 cm^2/g) and dwarf galaxy dynamics.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [
+        "chi",
+        "psi_1",
+        "psi_2"
+      ],
+      "mass_range": {
+        "minimum": 0.021,
+        "maximum": 0.619,
+        "units": "GeV"
+      },
+      "coupling_range": {
+        "g_D": [
+          0.5256,
+          0.6476
+        ],
+        "y_psi": [
+          0.1095,
+          0.6045
+        ]
+      },
+      "observable": "DM self-interaction cross-section per unit mass sigma_T/m",
+      "required_inputs": [
+        "DM mass",
+        "DM-DM coupling",
+        "mediator mass"
+      ],
+      "required_observables": [
+        "chi chi elastic scattering cross-section via chi self-coupling lambda_Phi and A' exchange (if chi is DM)",
+        "psi psi elastic scattering cross-section via A' exchange (if psi is DM)"
+      ],
+      "available_observables": [
+        "masses, couplings from PTArcade posterior"
+      ],
+      "missing_observables": [
+        "DM self-interaction cross-section (requires matrix element computation - new backend module)",
+        "Velocity dependence of cross-section required for comparing to different halo scales"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Requires new backend calculation. If chi (m_chi ~ 20-120 MeV) is the DM candidate, its self-interaction via A' exchange could be significant. The mediator-to-DM mass ratio m_A'/m_chi ~ 5-20 in the 1-sigma region, which could lead to velocity-dependent self-interactions in the perturbative regime. A dedicated calculation is required.",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "Bullet Cluster: sigma/m < 1 cm^2/g at v ~ 4000 km/s",
+        "Dwarf galaxies: sigma/m ~ 0.1-10 cm^2/g could explain small-scale structure",
+        "For mediator mass >> DM mass: cross-section scales as sigma ~ alpha_D^2 * m_DM^2 / m_A'^4",
+        "In this model m_A'/m_chi ~ 5-20, which suggests perturbative regime and likely sub-GeV self-interactions"
+      ],
+      "source": {
+        "title": "Coherent self-interactions of dark matter in the Bullet Cluster",
+        "arxiv_id": "2311.07648",
+        "authors": "Bogorad, Graham, Ramani",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C12",
+      "name": "Dark photon decay constraints (cosmological, avoid overproduction of unstable relics)",
+      "category": "BBN",
+      "description": "The dark photon A' decays to psi+ psi- with a prompt lifetime. However, if the psi particles subsequently decay or annihilate, they could inject energy. A' overproduction after the phase transition must also be avoided.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Aprime"
+      ],
+      "mass_range": {
+        "minimum": 0.3414,
+        "maximum": 0.938,
+        "units": "GeV"
+      },
+      "coupling_range": {
+        "g_D": [
+          0.5256,
+          0.6476
+        ]
+      },
+      "observable": "A' abundance after FOPT and before decay; energy injection from A' decay products",
+      "required_inputs": [
+        "g_D",
+        "m_Aprime",
+        "m_psi",
+        "T_reh",
+        "alpha",
+        "beta_H"
+      ],
+      "required_observables": [
+        "A' number density after FOPT reheating (available: T_reh from FOPT)",
+        "A' decay width to psi+ psi- (available from tree-level calculation)",
+        "psi thermalisation rate within dark sector after production"
+      ],
+      "available_observables": [
+        "T_reh, alpha, beta_H from handoff_fopt.json",
+        "A' decay width (tree-level)"
+      ],
+      "missing_observables": [
+        "A' relic abundance from thermal freeze-out or freeze-in within dark sector",
+        "psi number density and whether psi's thermalise or free-stream"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Requires dedicated calculation. The prompt A' decay (tau ~ 10^{-13} s) means A' does not survive as a relic. However, during the A' -> psi+ psi- decays, the energy is transferred to the fermions which then thermalise in the dark sector. This is a self-consistent dark sector thermal history.",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "A' lifetime at MAP: tau ~ 1.6 x 10^{-13} s (prompt)",
+        "A' decay products (psi+ psi-) thermalise within the dark sector via gauge interactions",
+        "No observational signature because decay products are invisible to SM detectors"
+      ],
+      "source": {
+        "title": "Tree-level decay width calculation (standard QFT)",
+        "arxiv_id": "",
+        "authors": "",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "C13",
+      "name": "Higgs invisible decay constraint (Higgs -> chi chi, A' A', psi psi)",
+      "category": "collider",
+      "description": "If the Higgs portal coupling lambda_HPhi were non-zero, the SM Higgs could decay to dark sector particles. ATLAS and CMS set limits on the Higgs invisible branching ratio BR_inv < 0.11 (ATLAS) and BR_inv < 0.13 (CMS).",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": [
+        "chi",
+        "Aprime",
+        "psi_1",
+        "psi_2"
+      ],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {},
+      "observable": "Higgs invisible branching fraction BR(h -> DS DS)",
+      "required_inputs": [
+        "lambda_HPhi",
+        "DS particle masses"
+      ],
+      "required_observables": [
+        "h -> chi chi width (if lambda_HPhi != 0)",
+        "h -> A' A' width (if via loops)"
+      ],
+      "available_observables": [],
+      "missing_observables": [
+        "lambda_HPhi = 0 (fixed parameter)"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Not applicable under model assumptions. Higgs portal lambda_HPhi is set to zero. There is no tree-level coupling between the SM Higgs and the dark sector. Even if non-zero, the dark sector particles are generally lighter than m_h/2 (m_chi ~ 20-120 MeV, m_A' ~ 340-940 MeV, m_psi ~ 50-620 MeV), so the invisible width would be sizable. This constraint would be among the strongest if lambda_HPhi were non-zero.",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "ATLAS: BR(h -> inv) < 0.11 at 95% CL",
+        "CMS: BR(h -> inv) < 0.13 at 95% CL",
+        "If lambda_HPhi = 0.01, BR(h -> DS) could easily exceed experimental bounds",
+        "Future HL-LHC: projected sensitivity BR(h -> inv) < 0.024 at 95% CL"
+      ],
+      "source": {
+        "title": "ATLAS combination of Higgs invisible decays",
+        "arxiv_id": "2309.11521",
+        "authors": "ATLAS Collaboration",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "C14",
+      "name": "Dark matter direct detection constraints (XENONnT, LZ, PandaX-4T)",
+      "category": "direct_detection",
+      "description": "Direct detection experiments search for DM-nucleon scattering. If the DM particle couples to SM quarks (via Higgs or A' exchange), stringent limits apply. For the secluded case, no such coupling exists.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": [
+        "chi",
+        "psi_1",
+        "psi_2"
+      ],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {},
+      "observable": "DM-nucleon spin-independent scattering cross-section sigma_SI",
+      "required_inputs": [
+        "m_DM",
+        "epsilon_kinetic_mixing or lambda_HPhi",
+        "DM-SM coupling"
+      ],
+      "required_observables": [
+        "DM-nucleon scattering via Higgs exchange or photon exchange"
+      ],
+      "available_observables": [],
+      "missing_observables": [
+        "epsilon = 0, lambda_HPhi = 0 -> no coupling to SM quarks"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Not applicable under model assumptions. With epsilon = 0 and lambda_HPhi = 0, there is no coupling between dark matter (chi or psi) and SM nuclei. Direct detection experiments set limits on the SI cross-section, but the predicted cross-section for this model is identically zero at tree level.",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "XENONnT: sigma_SI < 2.6 x 10^{-47} cm^2 for m_DM = 200 GeV (spin-independent)",
+        "LZ: sigma_SI < 9.2 x 10^{-48} cm^2 for m_DM = 30 GeV (spin-independent)",
+        "For sub-GeV DM: CRESST, DAMIC, SENSEI set limits on electron recoils",
+        "All of these require DM to couple to SM, which is absent in this model"
+      ],
+      "source": {
+        "title": "XENONnT 2024 results",
+        "arxiv_id": "2408.08791",
+        "authors": "XENON Collaboration",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "C15",
+      "name": "Dark matter indirect detection constraints (Fermi-LAT, AMS-02, HESS)",
+      "category": "indirect_detection",
+      "description": "Indirect detection searches for photons, cosmic rays, and neutrinos from DM annihilation or decay in astrophysical environments.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": [
+        "chi",
+        "psi_1",
+        "psi_2"
+      ],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {},
+      "observable": "DM annihilation flux: Phi = (<sigma v> / 8*pi*m_DM^2) * J-factor * dN/dE",
+      "required_inputs": [
+        "m_DM",
+        "<sigma v>",
+        "DM annihilation final states",
+        "DM spatial distribution"
+      ],
+      "required_observables": [
+        "DM -> SM final state branching ratios"
+      ],
+      "available_observables": [],
+      "missing_observables": [
+        "No DM -> SM annihilation channels in secluded model"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Not applicable under model assumptions. The DM candidate (chi or psi) in this secluded model annihilates only to other dark sector particles (A A, psi psi), not to SM particles. These annihilation products do not produce visible signals (gamma rays, cosmic rays, neutrinos) detectable by Fermi-LAT, AMS-02, or HESS.",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "Fermi-LAT dSph: <sigma v> < 3 x 10^{-26} cm^3/s for b\bar{b} final state (m_DM ~ GeV)",
+        "These bounds apply only to DM -> SM final states",
+        "For secluded DM, CMB bounds on energy injection are more constraining than indirect detection"
+      ],
+      "source": {
+        "title": "Fermi-LAT 2016 dSph combined analysis",
+        "arxiv_id": "1602.04816",
+        "authors": "Fermi-LAT Collaboration",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "C16",
+      "name": "BBN/CMB constraint on phase transition energy injection (Bai-Korwar bound)",
+      "category": "BBN",
+      "description": "First-order phase transitions deposit latent heat into the thermal bath. For strong PTs (alpha >> 1) occurring near or during BBN, the energy injection modifies the expansion history and light element abundances. Bai & Korwar (2109.14765) find T_* > ~2 MeV for strong PTs.",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": [],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {},
+      "observable": "Phase transition temperature T_* and strength alpha_*",
+      "required_inputs": [
+        "alpha (PT strength)",
+        "T_reh (reheating temperature)",
+        "xi_coupling (which sector receives latent heat)"
+      ],
+      "required_observables": [
+        "alpha from FOPT code (available in handoff_fopt.json)",
+        "T_reh from FOPT code (available in handoff_fopt.json)",
+        "Reheating sector: photon vs neutrino vs dark sector (assumed: latent heat reheats only dark sector)"
+      ],
+      "available_observables": [
+        "alpha, T_reh from handoff_fopt.json"
+      ],
+      "missing_observables": [
+        "Energy partition between dark sector and SM during reheating (assumed: 100% to dark sector)",
+        "xi(T) evolution: dark/visible temperature ratio after the phase transition"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Approximately testable using existing FOPT outputs. The 1-sigma PTArcade region has T_reh ~ 1-200 MeV (estimated from typical FOPT points in similar parameter regions). For the FOPT benchmark in handoff_fopt.json, T_reh ranges from 0.45 MeV to 2.0 MeV. The Bai-Korwar bound says T_* > ~2 MeV for strong PTs (alpha >> 1). Points with T_reh below ~2 MeV combined with alpha >> 1 may be in tension with BBN+Planck. However, the actual constraint depends on whether the latent heat reheats the dark sector or the SM - if only the dark sector is reheated (as expected with zero portal couplings), the BBN constraint on the SM sector is much weaker.",
+      "tested_subregion": {
+        "description": "FOPT benchmark points: PTA_center_2 (T_reh=1.04 MeV, alpha=88), PTA_center_4 (T_reh=1.03 MeV, alpha=75), PTA_center_5 (T_reh=0.45 MeV, alpha=5.65) have T_reh < 2 MeV with alpha >> 1. These are in the benchmark scan region (v ~ 10-20 MeV), not the PTArcade 1-sigma region (v ~ 0.65-1.45 GeV).",
+        "potentially_excluded": true,
+        "notes": "The Bai-Korwar bound assumes latent heat reheats SM photons. In this secluded model, latent heat reheats only the dark sector. If the dark sector then remains decoupled, the effect on SM BBN is only through gravitational interactions - much weaker. Proper assessment requires computing the dark sector temperature evolution."
+      },
+      "applicability_notes": [
+        "Bai & Korwar (2109.14765): T_* > 2 MeV for alpha >> 1 (photon reheating)",
+        "Deng & Bian (2304.06576): lower N_eff for strong PTs with photon reheating",
+        "Key difference: in this model, latent heat reheats the dark sector, not the SM",
+        "If the dark sector is fully secluded, the SM remains unaffected by the phase transition energy",
+        "The only effect on SM BBN is through gravitational coupling which is negligible"
+      ],
+      "source": {
+        "title": "Cosmological Constraints on First-Order Phase Transitions",
+        "arxiv_id": "2109.14765",
+        "authors": "Bai, Korwar",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C17",
+      "name": "xi = 1 self-consistency (thermalisation of secluded dark sector)",
+      "category": "thermalization",
+      "description": "The assumption xi = T_dark/T_SM = 1 requires the dark sector to be in thermal equilibrium with the SM at some point after inflation. With zero portal couplings (epsilon = 0, lambda_HPhi = 0), no mechanism exists to establish or maintain this equilibrium.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [],
+      "mass_range": {
+        "minimum": null,
+        "maximum": null,
+        "units": "GeV"
+      },
+      "coupling_range": {},
+      "observable": "Dark sector temperature evolution xi(T) = T_dark(T)/T_SM(T)",
+      "required_inputs": [
+        "epsilon",
+        "lambda_HPhi",
+        "G_N (Newton's constant)",
+        "dark sector particle spectrum"
+      ],
+      "required_observables": [
+        "Thermalization rate Gamma_th between dark sector and SM via gravitational interactions",
+        "Hubble rate H(T) for temperature comparison",
+        "Initial condition for T_dark/T_SM after inflation"
+      ],
+      "available_observables": [],
+      "missing_observables": [
+        "Gravitational thermalization rate (requires Planck-suppressed scattering calculation)",
+        "Dark sector production during reheating (requires inflaton-DS coupling knowledge)",
+        "Self-consistent xi(T) history from reheating to BBN"
+      ],
+      "units": {},
+      "conventions": {},
+      "applicability": "Requires new calculation. This is a fundamental consistency check. Without any portal coupling, the dark sector cannot maintain xi = 1. The gravitational interaction rate is Planck-suppressed: Gamma_grav ~ T^5/M_Pl^4 << H(T) at all temperatures below the Planck scale. Therefore the dark sector decouples from the SM at temperatures near the Planck scale and subsequently evolves with a lower temperature (or different initial condition).",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "Gravitational production rate: Gamma ~ alpha_s^2 T^8 / M_Pl^4 << H ~ T^2/M_Pl",
+        "Ratio Gamma/H ~ T^6/M_Pl^3 -> at T=1 GeV, Gamma/H ~ 10^{-51} -> completely negligible",
+        "The only way to have xi=1 is if the dark sector was produced with the same temperature as SM during reheating",
+        "Even then, the sectors decouple immediately and evolve differently",
+        "This is a significant model assumption that should be revisited"
+      ],
+      "source": {
+        "title": "Gravitational production of dark matter during reheating",
+        "arxiv_id": "2210.05716",
+        "authors": "Barman, Bernal, Das, Racioppi",
+        "citation_verified": true
+      }
+    }
+  ],
+  "missing_calculations": [
+    {
+      "observable": "Dark matter relic abundance (chi or psi)",
+      "needed_for_constraints": [
+        "C07: DM overproduction bound",
+        "C06: CMB constraints from DM annihilation/decay",
+        "C04: BBN constraints on late-decaying particles"
+      ],
+      "required_inputs": [
+        "DM mass (available from PTArcade posterior)",
+        "DM annihilation cross-section (chi chi -> A A, psi psi_bar -> A'* -> ...)",
+        "Dark sector thermal history (reheating temperature, cooling rate)",
+        "gauge coupling g_D",
+        "Yukawa coupling y_psi"
+      ],
+      "suggested_backend_module": "Boltzmann equation solver for secluded freeze-out or freeze-in within dark sector",
+      "validation_checks": [
+        "Verify which particle is the lightest (chi in most of 1-sigma region)",
+        "Compute chi chi -> A A annihilation cross-section at tree level",
+        "Check if chi reaches internal thermal equilibrium within dark sector",
+        "Compute relic abundance via standard freeze-out or freeze-in",
+        "Compare Omega_DM h^2 to Planck 2018 value 0.12"
+      ],
+      "priority": "high"
+    },
+    {
+      "observable": "Dark sector temperature evolution xi(T) = T_dark/T_SM",
+      "needed_for_constraints": [
+        "C17: xi = 1 self-consistency",
+        "C05: Delta N_eff from dark radiation",
+        "C07: DM relic abundance",
+        "C16: BBN/CMB constraint on PT energy injection"
+      ],
+      "required_inputs": [
+        "Portal couplings (epsilon, lambda_HPhi) - both zero",
+        "Dark sector particle masses",
+        "FOPT parameters (T_reh, alpha)",
+        "Initial condition for xi after inflation",
+        "Gravitational production rates"
+      ],
+      "suggested_backend_module": "Coupled Boltzmann equations for dark and visible sector temperatures, including entropy injection from PT and gravitational interactions",
+      "validation_checks": [
+        "Check if any portal coupling is generated at loop level (even if zero at tree level)",
+        "Compute gravitational scattering rate vs Hubble rate",
+        "Determine decoupling temperature of dark sector",
+        "Compute xi(T) evolution from decoupling to present",
+        "Assess whether xi=1 assumption is consistent with no portal couplings"
+      ],
+      "priority": "high"
+    },
+    {
+      "observable": "DM annihilation cross-section to dark sector final states",
+      "needed_for_constraints": [
+        "C06: CMB constraints from DM annihilation",
+        "C07: DM relic abundance",
+        "C15: Indirect detection (if any)"
+      ],
+      "required_inputs": [
+        "g_D, y_psi, v",
+        "masses of all DS particles",
+        "DM identity (which particle is the lightest)"
+      ],
+      "suggested_backend_module": "Tree-level matrix element calculator for 2->2 processes within dark sector",
+      "validation_checks": [
+        "Compute cross-section for chi chi -> A A (dominant annihilation channel if chi is DM)",
+        "Compute cross-section for psi psi_bar -> A (if psi is the DM candidate)",
+        "Check if DM is self-conjugate (chi) or not (psi)",
+        "Identify dominant annihilation channel (s-wave vs p-wave)"
+      ],
+      "priority": "medium"
+    },
+    {
+      "observable": "Perturbative unitarity bound for the specific mass hierarchy",
+      "needed_for_constraints": [
+        "C08: Perturbative unitarity"
+      ],
+      "required_inputs": [
+        "g_D, y_psi",
+        "m_Aprime, m_chi, m_psi",
+        "All relevant 2->2 scattering channels"
+      ],
+      "suggested_backend_module": "Coupled-channel partial wave unitarity analysis for U(1)_D with complex scalar + fermions",
+      "validation_checks": [
+        "Compute S-wave amplitudes for all 2->2 processes (A'A' -> A'A', A'A' <-> chi chi, chi chi -> chi chi, A'chi -> A'chi)",
+        "Diagonalize coupled-channel matrix",
+        "Apply unitarity condition |Re(a_0,max)| < 1/2",
+        "Check at the characteristic DS energy scale sqrt(s) ~ max(m_A', m_chi)"
+      ],
+      "priority": "low"
+    },
+    {
+      "observable": "DM self-interaction cross-section",
+      "needed_for_constraints": [
+        "C11: Bullet Cluster and dwarf galaxy constraints"
+      ],
+      "required_inputs": [
+        "DM mass (m_chi or m_psi, whichever is the lightest)",
+        "Couplings (lambda_Phi, g_D, y_psi)",
+        "Mediator masses"
+      ],
+      "suggested_backend_module": "Non-relativistic scattering cross-section computation (Born approximation or full solution)",
+      "validation_checks": [
+        "Compute chi chi -> chi chi elastic scattering via A' exchange and contact interaction",
+        "Compute velocity-dependent transfer cross-section sigma_T(v)",
+        "Compare to Bullet Cluster bound sigma/m < 1 cm^2/g at v ~ 4000 km/s",
+        "Compare to dwarf galaxy constraints sigma/m ~ 0.1-10 cm^2/g at v ~ 100 km/s"
+      ],
+      "priority": "low"
+    },
+    {
+      "observable": "xi self-consistent FOPT reheating (does the PT latent heat reheat the DS or both sectors?)",
+      "needed_for_constraints": [
+        "C16: BBN/CMB constraint on PT energy injection"
+      ],
+      "required_inputs": [
+        "alpha, T_reh from FOPT code",
+        "Portal couplings (epsilon, lambda_HPhi) - both zero",
+        "Equation of state of the false vacuum"
+      ],
+      "suggested_backend_module": "Extension to semianalytic_pipeline.py to track coupled DS-SM temperature evolution during and after the PT",
+      "validation_checks": [
+        "Determine which sector the latent heat is deposited into",
+        "Calculate post-PT temperature evolution of DS assuming no SM coupling",
+        "Compare to Bai-Korwar bound (T_* > 2 MeV for strong PT with photon reheating)",
+        "Assess the impact on BBN if the DS is completely secluded"
+      ],
+      "priority": "medium"
+    }
+  ]
+}

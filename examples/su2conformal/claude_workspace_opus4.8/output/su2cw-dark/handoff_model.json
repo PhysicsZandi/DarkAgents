@@ -1,0 +1,187 @@
+{
+  "model": "su2cw-dark",
+  "agent": "critic-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "validated_by": "critic-agent (no red flags, no fixes applied)",
+  "created_from": ["output/su2cw-dark/handoff_proposed_model.json"],
+  "commands": [],
+  "files_read": [
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "backend/semianalytic_pipeline.py"
+  ],
+  "files_written": [
+    "output/su2cw-dark/handoff_proposed_model.json",
+    "output/su2cw-dark/proposed_model.md"
+  ],
+  "warnings": [],
+  "errors": [],
+  "approximations": [
+    "High-temperature expansion of the one-loop thermal potential (small field/T, valid in the supercooled regime as documented in backend).",
+    "Tree-level potential is a single quartic; classical scale invariance forbids any explicit mass term.",
+    "Gauge-boson back-reaction on the scalar quartic dominates over the negligible scalar self-loop, so the scalar gb is fixed by beta_lambda and not scanned."
+  ],
+  "gauge_groups": [
+    {
+      "name": "SU(2)_D",
+      "type": "non-abelian dark gauge symmetry",
+      "coupling": "g",
+      "notes": "Confining-free perturbative dark gauge sector; fully broken by the scalar vev so no light non-abelian remnant."
+    }
+  ],
+  "global_symmetries": [
+    {
+      "name": "classical scale (conformal) invariance",
+      "notes": "No dimensionful parameter in the Lagrangian; broken radiatively via Coleman-Weinberg dimensional transmutation."
+    },
+    {
+      "name": "custodial SO(4) ~ SU(2)_L x SU(2)_R of the doublet potential",
+      "notes": "Accidental global symmetry of a single complex doublet with a single quartic; not gauged."
+    }
+  ],
+  "particle_content": [
+    {
+      "name": "Phi",
+      "type": "scalar",
+      "spin": 0,
+      "gauge_rep": {"SU(2)_D": "fundamental (doublet)"},
+      "statistics": "boson",
+      "dof": 4,
+      "notes": "Complex SU(2)_D doublet, 4 real dof. After SSB: 3 Goldstones eaten, 1 radial CW pseudo-dilaton chi remains."
+    },
+    {
+      "name": "W_D",
+      "type": "gauge boson",
+      "spin": 1,
+      "gauge_rep": {"SU(2)_D": "adjoint"},
+      "statistics": "boson",
+      "dof": 9,
+      "notes": "3 dark gauge bosons, each massive after SSB (3 polarizations) => 9 dof. Mass m_W = g*chi/2."
+    },
+    {
+      "name": "chi",
+      "type": "scalar (radial CW pseudo-dilaton)",
+      "spin": 0,
+      "gauge_rep": {"SU(2)_D": "singlet (radial mode)"},
+      "statistics": "boson",
+      "dof": 1,
+      "notes": "Physical radial scalar. Mass fixed by CW relation m_chi^2 = beta_lambda * chi0^2 (dependent)."
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "scalar kinetic",
+      "expression": "(D_mu Phi)^dagger (D^mu Phi)",
+      "notes": "D_mu Phi = (d_mu - i g (sigma^a/2) W^a_mu) Phi; gauge invariant under SU(2)_D."
+    },
+    {
+      "name": "gauge kinetic",
+      "expression": "-1/4 * W^a_{mu nu} W^{a mu nu}",
+      "notes": "Standard non-abelian Yang-Mills kinetic term, a=1,2,3."
+    },
+    {
+      "name": "scalar potential",
+      "expression": "lambda * (Phi^dagger Phi)**2",
+      "notes": "Only quartic term allowed by classical scale invariance. No mass term mu^2 Phi^dagger Phi."
+    }
+  ],
+  "free_parameters": [
+    {"name": "g", "range": [0.3, 1.5], "determination": "independent dark SU(2)_D gauge coupling; controls FOPT strength and supercooling."},
+    {"name": "chi0", "range": [1.0e-4, 1.0e2], "determination": "independent symmetry-breaking scale (vev, GeV); sets the GW peak frequency in the PTA band.", "units": "GeV"}
+  ],
+  "parameter_basis": {
+    "independent": {
+      "g": "Dark SU(2)_D gauge coupling.",
+      "chi0": "Scalar radial vev <chi> in GeV."
+    },
+    "dependent": {
+      "lambda": "Quartic coupling fixed by Coleman-Weinberg minimization (renormalization-scale dependent; not used by backend, never scanned).",
+      "beta_lambda": "beta_lambda = 1/(8*pi**2) * (n_W * gb_W**4 + 1 * gb_scalar**4); with gb_W = g/2, n_W = 9.",
+      "gb_scalar": "gb_scalar = sqrt(beta_lambda); scalar mass/vev ratio, fixed self-consistently, negligible back-reaction.",
+      "m_chi": "m_chi = sqrt(beta_lambda) * chi0; CW pseudo-dilaton mass."
+    },
+    "fixed": {
+      "n_W": "9 (three massive dark vectors, 3 polarizations each).",
+      "scalar_dof": "1 (radial mode; added automatically by backend).",
+      "fermion_content": "none."
+    }
+  },
+  "ssb_pattern": [
+    {
+      "pattern": "SU(2)_D -> nothing",
+      "notes": "A single doublet vev fully breaks SU(2)_D; all 3 gauge bosons acquire mass, 3 Goldstones eaten."
+    }
+  ],
+  "vev_convention": [
+    {
+      "convention": "Phi = (1/sqrt(2)) * (0, chi)^T in unitary gauge along the radial direction; <chi> = chi0.",
+      "notes": "Single real background field chi; m_W = g*chi/2."
+    }
+  ],
+  "tree_level_potential": [
+    {
+      "expression": "lambda * (chi**2 / 2)**2",
+      "simplified": "(lambda/4) * chi**4",
+      "notes": "Background-field tree potential along radial direction. Pure quartic, no mass term."
+    }
+  ],
+  "field_dependent_masses": [
+    {
+      "particle": "W_D",
+      "m2_of_chi": "g**2 * chi**2 / 4",
+      "gb": "g/2",
+      "dof": 9,
+      "statistics": "boson",
+      "notes": "Three dark gauge bosons, m_W^2 = g^2 chi^2/4 from the doublet kinetic term. gb_W = g/2."
+    },
+    {
+      "particle": "scalar",
+      "m2_of_chi": "beta_lambda * chi**2",
+      "gb": "sqrt(beta_lambda)",
+      "dof": 1,
+      "statistics": "boson",
+      "notes": "Radial CW scalar; gb fixed self-consistently by the gauge content (gb_scalar = sqrt(beta_lambda)). Added automatically by the backend, do not double count."
+    }
+  ],
+  "thermal_masses": [
+    {
+      "particle": "W_D (Debye, longitudinal)",
+      "expression": "g**2 * T**2 * (n_dof_factor)",
+      "notes": "Debye/thermal masses enter only via the high-temperature coefficient msq = T^2/12 * sum_B dof*gb^2 computed internally by the backend get_coeffs; no separate numeric input required. The backend reconstructs the thermal mass term from the gb and dof of each species."
+    }
+  ],
+  "expression_symbols": [
+    {"symbol": "g", "meaning": "SU(2)_D gauge coupling (independent)."},
+    {"symbol": "chi", "meaning": "real background radial scalar field."},
+    {"symbol": "chi0", "meaning": "vev of chi (independent), GeV."},
+    {"symbol": "lambda", "meaning": "scalar quartic coupling (dependent, scale-dependent)."},
+    {"symbol": "beta_lambda", "meaning": "CW beta function combination = 1/(8 pi^2)(sum_B n gb^4 - sum_F n gf^4)."},
+    {"symbol": "Phi", "meaning": "complex SU(2)_D scalar doublet."},
+    {"symbol": "W^a_mu", "meaning": "SU(2)_D gauge fields, a=1,2,3."},
+    {"symbol": "T", "meaning": "temperature."}
+  ],
+  "assumptions": [
+    "Dark sector is in thermal equilibrium with the SM bath (xi = 1 in the backend), so a common temperature applies.",
+    "No fermions are introduced; radiative symmetry breaking is guaranteed since bosons dominate (beta_lambda > 0).",
+    "Perturbativity: g <= ~1.5 keeps the one-loop CW analysis reliable.",
+    "Single scalar background direction; the doublet potential admits one radial flat direction lifted by CW."
+  ],
+  "backend_compatibility": [
+    {
+      "backend": "semianalytic_pipeline",
+      "status": "compatible",
+      "mapping": {
+        "chi0": "chi0 (GeV)",
+        "boson_gbs": {"Wprime": "g/2"},
+        "boson_dofs": {"Wprime": 9},
+        "fermion_gfs": {},
+        "fermion_dofs": {},
+        "scalar_handling": "boson_gbs['scalar'] and dof=1 added automatically by SemiAnalyticPipeline via get_scalar_mass()."
+      },
+      "notes": "Single-field classically scale-invariant model, no tree mass term, all masses proportional to one vev. Exactly the regime of backend/semianalytic_pipeline.py. beta_lambda = (9*(g/2)^4 + gb_scalar^4)/(8 pi^2) > 0, ensuring radiative SSB and a positive CW pseudo-dilaton mass."
+    }
+  ]
+}

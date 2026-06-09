@@ -1,0 +1,268 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{caption}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\newcommand{\SUtwoD}{\ensuremath{SU(2)_D}}
+\newcommand{\gev}{\,{\rm GeV}}
+\newcommand{\msun}{M_\odot}
+\title{Final Report: Minimal Conformal Non-Abelian Model for a PTA-Scale Signal}
+\author{DarkAgents}
+\date{2026-06-07}
+
+\begin{document}
+\maketitle
+
+\section{Summary}
+The completed \texttt{fopt-pta} pipeline identifies the minimal conformal non-Abelian candidate as a classically scale-invariant dark \SUtwoD{} gauge theory with one complex scalar doublet. The local authoritative model uses a zero-portal secluded dark sector, two free parameters $(g_D,v_D)$, and the vector-mass convention $m_{W_D}(\chi)=g_D\chi/2$.
+
+The exact core model is not new: Borah, Dasgupta and Kang studied the same classically conformal dark \SUtwoD{} doublet model as a NANOGrav 12.5-year first-order phase-transition interpretation in Ref.~\cite{Borah2021}. The present pipeline should therefore be read as a local recomputation and updated PTA-likelihood exercise, not as a model-level novelty claim.
+
+The first-order phase-transition (FOPT) scan found many viable points. The PTA benchmark scan found a near-match to the PTA violin windows, with best score $13/14$. The PTArcade campaign completed with status \texttt{ok}, $N_{\rm samples}=100000$, and maximum-a-posteriori (MAP) point
+\[
+g_D=0.863175,\qquad v_D=1.10802\gev .
+\]
+This is a conditional result. The dominant limitations are the DBF gravitational-wave template validity at extremely large $\alpha$, the absence of an independent wall-velocity or efficiency calculation, and missing thermal-history, BBN/CMB, $\Delta N_{\rm eff}$, relic-density, and self-interaction observables. The constraints stage found no direct exclusion, but mostly because the necessary observables are absent, not because full cosmological viability has been proven.
+
+\section{Prompt}
+\begin{quote}
+what is the minimal conformal non-abelian model that can explain the NANOGrav                     
+  signal?
+\end{quote}
+
+\section{Model Description}
+The critic-authoritative model is \texttt{minimal\_conformal\_su2\_doublet}. It contains a dark non-Abelian gauge group \SUtwoD{} with coupling $g_D$ and one complex scalar doublet $\Phi$, while all new fields are Standard-Model singlets. Classical scale invariance is imposed at tree level, forbidding explicit scalar mass terms. In unitary gauge,
+\[
+\Phi=\begin{pmatrix}0\\ \chi/\sqrt{2}\end{pmatrix},\qquad \langle \chi\rangle=v_D .
+\]
+The tree-level scalar potential is
+\[
+V_0(\chi)=\frac{\lambda_\phi}{4}\chi^4,
+\]
+where $\lambda_\phi$ is Coleman-Weinberg-fixed rather than an independent scan parameter. The symmetry-breaking pattern is
+\[
+\SUtwoD \rightarrow \varnothing,
+\]
+so the three dark vectors become massive, with
+\[
+m^2_{W_D}(\chi)=\frac{g_D^2\chi^2}{4}.
+\]
+The free parameters used downstream are $g_D>0$ and $v_D>0$. The local handoff flags a convention tension with Ref.~\cite{Borah2021}: that paper states a physical vector mass convention consistent with $M_{Z_D}=g_D M/2$, while also displaying a field-dependent mass normalization that is not directly identical to the local convention. All local computations use the critic-authoritative convention above.
+
+\section{Pipeline Status}
+\begin{center}
+\begin{tabular}{p{0.22\linewidth}p{0.14\linewidth}p{0.52\linewidth}}
+\toprule
+Stage & Status & Interpretation \\
+\midrule
+Model / critique & warning & Usable model; no red flags, but same-model precedent and mass-convention caveat. \\
+Preliminary literature & warning & Exact core model already studied in Ref.~\cite{Borah2021}; benchmark conventions require care. \\
+FOPT scan & ok & 934 points scanned, 662 viable, 268 failed, 4 excluded. \\
+PTA analysis & warning & Benchmark and PTArcade completed, but no $14/14$ benchmark and template/prior caveats remain. \\
+Constraints & warning & No exclusion claimed; most relevant observables require new backend calculations. \\
+Prior audit & warning & High-severity limitations dominate the final interpretation. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Preliminary Literature Search}
+The same-model precedent is Ref.~\cite{Borah2021}, which studied a classically conformal dark \SUtwoD{} model with one complex scalar doublet and a negligible Higgs portal for a NANOGrav 12.5-year FOPT interpretation. The directly quoted benchmark from that work is $g_D=1.37$, $M_{Z_D}=8.23\,{\rm MeV}$, $T_\star=1.8\,{\rm MeV}$, $\alpha_\star=0.45$, and $\phi_c/T_c=3.56$. This benchmark should not be imported into the local parameter basis without resolving the vector-mass convention.
+
+Several structurally related works provide context rather than direct benchmarks. Classically conformal Abelian hidden-sector models were studied for nano-Hertz gravitational waves in Refs.~\cite{Balan2025,Goncalves2025}. Nearly conformal or phenomenological dark-sector phase-transition explanations of NANOGrav were considered in Refs.~\cite{Fujikura2023,Bringmann2023}. These papers support the plausibility of MeV-to-sub-GeV dark-sector FOPTs as PTA-scale sources, but they are not the exact non-Abelian scalar-doublet model analyzed here.
+
+\section{FOPT Results}
+The FOPT agent used a semianalytic conformal high-temperature/polynomial backend with percolation and perturbativity checks. The scan ranges were
+\[
+0.25\le g_D\le 3.2,\qquad 10^{-5}\gev\le v_D\le 0.8\gev.
+\]
+Out of 934 scanned points, 662 were viable, 268 failed, and 4 were excluded by validation criteria. Representative high-ranking steering points are shown in Table~\ref{tab:fopt}.
+
+\begin{center}
+\captionof{table}{Representative FOPT steering points. Frequencies are order-of-magnitude steering estimates, not template-derived spectral peaks.}
+\label{tab:fopt}
+\begin{tabular}{lrrrrrr}
+\toprule
+Point & $g_D$ & $v_D$ [GeV] & $\alpha$ & $\beta/H$ & $T_n$ [GeV] & $f_{\rm est}$ [Hz]\\
+\midrule
+point\_0594 & 0.900 & $4.20\times10^{-2}$ & $2.10\times10^{10}$ & 21.21 & $1.56\times10^{-5}$ & $1.00\times10^{-8}$\\
+point\_0769 & 1.400 & $4.11\times10^{-3}$ & $1.04\times10^{1}$ & 148.63 & $3.30\times10^{-4}$ & $9.92\times10^{-9}$\\
+point\_0681 & 1.150 & $1.20\times10^{-2}$ & $9.30\times10^{2}$ & 62.18 & $2.86\times10^{-4}$ & $9.90\times10^{-9}$\\
+point\_0441 & 1.823 & $1.04\times10^{-3}$ & $8.65\times10^{-1}$ & 381.21 & $2.00\times10^{-4}$ & $1.00\times10^{-8}$\\
+point\_0715 & 1.250 & $7.03\times10^{-3}$ & $7.25\times10^{1}$ & 97.70 & $3.21\times10^{-4}$ & $9.81\times10^{-9}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The FOPT result is encouraging as a PTA-band steering calculation, but it is not a full finite-temperature effective-potential and bounce validation. The inherited caveats are the high-temperature approximation, Gaussian percolation approximation, lack of quantified gauge/daisy/RG uncertainty, and no independent wall-dynamics calculation.
+
+\section{PTA Results}
+The PTA stage used a benchmark scan plus a PTArcade campaign. For the benchmark comparison, the selected implemented spectral template was DBF. The scan considered 2611 points, of which 2546 were viable, and the best direct benchmark scored $13/14$ against the PTA violin windows. The best benchmark point was
+\[
+g_D=0.95,\qquad v_D=0.360438\gev,\qquad
+\alpha=3.73\times10^8,\qquad \beta/H=23.69,\qquad T_\star=0.03237\gev.
+\]
+Its peak grid point was near $10^{-8}$ Hz with $h^2\Omega_{\rm GW}\simeq2.83\times10^{-9}$.
+
+The PTArcade run status was \texttt{ok}. The campaign used the NANOGrav 15-year \texttt{ceffyl} mode with priors
+\[
+g_D\sim U(0.45,1.55),\qquad \log_{10}(v_D/\gev)\sim U(-3.2,0.7),
+\]
+and fixed DBF template. The accepted chain contains $N_{\rm samples}=100000$. The posterior mean values are
+\[
+g_D=0.8836\pm0.0353,\qquad \log_{10}(v_D/\gev)=-0.0539\pm0.1716,
+\]
+with $68\%$ credible intervals $g_D\in[0.8528,0.9159]$ and $\log_{10}(v_D/\gev)\in[-0.2217,0.1005]$. The MAP point is
+\[
+g_D=0.863175,\quad \log_{10}(v_D/\gev)=0.044548,\quad v_D=1.10802\gev,
+\]
+\[
+T_{\rm reh}=0.09782\gev,\quad \alpha=2.14\times10^{14},\quad \beta/H=13.98,\quad f_{\rm peak,est}=1.75\times10^{-7}\,{\rm Hz}.
+\]
+The MAP $f_{\rm peak,est}$ is an approximate steering diagnostic and lies above the nominal PTA steering band; the fitted object is the DBF spectrum, not this scalar diagnostic alone.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\linewidth]{pta_benchmark_spectrum.pdf}
+\caption{Benchmark DBF spectrum compared with PTA violin windows. The best benchmark score is $13/14$.}
+\label{fig:pta_benchmark}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\linewidth]{pta_ptarcade_spectrum.pdf}
+\caption{PTArcade MAP DBF spectrum for the accepted widened-prior run.}
+\label{fig:pta_ptarcade}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\linewidth]{pta_posteriors.pdf}
+\caption{PTArcade posterior distributions for the fitted parameter basis.}
+\label{fig:pta_posteriors}
+\end{figure}
+
+The main PTA caveat is template validity. The DBF template was selected as the closest implemented template for very large $\alpha$, while the Higgsless template was not selected because many local points exceed its stated $\alpha\lesssim0.5$ validation hint. DBF amplitudes use backend defaults, including efficiency assumptions, while wall velocity and microscopic efficiency are not computed independently.
+
+\section{Constraints}
+The constraints agent considered 12 constraint classes: 1 directly testable theory check, 7 requiring new backend calculations, and 4 not applicable to the exact zero-portal model. The directly testable perturbativity check passed for the posterior region, with $g_D$ well below $\sqrt{4\pi}$. This is a basic consistency check, not a complete theory-validity proof.
+
+\begin{center}
+\captionof{table}{Constraint classification. ``No exclusion'' means no exclusion with the observables currently available.}
+\label{tab:constraints}
+\begin{tabular}{p{0.16\linewidth}p{0.24\linewidth}p{0.20\linewidth}p{0.28\linewidth}}
+\toprule
+Class & Examples & Applicability & Missing ingredient \\
+\midrule
+BBN/CMB thermal dark sectors & Refs.~\cite{Sabti2019,Sabti2021} & Requires new backend & $T_D/T_{\rm SM}$, abundance, entropy transfer, likelihood map. \\
+$\Delta N_{\rm eff}$ and dark radiation & Planck~\cite{Planck2018} & Requires new backend & Decoupling history and radiation budget. \\
+PTA-scale energy release & Ref.~\cite{Bringmann2023} & Requires new backend & Visible/dark reheating partition and late energy injection. \\
+Self-interacting DM & Ref.~\cite{TulinYu2018}; Bullet Cluster~\cite{Markevitch2004} & Requires new backend & $\sigma_T/m(v)$ and dark-vector DM fraction. \\
+Portal laboratory searches & Refs.~\cite{Arcadi2019,Alexander2016,Battaglieri2017} & Not applicable & Zero portal in the minimal model; relevant again for portal extensions. \\
+Perturbativity & Upstream handoffs & Direct & Passed basic $g_D<\sqrt{4\pi}$ check; higher-loop validity not tested. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The most important missing backend calculations are a thermal-history module, BBN/CMB observable mapping, vector relic-density calculation, non-Abelian vector self-interaction cross sections, portal widths for non-minimal variants, and higher-order/RG validity diagnostics.
+
+\section{Assumptions and Limitations}
+The prior audit identified 18 assumptions, limitations, priors, and caveats. The highest-severity items are:
+\begin{itemize}
+\item No thermal history, dark-sector temperature ratio, decoupling history, reheating partition, relic abundance, or entropy-transfer observable was computed.
+\item Sub-GeV strongly supercooled FOPTs can affect BBN/CMB through energy release or dark radiation, but $\Delta N_{\rm eff}$ and visible/dark reheating were not mapped.
+\item The minimal model fixes the Higgs portal to zero, which removes direct portal searches but leaves the origin and thermal population of the dark sector unspecified.
+\item No dark-vector relic abundance or fractional dark-matter abundance was computed, so dark-matter viability and self-interaction constraints cannot be applied.
+\item The PTA analysis uses DBF spectra at extremely large $\alpha$ without an independent calculation of wall velocity or microscopic efficiency.
+\item The FOPT calculation is semianalytic and does not quantify gauge, daisy, RG-scale, or full-bounce uncertainties.
+\end{itemize}
+Consequently, the PTA fit should be interpreted as a conditional spectrum-level match within the implemented backend, not as a complete cosmological viability proof.
+
+\section{Conclusions}
+Robust claims are limited to the structure of the local candidate and the executed pipeline outputs. The minimal conformal non-Abelian candidate is a dark \SUtwoD{} gauge theory with one complex scalar doublet, classically scale-invariant tree potential, and two local free parameters $(g_D,v_D)$. The exact core model has same-model precedent in Ref.~\cite{Borah2021}. The local FOPT scan found many viable points, and the PTA workflow found a strong benchmark near-match and an \texttt{ok} PTArcade posterior run.
+
+Conditional claims are the PTA interpretation and parameter preference. They depend on the DBF template, backend approximations, chosen priors, and missing wall-dynamics inputs. The reported MAP point is a valid output of the local PTArcade campaign, but its extremely large $\alpha$ and approximate peak diagnostic require caution.
+
+Blocked claims are cosmological viability, dark-matter viability, and self-interaction safety. These require new thermal-history, BBN/CMB, $\Delta N_{\rm eff}$, relic-density, and self-interaction backends.
+
+Uncontrolled claims would include saying that the model is novel, proven viable, or excluded-free in a full cosmological sense. The current constraints result is better phrased as: no exclusion was derived from the available observables, and most relevant observables remain missing.
+
+\begin{thebibliography}{99}
+\bibitem{Borah2021}
+D. Borah, A. Dasgupta and S. K. Kang,
+``A first order dark $SU(2)_D$ phase transition with vector dark matter in the light of NANOGrav 12.5 yr data,''
+JCAP 12 (2021) 039,
+arXiv:2109.11558.
+
+\bibitem{Balan2025}
+S. Balan, T. Bringmann, F. Kahlhoefer, J. Matuszak and C. Tasillo,
+``Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector,''
+JCAP 08 (2025) 062,
+arXiv:2502.19478.
+
+\bibitem{Fujikura2023}
+K. Fujikura, S. Girmohanta, Y. Nakai and M. Suzuki,
+``NANOGrav Signal from a Dark Conformal Phase Transition,''
+arXiv:2306.17086.
+
+\bibitem{Goncalves2025}
+J. Goncalves, D. Marfatia, A. P. Morais and R. Pasechnik,
+``Supercooled phase transitions in conformal dark sectors explain NANOGrav data,''
+Phys. Lett. B 869 (2025) 139829,
+arXiv:2501.11619.
+
+\bibitem{Bringmann2023}
+T. Bringmann, P. F. Depta, T. Konstandin, K. Schmidt-Hoberg and C. Tasillo,
+``Does NANOGrav observe a dark sector phase transition?''
+arXiv:2306.09411.
+
+\bibitem{Sabti2019}
+N. Sabti, J. Alvey, M. Escudero, M. Fairbairn and D. Blas,
+``Refined Bounds on MeV-scale Thermal Dark Sectors from BBN and the CMB,''
+arXiv:1910.01649.
+
+\bibitem{Sabti2021}
+N. Sabti, J. Alvey, M. Escudero, M. Fairbairn and D. Blas,
+``Addendum: Refined bounds on MeV-scale thermal dark sectors from BBN and the CMB,''
+arXiv:2107.11232.
+
+\bibitem{Planck2018}
+Planck Collaboration,
+``Planck 2018 results. VI. Cosmological parameters,''
+arXiv:1807.06209.
+
+\bibitem{TulinYu2018}
+S. Tulin and H.-B. Yu,
+``Dark Matter Self-interactions and Small Scale Structure,''
+Phys. Rept. 730 (2018) 1,
+arXiv:1705.02358.
+
+\bibitem{Markevitch2004}
+M. Markevitch et al.,
+``Direct constraints on the dark matter self-interaction cross-section from the merging galaxy cluster 1E0657-56,''
+Astrophys. J. 606 (2004) 819,
+arXiv:astro-ph/0309303.
+
+\bibitem{Arcadi2019}
+G. Arcadi, A. Djouadi and M. Raidal,
+``Dark Matter through the Higgs portal,''
+Phys. Rept. 842 (2020) 1,
+arXiv:1903.03616.
+
+\bibitem{Alexander2016}
+J. Alexander et al.,
+``Dark Sectors 2016 Workshop: Community Report,''
+arXiv:1608.08632.
+
+\bibitem{Battaglieri2017}
+M. Battaglieri et al.,
+``US Cosmic Visions: New Ideas in Dark Matter 2017: Community Report,''
+arXiv:1707.04591.
+\end{thebibliography}
+
+\end{document}

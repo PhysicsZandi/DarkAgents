@@ -1,0 +1,22 @@
+PTArcade Summary for SU2_conformal
+==================================================
+Number of samples: 100000
+Parameters: ['log10-g-D', 'log10-v-GeV']
+
+Bayesian Estimates:
+  log10-g-D: -0.0260 +/- 0.0163
+  log10-v-GeV: -0.0392 +/- 0.1662
+
+MAP Estimates:
+  log10-g-D: -0.0358
+  log10-v-GeV: 0.0538
+
+Credible Regions:
+  log10-g-D:
+    1sigma: [-0.0407, -0.0108]
+    2sigma: [-0.0444, 0.0182]
+    3sigma: [-0.0458, 0.0521]
+  log10-v-GeV:
+    1sigma: [-0.2030, 0.1152]
+    2sigma: [-0.4509, 0.1889]
+    3sigma: [-0.7891, 0.2308]

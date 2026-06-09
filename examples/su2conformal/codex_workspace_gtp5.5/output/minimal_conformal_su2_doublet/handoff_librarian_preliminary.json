@@ -1,0 +1,380 @@
+{
+  "model": "minimal_conformal_su2_doublet",
+  "agent": "preliminary-librarian-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "created_from": [
+    "User prompt: what is the minimal conformal non-abelian model that can explain the NANOGrav signal?",
+    "output/minimal_conformal_su2_doublet/handoff_proposed_model.json",
+    ".codex/agents/preliminary-librarian-agent.md",
+    ".codex/skills/preliminary-literature-search/SKILL.md",
+    "docs/HANDOFF_LIBRARIAN_PRELIMINARY_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md"
+  ],
+  "commands": [
+    "sed -n '1,220p' .codex/agents/preliminary-librarian-agent.md",
+    "sed -n '1,260p' .codex/skills/preliminary-literature-search/SKILL.md",
+    "sed -n '1,220p' docs/HANDOFF_LIBRARIAN_PRELIMINARY_SCHEMA.md",
+    "sed -n '1,220p' docs/HANDOFF_SCHEMAS.md",
+    "sed -n '1,240p' output/minimal_conformal_su2_doublet/handoff_proposed_model.json"
+  ],
+  "files_read": [
+    ".codex/agents/preliminary-librarian-agent.md",
+    ".codex/skills/preliminary-literature-search/SKILL.md",
+    "docs/HANDOFF_LIBRARIAN_PRELIMINARY_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "output/minimal_conformal_su2_doublet/handoff_proposed_model.json"
+  ],
+  "files_written": [
+    "output/minimal_conformal_su2_doublet/librarian_preliminary_report.md",
+    "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json"
+  ],
+  "warnings": [
+    "The exact target model has already been studied for the NANOGrav 12.5-year FOPT interpretation in arXiv:2109.11558, so model-level novelty is low.",
+    "INSPIRE-HEP pages were JavaScript-only in this environment; arXiv metadata and full-text PDF/HTML were used for citation verification and extraction.",
+    "The exact-model paper contains a convention tension between its stated physical vector mass M_ZD = gD M / 2 and its displayed field-dependent mass m_D^2(phi) = g_D^2 phi^2 / 2.",
+    "Benchmark points from Abelian conformal models are not directly portable to the SU(2)_D doublet model."
+  ],
+  "errors": [],
+  "approximations": [
+    "No new FOPT or PTA numerical scan was performed; benchmark hints are extracted from literature only.",
+    "For papers where only metadata/abstract was needed, no benchmark formulas were inferred beyond accessible full text."
+  ],
+  "scan_mode": "preliminary_scan",
+  "searched_sources": [
+    {
+      "source": "arXiv",
+      "queries": [
+        "conformal SU(2) dark sector first order phase transition NANOGrav",
+        "classically conformal non-Abelian dark sector NANOGrav gravitational waves",
+        "SU(2) dark gauge complex scalar doublet Coleman Weinberg gravitational waves first order phase transition",
+        "dark conformal phase transition NANOGrav PTA MeV"
+      ],
+      "urls": [
+        "https://arxiv.org/abs/2109.11558",
+        "https://arxiv.org/pdf/2109.11558",
+        "https://arxiv.org/abs/2502.19478",
+        "https://arxiv.org/html/2502.19478v3",
+        "https://arxiv.org/abs/2306.17086",
+        "https://arxiv.org/abs/2501.11619",
+        "https://arxiv.org/pdf/2501.11619",
+        "https://arxiv.org/abs/2306.09411"
+      ]
+    },
+    {
+      "source": "INSPIRE-HEP",
+      "queries": [
+        "INSPIRE classically conformal dark SU(2) NANOGrav phase transition",
+        "INSPIRE arXiv 2109.11558"
+      ],
+      "urls": [
+        "https://inspirehep.net/literature/1928638"
+      ],
+      "notes": "INSPIRE web content required JavaScript; used as search confirmation only, not for formulas or benchmarks."
+    }
+  ],
+  "papers": [
+    {
+      "arxiv_id": "2109.11558",
+      "title": "A first order dark SU(2)_D phase transition with vector dark matter in the light of NANOGrav 12.5 yr data",
+      "authors": [
+        "Debasish Borah",
+        "Arnab Dasgupta",
+        "Sin Kyu Kang"
+      ],
+      "year": 2021,
+      "journal": "JCAP 12 (2021) 039",
+      "relevance_score": 10,
+      "brief_description": "Exact core target model: classically conformal dark SU(2)_D with one complex scalar doublet, negligible Higgs portal, and a sub-electroweak first-order phase transition compared with NANOGrav 12.5-year preferred regions.",
+      "model_studied": "Dark SU(2)_D gauge extension of the SM with one complex scalar doublet Phi, all SM fields neutral under SU(2)_D, classically conformal tree-level scalar potential, and negligible Higgs portal coupling for the FOPT analysis.",
+      "similarity_to_target": "Same gauge group, same minimal scalar representation, same classical conformal setup, same approximate portal decoupling, same PTA/NANOGrav FOPT target. Differences may lie in convention choices, RGE/effective-potential implementation, and inclusion of vector dark matter relic production.",
+      "paper_classification": "same_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "NANOGrav 12.5-year preferred FOPT regions",
+        "Planck dark matter relic abundance context",
+        "Future PTA sensitivity including SKA/IPTA in the paper discussion"
+      ],
+      "observables": [
+        "nHz stochastic gravitational wave background",
+        "FOPT strength alpha*",
+        "nucleation temperature T*",
+        "inverse duration beta/H*",
+        "dark vector mass M_ZD",
+        "vector dark matter relic abundance"
+      ],
+      "benchmark_points": [
+        {
+          "label": "Figure 1 benchmark",
+          "parameters": {
+            "gD": 1.37,
+            "M_ZD": "8.23 MeV",
+            "T_star": "1.8 MeV",
+            "alpha_star": 0.45,
+            "phi_c_over_T_c": 3.56
+          },
+          "notes": "Directly quoted from the paper's Figure 1 caption. Convert M_ZD to vD only after reconciling vector-mass normalization conventions."
+        },
+        {
+          "label": "NANOGrav scan range",
+          "parameters": {
+            "alphaD": "0.01-0.2",
+            "T_star": "sub-electroweak to MeV/sub-GeV region in the plotted NANOGrav comparison",
+            "M_ZD": "shown as color scale in the paper's alpha*-T* plots"
+          },
+          "notes": "Figure 2 scans gD in the range corresponding to alphaD in [0.01, 0.2] and overlays NANOGrav confidence regions."
+        }
+      ],
+      "assumptions": [
+        "Landau gauge for the effective-potential calculation.",
+        "Negligible Higgs portal coupling lambda2 for the phase-transition analysis.",
+        "Classical conformal invariance removes bare scalar mass terms.",
+        "Daisy corrections included in the finite-temperature potential.",
+        "The paper compares to NANOGrav 12.5-year FOPT interpretations, not a 15-year PTArcade likelihood."
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2502.19478",
+      "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+      "authors": [
+        "Sowmiya Balan",
+        "Torsten Bringmann",
+        "Felix Kahlhoefer",
+        "Jonas Matuszak",
+        "Carlo Tasillo"
+      ],
+      "year": 2025,
+      "journal": "JCAP 08 (2025) 062",
+      "relevance_score": 7,
+      "brief_description": "Classically conformal hidden U(1)' dark sector giving a MeV-scale FOPT and nano-Hertz PTA gravitational waves, combined with dark matter and laboratory/cosmological constraints.",
+      "model_studied": "Hidden U(1)' classically conformal dark sector with dark photon mediator, stable fermion dark matter, and kinetic mixing portal to the Standard Model.",
+      "similarity_to_target": "Shares classical conformal symmetry breaking, PTA-scale FOPT, MeV-scale transition logic, and dark-sector phenomenology, but the gauge group and matter content differ from the target SU(2)_D doublet model.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "PTA stochastic gravitational wave signal",
+        "Dark photon searches including beam dumps and BaBar/NA64-type constraints as discussed in the paper",
+        "Cosmological constraints on late dark-sector decays"
+      ],
+      "observables": [
+        "nano-Hertz gravitational wave spectrum",
+        "dark matter relic abundance",
+        "dark photon laboratory signatures",
+        "cosmological decay constraints"
+      ],
+      "benchmark_points": [
+        {
+          "label": "PTA-scale qualitative target",
+          "parameters": {
+            "T_star": "MeV range",
+            "dark_sector_masses": "sub-GeV scale"
+          },
+          "notes": "Adaptable scale guidance only; not a direct SU(2)_D benchmark."
+        }
+      ],
+      "assumptions": [
+        "Kinetic mixing portal does not violate the dark-sector conformal setup in that model.",
+        "Abelian vector masses/couplings cannot be directly mapped to the non-Abelian target without a separate calculation."
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2306.17086",
+      "title": "NANOGrav Signal from a Dark Conformal Phase Transition",
+      "authors": [
+        "Kohei Fujikura",
+        "Sudhakantha Girmohanta",
+        "Yuichiro Nakai",
+        "Motoo Suzuki"
+      ],
+      "year": 2023,
+      "journal": "",
+      "relevance_score": 6,
+      "brief_description": "Nearly conformal confining dark sector/dilaton phase transition proposed as an explanation of the NANOGrav signal.",
+      "model_studied": "A nearly conformal dark sector described by a shallow dilaton/radion potential generated by dark Yang-Mills dynamics, with dark-sector temperature possibly different from the visible-sector temperature.",
+      "similarity_to_target": "Same broad conformal dark-sector PTA target, but not a perturbative Higgsed SU(2)_D scalar-doublet gauge theory.",
+      "paper_classification": "same_target_signal_different_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "NANOGrav stochastic gravitational wave signal",
+        "Delta N_eff / dark radiation considerations",
+        "CMB-S4 prospects"
+      ],
+      "observables": [
+        "nHz stochastic gravitational wave background",
+        "dark radiation",
+        "Delta N_eff"
+      ],
+      "benchmark_points": [],
+      "assumptions": [
+        "Confining/dilaton dynamics are not directly mapped to the target perturbative scalar-doublet potential."
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2501.11619",
+      "title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data",
+      "authors": [
+        "Joao Goncalves",
+        "Danny Marfatia",
+        "Antonio P. Morais",
+        "Roman Pasechnik"
+      ],
+      "year": 2025,
+      "journal": "Phys. Lett. B 869 (2025) 139829",
+      "relevance_score": 6,
+      "brief_description": "Conformal dark U(1)' models with supercooled first-order phase transitions fitted to NANOGrav data.",
+      "model_studied": "Conformal Abelian U(1)' dark-sector models, with parameter scans focused on MeV-scale FOPTs and NANOGrav/PTArcade compatibility.",
+      "similarity_to_target": "Same conformal PTA target and supercooling logic, but Abelian rather than non-Abelian and not the minimal SU(2)_D doublet model.",
+      "paper_classification": "same_target_signal_different_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "NANOGrav 15-year dataset via PTArcade default ceffyl configuration as stated in the paper",
+        "PTA sensitivity projections"
+      ],
+      "observables": [
+        "SGWB peak amplitude",
+        "SGWB peak frequency",
+        "reheating temperature",
+        "alpha",
+        "beta/H"
+      ],
+      "benchmark_points": [
+        {
+          "label": "Table I best-fit point for the paper's U(1)' model",
+          "parameters": {
+            "g_L": 0.59,
+            "M_h2": "12.4 MeV",
+            "M_Zprime": "107.3 MeV",
+            "T_RH": "11.7 MeV",
+            "alpha_over_1e5": 2.60,
+            "beta_over_H": 39.5,
+            "gamma_BHB": 4.50,
+            "A_BHB": "10^-15.4"
+          },
+          "notes": "Adaptable only as PTA-scale conformal-FOPT guidance; not a direct SU(2)_D doublet benchmark."
+        }
+      ],
+      "assumptions": [
+        "Daisy corrections are reported negligible in the supercooled regime discussed by this paper.",
+        "Abelian U(1)' masses and couplings are not directly transferable to SU(2)_D."
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2306.09411",
+      "title": "Does NANOGrav observe a dark sector phase transition?",
+      "authors": [
+        "Torsten Bringmann",
+        "Paul Frederik Depta",
+        "Thomas Konstandin",
+        "Kai Schmidt-Hoberg",
+        "Carlo Tasillo"
+      ],
+      "year": 2023,
+      "journal": "",
+      "relevance_score": 5,
+      "brief_description": "General analysis of whether a MeV-scale dark-sector FOPT can explain the NANOGrav signal under BBN/CMB energy-release constraints.",
+      "model_studied": "Phenomenological dark-sector phase transition framework rather than the target SU(2)_D scalar-doublet model.",
+      "similarity_to_target": "Same PTA/FOPT target and cosmological constraints; different and more general model framework.",
+      "paper_classification": "same_target_signal_different_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "NANOGrav common red spectrum",
+        "BBN constraints",
+        "CMB constraints",
+        "Dark-sector decay before neutrino decoupling"
+      ],
+      "observables": [
+        "nHz stochastic gravitational wave spectrum",
+        "released energy",
+        "spectral tilt",
+        "cosmological radiation constraints"
+      ],
+      "benchmark_points": [],
+      "assumptions": [
+        "Used as context for viability constraints, not for target-model Lagrangian or benchmark parameters."
+      ],
+      "citation_verified": true
+    }
+  ],
+  "novelty_verdict": "not_model_novel_exact_model_previously_studied",
+  "novelty_notes": "The exact core model, a classically conformal dark SU(2)_D gauge theory with one complex scalar doublet and negligible Higgs portal, was already studied for a NANOGrav 12.5-year first-order phase-transition interpretation in arXiv:2109.11558. Novelty may remain only in using a different backend convention, updated NANOGrav 15-year/PTArcade likelihoods, omitting relic-density requirements, or scanning a different restricted parameter basis.",
+  "benchmark_hints": [
+    {
+      "source": "arXiv:2109.11558 Figure 1",
+      "parameters": {
+        "gD": 1.37,
+        "M_ZD": "8.23 MeV",
+        "T_star": "1.8 MeV",
+        "alpha_star": 0.45,
+        "phi_c_over_T_c": 3.56
+      },
+      "confidence": "direct",
+      "conventions": {
+        "vev_convention": "Paper uses Phi = 1/sqrt(2) (G2+iG3, M + phi + iG1)^T and states <Phi> = M/sqrt(2).",
+        "ssb_pattern": "Dark scalar doublet breaks SU(2)_D and gives mass to the dark vector bosons.",
+        "field_dependent_masses": "Paper reports m_D^2(phi) = g_D^2 phi^2 / 2, m_phi^2 = 3 lambda3 phi^2, m_G^2 = lambda3 phi^2.",
+        "physical_vector_mass": "Paper text states M_ZD = gD M / 2.",
+        "thermal_masses": "Pi_ZD = (5/6) gD^2 T^2; Pi_phi,G = (lambda3/2 + 3 gD^2/16) T^2.",
+        "effective_potential": "Vtot = Vtree + VCW + VT, Landau gauge, daisy-improved finite-temperature potential.",
+        "fopt_definitions": "Uses Tc, T*, Gamma(T*) = H^4(T*), S3 bounce action, alpha*, beta/H*.",
+        "gw_template": "Compares envelope, semi-analytic, and numerical approximations to NANOGrav confidence regions.",
+        "pta_target_signal": "NANOGrav 12.5-year FOPT interpretation, not NANOGrav 15-year/PTArcade default likelihood."
+      },
+      "notes": "Direct same-model benchmark, but downstream conversion to the proposer basis must resolve the vector-mass normalization tension."
+    },
+    {
+      "source": "arXiv:2502.19478",
+      "parameters": {
+        "T_star": "MeV range",
+        "dark_sector_mass_scale": "sub-GeV"
+      },
+      "confidence": "adaptable",
+      "conventions": {
+        "model": "Classically conformal hidden U(1)' dark sector with kinetic mixing.",
+        "pta_target_signal": "nano-Hertz PTA gravitational waves."
+      },
+      "notes": "Useful scale guidance and constraints context only; do not map directly to SU(2)_D."
+    },
+    {
+      "source": "arXiv:2501.11619 Table I",
+      "parameters": {
+        "g_L": 0.59,
+        "M_h2": "12.4 MeV",
+        "M_Zprime": "107.3 MeV",
+        "T_RH": "11.7 MeV",
+        "alpha_over_1e5": 2.60,
+        "beta_over_H": 39.5
+      },
+      "confidence": "adaptable",
+      "conventions": {
+        "model": "Conformal dark U(1)' model.",
+        "supercooling": "Paper states daisy corrections are negligible in the considered supercooled regime.",
+        "pta_target_signal": "NANOGrav 15-year dataset through PTArcade default ceffyl configuration."
+      },
+      "notes": "Adaptable only as a scale/template comparison for conformal PTA FOPTs; not a direct benchmark for the non-Abelian target."
+    }
+  ],
+  "constraint_summary": [
+    "Same-model paper includes NANOGrav 12.5-year preferred FOPT regions and vector dark matter relic-density context.",
+    "PTA-scale dark-sector FOPT interpretations must account for BBN/CMB energy-release and Delta N_eff constraints, especially if the dark sector remains secluded or decays late.",
+    "Abelian conformal dark-sector studies show laboratory and cosmological portal constraints can dominate when a visible portal is specified."
+  ],
+  "theory_uncertainties": [
+    "Gauge dependence of the perturbative finite-temperature effective potential in conformal models.",
+    "Daisy-resummation prescription dependence and supercooling treatment.",
+    "Vector-mass normalization mismatch in arXiv:2109.11558 relative to the proposer/backend convention.",
+    "NANOGrav 12.5-year versus 15-year likelihood and GW-template dependence.",
+    "Relic-density assumptions are optional for the target pipeline unless downstream scope includes dark matter abundance."
+  ],
+  "recommended_next_steps": [
+    "The critic-agent should flag that the target model is not novel at the model-class level because arXiv:2109.11558 already studied it for NANOGrav.",
+    "Before FOPT implementation, reconcile the vector mass convention and use the proposer/backend convention consistently: m_WD(chi) = gD chi / 2 unless the model is intentionally changed.",
+    "Use arXiv:2109.11558 Figure 1 as the first same-model smoke benchmark, but recompute all FOPT quantities locally rather than importing paper results.",
+    "If the pipeline targets current PTA data, rerun with NANOGrav 15-year/PTArcade likelihoods rather than relying on 12.5-year contours.",
+    "Treat Abelian conformal papers only as qualitative or adaptable guidance for scale, constraints, and likelihood workflow."
+  ]
+}

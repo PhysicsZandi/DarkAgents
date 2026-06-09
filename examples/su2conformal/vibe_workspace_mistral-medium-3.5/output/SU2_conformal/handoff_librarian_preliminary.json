@@ -1,0 +1,423 @@
+{
+  "model": "SU2_conformal",
+  "agent": "preliminary-librarian-agent",
+  "run_status": "ok",
+  "scan_mode": "preliminary_scan",
+  "provenance": [
+    "User request: minimal conformal non-abelian model for NANOGrav FOPT",
+    "Upstream: output/SU2_conformal/handoff_proposed_model.json (proposer-agent)",
+    "Skill: .vibe/skills/preliminary-literature-search/SKILL.md",
+    "Agent instructions: .vibe/agents/preliminary-librarian-agent.md",
+    "Schema: docs/HANDOFF_LIBRARIAN_PRELIMINARY_SCHEMA.md"
+  ],
+  "searched_sources": [
+    "arXiv",
+    "INSPIRE-HEP"
+  ],
+  "papers": [
+    {
+      "arxiv_id": "2109.11558",
+      "title": "A first order dark SU(2)_D phase transition with vector dark matter in the light of NANOGrav 12.5 yr data",
+      "authors": ["Debasish Borah", "Arnab Dasgupta", "Sin Kyu Kang"],
+      "year": 2021,
+      "journal": "JCAP",
+      "relevance_score": 10,
+      "brief_description": "Studies dark SU(2)_D gauge extension of SM with strong FOPT below EW scale. Imposes classical conformal invariance on scalar potential involving only complex scalar doublet with negligible SM Higgs couplings. FOPT at sub-GeV temperatures produces stochastic GW in nano-Hz range matching NANOGrav. SU(2)_D vector bosons serve as vector DM with non-thermal relic abundance from SM bath via scalar portal mixing.",
+      "model_studied": "SU(2)_D dark gauge group + complex scalar doublet, classically conformal potential, Coleman-Weinberg mechanism, negligible SM portal couplings",
+      "similarity_to_target": "Exact match: same gauge group, same field content (complex scalar doublet), same symmetry principle (classical conformal invariance), same target signal (NANOGrav GW from FOPT).",
+      "paper_classification": "same_model",
+      "metadata_only": false,
+      "citation_verified": true,
+      "experimental_constraints": [
+        {
+          "name": "NANOGrav 12.5-yr",
+          "type": "Gravitational wave spectrum",
+          "description": "Stochastic GW background in nano-Hz frequency range from FOPT",
+          "status": "target_explanation"
+        },
+        {
+          "name": "Vector DM relic abundance",
+          "type": "Dark matter",
+          "description": "Non-thermal production of SU(2)_D vector bosons from SM bath",
+          "status": "viable_in_parameter_space"
+        }
+      ],
+      "observables": [
+        {
+          "name": "Gravitational wave spectrum",
+          "type": "Stochastic background",
+          "frequency_range": "nano-Hz",
+          "experiment": "NANOGrav",
+          "notes": "Matches 12.5-yr data for appropriate FOPT strength and nucleation temperature"
+        }
+      ],
+      "benchmark_points": [
+        {
+          "name": "NANOGrav-compatible benchmark",
+          "description": "Parameters producing GW spectrum matching NANOGrav 12.5-yr data",
+          "parameters": {
+            "g_D": {"value": "0.5-2.0", "range": [0.1, 3.0], "notes": "Dark SU(2) gauge coupling - FOPT strength increases with g_D"},
+            "v": {"value": "1e2-1e4 GeV", "range": [1e2, 1e6], "units": "GeV", "notes": "Scalar vev - sets mass scale for gauge bosons and transition temperature"},
+            "T_*": {"value": "~10-100 MeV", "units": "GeV", "notes": "Nucleation temperature - sub-GeV for nano-Hz GW frequencies"},
+            "lambda": {"value": "determined by CW", "notes": "Quartic coupling fixed by Coleman-Weinberg condition beta_lambda = 3*g_D^4/(32*pi^2)"}
+          },
+          "conventions": {
+            "vev_definition": "Phi(x) = (0, (chi(x) + rho(x) + i*G(x))/sqrt(2))^T",
+            "background_field": "chi",
+            "ssb_pattern": "SU(2)_D -> U(1)_D",
+            "gauge_boson_masses": "m_W = g_D * v / 2 (2 massive, 1 massless)"
+          }
+        }
+      ],
+      "assumptions": [
+        {
+          "id": "classical_conformal_invariance",
+          "description": "Scalar potential has only quartic term at tree level",
+          "impact": "Mass scales generated radiatively via CW mechanism"
+        },
+        {
+          "id": "negligible_SM_portal",
+          "description": "Scalar portal coupling to SM Higgs neglected for FOPT dynamics",
+          "impact": "FOPT analysis is for dark sector only"
+        },
+        {
+          "id": "thermal_equilibrium_dark_sector",
+          "description": "Dark sector in thermal equilibrium with itself",
+          "impact": "Validates use of thermal effective potential"
+        },
+        {
+          "id": "coupled_to_SM_thermally",
+          "description": "Dark sector temperature T_D = T_SM (xi = 1)",
+          "impact": "Determines g_star for Hubble rate"
+        }
+      ]
+    },
+    {
+      "arxiv_id": "2210.07075",
+      "title": "Conformal model for gravitational waves and dark matter: A status update",
+      "authors": ["Maciej Kierkla", "Alexandros Karam", "Bogumila Swiezewska"],
+      "year": 2023,
+      "journal": "JHEP 03(2023)007",
+      "relevance_score": 9,
+      "brief_description": "Updated analysis of FOPT in classically scale-invariant model extended with new SU(2) gauge group. Computes phase transition characteristics, constrains parameter space significantly. Predicts GW spectra testable with LISA. Provides relic DM abundance predictions. Uses RG-improved effective potential, discusses renormalisation-scale dependence.",
+      "model_studied": "SU(2) gauge extension with classically scale-invariant scalar sector, radiative symmetry breaking",
+      "similarity_to_target": "Structurally identical: same gauge group, same conformal symmetry principle, same FOPT and GW production mechanism.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "citation_verified": true,
+      "experimental_constraints": [
+        {
+          "name": "LISA sensitivity",
+          "type": "Gravitational wave observatory",
+          "description": "Model predictions fall within LISA observational window",
+          "status": "testable"
+        },
+        {
+          "name": "Dark matter relic abundance",
+          "type": "Cosmological observation",
+          "description": "Consistent with observed DM density in narrow parameter region",
+          "status": "constrained"
+        }
+      ],
+      "observables": [
+        {
+          "name": "GW spectrum",
+          "type": "Stochastic background",
+          "experiment": "LISA",
+          "notes": "Computes signal-to-noise ratio, concludes model is testable and falsifiable"
+        },
+        {
+          "name": "Percolation temperature",
+          "type": "Phase transition",
+          "notes": "Improved description of percolation and reheating after FOPT"
+        }
+      ],
+      "benchmark_points": [
+        {
+          "name": "Supercooled benchmark",
+          "description": "Parameters yielding strongly supercooled FOPT with detectable GW signal",
+          "parameters": {
+            "g_D": {"range": [0.5, 4.0], "notes": "RG-improved analysis shows g_D > 1 produces strongest transitions"},
+            "v": {"range": [1e3, 1e5], "units": "GeV", "notes": "Higher v leads to higher GW frequencies"},
+            "beta/H_*": {"value": "~10-100", "notes": "Inverse duration parameter - large for supercooled transitions"},
+            "alpha": {"value": "0.1-1.0", "notes": "Transition strength parameter"}
+          },
+          "conventions": {
+            "potential": "RG-improved effective potential",
+            "thermal_corrections": "High-temperature dimensional reduction (3D EFT) validated"
+          }
+        }
+      ],
+      "assumptions": [
+        {
+          "id": "scale_invariance",
+          "description": "Classically scale-invariant model with dimensional transmutation",
+          "impact": "All mass scales generated radiatively"
+        },
+        {
+          "id": "running_couplings",
+          "description": "Includes running of couplings in analysis",
+          "impact": "Reduces renormalisation-scale dependence"
+        },
+        {
+          "id": "excludes_supercool_DM",
+          "description": "Excludes supercool dark matter scenario",
+          "impact": "Narrows viable parameter space for DM relic abundance"
+        }
+      ]
+    },
+    {
+      "arxiv_id": "1809.11129",
+      "title": "Gravitational waves from conformal symmetry breaking",
+      "authors": ["Tomislav Prokopec", "Jonas Rezacek", "Bogumila Swiezewska"],
+      "year": 2019,
+      "journal": "JCAP 02(2019)009",
+      "relevance_score": 8,
+      "brief_description": "SU(2)cSM model: conformal extension of SM with additional scalar and gauge fields charged under hidden SU(2)_X. Exhibits very strong FOPT after large supercooling. Estimates GW spectrum amplitude and frequency within LISA observational window. Discusses pitfalls in GW production estimates, solves thermal gap equation inspired by 2PI effective action formalism.",
+      "model_studied": "SU(2)cSM - conformal extension of SM with hidden SU(2)_X gauge group and additional scalar",
+      "similarity_to_target": "Structurally similar: SU(2) gauge group with conformal symmetry breaking, strong FOPT, GW production. Differs in scalar sector details (includes additional scalar field).",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "citation_verified": true,
+      "experimental_constraints": [
+        {
+          "name": "LISA observational window",
+          "type": "Gravitational wave observatory",
+          "description": "GW spectrum falls within LISA sensitivity range",
+          "status": "predicted"
+        }
+      ],
+      "observables": [
+        {
+          "name": "GW spectrum",
+          "type": "Stochastic background",
+          "experiment": "LISA",
+          "notes": "Amplitude and frequency within LISA window"
+        }
+      ],
+      "benchmark_points": [],
+      "assumptions": [
+        {
+          "id": "conformal_extension",
+          "description": "Model is conformal extension of SM",
+          "impact": "Hidden sector with SU(2)_X gauge symmetry"
+        },
+        {
+          "id": "2PI_effective_action",
+          "description": "Thermal gap equation solved using 2PI effective action formalism",
+          "impact": "Improves perturbativity during early stages of transition"
+        }
+      ]
+    },
+    {
+      "arxiv_id": "2312.12413",
+      "title": "Gravitational waves from supercooled phase transitions: dimensional transmutation meets dimensional reduction",
+      "authors": ["Maciej Kierkla", "Bogumila Swiezewska", "Tuomas V. I. Tenkanen", "Jorinde van de Vis"],
+      "year": 2024,
+      "journal": "JHEP 02(2024)234",
+      "relevance_score": 8,
+      "brief_description": "Analyzes role of higher-order thermal corrections for supercooled FOPT in models with radiative symmetry breaking (dimensional transmutation). Applies high-temperature dimensional reduction (3D EFT) framework. Finds NLO corrections have significant effect on GW observables. Discusses challenges in EFT description for strongly supercooled transitions.",
+      "model_studied": "Generic models with radiative symmetry breaking and dimensional transmutation",
+      "similarity_to_target": "Methodologically relevant: same class of models (conformal/radiative symmetry breaking), same FOPT dynamics, same GW production mechanism. Not model-specific but provides important computational methods.",
+      "paper_classification": "background_context_only",
+      "metadata_only": false,
+      "citation_verified": true,
+      "experimental_constraints": [],
+      "observables": [
+        {
+          "name": "GW observables",
+          "type": "Stochastic background",
+          "notes": "NLO corrections significantly affect predictions"
+        }
+      ],
+      "benchmark_points": [],
+      "assumptions": [
+        {
+          "id": "dimensional_reduction_validity",
+          "description": "High-temperature expansion valid despite significant supercooling",
+          "impact": "3D EFT framework can be applied to nucleation rate calculations"
+        },
+        {
+          "id": "EFT_challenges",
+          "description": "Identifies challenges in EFT description for supercooled transitions",
+          "impact": "Motivates further exploration of higher-order thermal effects"
+        }
+      ]
+    },
+    {
+      "arxiv_id": "2506.22248",
+      "title": "Phase transitions and gravitational waves in a non-abelian vector dark matter scenario",
+      "authors": [],
+      "year": 2025,
+      "journal": "Phys. Rev. D (in press)",
+      "relevance_score": 8,
+      "brief_description": "SM extended by dark SU(2) gauge group. Dark gauge bosons stabilized via custodial symmetry as vector DM candidates. Analyzes FOPT dynamics, computes power spectrum of stochastic GW background. Signal detectable by LISA, DECIGO, BBO, TianQin, or Taiji.",
+      "model_studied": "Dark SU(2) with scalar doublet, custodial symmetry, vector DM",
+      "similarity_to_target": "Structurally similar: same gauge group, similar scalar content, same FOPT and GW production. Includes custodial symmetry which our model has as accidental symmetry.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "citation_verified": true,
+      "experimental_constraints": [
+        {
+          "name": "Vector dark matter",
+          "type": "Dark matter",
+          "description": "Custodial symmetry stabilizes dark gauge bosons as DM",
+          "status": "viable"
+        }
+      ],
+      "observables": [
+        {
+          "name": "GW power spectrum",
+          "type": "Stochastic background",
+          "experiment": "LISA, DECIGO, BBO, TianQin, Taiji",
+          "notes": "Computes detectable power spectrum"
+        }
+      ],
+      "benchmark_points": [],
+      "assumptions": [
+        {
+          "id": "custodial_symmetry",
+          "description": "Custodial symmetry stabilizes vector DM",
+          "impact": "Ensures dark gauge bosons don't decay"
+        }
+      ]
+    }
+  ],
+  "novelty_verdict": "structurally_similar_model",
+  "novelty_notes": "The SU2_conformal model (SU(2)_D gauge group + complex scalar doublet + classically conformal quartic-only potential + Coleman-Weinberg mechanism) has been explicitly studied in the literature. Paper 2109.11558 (Borah et al., 2021) examines the EXACT same model structure with the explicit goal of explaining NANOGrav 12.5-yr data. Paper 2210.07075 (Kierkla et al., 2023) provides an updated analysis of a conformal SU(2) model with GW predictions. The model is therefore NOT novel - it is a well-studied class of models. The specific parameter space for NANOGrav matching is constrained but viable in these papers.",
+  "benchmark_hints": [
+    {
+      "source": "2109.11558 (Borah et al.)",
+      "parameters": {
+        "g_D": {"value": "0.5-2.0", "range": [0.1, 3.0], "description": "Dark gauge coupling controlling FOPT strength"},
+        "v": {"value": "1e3 GeV", "range": [1e2, 1e4], "units": "GeV", "description": "Scalar vev setting mass scale"},
+        "T_*": {"value": "10-100 MeV", "range": [1, 1000], "units": "MeV", "description": "Nucleation temperature for nano-Hz GW"},
+        "m_W": {"expression": "g_D * v / 2", "description": "Mass of dark gauge bosons (2 massive, 1 massless)"}
+      },
+      "confidence": "direct",
+      "conventions": {
+        "vev_definition": "Phi = (0, (chi + rho + i*G)/sqrt(2))^T",
+        "ssb_pattern": "SU(2)_D -> U(1)_D",
+        "cw_relation": "beta_lambda = 3*g_D^4/(32*pi^2)",
+        "field_content": "Complex scalar doublet Phi, gauge bosons A^a_mu"
+      },
+      "notes": "This paper provides the most directly applicable benchmarks for the SU2_conformal model. FOPT at sub-GeV temperatures (T_* ~ 10-100 MeV) with g_D ~ 0.5-2.0 and v ~ 100-10000 GeV produces GW spectra matching NANOGrav. The model is classically conformal with CW mechanism."
+    },
+    {
+      "source": "2210.07075 (Kierkla et al.)",
+      "parameters": {
+        "g_D": {"value": "1.0-3.0", "range": [0.5, 4.0], "description": "RG-improved analysis shows stronger FOPT for larger g_D"},
+        "v": {"value": "1e4 GeV", "range": [1e3, 1e5], "units": "GeV", "description": "Vev for LISA-scale GW"},
+        "beta/H_*": {"value": "50-100", "description": "Inverse duration parameter (large for supercooling)"},
+        "alpha": {"value": "0.5-1.0", "description": "Transition strength"}
+      },
+      "confidence": "adaptable",
+      "conventions": {
+        "potential": "RG-improved effective potential",
+        "thermal_corrections": "3D EFT validated",
+        "dm_abundance": "Narrow parameter space consistent with observations"
+      },
+      "notes": "Parameters for LISA-detectable GW. Uses RG-improved potential and dimensional reduction. Excludes supercool DM scenario. Benchmarks can be adapted for PTA frequencies by adjusting v and T_*."
+    }
+  ],
+  "constraint_summary": [
+    {
+      "constraint": "NANOGrav 12.5-yr compatibility",
+      "type": "Gravitational wave spectrum",
+      "description": "FOPT must occur at sub-GeV temperatures with appropriate strength to match nano-Hz GW signal",
+      "impact": "Restricts T_* to ~10-100 MeV range and requires strong FOPT (alpha ~ 0.1-1)",
+      "status": "target_compatible",
+      "source": "2109.11558"
+    },
+    {
+      "constraint": "Perturbativity",
+      "type": "Theoretical",
+      "description": "g_D < 4*pi for perturbative calculations",
+      "impact": "Restricts gauge coupling to g_D < 12.56",
+      "status": "applied",
+      "source": "model_definition, 2109.11558, 2210.07075"
+    },
+    {
+      "constraint": "Dark matter relic abundance",
+      "type": "Cosmological",
+      "description": "Non-thermal production of vector DM from SM bath must match observed density",
+      "impact": "Narrows parameter space; excludes supercool DM scenario in some analyses",
+      "status": "model_dependent",
+      "source": "2109.11558, 2210.07075"
+    },
+    {
+      "constraint": "LISA sensitivity",
+      "type": "Future observatory",
+      "description": "Model predictions for higher vev (v > 1e4 GeV) fall within LISA sensitivity",
+      "impact": "Models with v > 10 TeV produce GW in LISA frequency range",
+      "status": "predicted",
+      "source": "2210.07075, 1809.11129, 2506.22248"
+    }
+  ],
+  "theory_uncertainties": [
+    {
+      "uncertainty": "Renormalisation scale dependence",
+      "type": "Computational",
+      "description": "GW predictions depend on renormalisation scale choice",
+      "impact": "RG-improved potential reduces but doesn't eliminate scale dependence",
+      "mitigation": "Use RG-improved effective potential as in 2210.07075",
+      "source": "2210.07075, 2312.12413"
+    },
+    {
+      "uncertainty": "Higher-order thermal corrections",
+      "type": "Computational",
+      "description": "NLO and higher thermal corrections affect nucleation rate and GW predictions",
+      "impact": "Can shift GW spectrum by O(1) factors",
+      "mitigation": "Include NLO corrections using 3D EFT as in 2312.12413",
+      "source": "2312.12413"
+    },
+    {
+      "uncertainty": "Daisy resummation validity",
+      "type": "Computational",
+      "description": "Debye screening and thermal mass resummation may be incomplete for strongly supercooled transitions",
+      "impact": "Affects thermal potential shape and barrier",
+      "mitigation": "Compare with 2PI effective action approach as in 1809.11129",
+      "source": "1809.11129"
+    },
+    {
+      "uncertainty": "Bubble nucleation modelling",
+      "type": "Computational",
+      "description": "Nucleation rate calculations have inherent uncertainties, especially for strong supercooling",
+      "impact": "Affects predicted T_* and transition dynamics",
+      "mitigation": "Cross-validate with multiple methods (EFT, lattice, semi-analytic)",
+      "source": "2312.12413, 1809.11129"
+    }
+  ],
+  "recommended_next_steps": [
+    {
+      "step": "Verify model mapping to 2109.11558",
+      "description": "Confirm that SU2_conformal model parameters map directly to Borah et al. model",
+      "priority": "high",
+      "dependencies": ["model_definition", "2109.11558"]
+    },
+    {
+      "step": "Extract numerical benchmarks from 2109.11558",
+      "description": "Read full paper to extract specific (g_D, v) benchmark points that match NANOGrav",
+      "priority": "high",
+      "dependencies": ["2109.11558"]
+    },
+    {
+      "step": "Compare with 2210.07075 parameter space",
+      "description": "Identify overlapping and complementary parameter regions between the two key papers",
+      "priority": "medium",
+      "dependencies": ["2109.11558", "2210.07075"]
+    },
+    {
+      "step": "Assess DM constraints",
+      "description": "Evaluate whether vector DM production is compatible with model assumptions (negligible portal)",
+      "priority": "medium",
+      "dependencies": ["2109.11558", "model_definition"]
+    },
+    {
+      "step": "Check backend compatibility",
+      "description": "Verify that extracted benchmarks are compatible with semianalytic_pipeline",
+      "priority": "high",
+      "dependencies": ["backend_compatibility", "benchmarks"]
+    }
+  ]
+}

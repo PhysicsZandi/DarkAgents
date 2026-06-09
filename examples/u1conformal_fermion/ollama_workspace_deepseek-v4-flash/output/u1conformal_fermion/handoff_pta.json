@@ -1,0 +1,324 @@
+{
+  "model": "u1conformal_fermion",
+  "agent": "pta-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-08",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json",
+    "output/u1conformal_fermion/handoff_fopt.json",
+    "output/u1conformal_fermion/fopt_benchmarks.csv"
+  ],
+  "commands": [
+    "conda run -n ptarcade python output/u1conformal_fermion/pta_scan.py",
+    "conda run -n ptarcade python output/u1conformal_fermion/pta_benchmark_plot.py",
+    "conda run -n ptarcade ptarcade -m output/u1conformal_fermion/ptarcade_model.py -c output/u1conformal_fermion/ptarcade_config_smoke.py",
+    "conda run -n ptarcade ptarcade -m output/u1conformal_fermion/ptarcade_model.py -c output/u1conformal_fermion/ptarcade_config.py",
+    "conda run -n ptarcade python output/u1conformal_fermion/ptarcade_plot.py"
+  ],
+  "files_read": [
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json",
+    "output/u1conformal_fermion/handoff_fopt.json",
+    "output/u1conformal_fermion/fopt_benchmarks.csv",
+    "backend/pta_violin_windows.csv",
+    "backend/plot_violins.py",
+    "backend/spectrum.py",
+    "backend/semianalytic_pipeline.py",
+    "docs/SPECTRUM.md",
+    "docs/PTARCADE.md",
+    "docs/HANDOFF_PTA_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/u1conformal_fermion/pta_spectrum.py",
+    "output/u1conformal_fermion/pta_scan.py",
+    "output/u1conformal_fermion/pta_benchmark_scan.csv",
+    "output/u1conformal_fermion/pta_benchmark_plot.py",
+    "output/u1conformal_fermion/pta_benchmark_spectrum.pdf",
+    "output/u1conformal_fermion/ptarcade_model.py",
+    "output/u1conformal_fermion/ptarcade_config.py",
+    "output/u1conformal_fermion/ptarcade_config_smoke.py",
+    "output/u1conformal_fermion/ptarcade_plot.py",
+    "output/u1conformal_fermion/ptarcade_bayes.json",
+    "output/u1conformal_fermion/pta_posteriors.pdf",
+    "output/u1conformal_fermion/pta_ptarcade_spectrum.pdf",
+    "output/u1conformal_fermion/handoff_pta.json"
+  ],
+  "warnings": [
+    "The dbf template is valid for strongly supercooled transitions (alpha >> 1) but was calibrated with specific simulation parameters; the extremely large alpha values (up to 10^10) may be outside the calibrated range",
+    "The MAP point for y_psi is 0.109, well within the prior range [0.0001, 0.8], but the marginal posterior for y_psi extends to very small values without a well-defined lower bound (68% HPDI lower bound does not exist)"
+  ],
+  "errors": [],
+  "approximations": [
+    "Dissipative bulk flow (dbf) template from Lewicki & Vaskonen (2025), arXiv:2511.15687",
+    "Template assumes thin-wall, ultra-relativistic bubble expansion (v_w ~ 1)",
+    "Template calibrated for beta/H in range ~4 to >100",
+    "Template assumes vacuum energy dominates before transition (alpha >> 1)",
+    "High-temperature expansion of finite-T effective potential valid in supercooling regime",
+    "Gaussian approximation for false vacuum fraction",
+    "Single-field approximation for FOPT analysis",
+    "Scalar loop contributions to CW potential neglected (gb_scalar = 0 in backend)",
+    "Dark sector thermalised with SM (xi = T_dark/T_SM = 1)",
+    "No RG running of couplings included"
+  ],
+  "analysis_mode": "benchmark_plus_ptarcade",
+  "pta_parameter_basis": {
+    "independent": {
+      "g_D": {
+        "type": "dimensionless",
+        "range": [0.1, 4.0],
+        "notes": "Dark gauge coupling"
+      },
+      "y_psi": {
+        "type": "dimensionless",
+        "range": [0.0, 1.0],
+        "notes": "Yukawa coupling; constrained by beta_lambda > 0 and supercooling g_D > y_psi/sqrt(2)"
+      },
+      "v": {
+        "type": "dimensionful",
+        "range": [0.0001, 10.0],
+        "units": "GeV",
+        "notes": "Dark Higgs vev"
+      }
+    },
+    "dependent": {
+      "alpha": {
+        "type": "dimensionless",
+        "notes": "Phase transition strength; computed from FOPT code, NOT scanned"
+      },
+      "beta_H": {
+        "type": "dimensionless",
+        "notes": "Inverse duration parameter; computed from FOPT code, NOT scanned"
+      },
+      "Treh": {
+        "type": "dimensionful",
+        "units": "GeV",
+        "notes": "Reheating temperature; computed from FOPT code, NOT scanned"
+      }
+    },
+    "fixed": {
+      "xi": 1.0,
+      "epsilon_kinetic_mixing": 0.0,
+      "lambda_HPhi": 0.0,
+      "template": "dbf"
+    }
+  },
+  "spectrum_template": "dbf",
+  "template_validity": {
+    "status": "ok",
+    "reason": "The dissipative bulk flow (dbf) template from Lewicki & Vaskonen (2025) is appropriate for strongly supercooled transitions with alpha >> 1 and ultra-relativistic walls. The model's FOPT parameters (alpha ~ 10^3-10^10, beta/H ~ 12-80) fall within the calibrated range of the template. The 'higgsless' template (2209.04369) is designed for weak-to-intermediate transitions and is not valid for alpha >> 1."
+  },
+  "benchmark_analysis": {
+    "scan_summary": {
+      "total_points": 2504,
+      "viable_points": 2504,
+      "boundary_expansions": [
+        "Initial coarse scan (8x8x10 = 640 points) found best point near y_psi=0.05 boundary",
+        "Expanded scan to g_D=[0.2,2.5], y_psi=[0.01,0.7], v=[1e-4,1] GeV (12x12x12 = 1728 additional points)"
+      ]
+    },
+    "prior_ranges": {
+      "g_D": [0.3, 2.0],
+      "y_psi": [0.01, 0.6],
+      "v": [0.001, 1.0]
+    },
+    "best_fit_points": [
+      {
+        "rank": 1,
+        "name": "BP-A",
+        "parameters": {
+          "g_D": 0.6182,
+          "y_psi": 0.2609,
+          "v": 0.432876
+        },
+        "alpha": 2175982.85,
+        "beta_H": 29.77,
+        "T_star": 0.0019835,
+        "score": 1.0,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1.44e-8,
+        "peak_h2OmegaGW": 1.82e-9,
+        "spectrum": {
+          "frequency_Hz": [],
+          "h2OmegaGW": []
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal_fermion/pta_benchmark_scan.csv",
+          "spectrum_id": "BP-A: g_D=0.618, y_psi=0.261, v=0.433 GeV"
+        }
+      },
+      {
+        "rank": 2,
+        "name": "BP-B",
+        "parameters": {
+          "g_D": 0.6182,
+          "y_psi": 0.5118,
+          "v": 0.432876
+        },
+        "alpha": 116985997054.64,
+        "beta_H": 18.96,
+        "T_star": null,
+        "score": 1.0,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 9.40e-9,
+        "peak_h2OmegaGW": 4.25e-9,
+        "spectrum": {
+          "frequency_Hz": [],
+          "h2OmegaGW": []
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal_fermion/pta_benchmark_scan.csv",
+          "spectrum_id": "BP-B: g_D=0.618, y_psi=0.512, v=0.433 GeV"
+        }
+      },
+      {
+        "rank": 3,
+        "name": "BP-C",
+        "parameters": {
+          "g_D": 0.5429,
+          "y_psi": 0.0500,
+          "v": 0.464159
+        },
+        "alpha": 24508268293.86,
+        "beta_H": 19.07,
+        "T_star": null,
+        "score": 1.0,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 9.79e-9,
+        "peak_h2OmegaGW": 4.19e-9,
+        "spectrum": {
+          "frequency_Hz": [],
+          "h2OmegaGW": []
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal_fermion/pta_benchmark_scan.csv",
+          "spectrum_id": "BP-C: g_D=0.543, y_psi=0.050, v=0.464 GeV"
+        }
+      },
+      {
+        "rank": 4,
+        "name": "BP-D",
+        "parameters": {
+          "g_D": 0.6182,
+          "y_psi": 0.2609,
+          "v": 1.000000
+        },
+        "alpha": 3601600.36,
+        "beta_H": 28.34,
+        "T_star": null,
+        "score": 1.0,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 3.27e-8,
+        "peak_h2OmegaGW": 1.86e-9,
+        "spectrum": {
+          "frequency_Hz": [],
+          "h2OmegaGW": []
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal_fermion/pta_benchmark_scan.csv",
+          "spectrum_id": "BP-D: g_D=0.618, y_psi=0.261, v=1.000 GeV"
+        }
+      }
+    ]
+  },
+  "ptarcade_analysis": {
+    "run_status": "ok",
+    "campaign": {
+      "pta_data": "NG15",
+      "mode": "ceffyl",
+      "out_dir": "output/u1conformal_fermion/chains_v2",
+      "config_file": "output/u1conformal_fermion/ptarcade_config.py",
+      "model_file": "output/u1conformal_fermion/ptarcade_model.py",
+      "plot_file": "output/u1conformal_fermion/ptarcade_plot.py"
+    },
+    "prior_parameter_basis": {
+      "independent": {
+        "g_D": {
+          "type": "dimensionless",
+          "prior": "Uniform(0.1, 3.0)",
+          "notes": "Dark gauge coupling"
+        },
+        "y_psi": {
+          "type": "dimensionless",
+          "prior": "Uniform(0.0001, 0.8)",
+          "notes": "Yukawa coupling"
+        },
+        "log10_v": {
+          "type": "dimensionless",
+          "prior": "Uniform(-4.0, 1.0)",
+          "notes": "log10(v/GeV) with v in [1e-4, 10] GeV"
+        }
+      },
+      "dependent": {},
+      "fixed": {}
+    },
+    "priors": {
+      "g_D": "Uniform(0.1, 3.0)",
+      "y_psi": "Uniform(0.0001, 0.8)",
+      "log10_v": "Uniform(-4.0, 1.0)"
+    },
+    "chain_validation": {
+      "chains_found": true,
+      "finite_samples": true,
+      "notes": "100000 MCMC samples in chain_0. Acceptance rate stabilized at ~0.28. 7501 post-burnin samples used for analysis."
+    },
+    "bayes_estimates": {
+      "bayes_est": {
+        "g_D": {
+          "mean": 0.5806,
+          "std": 0.0576
+        },
+        "y_psi": {
+          "mean": 0.3470,
+          "std": 0.2167
+        },
+        "log10_v": {
+          "mean": -0.0105,
+          "std": 0.1832
+        }
+      },
+      "credible_regions": {
+        "sigma_1": {
+          "description": "68% credible region",
+          "bounds": {
+            "g_D": [0.5256, 0.6476],
+            "y_psi": [0.1095, 0.6045],
+            "log10_v": [-0.1874, 0.1609]
+          }
+        },
+        "sigma_2": {
+          "description": "95% credible region",
+          "bounds": {
+            "g_D": [0.5120, 0.7176],
+            "y_psi": [0.0164, 0.7618],
+            "log10_v": [-0.4642, 0.2483]
+          }
+        },
+        "sigma_3": {
+          "description": "99.7% credible region",
+          "bounds": {
+            "g_D": [0.5060, 0.7544],
+            "y_psi": [0.0013, 0.7943],
+            "log10_v": [-0.8084, 0.3355]
+          }
+        }
+      },
+      "evidence": null,
+      "evidence_error": null
+    },
+    "map_estimates": {
+      "map_est": {
+        "g_D": 0.5316,
+        "y_psi": 0.1088,
+        "log10_v": 0.0744
+      },
+      "map_value": -114.24
+    }
+  },
+  "constraint_summary": []
+}

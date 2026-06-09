@@ -1,0 +1,40 @@
+libstempo not installed. PINT or libstempo are required to use par and tim files.
+PINT not installed. PINT or libstempo are required to use par and tim files.
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W20260607 12:50:56.147611 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.l1dcachesize'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.149149 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.l2cachesize'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.149245 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.l3cachesize'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.149331 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.optional.sse4_2'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.149416 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.optional.avx1_0'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.149501 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.optional.avx2_0'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.149594 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.optional.bmi1'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.149686 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.optional.bmi2'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.149777 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.optional.avx512f'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.149875 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.optional.avx512cd'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.149968 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.optional.avx512dq'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.150055 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.optional.avx512bw'. Detail: [errno 1] Operation not permitted
+W20260607 12:50:56.150144 0x200778e40 cpu_info.cc:242] IOError: sysctlbyname failed for 'hw.optional.avx512vl'. Detail: [errno 1] Operation not permitted
+Starting import from /Users/mattezandi/Desktop/code/DarkAgents/codex_workspace/output/minimal_conformal_su2_doublet/chains/minimal_conformal_su2_doublet
+Finished importing   /Users/mattezandi/Desktop/code/DarkAgents/codex_workspace/output/minimal_conformal_su2_doublet/chains/minimal_conformal_su2_doublet in 0.01s
+----- Stats for sample #0-----
+No 1D k-bounds available for this sample
+
+Lower 68.0%-HPDI limit is reached for gD = 0.8445108233354798
+Upper 68.0%-HPDI limit is reached for gD = 0.8916238003208135
+Lower 95.0%-HPDI limit is reached for gD = 0.8421785427041277
+Upper 95.0%-HPDI limit is reached for gD = 0.9561478718344502
+Lower 99.0%-HPDI limit is reached for gD = 0.8411512452421717
+Upper 99.0%-HPDI limit is reached for gD = 1.0154954650315362
+Lower 68.0%-HPDI limit is reached for log10-vD = -0.13189252399211693
+Upper 68.0%-HPDI limit is reached for log10-vD = 0.1485408925616989
+Lower 95.0%-HPDI limit is reached for log10-vD = -0.4109666805438932
+Upper 95.0%-HPDI limit is reached for log10-vD = 0.20781052743430495
+Lower 99.0%-HPDI limit is reached for log10-vD = -0.6049826740418942
+Upper 99.0%-HPDI limit is reached for log10-vD = 0.24089888497065082
+The Bayes estimator for gD is 0.8836054462695611 +- 0.03534910242479358
+The Bayes estimator for log10-vD is -0.05390840126703515 +- 0.17159915013967514
+The maximum posterior value for gD is 0.8631754917681774
+The maximum posterior value for log10-vD is 0.04454840660657564
+
+
+Loading data from HDF5 file....

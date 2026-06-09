@@ -1,0 +1,2 @@
+gD:Uniform(pmin=0.45, pmax=1.55)
+log10_vD:Uniform(pmin=-2.9, pmax=-0.05)

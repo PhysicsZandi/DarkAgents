@@ -1,0 +1,388 @@
+{
+  "model": "su2cw-dark",
+  "agent": "fopt-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-07",
+  "branch": "fopt",
+  "created_from": [
+    "output/su2cw-dark/handoff_model.json",
+    "output/su2cw-dark/handoff_critique.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json"
+  ],
+  "commands": [
+    "conda run -n ptarcade python output/su2cw-dark/fopt_model.py",
+    "conda run -n ptarcade python output/su2cw-dark/fopt_model_scan.py"
+  ],
+  "files_read": [
+    "output/su2cw-dark/handoff_model.json",
+    "output/su2cw-dark/handoff_critique.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/SEMIANALYTICPIPELINE.md",
+    "docs/HANDOFF_FOPT_SCHEMA.md",
+    "backend/semianalytic_pipeline.py"
+  ],
+  "files_written": [
+    "output/su2cw-dark/fopt_model.py",
+    "output/su2cw-dark/fopt_model_scan.py",
+    "output/su2cw-dark/fopt_benchmarks.csv",
+    "output/su2cw-dark/fopt_results.json",
+    "output/su2cw-dark/fopt_report.md",
+    "output/su2cw-dark/handoff_fopt.json"
+  ],
+  "warnings": [
+    "Supercooled conformal FOPT: transition completion explicitly verified via percolation temperature Tp (get_Tp) and eternal-inflation check (get_check_eternal_inflation); all reported viable points percolate (Tp finite, eternal_inflation False).",
+    "Backend uses high-T (small field/T) expansion; valid in the supercooled, thermally-generated-barrier regime per backend documentation.",
+    "alpha grows rapidly toward small chi0/large g (deep supercooling); f_peak_est is an order-of-magnitude anchor only, true spectral peak owned by pta-agent."
+  ],
+  "errors": [],
+  "approximations": [
+    "One-loop Coleman-Weinberg + high-T (small field/T) thermal potential as implemented in semianalytic_pipeline.",
+    "Renormalization scale set to chi0; no RG running or daisy resummation.",
+    "Gaussian approximation for false-vacuum fraction / percolation condition (backend)."
+  ],
+  "backend_choice": {
+    "selected_backend": "semianalytic_pipeline",
+    "executed": true,
+    "reason": "Classically scale-invariant single-field model, masses proportional to one vev, no tree mass term: exactly the backend domain of validity."
+  },
+  "backend": "semianalytic_pipeline",
+  "backend_executed": true,
+  "expected_upstream_inputs": [
+    "handoff_model.json",
+    "handoff_critique.json",
+    "handoff_librarian_preliminary.json"
+  ],
+  "missing_upstream_inputs": [],
+  "model_parameter_ranges": {
+    "g": [
+      0.3,
+      1.5
+    ],
+    "chi0_GeV": [
+      0.0001,
+      10.0
+    ]
+  },
+  "parameter_basis": {
+    "independent": {
+      "g": "Dark SU(2)_D gauge coupling.",
+      "chi0": "Scalar radial vev <chi> in GeV."
+    },
+    "dependent": {
+      "lambda": "CW-fixed quartic, scale-dependent, computed internally, never scanned.",
+      "beta_lambda": "(9*(g/2)^4 + gb_scalar^4)/(8 pi^2), computed by backend.",
+      "gb_scalar": "sqrt(beta_lambda), added self-consistently by backend.",
+      "m_chi": "sqrt(beta_lambda)*chi0, CW pseudo-dilaton mass."
+    },
+    "fixed": {
+      "n_W": "9 (three massive dark vectors x 3 polarizations).",
+      "scalar_dof": "1 (radial mode injected automatically by backend).",
+      "fermion_content": "none."
+    }
+  },
+  "temperature_key": "Treh",
+  "scan_status_labels": [
+    "viable",
+    "physical_failure",
+    "numerical_failure",
+    "not_fopt"
+  ],
+  "benchmark_summary": {
+    "total_points": 302,
+    "viable_points": 271,
+    "failed_points": 31,
+    "excluded_points": 0
+  },
+  "scan_summary": {
+    "total_points": 302,
+    "viable_points": 271,
+    "failed_points": 31,
+    "excluded_points": 0,
+    "in_pta_band_points": 168
+  },
+  "csv_json_alignment": {
+    "csv_file": "output/su2cw-dark/fopt_benchmarks.csv",
+    "independent_parameter_columns": [
+      "g",
+      "chi0"
+    ],
+    "required_result_columns": [
+      "alpha",
+      "beta_H",
+      "Tn",
+      "Tp",
+      "Treh",
+      "f_peak_est",
+      "status"
+    ],
+    "status_column": "status"
+  },
+  "model_parameters": [
+    {
+      "name": "g",
+      "range": [
+        0.3,
+        1.5
+      ],
+      "role": "independent"
+    },
+    {
+      "name": "chi0",
+      "range": [
+        0.0001,
+        10.0
+      ],
+      "units": "GeV",
+      "role": "independent"
+    }
+  ],
+  "benchmarks": [
+    {
+      "name": "lit_anchor_2109.11558_S1",
+      "parameters": {
+        "g": 1.37,
+        "chi0": 0.012014598540145983
+      },
+      "alpha": 15.023233513732725,
+      "beta_H": 144.011637554172,
+      "Tn": 0.0008499489970013761,
+      "Tp": 0.0007634215432251149,
+      "Treh": 0.0015273970650338158,
+      "f_peak_est": 2.6794641868150962e-08,
+      "_comment_f_peak_est": "template-independent order-of-magnitude redshifted peak frequency in Hz; not the true spectral peak",
+      "beta_lambda": 0.025104587085112078,
+      "m_chi": 0.001903644309795733,
+      "gstar_eff": 19.474692153715676,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "best_1",
+      "parameters": {
+        "g": 1.3,
+        "chi0": 0.005336699231206312
+      },
+      "alpha": 33.06931909632868,
+      "beta_H": 126.3030301198711,
+      "Tn": 0.0003009311782862419,
+      "Tp": 0.0002711321500922676,
+      "Treh": 0.000655046124506412,
+      "f_peak_est": 9.90487890559359e-09,
+      "_comment_f_peak_est": "template-independent order-of-magnitude redshifted peak frequency in Hz; not the true spectral peak",
+      "beta_lambda": 0.020352516121683192,
+      "m_chi": 0.0007613454927132077,
+      "gstar_eff": 17.549357380148788,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "best_2",
+      "parameters": {
+        "g": 1.1500000000000001,
+        "chi0": 0.012328467394420659
+      },
+      "alpha": 930.7403511605529,
+      "beta_H": 62.09833480075133,
+      "Tn": 0.0002932979691060061,
+      "Tp": 0.00024208922892646385,
+      "Treh": 0.0013375166381676736,
+      "f_peak_est": 9.90145818863753e-09,
+      "_comment_f_peak_est": "template-independent order-of-magnitude redshifted peak frequency in Hz; not the true spectral peak",
+      "beta_lambda": 0.01246214173851994,
+      "m_chi": 0.0013762756753538437,
+      "gstar_eff": 17.108036391004227,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "best_3",
+      "parameters": {
+        "g": 1.45,
+        "chi0": 0.003511191734215131
+      },
+      "alpha": 6.2230229965263835,
+      "beta_H": 162.77347865595004,
+      "Tn": 0.00032974916037846523,
+      "Tp": 0.0003006732865772207,
+      "Treh": 0.0004929179052112126,
+      "f_peak_est": 9.636020322266244e-09,
+      "_comment_f_peak_est": "template-independent order-of-magnitude redshifted peak frequency in Hz; not the true spectral peak",
+      "beta_lambda": 0.031504891577056555,
+      "m_chi": 0.0006232230969504417,
+      "gstar_eff": 17.886151824156507,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "best_4",
+      "parameters": {
+        "g": 1.4,
+        "chi0": 0.0044814047465571655
+      },
+      "alpha": 10.378819568951629,
+      "beta_H": 148.19226238795125,
+      "Tn": 0.00035954037755162195,
+      "Tp": 0.00032491048173043455,
+      "Treh": 0.0005967439501966472,
+      "f_peak_est": 1.064531873866588e-08,
+      "_comment_f_peak_est": "template-independent order-of-magnitude redshifted peak frequency in Hz; not the true spectral peak",
+      "beta_lambda": 0.02737760458838812,
+      "m_chi": 0.0007415012597249139,
+      "gstar_eff": 18.13638817142369,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "best_5",
+      "parameters": {
+        "g": 1.25,
+        "chi0": 0.008111308307896872
+      },
+      "alpha": 72.45311008692414,
+      "beta_H": 96.77749423032365,
+      "Tn": 0.0003693366586528554,
+      "Tp": 0.0003230989050545164,
+      "Treh": 0.0009458843359213348,
+      "f_peak_est": 1.1017629678398222e-08,
+      "_comment_f_peak_est": "template-independent order-of-magnitude redshifted peak frequency in Hz; not the true spectral peak",
+      "beta_lambda": 0.0173967652850274,
+      "m_chi": 0.0010698555922454636,
+      "gstar_eff": 18.119019383558225,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": ""
+    }
+  ],
+  "best_points": [
+    {
+      "name": "best_1",
+      "parameters": {
+        "g": 1.3,
+        "chi0": 0.005336699231206312
+      },
+      "alpha": 33.06931909632868,
+      "beta_H": 126.3030301198711,
+      "Tn": 0.0003009311782862419,
+      "Tp": 0.0002711321500922676,
+      "Treh": 0.000655046124506412,
+      "f_peak_est": 9.90487890559359e-09,
+      "_comment_f_peak_est": "template-independent order-of-magnitude redshifted peak frequency in Hz; not the true spectral peak",
+      "beta_lambda": 0.020352516121683192,
+      "m_chi": 0.0007613454927132077,
+      "gstar_eff": 17.549357380148788,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "best_2",
+      "parameters": {
+        "g": 1.1500000000000001,
+        "chi0": 0.012328467394420659
+      },
+      "alpha": 930.7403511605529,
+      "beta_H": 62.09833480075133,
+      "Tn": 0.0002932979691060061,
+      "Tp": 0.00024208922892646385,
+      "Treh": 0.0013375166381676736,
+      "f_peak_est": 9.90145818863753e-09,
+      "_comment_f_peak_est": "template-independent order-of-magnitude redshifted peak frequency in Hz; not the true spectral peak",
+      "beta_lambda": 0.01246214173851994,
+      "m_chi": 0.0013762756753538437,
+      "gstar_eff": 17.108036391004227,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "best_3",
+      "parameters": {
+        "g": 1.45,
+        "chi0": 0.003511191734215131
+      },
+      "alpha": 6.2230229965263835,
+      "beta_H": 162.77347865595004,
+      "Tn": 0.00032974916037846523,
+      "Tp": 0.0003006732865772207,
+      "Treh": 0.0004929179052112126,
+      "f_peak_est": 9.636020322266244e-09,
+      "_comment_f_peak_est": "template-independent order-of-magnitude redshifted peak frequency in Hz; not the true spectral peak",
+      "beta_lambda": 0.031504891577056555,
+      "m_chi": 0.0006232230969504417,
+      "gstar_eff": 17.886151824156507,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "best_4",
+      "parameters": {
+        "g": 1.4,
+        "chi0": 0.0044814047465571655
+      },
+      "alpha": 10.378819568951629,
+      "beta_H": 148.19226238795125,
+      "Tn": 0.00035954037755162195,
+      "Tp": 0.00032491048173043455,
+      "Treh": 0.0005967439501966472,
+      "f_peak_est": 1.064531873866588e-08,
+      "_comment_f_peak_est": "template-independent order-of-magnitude redshifted peak frequency in Hz; not the true spectral peak",
+      "beta_lambda": 0.02737760458838812,
+      "m_chi": 0.0007415012597249139,
+      "gstar_eff": 18.13638817142369,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "best_5",
+      "parameters": {
+        "g": 1.25,
+        "chi0": 0.008111308307896872
+      },
+      "alpha": 72.45311008692414,
+      "beta_H": 96.77749423032365,
+      "Tn": 0.0003693366586528554,
+      "Tp": 0.0003230989050545164,
+      "Treh": 0.0009458843359213348,
+      "f_peak_est": 1.1017629678398222e-08,
+      "_comment_f_peak_est": "template-independent order-of-magnitude redshifted peak frequency in Hz; not the true spectral peak",
+      "beta_lambda": 0.0173967652850274,
+      "m_chi": 0.0010698555922454636,
+      "gstar_eff": 18.119019383558225,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": ""
+    }
+  ],
+  "prior_ranges": {
+    "g": [
+      1.1,
+      1.5
+    ],
+    "chi0_GeV": [
+      0.0005,
+      0.43
+    ]
+  },
+  "validation": {
+    "finite_values": true,
+    "percolation_checked": true,
+    "eternal_inflation_checked": true,
+    "perturbativity_checked": true
+  },
+  "output_files": [
+    "output/su2cw-dark/fopt_model.py",
+    "output/su2cw-dark/fopt_model_scan.py",
+    "output/su2cw-dark/fopt_benchmarks.csv",
+    "output/su2cw-dark/fopt_results.json",
+    "output/su2cw-dark/fopt_report.md",
+    "output/su2cw-dark/handoff_fopt.json"
+  ]
+}

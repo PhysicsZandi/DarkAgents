@@ -1,0 +1,300 @@
+{
+  "model": "su2cw-dark",
+  "agent": "prior-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "prior_audit",
+  "created_from": [
+    "output/su2cw-dark/handoff_model.json",
+    "output/su2cw-dark/handoff_critique.json",
+    "output/su2cw-dark/handoff_fopt.json",
+    "output/su2cw-dark/handoff_pta.json",
+    "output/su2cw-dark/handoff_constraints.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json"
+  ],
+  "commands": [
+    "WebSearch: bulk flow dissipative GW spectrum template supercooled phase transition validity alpha large 2511.15687",
+    "WebSearch: NANOGrav 15yr new physics ceffyl free spectrum approximation caveat cross-correlation Hellings-Downs"
+  ],
+  "files_read": [
+    "output/su2cw-dark/handoff_model.json",
+    "output/su2cw-dark/handoff_critique.json",
+    "output/su2cw-dark/handoff_fopt.json",
+    "output/su2cw-dark/handoff_pta.json",
+    "output/su2cw-dark/handoff_constraints.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json",
+    "docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/su2cw-dark/handoff_prior_audit.json",
+    "output/su2cw-dark/prior_audit_report.md",
+    "output/su2cw-dark/prior_audit_table.csv"
+  ],
+  "warnings": [
+    "The pipeline reaches the constraint stage with run_status=warning: the secluded-sector portal/BBN/Neff issue is structurally unresolved and gates the cosmological viability of the final result.",
+    "The final preferred region (PTArcade posterior) and the FOPT-stage band-center benchmark sit at different (chi0, g) corners; the preferred region is template- and prior-dependent.",
+    "GW template (dbf) amplitude relation is extrapolated several orders of magnitude in alpha beyond its explicitly validated/displayed range; viability rests on the amplitude-saturation argument."
+  ],
+  "errors": [],
+  "approximations": [
+    "One-loop Coleman-Weinberg + high-T (small field/T) thermal potential; renormalization scale fixed at chi0; no RG running, no daisy resummation.",
+    "Gaussian approximation for false-vacuum fraction / percolation condition in the backend.",
+    "dbf (dissipative-bulk-flow) template with ksw=1, vw->1; amplitude saturation K_sw=alpha/(1+alpha)->1 in the large-alpha regime.",
+    "Derived masses m_W=g*chi0/2, m_chi=sqrt(beta_lambda)*chi0 with scalar self-loop back-reaction neglected (<0.04%).",
+    "PTArcade ceffyl mode: NG15 free-spectrum / power-law per-frequency likelihood rather than full per-pulsar timing + Hellings-Downs reconstruction."
+  ],
+  "uncertainty_summary": {
+    "total_items": 18,
+    "severity_distribution": {
+      "1": 0, "2": 1, "3": 2, "4": 2, "5": 3, "6": 3, "7": 3, "8": 2, "9": 2, "10": 0
+    },
+    "controlled_distribution": {
+      "1": 0, "2": 1, "3": 2, "4": 2, "5": 2, "6": 1, "7": 0, "8": 0, "9": 0, "10": 0
+    }
+  },
+  "upstream_statuses": [
+    {"handoff": "handoff_model.json", "status": "ok"},
+    {"handoff": "handoff_critique.json", "status": "warning"},
+    {"handoff": "handoff_librarian_preliminary.json", "status": "ok"},
+    {"handoff": "handoff_fopt.json", "status": "ok"},
+    {"handoff": "handoff_pta.json", "status": "ok"},
+    {"handoff": "handoff_constraints.json", "status": "warning"}
+  ],
+  "assumptions": [
+    {
+      "id": "A01",
+      "kind": "limitation",
+      "category": "cosmology/portal",
+      "description": "Missing SM portal: the model is specified as strictly secluded (no kinetic mixing, no Higgs portal) yet upstream assumes thermal equilibrium with the SM (xi=1). Equilibrium requires a portal; kinetic mixing is forbidden in pure non-abelian SU(2)_D and a Higgs portal |Phi|^2|H|^2 breaks the classical conformal invariance the CW mechanism relies on. This unresolved foundational choice gates BBN reheating, Delta Neff, relic abundance and all coupling-dependent constraints. User elected to keep the minimal secluded model despite this.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": ["cosmological viability", "BBN", "Neff", "relic abundance", "final interpretation"],
+      "required_solution": "Specify a portal (add a U(1) for kinetic mixing or accept a small Higgs-portal coupling and quantify the induced conformal breaking) and compute Gamma_portal/H; or explicitly recast the result as conditional on an unspecified UV completion.",
+      "source": {"file": "handoff_constraints.json", "section": "warnings / C3", "note": "constraint-agent HIGH, run_status=warning"}
+    },
+    {
+      "id": "A02",
+      "kind": "uncertainty",
+      "category": "cosmology/BBN",
+      "description": "SM-bath reheating temperature after percolation is never computed. fopt benchmarks give Treh~0.5-1.5 MeV (deep supercooling, below the ~2-4.7 MeV BBN bound); pta T_star~37-138 MeV at the preferred chi0~1 GeV would pass IF that energy reaches the SM bath. The Treh in handoffs uses the spectrum combined-bath convention, not the SM photon-neutrino bath. Pass/fail of the binding BBN bound is therefore undetermined.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": ["BBN viability", "Treh interpretation"],
+      "required_solution": "Compute SM-bath reheating with an entropy/energy-transfer step (requires the portal of A01); check T_SM_reheat > 2-4.7 MeV.",
+      "source": {"file": "handoff_constraints.json", "section": "C1 / missing_calculations", "note": "BBN lower bound on reheating; priority high"}
+    },
+    {
+      "id": "A03",
+      "kind": "caveat",
+      "category": "statistics/prior-template",
+      "description": "Template/prior dependence of the preferred region. The FOPT-stage band-center benchmarks cluster at chi0~5 MeV, g~1.3 (best_1..5 in handoff_fopt), whereas the PTArcade NG15 posterior peaks at chi0~1 GeV, g~0.87 (sigma_1: g in [0.85,0.92], log10_chi0 in [-0.22,0.11]). The two stages prefer different corners of parameter space; the final preferred region is driven by the dbf spectrum amplitude/peak-frequency matching and the chosen (linear g, log chi0) priors, not by a stage-independent fit.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": ["preferred (g, chi0) region", "derived masses", "all downstream constraints evaluated on PTA 1-sigma"],
+      "required_solution": "Document that the reported region is conditional on the dbf template and the adopted priors; cross-check with an alternative template (bf, or sound-shell where applicable) and an alternative chi0 prior to test robustness.",
+      "source": {"file": "handoff_fopt.json / handoff_pta.json", "section": "best_points vs bayes_estimates", "note": "fopt chi0~5e-3 GeV vs pta MAP chi0~1.12 GeV"}
+    },
+    {
+      "id": "A04",
+      "kind": "approximation",
+      "category": "GW-template",
+      "description": "dbf template alpha extrapolation. Viable PTA-matching points have alpha~1e5 to >1e15, far above the largest values explicitly displayed/validated in 2511.15687. The amplitude relation is therefore extrapolated by many orders of magnitude. Viability is justified by amplitude saturation (K_sw=alpha/(1+alpha)->1), i.e. the spectrum is argued to be insensitive to the precise alpha in this regime. The saturation argument is plausible but not validated by simulation at these alpha.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": ["GW amplitude h2OmegaGW", "PTA score", "preferred region"],
+      "required_solution": "Confirm amplitude saturation against the 2511.15687 large-alpha regime; assess residual alpha-dependence and the impact of the super-horizon causality tail noted in 2511.15687.",
+      "source": {"file": "handoff_pta.json", "section": "warnings / template_validity", "note": "dbf chosen over higgsless (alpha>>0.5)"}
+    },
+    {
+      "id": "A05",
+      "kind": "approximation",
+      "category": "GW-template",
+      "description": "Fixed efficiency/wall assumptions in the template: ksw=1 (maximal efficiency) and vw->1 (relativistic/runaway walls) are imposed, not derived. For a strongly supercooled conformal transition runaway walls are plausible, but the precise efficiency and wall velocity feed directly into the GW amplitude and the constraint-relevant T_star.",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": ["GW amplitude", "spectral shape"],
+      "required_solution": "Estimate ksw and vw from the friction/pressure balance for this spectrum rather than fixing them; propagate the spread.",
+      "source": {"file": "handoff_pta.json", "section": "pta_parameter_basis.fixed / approximations", "note": "ksw=1, vw=1 fixed"}
+    },
+    {
+      "id": "A06",
+      "kind": "assumption",
+      "category": "thermalization",
+      "description": "Secluded thermalization assumption xi=1 used upstream. The model handoff and critic both set xi=1 (common temperature) as the backend default, used in the FOPT gstar_eff and the whole thermal history. The critic marked it 'ok' but flagged it may be revisited if BBN/Neff bite. xi=1 without a portal is internally inconsistent (see A01) and propagates into alpha, beta_H, Treh and hence the GW spectrum.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": ["gstar_eff", "alpha", "Treh", "GW spectrum", "Neff"],
+      "required_solution": "Compute the actual dark-to-SM temperature ratio xi(T) from the portal dynamics; if xi!=1 re-evaluate the FOPT thermodynamics.",
+      "source": {"file": "handoff_model.json", "section": "assumptions[0] / critique validation_assumptions", "note": "xi=1 backend default"}
+    },
+    {
+      "id": "A07",
+      "kind": "uncertainty",
+      "category": "cosmology/Neff",
+      "description": "Dark radiation Delta Neff from the secluded sector is not computed. If the sector stays secluded its relativistic content (W_D, chi, dark bath) contributes Delta Neff; the dedicated NANOGrav study 2306.09411 states a completely secluded dark-sector FOPT is strongly disfavoured (Delta Neff>0.22 excluded at 95% CL). Quantitative xi at BBN/CMB and Delta Neff are absent.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": ["Neff viability", "final cosmological interpretation"],
+      "required_solution": "Compute Delta Neff(xi, g_dark) at neutrino decoupling; needs the portal decay/annihilation rate.",
+      "source": {"file": "handoff_constraints.json", "section": "C2", "note": "requires_new_backend; 2306.09411"}
+    },
+    {
+      "id": "A08",
+      "kind": "limitation",
+      "category": "cosmology/late-decay",
+      "description": "Pseudo-dilaton chi stability/late decays unresolved. Throughout the PTA region m_chi (37-91 MeV) < m_W (0.26-0.59 GeV), so chi->WW is kinematically closed. With no portal chi is cosmologically stable (extra matter/dark radiation); with a portal it decays late to e+e-/gamma gamma and is constrained by BBN/CMB energy injection. Lifetime and abundance are not computed.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["BBN/CMB energy injection", "Omega_chi", "Neff"],
+      "required_solution": "Compute tau_chi and Omega_chi once the portal is fixed; check against BBN (t<~0.1 s) and CMB injection windows.",
+      "source": {"file": "handoff_constraints.json", "section": "C6", "note": "m_chi<m_W throughout region"}
+    },
+    {
+      "id": "A09",
+      "kind": "uncertainty",
+      "category": "dark-matter",
+      "description": "Vector DM relic abundance of W_D (m~0.26-0.59 GeV) is not computed; cannot state whether under-, over- or correctly abundant. In the same-model literature (2109.11558) the relic is set non-thermally via scalar-portal mixing, requiring the unspecified portal. W_D stability (custodial SO(4)) is assumed but not confirmed.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["Omega_DM h^2", "DM interpretation"],
+      "required_solution": "Relic-abundance calculation (freeze-out/freeze-in) with the portal; confirm W_D stability from custodial symmetry.",
+      "source": {"file": "handoff_constraints.json", "section": "C5", "note": "requires_new_backend"}
+    },
+    {
+      "id": "A10",
+      "kind": "approximation",
+      "category": "effective-potential",
+      "description": "High-T (small field/T) expansion of the thermal potential used in deep supercooling. The expansion is, by construction, least accurate exactly where the model lives (small Tn/chi0, deep supercooling). Flagged by both critic and fopt-agent as an inherited backend approximation; no daisy resummation and no full numerical thermal integrals.",
+      "severity": 6,
+      "controlled": true,
+      "affected_outputs": ["alpha", "beta_H", "Tn", "Tp", "Treh"],
+      "required_solution": "Cross-check key benchmarks with full one-loop thermal integrals + daisy resummation; quantify the error on alpha/beta_H.",
+      "source": {"file": "handoff_fopt.json / handoff_critique.json", "section": "approximations / warnings", "note": "documented backend domain"}
+    },
+    {
+      "id": "A11",
+      "kind": "approximation",
+      "category": "FOPT-completion",
+      "description": "Percolation/completion uses a Gaussian false-vacuum-fraction approximation and an eternal-inflation flag. All viable points reported Tp finite and eternal_inflation=False, but the percolation criterion and the treatment of vacuum-energy domination during thermal inflation are approximate; 2511.15687 notes a causality-induced super-horizon tail and cosmic-expansion effects not fully captured by a static template.",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": ["transition completion", "Tp", "beta_H", "GW IR tail"],
+      "required_solution": "Verify completion with a full P(t)=exp(-I) percolation integral including expansion; include the super-horizon causality tail in the spectrum.",
+      "source": {"file": "handoff_fopt.json", "section": "approximations / warnings", "note": "C4 passed upstream but approximate"}
+    },
+    {
+      "id": "A12",
+      "kind": "approximation",
+      "category": "statistics/PTA",
+      "description": "PTArcade ceffyl mode uses the NG15 free-spectrum/refit likelihood rather than the full per-pulsar timing analysis with explicit Hellings-Downs cross-correlation. The reconstructed posterior inherits the NANOGrav assumptions (power-law intrinsic noise, HD-correlated background) which 'may not be realized in actuality'. The fit does not include marginalization over an astrophysical SMBHB background.",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": ["posterior (g, chi0)", "credible regions", "evidence (not computed)"],
+      "required_solution": "Note the ceffyl approximation; optionally compare with the full PTA likelihood and include an SMBHB+FOPT mixed model.",
+      "source": {"file": "handoff_pta.json", "section": "ptarcade_analysis.campaign mode=ceffyl", "note": "evidence=null, no model comparison"}
+    },
+    {
+      "id": "A13",
+      "kind": "caveat",
+      "category": "model-comparison",
+      "description": "No Bayesian model comparison against the astrophysical supermassive-black-hole-binary (SMBHB) interpretation of NG15. Evidence/Bayes factor are null in the pta handoff. A good fit (14/14 bins) does not establish that the FOPT is preferred over the standard astrophysical background, which itself fits the data.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["strength of the NANOGrav 'explanation' claim"],
+      "required_solution": "Compute the Bayes factor FOPT vs SMBHB (and vs SMBHB+FOPT) on NG15.",
+      "source": {"file": "handoff_pta.json", "section": "bayes_estimates.evidence=null", "note": "no model comparison performed"}
+    },
+    {
+      "id": "A14",
+      "kind": "uncertainty",
+      "category": "structure-formation",
+      "description": "DM self-interaction (SIDM) sigma/m for light W_D with the ~10x lighter chi mediator is not computed, though all inputs (g, m_W, m_chi) are present. Sub-GeV vector DM with O(1) gauge coupling and a light mediator can be in the strongly self-interacting regime (cluster bound sigma/m<~1 cm^2/g).",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": ["halo-shape / Bullet-cluster viability if W_D is DM"],
+      "required_solution": "Compute sigma_self/m (Born/Sommerfeld); inputs already available (medium priority).",
+      "source": {"file": "handoff_constraints.json", "section": "C10", "note": "inputs available, only computation missing"}
+    },
+    {
+      "id": "A15",
+      "kind": "caveat",
+      "category": "portal-dependent-constraints",
+      "description": "Beam-dump (C7), SN1987A (C8), direct detection (C9) and Higgs-portal collider (C11) bounds are all conditional on a portal that is not specified and were not applied. If a U(1)/kinetic-mixing portal is added to satisfy A01/A02, the epsilon window needed for thermal contact (~1e-6..1e-4) overlaps excluded beam-dump bands at m_W~0.26-0.59 GeV; a Higgs portal triggers invisible-Higgs limits and breaks conformal invariance. The minimal model evades these only by being secluded, which is what creates the BBN/Neff tension.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["laboratory/astro constraints once a portal is added"],
+      "required_solution": "When the portal is fixed, recast C7-C9, C11 against the specific decay structure; expect tension between the BBN-required and lab-allowed coupling.",
+      "source": {"file": "handoff_constraints.json", "section": "C7,C8,C9,C11", "note": "conditional, not applied"}
+    },
+    {
+      "id": "A16",
+      "kind": "approximation",
+      "category": "effective-potential",
+      "description": "Renormalization-scale dependence of the CW potential: scale fixed at mu=chi0 with no RG running. The dependent quartic lambda and beta_lambda (hence m_chi and the FOPT strength) carry an unquantified scale-choice uncertainty. Scalar self-loop back-reaction neglected (<0.04%, controlled).",
+      "severity": 4,
+      "controlled": true,
+      "affected_outputs": ["m_chi", "beta_lambda", "alpha", "beta_H"],
+      "required_solution": "Vary mu around chi0 and/or RG-improve to quantify scale sensitivity of m_chi and FOPT parameters.",
+      "source": {"file": "handoff_fopt.json / handoff_librarian_preliminary.json", "section": "approximations / theory_uncertainties", "note": "mu=chi0 fixed"}
+    },
+    {
+      "id": "A17",
+      "kind": "assumption",
+      "category": "perturbativity",
+      "description": "Perturbativity bound g<=~1.5 keeps one-loop CW reliable. The PTA posterior sits at g~0.87 (comfortably inside), but the fopt best benchmarks used g~1.3-1.45, near the edge where two-loop corrections to beta_lambda and the FOPT could matter.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": ["reliability of one-loop CW", "beta_lambda"],
+      "required_solution": "Spot-check two-loop corrections at the high-g benchmarks; the final preferred g~0.87 is safe.",
+      "source": {"file": "handoff_model.json", "section": "assumptions / free_parameters", "note": "g<=1.5"}
+    },
+    {
+      "id": "A18",
+      "kind": "limitation",
+      "category": "scope/novelty",
+      "description": "The model is not novel: it is essentially Borah-Dasgupta-Kang (2109.11558), whose own viable NANOGrav points sit at modest alpha~0.4 and chi0~1-12 MeV, MeV-scale vev. The present pipeline instead lands at chi0~1 GeV with extreme alpha. The mismatch between the literature anchor (modest alpha, MeV vev) and the pipeline's preferred region (extreme alpha, GeV vev) signals template/convention sensitivity and that benchmarks were not reproduced one-to-one.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": ["confidence in preferred region", "cross-check against literature"],
+      "required_solution": "Reconcile with 2109.11558: reproduce their alpha~0.4 scenario in the backend and understand why the 15yr fit migrates to extreme alpha / GeV vev.",
+      "source": {"file": "handoff_librarian_preliminary.json", "section": "novelty_verdict / benchmark_hints", "note": "anchor alpha~0.4, chi0~MeV vs pipeline alpha>>1, chi0~1 GeV"}
+    }
+  ],
+  "required_followups": [
+    {
+      "id": "F1",
+      "priority": "high",
+      "description": "Resolve the SM portal and compute the SM-bath reheating temperature and Delta Neff (A01, A02, A06, A07).",
+      "blocked_by": ["model-level portal decision (proposer/critic)"],
+      "suggested_action": "Add a portal (U(1) kinetic mixing or controlled Higgs portal), compute Gamma_portal/H, T_SM_reheat>2-4.7 MeV and Delta Neff<0.22; or relabel the final result as conditional on an unspecified UV completion."
+    },
+    {
+      "id": "F2",
+      "priority": "high",
+      "description": "Validate the dbf GW template in the extreme-alpha regime and quantify residual alpha-, ksw-, vw-dependence and the super-horizon tail (A04, A05, A11).",
+      "blocked_by": [],
+      "suggested_action": "Benchmark against 2511.15687 large-alpha simulations; confirm amplitude saturation and include cosmic-expansion/causality-tail effects."
+    },
+    {
+      "id": "F3",
+      "priority": "high",
+      "description": "Test template/prior dependence of the preferred (g, chi0) region (A03, A18).",
+      "blocked_by": [],
+      "suggested_action": "Re-run with an alternative template and an alternative chi0 prior; reconcile with the 2109.11558 modest-alpha MeV-vev anchor."
+    },
+    {
+      "id": "F4",
+      "priority": "medium",
+      "description": "Compute chi lifetime/abundance, W_D relic abundance and stability, and W_D self-interaction sigma/m (A08, A09, A14).",
+      "blocked_by": ["portal (for A08, A09)"],
+      "suggested_action": "Run scalar-decay, relic-abundance and SIDM modules; SIDM inputs already available."
+    },
+    {
+      "id": "F5",
+      "priority": "medium",
+      "description": "Strengthen the statistical claim with a Bayesian model comparison against the SMBHB interpretation and note the ceffyl approximation (A12, A13).",
+      "blocked_by": [],
+      "suggested_action": "Compute the FOPT-vs-SMBHB Bayes factor on NG15; optionally cross-check with the full PTA likelihood."
+    }
+  ]
+}

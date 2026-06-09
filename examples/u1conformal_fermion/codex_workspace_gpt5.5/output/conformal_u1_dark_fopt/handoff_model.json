@@ -1,0 +1,401 @@
+{
+  "model": "conformal_u1_dark_fopt",
+  "agent": "critic-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-08",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    "output/conformal_u1_dark_fopt/handoff_critique.json",
+    "output/conformal_u1_dark_fopt/critique.md"
+  ],
+  "commands": [],
+  "files_read": [
+    "output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    "backend/semianalytic_pipeline.py",
+    "docs/BACKEND_COMPATIBILITY.md"
+  ],
+  "files_written": [
+    "output/conformal_u1_dark_fopt/model.md",
+    "output/conformal_u1_dark_fopt/handoff_model.json"
+  ],
+  "warnings": [
+    "The fermion backend entry compresses two degenerate Majorana Weyl mass eigenstates into one dof=4 species.",
+    "Explicit thermal masses are placeholders and are not direct inputs to semianalytic_pipeline.py.",
+    "Literature benchmark mappings are approximate scan seeds, not exact model reproductions."
+  ],
+  "errors": [],
+  "approximations": [
+    "Higgs portal coupling fixed to zero.",
+    "Hypercharge-dark kinetic mixing fixed to zero.",
+    "Single radial Coleman-Weinberg order parameter.",
+    "Semianalytic small-field/high-temperature polynomial backend."
+  ],
+  "gauge_groups": [
+    {
+      "name": "SU(3)_c",
+      "type": "standard_model",
+      "notes": "All new dark-sector fields are singlets."
+    },
+    {
+      "name": "SU(2)_L",
+      "type": "standard_model",
+      "notes": "All new dark-sector fields are singlets."
+    },
+    {
+      "name": "U(1)_Y",
+      "type": "standard_model",
+      "notes": "All new dark-sector fields have zero hypercharge."
+    },
+    {
+      "name": "U(1)_D",
+      "type": "dark_gauge",
+      "gauge_coupling": "g_D",
+      "notes": "Broken completely by the Coleman-Weinberg vev of Phi."
+    }
+  ],
+  "global_symmetries": [
+    {
+      "name": "classical_scale_invariance",
+      "status": "imposed_at_tree_level",
+      "notes": "Forbids explicit scalar mass terms and dimensionful fermion mass terms before dimensional transmutation."
+    },
+    {
+      "name": "accidental_dark_fermion_number_or_residual_parity",
+      "status": "warning",
+      "notes": "Not required by the FOPT backend; a dark matter interpretation needs later stability checks."
+    }
+  ],
+  "particle_content": [
+    {
+      "name": "Phi",
+      "type": "complex_scalar",
+      "spin": 0,
+      "statistics": "boson",
+      "dof": 2,
+      "charges": {
+        "SU(3)_c": "1",
+        "SU(2)_L": "1",
+        "U(1)_Y": 0,
+        "U(1)_D": 2
+      },
+      "role": "Coleman-Weinberg dark scalar and FOPT order parameter."
+    },
+    {
+      "name": "X_mu",
+      "type": "gauge_boson",
+      "spin": 1,
+      "statistics": "boson",
+      "dof": 3,
+      "charges": {
+        "SU(3)_c": "1",
+        "SU(2)_L": "1",
+        "U(1)_Y": 0,
+        "U(1)_D": "adjoint"
+      },
+      "role": "Massive dark photon after U(1)_D breaking."
+    },
+    {
+      "name": "psi_plus",
+      "type": "left_handed_weyl_fermion",
+      "spin": 0.5,
+      "statistics": "fermion",
+      "dof": 2,
+      "charges": {
+        "SU(3)_c": "1",
+        "SU(2)_L": "1",
+        "U(1)_Y": 0,
+        "U(1)_D": 1
+      },
+      "role": "Positive-charge Weyl component; one degenerate Majorana mass eigenstate after symmetry breaking."
+    },
+    {
+      "name": "psi_minus",
+      "type": "left_handed_weyl_fermion",
+      "spin": 0.5,
+      "statistics": "fermion",
+      "dof": 2,
+      "charges": {
+        "SU(3)_c": "1",
+        "SU(2)_L": "1",
+        "U(1)_Y": 0,
+        "U(1)_D": -1
+      },
+      "role": "Negative-charge Weyl component; one degenerate Majorana mass eigenstate after symmetry breaking."
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "dark_gauge_kinetic",
+      "expression": "-1/4 * X_munu * X_munu",
+      "notes": "Canonical U(1)_D gauge kinetic term."
+    },
+    {
+      "name": "dark_scalar_kinetic",
+      "expression": "abs(D_mu_Phi)**2",
+      "notes": "D_mu Phi = (partial_mu - I*2*g_D*X_mu) Phi for q_Phi=2."
+    },
+    {
+      "name": "dark_fermion_kinetic",
+      "expression": "I*psi_plus_dagger*bar_sigma_mu*D_mu_psi_plus + I*psi_minus_dagger*bar_sigma_mu*D_mu_psi_minus",
+      "notes": "Covariant derivatives use q_psi_plus=1 and q_psi_minus=-1."
+    },
+    {
+      "name": "dark_yukawa",
+      "expression": "-1/2*y_D*Phi_dagger*psi_plus*psi_plus - 1/2*y_D*Phi*psi_minus*psi_minus + h.c.",
+      "notes": "Gauge invariant: -2+1+1=0 and 2-1-1=0. Produces two degenerate Majorana Weyl masses after Phi obtains a vev."
+    },
+    {
+      "name": "classically_scale_invariant_potential",
+      "expression": "lambda_D*(Phi_dagger*Phi)**2",
+      "notes": "No explicit mass term; lambda_D is Coleman-Weinberg dependent."
+    },
+    {
+      "name": "higgs_portal_fixed_zero",
+      "expression": "lambda_HP*(H_dagger*H)*(Phi_dagger*Phi)",
+      "notes": "Allowed by symmetries but fixed to lambda_HP=0 for backend scans."
+    },
+    {
+      "name": "kinetic_mixing_fixed_zero",
+      "expression": "epsilon/2*B_munu*X_munu",
+      "notes": "Allowed for two U(1) gauge groups but fixed to epsilon=0 for backend scans."
+    }
+  ],
+  "free_parameters": [
+    {
+      "name": "v_D",
+      "range": "positive real, GeV",
+      "notes": "Dark radial vev, <chi>=v_D."
+    },
+    {
+      "name": "g_D",
+      "range": "positive perturbative real coupling",
+      "notes": "Dark U(1)_D gauge coupling."
+    },
+    {
+      "name": "y_D",
+      "range": "nonnegative perturbative real coupling with beta_lambda > 0",
+      "notes": "Dark Yukawa coupling."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "v_D": {
+        "description": "Dark radial vev in GeV",
+        "scan": true
+      },
+      "g_D": {
+        "description": "Dark U(1)_D gauge coupling",
+        "scan": true
+      },
+      "y_D": {
+        "description": "Dark Yukawa coupling",
+        "scan": true
+      }
+    },
+    "dependent": {
+      "gb_X": {
+        "expression": "2 * g_D",
+        "description": "Gauge boson mass-over-vev ratio m_X/v_D."
+      },
+      "gf_psi": {
+        "expression": "y_D / sqrt(2)",
+        "description": "Mass-over-vev ratio for each degenerate Majorana Weyl mass eigenstate."
+      },
+      "beta_lambda": {
+        "expression": "(1/(8*pi**2))*(3*gb_X**4 - 4*gf_psi**4)",
+        "description": "Coleman-Weinberg beta coefficient in the backend mass-over-vev basis."
+      },
+      "m_chi_squared": {
+        "expression": "beta_lambda * v_D**2",
+        "description": "CW pseudo-dilaton radial scalar mass squared."
+      },
+      "lambda_D": {
+        "determination": "Coleman-Weinberg minimization condition; not scanned independently.",
+        "description": "Dependent quartic coupling."
+      }
+    },
+    "fixed": {
+      "lambda_HP": {
+        "value": 0,
+        "description": "Higgs portal fixed to zero."
+      },
+      "epsilon": {
+        "value": 0,
+        "description": "Hypercharge-dark kinetic mixing fixed to zero."
+      },
+      "q_Phi": {
+        "value": 2,
+        "description": "Dark scalar U(1)_D charge."
+      },
+      "q_psi_plus": {
+        "value": 1,
+        "description": "Positive dark Weyl U(1)_D charge."
+      },
+      "q_psi_minus": {
+        "value": -1,
+        "description": "Negative dark Weyl U(1)_D charge."
+      }
+    }
+  },
+  "assumptions": [
+    "The dark sector is decoupled from the Standard Model for the FOPT backend scan.",
+    "The model is classically scale invariant at tree level.",
+    "The FOPT is controlled by the single radial background chi.",
+    "The Coleman-Weinberg quartic is dependent and not a scan parameter.",
+    "Downstream scans enforce beta_lambda > 0 and perturbative g_D and y_D.",
+    "The two Weyl fermions are degenerate in mass and are compressed into one backend fermion species with total dof=4."
+  ],
+  "backend_compatibility": [
+    {
+      "backend": "semianalytic_pipeline",
+      "status": "compatible_with_warnings",
+      "mapping": {
+        "chi0": "v_D",
+        "bosons": [
+          {
+            "name": "X_mu",
+            "gb": "2*g_D",
+            "dof": 3
+          }
+        ],
+        "fermions": [
+          {
+            "name": "psi_degenerate_majorana_pair",
+            "gf": "y_D / sqrt(2)",
+            "dof": 4
+          }
+        ],
+        "beta_lambda": "(1/(8*pi**2))*(3*(2*g_D)**4 - 4*(y_D/sqrt(2))**4)"
+      },
+      "notes": "Compatible with the conformal single-field semianalytic backend when beta_lambda>0 is enforced. Explicit thermal-mass placeholders are not direct backend inputs."
+    }
+  ],
+  "ssb_pattern": [
+    {
+      "from": "U(1)_D",
+      "to": "nothing",
+      "order_parameter": "chi",
+      "vev": "v_D",
+      "notes": "The dark photon becomes massive and the scalar angular mode is eaten."
+    }
+  ],
+  "vev_convention": [
+    {
+      "field_definition": "Phi = chi / sqrt(2)",
+      "vev": "chi = v_D",
+      "notes": "Unitary gauge is implied; backend mass convention is m_i(chi)=g_i*chi."
+    }
+  ],
+  "tree_level_potential": [
+    {
+      "name": "conformal_quartic",
+      "expression": "lambda_D * chi**4 / 4",
+      "notes": "lambda_D is dependent through Coleman-Weinberg minimization; no chi**2 mass term is present."
+    }
+  ],
+  "field_dependent_masses": [
+    {
+      "particle": "X_mu",
+      "m2_of_chi": "4 * g_D**2 * chi**2",
+      "dof": 3,
+      "statistics": "boson",
+      "notes": "Backend mass-over-vev ratio gb_X=2*g_D."
+    },
+    {
+      "particle": "psi_degenerate_majorana_pair",
+      "m2_of_chi": "(y_D**2 / 2) * chi**2",
+      "dof": 4,
+      "statistics": "fermion",
+      "notes": "Represents two degenerate Majorana Weyl mass eigenstates from psi_plus and psi_minus."
+    },
+    {
+      "particle": "chi",
+      "m2_of_chi": "beta_lambda * v_D**2",
+      "dof": 1,
+      "statistics": "boson",
+      "notes": "CW pseudo-dilaton mass at the broken minimum; not double-counted as an independent backend driver."
+    }
+  ],
+  "thermal_masses": [
+    {
+      "particle": "X_longitudinal",
+      "thermal_mass_squared": "((g_D**2 / 3) * (4 + 1 + 1)) * T**2",
+      "notes": "Analytic placeholder only; semianalytic_pipeline.py constructs thermal coefficients internally."
+    },
+    {
+      "particle": "chi",
+      "thermal_mass_squared": "((g_D**2 / 4) + (y_D**2 / 12) + (lambda_D / 3)) * T**2",
+      "notes": "Analytic placeholder only; not a direct backend input."
+    }
+  ],
+  "expression_symbols": [
+    {
+      "symbol": "chi",
+      "meaning": "Real radial dark scalar background field",
+      "dimension": "GeV"
+    },
+    {
+      "symbol": "T",
+      "meaning": "Temperature",
+      "dimension": "GeV"
+    },
+    {
+      "symbol": "v_D",
+      "meaning": "Dark radial vev",
+      "dimension": "GeV"
+    },
+    {
+      "symbol": "g_D",
+      "meaning": "Dark U(1)_D gauge coupling",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "y_D",
+      "meaning": "Dark Yukawa coupling",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "lambda_D",
+      "meaning": "Dependent dark scalar quartic",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "lambda_HP",
+      "meaning": "Fixed Higgs portal coupling",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "epsilon",
+      "meaning": "Fixed hypercharge-dark kinetic mixing",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "gb_X",
+      "meaning": "Gauge boson mass-over-vev ratio",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "gf_psi",
+      "meaning": "Dark fermion mass-over-vev ratio",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "beta_lambda",
+      "meaning": "CW beta coefficient for the quartic",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "pi",
+      "meaning": "Mathematical constant pi",
+      "dimension": "dimensionless"
+    },
+    {
+      "symbol": "sqrt",
+      "meaning": "Square-root function in SymPy/Python expressions",
+      "dimension": "function"
+    }
+  ]
+}

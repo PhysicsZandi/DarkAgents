@@ -1,0 +1,315 @@
+{
+  "model": "conformal_u1_dark_fopt",
+  "agent": "critic-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-08",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    ".codex/agents/critic-agent.md",
+    ".codex/skills/model-critique/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_CRITIC_SCHEMA.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "backend/semianalytic_pipeline.py",
+    "docs/BACKEND_COMPATIBILITY.md"
+  ],
+  "commands": [
+    "sed -n '1,240p' .codex/agents/critic-agent.md",
+    "sed -n '1,260p' .codex/skills/model-critique/SKILL.md",
+    "sed -n '1,220p' docs/HANDOFF_SCHEMAS.md",
+    "sed -n '1,260p' docs/HANDOFF_CRITIC_SCHEMA.md",
+    "sed -n '1,320p' docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "sed -n '1,620p' output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "sed -n '1,620p' output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json",
+    "sed -n '1,620p' backend/semianalytic_pipeline.py",
+    "sed -n '1,260p' docs/BACKEND_COMPATIBILITY.md",
+    "python -m json.tool output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "python -m json.tool output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json"
+  ],
+  "files_read": [
+    ".codex/agents/critic-agent.md",
+    ".codex/skills/model-critique/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_CRITIC_SCHEMA.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "backend/semianalytic_pipeline.py",
+    "output/conformal_u1_dark_fopt/handoff_proposed_model.json",
+    "output/conformal_u1_dark_fopt/handoff_librarian_preliminary.json"
+  ],
+  "files_written": [
+    "output/conformal_u1_dark_fopt/critique.md",
+    "output/conformal_u1_dark_fopt/handoff_critique.json",
+    "output/conformal_u1_dark_fopt/model.md",
+    "output/conformal_u1_dark_fopt/handoff_model.json"
+  ],
+  "warnings": [
+    "Explicit thermal masses are placeholders; semianalytic_pipeline.py consumes mass-over-vev couplings and degrees of freedom instead.",
+    "Literature benchmark mappings are suitable as scan seeds only because charge normalizations, portals, kinetic mixing and Yukawa assumptions differ across sources.",
+    "The fermion backend entry compresses two degenerate Majorana Weyl mass eigenstates into one dof=4 species; it should not be described as a Dirac fermion without extra structure."
+  ],
+  "errors": [],
+  "approximations": [
+    "Higgs portal coupling is fixed to zero.",
+    "Hypercharge-dark kinetic mixing is fixed to zero.",
+    "The FOPT analysis is restricted to a single radial Coleman-Weinberg order parameter.",
+    "The backend uses the semianalytic small-field/high-temperature polynomial approximation."
+  ],
+  "validation_gauge_groups": [
+    {
+      "item": "U(1)_D extension",
+      "status": "ok",
+      "notes": "The dark scalar and fermions have declared U(1)_D charges and all new fields are Standard Model singlets."
+    },
+    {
+      "item": "U(1)_D cubic anomaly",
+      "status": "ok",
+      "notes": "For left-handed Weyl fermions, sum q_D^3 = 1^3 + (-1)^3 = 0."
+    },
+    {
+      "item": "mixed gravitational-U(1)_D anomaly",
+      "status": "ok",
+      "notes": "For left-handed Weyl fermions, sum q_D = 1 - 1 = 0."
+    },
+    {
+      "item": "mixed Standard Model anomalies",
+      "status": "ok",
+      "notes": "The new chiral fermions are Standard Model singlets, so no new SU(3), SU(2), or hypercharge mixed anomaly is introduced."
+    }
+  ],
+  "validation_global_symmetries": [
+    {
+      "item": "classical scale invariance",
+      "status": "ok",
+      "notes": "The validated model contains no explicit scalar mass term and no explicit fermion mass term."
+    },
+    {
+      "item": "accidental dark fermion stability",
+      "status": "warning",
+      "notes": "The FOPT backend does not require a stable dark fermion. Any dark matter interpretation needs a later symmetry and decay-operator audit."
+    }
+  ],
+  "validation_particle_content": [
+    {
+      "item": "Phi",
+      "status": "ok",
+      "notes": "Complex scalar with q_D=2 supplies the single radial order parameter."
+    },
+    {
+      "item": "X_mu",
+      "status": "ok",
+      "notes": "The dark photon has three physical degrees of freedom after U(1)_D breaking."
+    },
+    {
+      "item": "psi_plus and psi_minus",
+      "status": "fixed",
+      "notes": "The two Weyl fermions are retained, but the mass-basis description is clarified as two degenerate Majorana Weyl eigenstates rather than a single Dirac state.",
+      "original": "The proposer handoff compressed the dark fermion as particle 'psi' with dof=4 without spelling out the Majorana mass-basis interpretation.",
+      "fix": "The validated model names the compressed backend species 'psi_degenerate_majorana_pair' and records that it represents two equal-mass Majorana Weyl eigenstates.",
+      "severity": "warning"
+    }
+  ],
+  "validation_lagrangian_terms": [
+    {
+      "item": "Phi_dagger psi_plus psi_plus Yukawa",
+      "status": "ok",
+      "notes": "Gauge charge is -2 + 1 + 1 = 0."
+    },
+    {
+      "item": "Phi psi_minus psi_minus Yukawa",
+      "status": "ok",
+      "notes": "Gauge charge is 2 - 1 - 1 = 0."
+    },
+    {
+      "item": "psi_plus psi_minus explicit mass",
+      "status": "ok",
+      "notes": "This gauge-invariant dimension-three term is absent, as required by classical scale invariance."
+    },
+    {
+      "item": "Higgs portal and kinetic mixing",
+      "status": "warning",
+      "notes": "Both are symmetry-allowed but fixed to zero for the backend-compatible dark-sector scan."
+    }
+  ],
+  "validation_free_parameters": [
+    {
+      "item": "independent scan parameters",
+      "status": "ok",
+      "notes": "Only v_D, g_D, and y_D are independent scan parameters."
+    },
+    {
+      "item": "lambda_D",
+      "status": "ok",
+      "notes": "lambda_D is dependent through Coleman-Weinberg minimization and must not be scanned independently."
+    },
+    {
+      "item": "beta_lambda positivity",
+      "status": "warning",
+      "notes": "Downstream scans must enforce beta_lambda = (1/(8*pi**2))*(3*gb_X**4 - 4*gf_psi**4) > 0."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "v_D": {
+        "description": "Dark radial vev in GeV",
+        "scan": true
+      },
+      "g_D": {
+        "description": "Dark U(1)_D gauge coupling",
+        "scan": true
+      },
+      "y_D": {
+        "description": "Dark Yukawa coupling",
+        "scan": true
+      }
+    },
+    "dependent": {
+      "gb_X": {
+        "expression": "2 * g_D",
+        "description": "Gauge boson mass-over-vev ratio m_X/v_D."
+      },
+      "gf_psi": {
+        "expression": "y_D / sqrt(2)",
+        "description": "Mass-over-vev ratio for each degenerate Majorana Weyl fermion."
+      },
+      "beta_lambda": {
+        "expression": "(1/(8*pi**2))*(3*gb_X**4 - 4*gf_psi**4)",
+        "description": "Coleman-Weinberg beta coefficient in the backend mass-over-vev basis."
+      },
+      "m_chi_squared": {
+        "expression": "beta_lambda * v_D**2",
+        "description": "CW pseudo-dilaton radial scalar mass squared."
+      },
+      "lambda_D": {
+        "determination": "Coleman-Weinberg minimization condition; not an independent scan parameter.",
+        "description": "Dependent quartic coupling."
+      }
+    },
+    "fixed": {
+      "lambda_HP": {
+        "value": 0,
+        "description": "Higgs portal fixed to zero."
+      },
+      "epsilon": {
+        "value": 0,
+        "description": "Hypercharge-dark kinetic mixing fixed to zero."
+      },
+      "q_Phi": {
+        "value": 2,
+        "description": "Dark scalar U(1)_D charge."
+      },
+      "q_psi_plus": {
+        "value": 1,
+        "description": "Positive dark Weyl fermion U(1)_D charge."
+      },
+      "q_psi_minus": {
+        "value": -1,
+        "description": "Negative dark Weyl fermion U(1)_D charge."
+      }
+    }
+  },
+  "validation_assumptions": [
+    {
+      "item": "single-field conformal FOPT",
+      "status": "ok",
+      "notes": "The model has one radial Coleman-Weinberg order parameter and no explicit scalar mass term."
+    },
+    {
+      "item": "zero portal and zero kinetic mixing",
+      "status": "warning",
+      "notes": "This makes the backend scan simpler, but later constraint work must revisit cosmological thermalization, decays, and exact-zero assumptions."
+    },
+    {
+      "item": "perturbativity",
+      "status": "warning",
+      "notes": "Perturbativity is assumed and must be enforced by downstream priors; no numerical scan was performed here."
+    }
+  ],
+  "authoritative_model_file": "output/conformal_u1_dark_fopt/model.md",
+  "repair_records": [
+    {
+      "original_issue": "The proposed handoff compressed psi_plus and psi_minus into one fermion species 'psi' with dof=4 without explicitly identifying the mass eigenstates.",
+      "applied_fix": "The validated model states that the Yukawas produce two degenerate Majorana Weyl mass eigenstates and that the backend species is only a degenerate dof=4 bookkeeping entry.",
+      "justification": "This preserves the field content and Yukawa structure while preventing a misleading Dirac-fermion interpretation.",
+      "minimal": true
+    },
+    {
+      "original_issue": "The vector mass convention needed to be tied explicitly to the semianalytic backend mass-over-vev basis.",
+      "applied_fix": "The validated model defines gb_X = 2*g_D and m_X_squared(chi) = 4*g_D**2*chi**2.",
+      "justification": "This is the convention consumed by backend/semianalytic_pipeline.py and matches the librarian's convention-mapping warning.",
+      "minimal": true
+    },
+    {
+      "original_issue": "Thermal mass expressions were placeholders and could be mistaken for direct backend inputs.",
+      "applied_fix": "The critique and model mark them as analytic placeholders; the backend compatibility entry states that semianalytic_pipeline.py constructs thermal coefficients internally.",
+      "justification": "This avoids passing unsupported explicit Debye masses to the backend while preserving useful analytic notes.",
+      "minimal": true
+    }
+  ],
+  "red_flags": [],
+  "validation_ssb_pattern": [
+    {
+      "item": "U(1)_D breaking",
+      "status": "ok",
+      "notes": "A charged scalar vev breaks U(1)_D completely; the dark photon eats the angular Goldstone mode."
+    }
+  ],
+  "validation_vev_convention": [
+    {
+      "item": "Phi = chi / sqrt(2), <chi> = v_D",
+      "status": "fixed",
+      "notes": "The validated backend convention is m_X(chi)=gb_X*chi with gb_X=2*g_D.",
+      "original": "The proposer stated the convention but the downstream mapping needed explicit identification with the backend gb basis.",
+      "fix": "Recorded gb_X=2*g_D and m_X_squared(chi)=4*g_D**2*chi**2 as authoritative.",
+      "severity": "warning"
+    }
+  ],
+  "validation_tree_level_potential": [
+    {
+      "item": "classically scale-invariant quartic",
+      "status": "ok",
+      "notes": "V0=lambda_D*chi**4/4 contains no explicit chi**2 term; lambda_D is dependent."
+    }
+  ],
+  "validation_field_dependent_masses": [
+    {
+      "item": "X_mu",
+      "status": "ok",
+      "notes": "m_X_squared(chi)=4*g_D**2*chi**2, dof=3, gb_X=2*g_D."
+    },
+    {
+      "item": "psi_degenerate_majorana_pair",
+      "status": "fixed",
+      "notes": "m_psi_squared(chi)=(y_D**2/2)*chi**2 with total dof=4 for two degenerate Weyl Majorana states.",
+      "original": "The proposer used the generic particle label 'psi'.",
+      "fix": "The validated model uses 'psi_degenerate_majorana_pair' in the backend mapping.",
+      "severity": "warning"
+    },
+    {
+      "item": "chi",
+      "status": "ok",
+      "notes": "m_chi_squared=beta_lambda*v_D**2 is a broken-minimum CW relation and is not an independent backend bosonic driver."
+    }
+  ],
+  "validation_thermal_masses": [
+    {
+      "item": "explicit thermal masses",
+      "status": "warning",
+      "notes": "Expressions are analytic placeholders; semianalytic_pipeline.py consumes gb/gf and dof dictionaries rather than explicit thermal_mass_squared fields."
+    }
+  ],
+  "validation_backend_compatibility": [
+    {
+      "item": "semianalytic_pipeline.py",
+      "status": "warning",
+      "notes": "Compatible for single-field conformal scans with chi0=v_D, boson_gbs={'X_mu':2*g_D}, boson_dofs={'X_mu':3}, fermion_gfs={'psi_degenerate_majorana_pair':y_D/sqrt(2)}, fermion_dofs={'psi_degenerate_majorana_pair':4}; enforce beta_lambda>0."
+    },
+    {
+      "item": "literature benchmarks",
+      "status": "warning",
+      "notes": "Use librarian points as seeds only; exact mappings differ by charge normalization, kinetic mixing, portals, or Yukawa assumptions."
+    }
+  ]
+}

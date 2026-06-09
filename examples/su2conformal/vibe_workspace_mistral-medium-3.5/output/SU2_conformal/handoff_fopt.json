@@ -1,0 +1,1234 @@
+{
+  "model": "SU2_conformal",
+  "agent": "fopt-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/SU2_conformal/handoff_model.json (critic-agent)",
+    "output/SU2_conformal/handoff_librarian_preliminary.json (preliminary-librarian-agent)",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/SEMIANALYTICPIPELINE.md"
+  ],
+  "commands": [
+    "cd /Users/mattezandi/Desktop/code/DarkAgents/vibe_workspace && PYTHONPATH=/Users/mattezandi/Desktop/code/DarkAgents/vibe_workspace:$PYTHONPATH python output/SU2_conformal/fopt_model_scan.py"
+  ],
+  "files_read": [
+    "output/SU2_conformal/handoff_model.json",
+    "output/SU2_conformal/handoff_librarian_preliminary.json",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/SEMIANALYTICPIPELINE.md",
+    "docs/HANDOFF_FOPT_SCHEMA.md",
+    "backend/semianalytic_pipeline.py"
+  ],
+  "files_written": [
+    "output/SU2_conformal/fopt_model.py",
+    "output/SU2_conformal/fopt_model_scan.py",
+    "output/SU2_conformal/fopt_benchmarks.csv",
+    "output/SU2_conformal/fopt_results.json",
+    "output/SU2_conformal/fopt_report.md",
+    "output/SU2_conformal/handoff_fopt.json"
+  ],
+  "warnings": [
+    "Scan used v range [0.01, 10] GeV which differs from handoff range [100, 1e6] GeV. The lower v range was necessary to obtain f_peak in PTA band.",
+    "Discrepancy with literature (2109.11558): our backend gives T_p ~ 0.1 v while literature reports sub-GeV T_* for v ~ 100 GeV. This may be due to different conventions or model details.",
+    "200 points (50%) failed due to eternal inflation, primarily at higher g_D or v values."
+  ],
+  "errors": [],
+  "approximations": [
+    "High-temperature expansion for thermal effective potential (valid in small field/T regime)",
+    "Gaussian approximation for false vacuum fraction and percolation condition",
+    "Fixed renormalization scale mu = v (no RG running)",
+    "No Daisy resummation for thermal masses",
+    "Automatic scalar contribution via Coleman-Weinberg mechanism"
+  ],
+  "backend_choice": {
+    "selected_backend": "semianalytic_pipeline",
+    "executed": true,
+    "reason": "Model is classically scale-invariant with single-field dynamics, matching backend requirements"
+  },
+  "backend": "semianalytic_pipeline",
+  "backend_executed": true,
+  "expected_upstream_inputs": [
+    "output/SU2_conformal/handoff_model.json",
+    "output/SU2_conformal/handoff_librarian_preliminary.json"
+  ],
+  "missing_upstream_inputs": [],
+  "model_parameter_ranges": {
+    "g_D": {
+      "min": 0.5,
+      "max": 3.0,
+      "units": "dimensionless",
+      "description": "SU(2)_D gauge coupling"
+    },
+    "v": {
+      "min": 0.01,
+      "max": 10.0,
+      "units": "GeV",
+      "description": "Vacuum expectation value of background field chi"
+    }
+  },
+  "parameter_basis": {
+    "independent": {
+      "g_D": {
+        "name": "g_D",
+        "description": "SU(2)_D gauge coupling",
+        "range": [
+          0.5,
+          3.0
+        ],
+        "can_scan": true,
+        "units": "dimensionless"
+      },
+      "v": {
+        "name": "v",
+        "description": "Vacuum expectation value of background field chi",
+        "range": [
+          0.01,
+          10.0
+        ],
+        "units": "GeV",
+        "can_scan": true
+      }
+    },
+    "dependent": {
+      "lambda": {
+        "name": "lambda",
+        "description": "Quartic coupling (CW-fixed)",
+        "expression": "3 * g_D**4 / (64 * pi**2)",
+        "determination": "Coleman-Weinberg mechanism"
+      },
+      "beta_lambda": {
+        "name": "beta_lambda",
+        "description": "CW beta function for quartic coupling",
+        "expression": "(6 * (g_D / 2)**4) / (8 * pi**2)",
+        "value": "3 * g_D**4 / (64 * pi**2)",
+        "determination": "gauge sector loops"
+      },
+      "m_rho": {
+        "name": "m_rho",
+        "description": "Radial scalar (pseudo-dilaton) mass",
+        "expression": "sqrt(beta_lambda) * v",
+        "determination": "CW pseudo-dilaton mass"
+      }
+    },
+    "fixed": {
+      "xi": {
+        "name": "xi",
+        "description": "Dark sector temperature relative to SM",
+        "value": 1.0,
+        "justification": "Assumed thermal equilibrium with SM bath"
+      }
+    }
+  },
+  "temperature_key": "Treh",
+  "scan_status_labels": [
+    "viable",
+    "physical_failure",
+    "numerical_failure",
+    "not_fopt"
+  ],
+  "benchmark_summary": {
+    "total_points": 400,
+    "viable_points": 200,
+    "failed_points": 200,
+    "excluded_points": 0
+  },
+  "scan_summary": {
+    "total_points": 400,
+    "viable_points": 200,
+    "failed_points": 200,
+    "excluded_points": 0
+  },
+  "csv_json_alignment": {
+    "csv_file": "output/SU2_conformal/fopt_benchmarks.csv",
+    "independent_parameter_columns": [
+      "g_D",
+      "v"
+    ],
+    "required_result_columns": [
+      "Tn",
+      "Tp",
+      "Treh",
+      "alpha",
+      "beta_H",
+      "f_peak_est",
+      "status"
+    ],
+    "status_column": "status"
+  },
+  "model_parameters": [
+    {
+      "name": "g_D",
+      "description": "SU(2)_D gauge coupling",
+      "range": [
+        0.5,
+        3.0
+      ],
+      "units": "dimensionless",
+      "is_independent": true
+    },
+    {
+      "name": "v",
+      "description": "Vacuum expectation value of background field chi",
+      "range": [
+        0.01,
+        10.0
+      ],
+      "units": "GeV",
+      "is_independent": true
+    }
+  ],
+  "benchmarks": [
+    {
+      "name": "point_0000",
+      "parameters": {
+        "g_D": 0.8804444864382975,
+        "v": 0.01,
+        "units_v": "GeV"
+      },
+      "alpha": 365616699395144.94,
+      "beta_H": 15.456895982666197,
+      "Tn": 3.092532501243742e-07,
+      "Tp": 1.9008227033618824e-07,
+      "Treh": 0.0008311858025864,
+      "f_peak_est": 1.430549043158019e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0001",
+      "parameters": {
+        "g_D": 0.8804444864382975,
+        "v": 0.0143844988828766,
+        "units_v": "GeV"
+      },
+      "alpha": 591007623822658.5,
+      "beta_H": 15.094075937014397,
+      "Tn": 3.9679522564514036e-07,
+      "Tp": 2.4249032959812096e-07,
+      "Treh": 0.0011956186880014,
+      "f_peak_est": 2.0094707148935064e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0002",
+      "parameters": {
+        "g_D": 0.9675141093816336,
+        "v": 0.01,
+        "units_v": "GeV"
+      },
+      "alpha": 2747651020.082207,
+      "beta_H": 23.601019739246,
+      "Tn": 6.0235886902655225e-06,
+      "Tp": 3.989361086590145e-06,
+      "Treh": 0.000913363684869,
+      "f_peak_est": 2.4002944871682044e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0003",
+      "parameters": {
+        "g_D": 0.8804444864382975,
+        "v": 0.0206913808111479,
+        "units_v": "GeV"
+      },
+      "alpha": 970991327079056.8,
+      "beta_H": 14.732546319976336,
+      "Tn": 5.072341414004615e-07,
+      "Tp": 3.080941095454182e-07,
+      "Treh": 0.001719836781539,
+      "f_peak_est": 2.821289396695912e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0004",
+      "parameters": {
+        "g_D": 0.9675141093816336,
+        "v": 0.0143844988828766,
+        "units_v": "GeV"
+      },
+      "alpha": 3604912052.3651385,
+      "beta_H": 23.14125661614241,
+      "Tn": 8.1159796573449e-06,
+      "Tp": 5.3618005301956384e-06,
+      "Treh": 0.0013138153202329,
+      "f_peak_est": 3.3854316466900174e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0005",
+      "parameters": {
+        "g_D": 1.063194291373574,
+        "v": 0.01,
+        "units_v": "GeV"
+      },
+      "alpha": 1123067.3660977865,
+      "beta_H": 35.167124277421635,
+      "Tn": 4.1180263153708184e-05,
+      "Tp": 3.082613083340964e-05,
+      "Treh": 0.0010035073689526,
+      "f_peak_est": 3.930081796938792e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0006",
+      "parameters": {
+        "g_D": 0.8804444864382975,
+        "v": 0.0297635144163131,
+        "units_v": "GeV"
+      },
+      "alpha": 1623117546631926.8,
+      "beta_H": 14.372226333733808,
+      "Tn": 6.458666719816461e-07,
+      "Tp": 3.897572740722447e-07,
+      "Treh": 0.0024738976177247,
+      "f_peak_est": 3.959027548008387e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0007",
+      "parameters": {
+        "g_D": 0.9675141093816336,
+        "v": 0.0206913808111479,
+        "units_v": "GeV"
+      },
+      "alpha": 4762015741.467407,
+      "beta_H": 22.684120265139995,
+      "Tn": 1.0917672548924423e-05,
+      "Tp": 7.194088975060034e-06,
+      "Treh": 0.0018898333619103,
+      "f_peak_est": 4.773555103820204e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0008",
+      "parameters": {
+        "g_D": 1.063194291373574,
+        "v": 0.0143844988828766,
+        "units_v": "GeV"
+      },
+      "alpha": 1349228.8481013605,
+      "beta_H": 34.49115191891394,
+      "Tn": 5.6842468735255866e-05,
+      "Tp": 4.235053893646179e-05,
+      "Treh": 0.0014433791463927,
+      "f_peak_est": 5.544412485177042e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0009",
+      "parameters": {
+        "g_D": 0.8804444864382975,
+        "v": 0.0428133239871939,
+        "units_v": "GeV"
+      },
+      "alpha": 2763768722212175.0,
+      "beta_H": 14.013026026063358,
+      "Tn": 8.189542737929222e-07,
+      "Tp": 4.907956771697314e-07,
+      "Treh": 0.0035585752450101,
+      "f_peak_est": 5.552531606215198e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0010",
+      "parameters": {
+        "g_D": 1.1683365547318127,
+        "v": 0.01,
+        "units_v": "GeV"
+      },
+      "alpha": 6009.122884090541,
+      "beta_H": 50.912610814748405,
+      "Tn": 0.0001521658372062,
+      "Tp": 0.0001212693193168,
+      "Treh": 0.0010677554033161,
+      "f_peak_est": 6.185743685898471e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0011",
+      "parameters": {
+        "g_D": 0.9675141093816336,
+        "v": 0.0297635144163131,
+        "units_v": "GeV"
+      },
+      "alpha": 6335459147.984887,
+      "beta_H": 22.229589539719537,
+      "Tn": 1.4661995571941904e-05,
+      "Tp": 9.635324251865475e-06,
+      "Treh": 0.0027183843297745,
+      "f_peak_est": 6.728894453629716e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0012",
+      "parameters": {
+        "g_D": 0.8804444864382975,
+        "v": 0.0615848211066026,
+        "units_v": "GeV"
+      },
+      "alpha": 4799875532365026.0,
+      "beta_H": 13.654844882410089,
+      "Tn": 1.033806966562763e-06,
+      "Tp": 6.149828717985287e-07,
+      "Treh": 0.0051188277315414,
+      "f_peak_est": 7.782882846283607e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0013",
+      "parameters": {
+        "g_D": 1.063194291373574,
+        "v": 0.0206913808111479,
+        "units_v": "GeV"
+      },
+      "alpha": 1659058.2203706852,
+      "beta_H": 33.73368148344014,
+      "Tn": 7.839263366266885e-05,
+      "Tp": 5.7763347469736634e-05,
+      "Treh": 0.002073088418483,
+      "f_peak_est": 7.796275688003937e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0014",
+      "parameters": {
+        "g_D": 1.1683365547318127,
+        "v": 0.0143844988828766,
+        "units_v": "GeV"
+      },
+      "alpha": 6050.370242780903,
+      "beta_H": 49.95162946941888,
+      "Tn": 0.0002130847901402,
+      "Tp": 0.0001692087555591,
+      "Treh": 0.0014924035134685,
+      "f_peak_est": 8.646707795734075e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0015",
+      "parameters": {
+        "g_D": 0.9675141093816336,
+        "v": 0.0428133239871939,
+        "units_v": "GeV"
+      },
+      "alpha": 8491662530.850736,
+      "beta_H": 21.777641288124983,
+      "Tn": 1.965615724629804e-05,
+      "Tp": 1.2880940930595526e-05,
+      "Treh": 0.0039101711787038,
+      "f_peak_est": 9.482319282266891e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0016",
+      "parameters": {
+        "g_D": 1.2838766312026584,
+        "v": 0.01,
+        "units_v": "GeV"
+      },
+      "alpha": 150.0945612587528,
+      "beta_H": 76.60105261879835,
+      "Tn": 0.0003692164782667,
+      "Tp": 0.00031301638931,
+      "Treh": 0.0010974362094593,
+      "f_peak_est": 1.0012587627599026e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0017",
+      "parameters": {
+        "g_D": 0.8804444864382975,
+        "v": 0.0885866790410082,
+        "units_v": "GeV"
+      },
+      "alpha": 8514467388942261.0,
+      "beta_H": 13.297570108022684,
+      "Tn": 1.2988224877404388e-06,
+      "Tp": 7.665234056182394e-07,
+      "Treh": 0.0073631693990429,
+      "f_peak_est": 1.0902361915718869e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0018",
+      "parameters": {
+        "g_D": 1.063194291373574,
+        "v": 0.0297635144163131,
+        "units_v": "GeV"
+      },
+      "alpha": 1952048.7597946275,
+      "beta_H": 33.08497050652193,
+      "Tn": 0.0001080147292631,
+      "Tp": 7.926977043947494e-05,
+      "Treh": 0.0029629909263343,
+      "f_peak_est": 1.0975429302129645e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0019",
+      "parameters": {
+        "g_D": 1.1683365547318127,
+        "v": 0.0206913808111479,
+        "units_v": "GeV"
+      },
+      "alpha": 6083.257888252891,
+      "beta_H": 49.15342061187289,
+      "Tn": 0.0002982294468534,
+      "Tp": 0.0002371424312586,
+      "Treh": 0.0020944074379546,
+      "f_peak_est": 1.2138814228259457e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0020",
+      "parameters": {
+        "g_D": 0.9675141093816336,
+        "v": 0.0615848211066026,
+        "units_v": "GeV"
+      },
+      "alpha": 10494172361.630133,
+      "beta_H": 21.45962390711986,
+      "Tn": 2.630347845459843e-05,
+      "Tp": 1.7572730887765583e-05,
+      "Treh": 0.005624401384477,
+      "f_peak_est": 1.3440512966928045e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0021",
+      "parameters": {
+        "g_D": 1.2838766312026584,
+        "v": 0.0143844988828766,
+        "units_v": "GeV"
+      },
+      "alpha": 152.95271119424658,
+      "beta_H": 75.21746507588034,
+      "Tn": 0.0005224138261015,
+      "Tp": 0.0004428657231086,
+      "Treh": 0.0015599795438866,
+      "f_peak_est": 1.4086324763838242e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0022",
+      "parameters": {
+        "g_D": 0.8804444864382975,
+        "v": 0.1274274985703133,
+        "units_v": "GeV"
+      },
+      "alpha": 1.5451848236480294e+16,
+      "beta_H": 12.941074561069854,
+      "Tn": 1.6234673755518063e-06,
+      "Tp": 9.499786936711642e-07,
+      "Treh": 0.01059153665233,
+      "f_peak_est": 1.5262061428451206e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0023",
+      "parameters": {
+        "g_D": 1.063194291373574,
+        "v": 0.0428133239871939,
+        "units_v": "GeV"
+      },
+      "alpha": 2224193.684557948,
+      "beta_H": 32.429336228219086,
+      "Tn": 0.000148690197823,
+      "Tp": 0.0001085669910235,
+      "Treh": 0.0041926730895803,
+      "f_peak_est": 1.5390245140727423e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0024",
+      "parameters": {
+        "g_D": 1.1683365547318127,
+        "v": 0.0297635144163131,
+        "units_v": "GeV"
+      },
+      "alpha": 6456.670710785993,
+      "beta_H": 48.18680582660306,
+      "Tn": 0.0004171617468387,
+      "Tp": 0.000330214693673,
+      "Treh": 0.0029601612434592,
+      "f_peak_est": 1.7017582323178317e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0025",
+      "parameters": {
+        "g_D": 0.9675141093816336,
+        "v": 0.0885866790410082,
+        "units_v": "GeV"
+      },
+      "alpha": 14277232976.36674,
+      "beta_H": 21.00991238012284,
+      "Tn": 3.5131852944211984e-05,
+      "Tp": 2.3404123675994405e-05,
+      "Treh": 0.0080900908006684,
+      "f_peak_est": 1.8928091792255173e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0026",
+      "parameters": {
+        "g_D": 1.4108427896674494,
+        "v": 0.01,
+        "units_v": "GeV"
+      },
+      "alpha": 17.850301308277896,
+      "beta_H": 131.2869779522714,
+      "Tn": 0.0006339757951976,
+      "Tp": 0.0005756390475848,
+      "Treh": 0.0011994435685238,
+      "f_peak_est": 1.8974654311022063e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0027",
+      "parameters": {
+        "g_D": 1.2838766312026584,
+        "v": 0.0206913808111479,
+        "units_v": "GeV"
+      },
+      "alpha": 161.75712363974503,
+      "beta_H": 73.56612320729994,
+      "Tn": 0.0007388900651905,
+      "Tp": 0.0006240660039018,
+      "Treh": 0.0022290280131717,
+      "f_peak_est": 1.977242685889639e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0028",
+      "parameters": {
+        "g_D": 0.8804444864382975,
+        "v": 0.1832980710832435,
+        "units_v": "GeV"
+      },
+      "alpha": 2.873962511347787e+16,
+      "beta_H": 12.585214213629568,
+      "Tn": 2.0181649420364666e-06,
+      "Tp": 1.170126376122597e-06,
+      "Treh": 0.0152353713300571,
+      "f_peak_est": 2.135000516999397e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0029",
+      "parameters": {
+        "g_D": 1.063194291373574,
+        "v": 0.0615848211066026,
+        "units_v": "GeV"
+      },
+      "alpha": 2461567.2889572904,
+      "beta_H": 31.778944378444866,
+      "Tn": 0.0002044837716037,
+      "Tp": 0.0001485192087077,
+      "Treh": 0.0058828205226138,
+      "f_peak_est": 2.1515013959068313e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0030",
+      "parameters": {
+        "g_D": 1.1683365547318127,
+        "v": 0.0428133239871939,
+        "units_v": "GeV"
+      },
+      "alpha": 7075.918707346301,
+      "beta_H": 47.229818225659415,
+      "Tn": 0.0005831858874365,
+      "Tp": 0.000459469377602,
+      "Treh": 0.0042142240753985,
+      "f_peak_est": 2.391014761888525e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0031",
+      "parameters": {
+        "g_D": 1.5503649873991951,
+        "v": 0.01,
+        "units_v": "GeV"
+      },
+      "alpha": 4.465777876152693,
+      "beta_H": 156.01868565420318,
+      "Tn": 0.0009798241318028,
+      "Tp": 0.0008906157682563,
+      "Treh": 0.0013617687841107,
+      "f_peak_est": 2.5674096030982337e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0032",
+      "parameters": {
+        "g_D": 0.9675141093816336,
+        "v": 0.1274274985703133,
+        "units_v": "GeV"
+      },
+      "alpha": 22888822048.863987,
+      "beta_H": 20.348209899410108,
+      "Tn": 4.682998513209371e-05,
+      "Tp": 2.991731161385377e-05,
+      "Treh": 0.0116366621542144,
+      "f_peak_est": 2.636920089101095e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0033",
+      "parameters": {
+        "g_D": 1.4108427896674494,
+        "v": 0.0143844988828766,
+        "units_v": "GeV"
+      },
+      "alpha": 18.366795583907784,
+      "beta_H": 128.86647154597597,
+      "Tn": 0.0009036922047433,
+      "Tp": 0.0008191504249584,
+      "Treh": 0.0017184151901857,
+      "f_peak_est": 2.6748330602295908e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0034",
+      "parameters": {
+        "g_D": 1.2838766312026584,
+        "v": 0.0297635144163131,
+        "units_v": "GeV"
+      },
+      "alpha": 172.9698649804411,
+      "beta_H": 72.03375926604849,
+      "Tn": 0.0010446519677975,
+      "Tp": 0.0008799687644614,
+      "Treh": 0.0031958454088657,
+      "f_peak_est": 2.7816933743748538e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0035",
+      "parameters": {
+        "g_D": 1.063194291373574,
+        "v": 0.0885866790410082,
+        "units_v": "GeV"
+      },
+      "alpha": 2649612.973069889,
+      "beta_H": 31.220443394857966,
+      "Tn": 0.0002809294447298,
+      "Tp": 0.0002043548026195,
+      "Treh": 0.0082448071176893,
+      "f_peak_est": 3.014181186918928e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0036",
+      "parameters": {
+        "g_D": 1.1683365547318127,
+        "v": 0.0615848211066026,
+        "units_v": "GeV"
+      },
+      "alpha": 7859.975607143261,
+      "beta_H": 46.33229503360781,
+      "Tn": 0.000814799013349,
+      "Tp": 0.0006399848927604,
+      "Treh": 0.0060261346917332,
+      "f_peak_est": 3.3673299335431406e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0037",
+      "parameters": {
+        "g_D": 1.5503649873991951,
+        "v": 0.0143844988828766,
+        "units_v": "GeV"
+      },
+      "alpha": 4.626764960179501,
+      "beta_H": 153.47425231126977,
+      "Tn": 0.0013981096957532,
+      "Tp": 0.001268307464945,
+      "Treh": 0.0019533912687592,
+      "f_peak_est": 3.6256309790935053e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0038",
+      "parameters": {
+        "g_D": 0.9675141093816336,
+        "v": 0.1832980710832435,
+        "units_v": "GeV"
+      },
+      "alpha": 30531576188.892365,
+      "beta_H": 19.959718386431287,
+      "Tn": 6.229327560799886e-05,
+      "Tp": 4.004102917390655e-05,
+      "Treh": 0.016737575071963,
+      "f_peak_est": 3.720571869266318e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0039",
+      "parameters": {
+        "g_D": 1.4108427896674494,
+        "v": 0.0206913808111479,
+        "units_v": "GeV"
+      },
+      "alpha": 19.11026644573695,
+      "beta_H": 126.23974680818152,
+      "Tn": 0.0012883980413118,
+      "Tp": 0.0011650301886174,
+      "Treh": 0.0024671277331913,
+      "f_peak_est": 3.765520180389031e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0040",
+      "parameters": {
+        "g_D": 1.2838766312026584,
+        "v": 0.0428133239871939,
+        "units_v": "GeV"
+      },
+      "alpha": 186.665765409569,
+      "beta_H": 70.54286836944357,
+      "Tn": 0.0014763335546261,
+      "Tp": 0.0012404534556032,
+      "Treh": 0.0045912055517528,
+      "f_peak_est": 3.916570119621779e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0041",
+      "parameters": {
+        "g_D": 1.7036849263126388,
+        "v": 0.01,
+        "units_v": "GeV"
+      },
+      "alpha": 1.476691173357903,
+      "beta_H": 213.6715199411583,
+      "Tn": 0.0013869585442362,
+      "Tp": 0.0012890293374644,
+      "Treh": 0.0016170772446859,
+      "f_peak_est": 4.178886825789636e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0042",
+      "parameters": {
+        "g_D": 1.063194291373574,
+        "v": 0.1274274985703133,
+        "units_v": "GeV"
+      },
+      "alpha": 3032054.1797879916,
+      "beta_H": 30.564488586961144,
+      "Tn": 0.0003855507221771,
+      "Tp": 0.0002785615141524,
+      "Treh": 0.0116239943341872,
+      "f_peak_est": 4.2163391723982864e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0043",
+      "parameters": {
+        "g_D": 1.1683365547318127,
+        "v": 0.0885866790410082,
+        "units_v": "GeV"
+      },
+      "alpha": 8850.745974289504,
+      "beta_H": 45.4508906544504,
+      "Tn": 0.0011376979760374,
+      "Tp": 0.000891035334431,
+      "Treh": 0.0086427542045687,
+      "f_peak_est": 4.7469081183086545e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0044",
+      "parameters": {
+        "g_D": 1.5503649873991951,
+        "v": 0.0206913808111479,
+        "units_v": "GeV"
+      },
+      "alpha": 4.781105416167003,
+      "beta_H": 151.22397096430973,
+      "Tn": 0.0019947133452369,
+      "Tp": 0.0018076707119469,
+      "Treh": 0.0028029931973224,
+      "f_peak_est": 5.1297122944029825e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0045",
+      "parameters": {
+        "g_D": 0.9675141093816336,
+        "v": 0.2636650898730358,
+        "units_v": "GeV"
+      },
+      "alpha": 43518554474.05426,
+      "beta_H": 19.493314740969936,
+      "Tn": 8.268154971520615e-05,
+      "Tp": 5.266767683544047e-05,
+      "Treh": 0.0240554107763078,
+      "f_peak_est": 5.2252958896387835e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0046",
+      "parameters": {
+        "g_D": 1.4108427896674494,
+        "v": 0.0297635144163131,
+        "units_v": "GeV"
+      },
+      "alpha": 19.88683174476957,
+      "beta_H": 123.56948332858052,
+      "Tn": 0.0018374345576663,
+      "Tp": 0.0016570340727708,
+      "Treh": 0.003542416162993,
+      "f_peak_est": 5.2970232953361666e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0047",
+      "parameters": {
+        "g_D": 1.2838766312026584,
+        "v": 0.0615848211066026,
+        "units_v": "GeV"
+      },
+      "alpha": 201.91977924991875,
+      "beta_H": 69.0770993781342,
+      "Tn": 0.0020855198188561,
+      "Tp": 0.0017477435633861,
+      "Treh": 0.0065964276992532,
+      "f_peak_est": 5.514188253148931e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0048",
+      "parameters": {
+        "g_D": 1.7036849263126388,
+        "v": 0.0143844988828766,
+        "units_v": "GeV"
+      },
+      "alpha": 1.512381442257385,
+      "beta_H": 209.7057647254843,
+      "Tn": 0.0019839245335508,
+      "Tp": 0.0018414253177589,
+      "Treh": 0.0023183313292224,
+      "f_peak_est": 5.88359477205229e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "point_0049",
+      "parameters": {
+        "g_D": 1.063194291373574,
+        "v": 0.1832980710832435,
+        "units_v": "GeV"
+      },
+      "alpha": 3513136.7776651313,
+      "beta_H": 29.97297723210579,
+      "Tn": 0.0005285604849116,
+      "Tp": 0.0003811285117357,
+      "Treh": 0.016500428955612,
+      "f_peak_est": 5.921404452389076e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz",
+      "status": "viable",
+      "failure_reason": ""
+    }
+  ],
+  "best_points": [
+    {
+      "g_D": 1.2838766312,
+      "v": 0.01,
+      "lambda": 0.0129043077,
+      "beta_lambda": 0.0129064168,
+      "m_rho": 0.0011360641,
+      "Tn": 0.0003692165,
+      "Tp": 0.0003130164,
+      "Tr": 0.0010974362,
+      "alpha": 150.0945612588,
+      "beta_H": 76.6010526188,
+      "f_peak_est": 1e-08,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": null,
+      "scan_id": "coarse_pta"
+    },
+    {
+      "g_D": 0.9675141094,
+      "v": 0.042813324,
+      "lambda": 0.0041616999,
+      "beta_lambda": 0.0041619193,
+      "m_rho": 0.0027620134,
+      "Tn": 1.96562e-05,
+      "Tp": 1.28809e-05,
+      "Tr": 0.0039101712,
+      "alpha": 8491662530.850736,
+      "beta_H": 21.7776412881,
+      "f_peak_est": 9.5e-09,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": null,
+      "scan_id": "coarse_pta"
+    },
+    {
+      "g_D": 0.8804444864,
+      "v": 0.088586679,
+      "lambda": 0.0028539703,
+      "beta_lambda": 0.0028540735,
+      "m_rho": 0.004732613,
+      "Tn": 1.2988e-06,
+      "Tp": 7.665e-07,
+      "Tr": 0.0073631694,
+      "alpha": 8514467388942261.0,
+      "beta_H": 13.297570108,
+      "f_peak_est": 1.09e-08,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": null,
+      "scan_id": "coarse_pta"
+    },
+    {
+      "g_D": 1.0631942914,
+      "v": 0.0297635144,
+      "lambda": 0.0060686498,
+      "beta_lambda": 0.0060691163,
+      "m_rho": 0.0023187127,
+      "Tn": 0.0001080147,
+      "Tp": 7.92698e-05,
+      "Tr": 0.0029629909,
+      "alpha": 1952048.7597946275,
+      "beta_H": 33.0849705065,
+      "f_peak_est": 1.1e-08,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": null,
+      "scan_id": "coarse_pta"
+    },
+    {
+      "g_D": 1.1683365547,
+      "v": 0.0143844989,
+      "lambda": 0.0088493912,
+      "beta_lambda": 0.0088503831,
+      "m_rho": 0.0013532429,
+      "Tn": 0.0002130848,
+      "Tp": 0.0001692088,
+      "Tr": 0.0014924035,
+      "alpha": 6050.3702427809,
+      "beta_H": 49.9516294694,
+      "f_peak_est": 8.6e-09,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": null,
+      "scan_id": "coarse_pta"
+    },
+    {
+      "g_D": 1.1683365547,
+      "v": 0.0206913808,
+      "lambda": 0.0088493912,
+      "beta_lambda": 0.0088503831,
+      "m_rho": 0.0019465722,
+      "Tn": 0.0002982294,
+      "Tp": 0.0002371424,
+      "Tr": 0.0020944074,
+      "alpha": 6083.2578882529,
+      "beta_H": 49.1534206119,
+      "f_peak_est": 1.21e-08,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": null,
+      "scan_id": "coarse_pta"
+    },
+    {
+      "g_D": 1.0631942914,
+      "v": 0.0206913808,
+      "lambda": 0.0060686498,
+      "beta_lambda": 0.0060691163,
+      "m_rho": 0.0016119524,
+      "Tn": 7.83926e-05,
+      "Tp": 5.77633e-05,
+      "Tr": 0.0020730884,
+      "alpha": 1659058.2203706852,
+      "beta_H": 33.7336814834,
+      "f_peak_est": 7.8e-09,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": null,
+      "scan_id": "coarse_pta"
+    },
+    {
+      "g_D": 0.8804444864,
+      "v": 0.0615848211,
+      "lambda": 0.0028539703,
+      "beta_lambda": 0.0028540735,
+      "m_rho": 0.0032900785,
+      "Tn": 1.0338e-06,
+      "Tp": 6.15e-07,
+      "Tr": 0.0051188277,
+      "alpha": 4799875532365026.0,
+      "beta_H": 13.6548448824,
+      "f_peak_est": 7.8e-09,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": null,
+      "scan_id": "coarse_pta"
+    },
+    {
+      "g_D": 0.9675141094,
+      "v": 0.0615848211,
+      "lambda": 0.0041616999,
+      "beta_lambda": 0.0041619193,
+      "m_rho": 0.0039730178,
+      "Tn": 2.63035e-05,
+      "Tp": 1.75727e-05,
+      "Tr": 0.0056244014,
+      "alpha": 10494172361.630133,
+      "beta_H": 21.4596239071,
+      "f_peak_est": 1.34e-08,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": null,
+      "scan_id": "coarse_pta"
+    },
+    {
+      "g_D": 1.2838766312,
+      "v": 0.0143844989,
+      "lambda": 0.0129043077,
+      "beta_lambda": 0.0129064168,
+      "m_rho": 0.0016341713,
+      "Tn": 0.0005224138,
+      "Tp": 0.0004428657,
+      "Tr": 0.0015599795,
+      "alpha": 152.9527111942,
+      "beta_H": 75.2174650759,
+      "f_peak_est": 1.41e-08,
+      "eternal_inflation": false,
+      "status": "viable",
+      "failure_reason": null,
+      "scan_id": "coarse_pta"
+    }
+  ],
+  "prior_ranges": {
+    "g_D": {
+      "min": 0.5,
+      "max": 3.0,
+      "type": "log",
+      "units": "dimensionless"
+    },
+    "v": {
+      "min": 0.01,
+      "max": 10.0,
+      "type": "log",
+      "units": "GeV"
+    }
+  },
+  "validation": {
+    "finite_values": true,
+    "percolation_checked": true,
+    "eternal_inflation_checked": true,
+    "perturbativity_checked": true
+  },
+  "output_files": [
+    "output/SU2_conformal/fopt_model.py",
+    "output/SU2_conformal/fopt_model_scan.py",
+    "output/SU2_conformal/fopt_benchmarks.csv",
+    "output/SU2_conformal/fopt_results.json",
+    "output/SU2_conformal/fopt_report.md",
+    "output/SU2_conformal/handoff_fopt.json"
+  ]
+}

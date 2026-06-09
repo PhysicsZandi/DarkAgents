@@ -1,0 +1,924 @@
+{
+  "model": "conformal-SU2",
+  "agent": "constraint-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-07",
+  "branch": "fopt-pta",
+  "created_from": [
+    "output/conformal-SU2/handoff_model.json",
+    "output/conformal-SU2/handoff_librarian_preliminary.json",
+    "output/conformal-SU2/handoff_fopt.json",
+    "output/conformal-SU2/handoff_pta.json",
+    "output/conformal-SU2/ptarcade_bayes.json"
+  ],
+  "commands": [
+    "WebSearch: Delta N_eff constraints BBN CMB stable dark sector conformal SU(2) gauge theory sub-GeV",
+    "WebSearch: Bringmann 2306.09411 NANOGrav dark sector phase transition Delta N_eff constraint stable dark sector",
+    "WebSearch: self-interacting dark matter constraints bullet cluster sub-GeV vector mediator massive gauge boson",
+    "WebSearch: BBN constraints MeV-scale first order phase transition percolation temperature lower bound 1 MeV",
+    "WebSearch: SU(2) dark sector gauge boson dark matter self-interaction cross section sub-GeV thermal freeze-out relic abundance",
+    "WebSearch: pseudo-dilaton radial mode fifth force equivalence principle constraints sub-GeV scalar conformal symmetry breaking",
+    "WebSearch: dark matter overproduction SU(2) gauge boson stable thermal relic sub-GeV annihilation cross section",
+    "WebSearch: CMB constraint dark matter annihilation sub-GeV energy injection Planck light dark matter",
+    "WebSearch: 2109.11558 Borah Dasgupta Kang dark SU(2) Delta N_eff DM freeze-in benchmark constraints",
+    "WebSearch: 2502.19478 Balan Bringmann sub-GeV dark matter nHz gravitational wave constant constraints cosmological",
+    "WebSearch: Planck 2018 N_eff constraint combined BBN Delta N_eff 0.18 0.22 0.28 latest 95% CL",
+    "WebFetch: https://arxiv.org/html/2306.09411 (Delta N_eff constraints)",
+    "WebFetch: https://arxiv.org/html/2502.19478v1 (constraints detail)",
+    "WebFetch: https://arxiv.org/html/2602.09092 (conformal model benchmarks)"
+  ],
+  "files_read": [
+    "output/conformal-SU2/handoff_model.json",
+    "output/conformal-SU2/handoff_librarian_preliminary.json",
+    "output/conformal-SU2/handoff_fopt.json",
+    "output/conformal-SU2/handoff_pta.json",
+    "output/conformal-SU2/ptarcade_bayes.json",
+    "docs/HANDOFF_CONSTRAINTS_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/conformal-SU2/handoff_constraints.json",
+    "output/conformal-SU2/constraints_report.md",
+    "output/conformal-SU2/constraints_table.csv"
+  ],
+  "warnings": [
+    "The minimal conformal SU(2) model has NO tree-level coupling to the SM. All dark sector particles are stable in the absence of a portal. This means the Dark Matter overproduction constraint, Delta N_eff constraint, and BBN constraints are all severe unless a portal (e.g., Higgs mixing, kinetic mixing) is added.",
+    "Borah et al. (2109.11558) studied the exact same model with a tiny Higgs portal coupling lambda_2 ~ 10^-9 for DM freeze-in. This coupling is too small to thermalize the sectors or enable decays, so the DM and dark radiation overproduction concerns persist for the completely secluded limit.",
+    "The radial mode (pseudo-dilaton) is naturally light (26-89 MeV in the PTA-preferred region). Fifth-force constraints are only relevant if there is explicit scale breaking (mass mixing with SM Higgs). In the purely conformal limit they are screened.",
+    "Self-interaction cross section calculations require the dark matter number density over cosmological history, which is dominated by the relic abundance question first.",
+    "Percolation temperatures for best 14/14 benchmark points (T_reh ~ 40-50 MeV) satisfy BBN lower bound (T > 1 MeV), but some marginal points with T_p ~ 0.1 MeV would violate it."
+  ],
+  "errors": [],
+  "approximations": [
+    "All Delta N_eff estimates assume the dark sector was in thermal equilibrium with the SM at early times (xi = T_D/T_SM = 1). If the sectors were never equilibrated, xi could be lower and constraints relax.",
+    "Dark matter relic abundance calculations assume standard thermal freeze-out or freeze-in; the minimal model has no DM-stabilizing symmetry, so gauge boson stability requires custodial symmetry or mass splitting.",
+    "Particle masses are computed at leading order: m_W = g*chi0/2, m_chi = sqrt(beta_lambda)*chi0 at one-loop CW.",
+    "Fifth-force constraints apply only when the pseudo-dilaton couples to SM matter; in the purely conformal limit the coupling vanishes at tree level."
+  ],
+  "analysis_mode": "ptarcade_1sigma",
+  "input_region": {
+    "source": "ptarcade_1sigma",
+    "parameters": {
+      "g": {
+        "1sigma_low": 0.852,
+        "1sigma_high": 0.912,
+        "map": 0.863
+      },
+      "chi0_GeV": {
+        "1sigma_low": 0.62,
+        "1sigma_high": 1.27,
+        "map": 1.12
+      }
+    },
+    "derived_masses": {
+      "m_W_GeV": {
+        "1sigma_range": [
+          0.26,
+          0.58
+        ],
+        "map_value": 0.48,
+        "derivation": "m_W = g * chi0 / 2"
+      },
+      "m_chi_GeV": {
+        "1sigma_range": [
+          0.038,
+          0.089
+        ],
+        "map_value": 0.07,
+        "derivation": "m_chi = sqrt(beta_lambda) * chi0"
+      },
+      "beta_lambda": {
+        "1sigma_range": [
+          0.0037,
+          0.0049
+        ],
+        "map_value": 0.0039,
+        "derivation": "beta_lambda = 9 * g^4 / (128 * pi^2)"
+      }
+    },
+    "notes": [
+      "PTArcade 1sigma posterior region from NG15 fit (N=100k, effective samples=7501, eternal-inflation-filtered).",
+      "Best 14/14 benchmark points have lower chi0 (0.39-0.50 GeV) and higher g (0.90-1.05), giving m_W ~ 175-263 MeV, m_chi ~ 27-42 MeV.",
+      "All gauge bosons are degenerate: three massive SU(2) vectors with equal mass m_W.",
+      "No tree-level coupling to SM: the model is a completely secluded dark sector."
+    ]
+  },
+  "constraint_summary": {
+    "total_constraints_considered": 11,
+    "directly_testable": 3,
+    "approximately_testable": 0,
+    "requires_recast": 5,
+    "requires_new_backend": 2,
+    "not_applicable": 1
+  },
+  "constraints": [
+    {
+      "id": "C01",
+      "name": "Delta N_eff from stable dark radiation",
+      "category": "Neff",
+      "description": "A stable dark SU(2) sector that was in thermal equilibrium with the SM contributes to the effective number of neutrino species. With 13 bosonic dof (4 scalars + 9 vectors), Delta N_eff = (13/2) * (4/11)^{-4/3} * g_*^{-1/3} * xi^4 where xi = T_D/T_SM. For xi=1 (full equilibrium), this gives Delta N_eff ~ 0.5-0.7, exceeding the combined BBN+CMB bound Delta N_eff < 0.18 (two-sided 95% CL, Yeh et al. 2022) or Delta N_eff < 0.226 (one-sided 95% CL). Bringmann et al. (2306.09411) found stable dark sectors strongly disfavored for PTA explanations due to this constraint.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [
+        "W^a_mu",
+        "Phi"
+      ],
+      "mass_range": {
+        "m_W": {
+          "min": 0.26,
+          "max": 0.58,
+          "unit": "GeV"
+        },
+        "m_chi": {
+          "min": 0.038,
+          "max": 0.089,
+          "unit": "GeV"
+        }
+      },
+      "coupling_range": {
+        "g": {
+          "min": 0.85,
+          "max": 0.91,
+          "unit": "dimensionless"
+        }
+      },
+      "observable": "Delta N_eff",
+      "required_inputs": [
+        "g_*_SM at decoupling",
+        "dark sector dof",
+        "thermal history (xi = T_D/T_SM)",
+        "dark sector equation of state during BBN/CMB"
+      ],
+      "required_observables": [
+        "Delta N_eff"
+      ],
+      "available_observables": [
+        "dof: 4 scalar + 9 vector = 13 bosonic dof"
+      ],
+      "missing_observables": [
+        "Dark sector temperature ratio xi = T_D/T_SM at BBN and recombination",
+        "Whether the dark sector was ever in thermal equilibrium with the SM",
+        "Particle masses relative to temperature at BBN/CMB epochs (whether degrees of freedom are relativistic or non-relativistic)"
+      ],
+      "units": {
+        "Delta N_eff": "dimensionless"
+      },
+      "conventions": {
+        "limit": "Delta N_eff < 0.18 (two-sided) or < 0.226 (one-sided) at 95% CL (Yeh et al. 2022, 2207.13133)",
+        "Planck_only": "Delta N_eff < 0.28 at 95% CL (Planck 2018)",
+        "BBN_only": "Delta N_eff < 0.74 at 95% CL"
+      },
+      "applicability": "The full 1-sigma PTA-preferred region is affected if the dark sector was in thermal equilibrium with the SM (xi = 1). If the sectors were never thermalized, the constraint relaxes proportionally to xi^4. The PTA analysis assumes a secluded dark sector without SM coupling, implying the sectors are not in thermal equilibrium unless a portal is added.",
+      "tested_subregion": {
+        "parameter": "xi = T_D/T_SM",
+        "condition": "Affected if xi > (Delta N_eff_bound / 0.7)^{1/4} ~ 0.4",
+        "subregion": "Full PTA-preferred region becomes constrained if xi > 0.4"
+      },
+      "applicability_notes": [
+        "The combined BBN+CMB bound from Yeh et al. (2022) gives Delta N_eff < 0.18 at 95% CL (two-sided) or < 0.226 (one-sided requiring N_nu >= 3).",
+        "For 13 bosonic dof at high T (all relativistic), Delta N_eff = 0.64 * xi^4 for entropy dilution factor 4/11.",
+        "If the dark sector was in equilibrium (xi=1), Delta N_eff ~ 0.64, well above all bounds.",
+        "However, the minimal model has NO SM coupling, so the sectors likely never equilibrated. The reheating from the FOPT can reheat the dark sector but not the SM.",
+        "To compute Xi precisely, one needs to model the full thermal history including the FOPT reheating dynamics.",
+        "Bringmann et al. (2306.09411) find that stable dark sectors are strongly disfavored for PTA explanations; decaying sectors (with tau < 0.1 s) remain viable."
+      ],
+      "source": {
+        "title": "Probing Physics Beyond the Standard Model: Limits from BBN and the CMB Independently and Combined",
+        "arxiv_id": "2207.13133",
+        "authors": "Yeh, Olive, Fields",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C02",
+      "name": "BBN lower bound on percolation/reheating temperature",
+      "category": "BBN",
+      "description": "The phase transition must complete and reheat the SM bath (if coupled) before BBN begins at T ~ 1 MeV. The lowest percolation temperature among the best 14/14 benchmark points is T_reh ~ 40-50 MeV, which satisfies this bound. However, some scan points have lower T_p ~ 0.1-0.5 MeV. Bai & Korwar (2022, 2109.14765) found that for strong transitions (alpha ~ 1), T_rh > 3 MeV from BBN+Planck data.",
+      "applicability_class": "direct",
+      "constraint_applied": false,
+      "affected_particles": [
+        "W^a_mu",
+        "Phi"
+      ],
+      "mass_range": {
+        "m_W": {
+          "min": 0.26,
+          "max": 0.58,
+          "unit": "GeV"
+        },
+        "m_chi": {
+          "min": 0.038,
+          "max": 0.089,
+          "unit": "GeV"
+        }
+      },
+      "coupling_range": {
+        "g": {
+          "min": 0.85,
+          "max": 0.91,
+          "unit": "dimensionless"
+        }
+      },
+      "observable": "Percolation temperature T_p, Reheating temperature T_reh",
+      "required_inputs": [
+        "T_p from FOPT scan",
+        "T_reh from FOPT scan",
+        "Dark sector-SM coupling for reheating efficiency"
+      ],
+      "required_observables": [
+        "T_p",
+        "T_reh"
+      ],
+      "available_observables": [
+        "T_p",
+        "T_reh (from FOPT handoff and fopt_benchmarks.csv)"
+      ],
+      "missing_observables": [
+        "Dark-SM coupling to determine if reheat energy goes to SM or stays in dark sector"
+      ],
+      "units": {
+        "T_p": "GeV",
+        "T_reh": "GeV"
+      },
+      "conventions": {
+        "BBN_bound": "T_reh > 3 MeV for alpha ~ 1 (Bai & Korwar 2022)",
+        "softer_bound": "T_perc > 1-2 MeV for weaker transitions"
+      },
+      "applicability": "The best 14/14 benchmark points (T_reh ~ 40-50 MeV) satisfy the BBN bound. The MAP point (T_reh ~ 14.5 MeV) also satisfies it. However, some scan points with T_p < 1 MeV would violate BBN constraints. The bound applies independently of whether the dark sector is coupled to the SM, because the energy released in the FOPT adds to the dark sector's energy density, which contributes to the Hubble expansion rate during BBN.",
+      "tested_subregion": {
+        "parameter": "T_p",
+        "condition": "T_p > 1 MeV (minimal), T_reh > 3 MeV (Bai & Korwar)",
+        "subregion": "Full PTA-preferred region (1-sigma) has T_reh ~ 14 MeV from FOPT; this is safe. Some benchmark points with lower T_p may be marginal."
+      },
+      "applicability_notes": [
+        "Bai & Korwar (2109.14765) constrain T_rh > 3 MeV for alpha ~ 1 from BBN+Planck.",
+        "For weak transitions (alpha < 0.1), T_p < 1 MeV can be allowed if alpha < 0.064.",
+        "All PTA-preferred FOPT points have alpha >> 1, so the stronger bound applies.",
+        "Even in a secluded dark sector, the energy density from the FOPT contributes to the total expansion rate during BBN, affecting nucleosynthesis yields.",
+        "The backend does compute T_p and T_reh, so these are directly available."
+      ],
+      "source": {
+        "title": "BBN constraints on MeV-scale phase transitions",
+        "arxiv_id": "2109.14765",
+        "authors": "Bai, Korwar",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C03",
+      "name": "Dark matter overproduction from stable gauge bosons",
+      "category": "other",
+      "description": "The SU(2) gauge bosons acquire mass m_W = g*chi0/2 ~ 0.26-0.58 GeV in the 1-sigma preferred region. Without a decay portal or an annihilation mechanism, these particles are stable (custodial SU(2) symmetry preserved). Their thermal relic abundance from standard freeze-out would vastly exceed the observed DM density (Omega_DM h^2 ~ 0.12). Studies of minimal SU(2) vector DM (Hambye 2009, Frandsen et al. 2301.00041) find that for masses below ~GeV, the annihilation cross section is too small for standard freeze-out. Additional mechanisms (forbidden channels, 3->2 SIMP, resonances) are needed.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": [
+        "W^a_mu"
+      ],
+      "mass_range": {
+        "m_W": {
+          "min": 0.26,
+          "max": 0.58,
+          "unit": "GeV"
+        }
+      },
+      "coupling_range": {
+        "g": {
+          "min": 0.85,
+          "max": 0.91,
+          "unit": "dimensionless"
+        }
+      },
+      "observable": "Omega_DM h^2 (relic abundance)",
+      "required_inputs": [
+        "m_W",
+        "g",
+        "dark sector thermal history",
+        "annihilation cross section sigma_v(W^+W^- -> all)"
+      ],
+      "required_observables": [
+        "Thermal relic abundance for m_W ~ 0.26-0.58 GeV, g ~ 0.86"
+      ],
+      "available_observables": [
+        "m_W = g*chi0/2 computed from parameters"
+      ],
+      "missing_observables": [
+        "Annihilation cross section for W^+W^- -> dark sector states or SM (if portal exists)",
+        "Full Boltzmann equation solution for freeze-out/freeze-in"
+      ],
+      "units": {
+        "Omega_DM h^2": "dimensionless (observed: ~0.12)"
+      },
+      "conventions": {
+        "observed_abundance": "Omega_DM h^2 = 0.12 (Planck 2018)",
+        "overproduction_threshold": "Omega > 0.12"
+      },
+      "applicability": "This constraint applies to the full PTA-preferred region in the completely secluded limit. The gauge bosons are stable and, without a freeze-in/freeze-out mechanism, would overproduce dark matter. Borah et al. (2109.11558) invoked a tiny Higgs portal (lambda_2 ~ 10^{-9}) for freeze-in DM production, which does not thermalize the sectors but produces the correct relic abundance via FIMP mechanism. Without such a portal, overproduction is inevitable.",
+      "tested_subregion": {
+        "parameter": "portal coupling (lambda_2 or epsilon)",
+        "condition": "Overproduction unless portal coupling < freeze-in threshold or dark sector annihilations are efficient",
+        "subregion": "Full PTA-preferred region"
+      },
+      "applicability_notes": [
+        "The minimal SU(2) model with one scalar doublet has no symmetry protecting DM stability. All three gauge bosons are degenerate with custodial SU(2) symmetry preventing decay.",
+        "Frandsen et al. (2301.00041) find minimal SU(2) VDM requires m_V > 7.5 TeV to avoid overproduction via standard freeze-out.",
+        "For sub-GeV masses, freeze-in via tiny portal (lambda_2 ~ 10^{-9}) as in Borah et al. (2109.11558) is necessary.",
+        "CMB constraints on DM annihilation (Slatyer 2016) exclude s-wave thermal relics with m_chi < 10 GeV annihilating to e+e-.",
+        "A dedicated relic abundance calculation for this specific model is needed."
+      ],
+      "source": {
+        "title": "Minimal SU(2) vector dark matter",
+        "arxiv_id": "2301.00041",
+        "authors": "Frandsen et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C04",
+      "name": "Self-interacting dark matter constraints from structure formation",
+      "category": "structure_formation",
+      "description": "If the gauge bosons constitute dark matter, their self-interaction cross section via t-channel W exchange and quartic gauge couplings must satisfy structure formation bounds: sigma_T/m < 0.35 cm^2/g at cluster velocities (~1000 km/s) and sigma_T/m ~ 1-10 cm^2/g at dwarf velocities (~30 km/s) to address the cusp-core problem. For m_W ~ 0.26-0.58 GeV and g ~ 0.86, the self-interaction cross section from SU(2) gauge interactions would be large.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": [
+        "W^a_mu"
+      ],
+      "mass_range": {
+        "m_W": {
+          "min": 0.26,
+          "max": 0.58,
+          "unit": "GeV"
+        }
+      },
+      "coupling_range": {
+        "g": {
+          "min": 0.85,
+          "max": 0.91,
+          "unit": "dimensionless"
+        }
+      },
+      "observable": "sigma_T/m (transfer cross section per unit mass)",
+      "required_inputs": [
+        "m_W",
+        "g",
+        "relative velocity distribution",
+        "non-perturbative Sommerfeld enhancement factors"
+      ],
+      "required_observables": [
+        "sigma_T(W^+W^- -> W^+W^-) for relevant velocities"
+      ],
+      "available_observables": [
+        "m_W = g*chi0/2, g coupling"
+      ],
+      "missing_observables": [
+        "Transfer cross section computation for non-Abelian gauge boson scattering"
+      ],
+      "units": {
+        "sigma_T/m": "cm^2 / g"
+      },
+      "conventions": {
+        "bullet_cluster_bound": "sigma_T/m < 1.25 cm^2/g (older), < 0.35 cm^2/g (clusters, Sagunski 2021)",
+        "dwarf_needed": "sigma_T/m ~ 1-10 cm^2/g to resolve cusp-core"
+      },
+      "applicability": "If the gauge bosons make up all or part of the DM, and if their self-interactions are too strong, they would violate structure formation bounds. For g ~ 0.86 and m_W ~ 0.26-0.58 GeV, the coupling is perturbative but the self-interaction cross section is expected to be large (sigma ~ g^4 / m_W^2). This constraint applies only if the gauge bosons are DM, which itself requires a relic density calculation first.",
+      "tested_subregion": {
+        "parameter": "DM fraction f_DM = Omega_W / Omega_DM_total",
+        "condition": "Constrained only if f_DM > ~0.01 (gauge bosons are a non-negligible DM component)",
+        "subregion": "Full PTA-preferred region if W bosons are DM"
+      },
+      "applicability_notes": [
+        "Self-interaction cross section for SU(2) gauge bosons: sigma ~ g^4/(96*pi*m_W^2) for t-channel exchange.",
+        "For g=0.86, m_W=0.48 GeV: sigma/m ~ (0.86^4)/(96*pi*(0.48 GeV)^2) / 0.48 GeV in natural units. Convert to cm^2/g.",
+        "This is expected to be O(10) cm^2/g, potentially exceeding cluster bounds.",
+        "A dedicated calculation including non-perturbative effects (Sommerfeld enhancement, multiple mediators) is needed.",
+        "The constraint is subleading compared to the overproduction issue -- if the particles are not DM, self-interaction bounds are irrelevant."
+      ],
+      "source": {
+        "title": "Velocity-dependent Self-interacting Dark Matter from Groups and Clusters of Galaxies",
+        "arxiv_id": "2006.12515",
+        "authors": "Sagunski et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C05",
+      "name": "Fifth force / equivalence principle constraints on light scalar",
+      "category": "other",
+      "description": "The radial mode (pseudo-dilaton) has mass m_chi ~ 38-89 MeV in the 1-sigma region. If it couples to SM matter (via mixing with the Higgs or conformal anomaly), it mediates a fifth force. The strength is proportional to the mixing angle squared. In the purely conformal limit, the dilaton does not couple to SM matter at tree level (Damour-Donoghue 2010, Copeland et al. 2021). MICROSCOPE constrains Eotvos parameter eta < 10^{-15} for mediators up to ~10^{-12} eV, but for MeV-scale masses the range is too short for laboratory tests. Fifth force bounds are not competitive for MeV-scale scalars.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Phi (radial mode)"
+      ],
+      "mass_range": {
+        "m_chi": {
+          "min": 0.038,
+          "max": 0.089,
+          "unit": "GeV"
+        }
+      },
+      "coupling_range": {
+        "g": {
+          "min": 0.85,
+          "max": 0.91,
+          "unit": "dimensionless"
+        }
+      },
+      "observable": "Eotvos parameter eta, fifth force strength alpha",
+      "required_inputs": [
+        "m_chi",
+        "Higgs-dilaton mixing angle (sin theta)",
+        "SM particle masses"
+      ],
+      "required_observables": [
+        "Mixing angle between chi and SM Higgs",
+        "Chi-nucleon coupling strength"
+      ],
+      "available_observables": [
+        "m_chi = sqrt(beta_lambda)*chi0"
+      ],
+      "missing_observables": [
+        "Higgs-dilaton coupling in the conformal model (it is zero in the exact conformal limit)"
+      ],
+      "units": {
+        "eta": "dimensionless"
+      },
+      "conventions": {
+        "MICROSCOPE_bound": "eta < 2 x 10^{-15} (for m < 10^{-12} eV)",
+        "Cassini_bound": "|gamma - 1| < 2.3 x 10^{-5}"
+      },
+      "applicability": "Fifth force constraints are not applicable because: (1) the pseudo-dilaton mass is ~MeV, corresponding to a range of ~10^{-11} cm, far below laboratory test distances; (2) in the purely conformal model, the dilaton does not couple to SM matter at tree level; (3) equivalence principle tests (MICROSCOPE) are sensitive only to mediators lighter than ~10^{-12} eV. These constraints do not affect the PTA-preferred region.",
+      "tested_subregion": {
+        "parameter": "m_chi",
+        "condition": "m_chi ~ MeV excludes laboratory fifth-force tests (range too short); only relevant if m_chi < 10^{-12} eV",
+        "subregion": "Not applicable for any point in PTA-preferred region"
+      },
+      "applicability_notes": [
+        "Damour & Donoghue (2010) showed that a dilaton from purely spontaneous scale breaking does not couple to matter.",
+        "Copeland et al. (2021) demonstrated that in a purely conformal theory (mu->0), the fifth force vanishes.",
+        "For m_chi ~ MeV, the Yukawa range is ~10^{-11} cm, far too short for laboratory or solar-system tests.",
+        "If there is explicit scale breaking (e.g., mixing with SM Higgs), constraints could apply, but this requires a non-minimal extension."
+      ],
+      "source": {
+        "title": "Equivalence Principle Violations and Couplings of a Light Dilaton",
+        "arxiv_id": "1007.2792",
+        "authors": "Damour, Donoghue",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C06",
+      "name": "Perturbativity bound on gauge coupling",
+      "category": "theory",
+      "description": "The gauge coupling g must be in the perturbative regime: g < 4*pi (or more conservatively g^2/(4*pi) < 1, i.e., g < 3.5). The PTA-preferred 1-sigma region has g ~ 0.85-0.91, well within the perturbative regime. The best 14/14 benchmark points have g up to 1.05, still perturbative.",
+      "applicability_class": "direct",
+      "constraint_applied": true,
+      "affected_particles": [
+        "W^a_mu",
+        "Phi"
+      ],
+      "mass_range": null,
+      "coupling_range": {
+        "g": {
+          "min": 0.85,
+          "max": 0.91,
+          "unit": "dimensionless"
+        }
+      },
+      "observable": "gauge coupling g",
+      "required_inputs": [
+        "g"
+      ],
+      "required_observables": [
+        "g"
+      ],
+      "available_observables": [
+        "g is a free parameter, directly available"
+      ],
+      "missing_observables": [],
+      "units": {
+        "g": "dimensionless"
+      },
+      "conventions": {
+        "perturbativity_bound": "g < 4*pi ~ 12.6, or g^2/(4*pi) < 1 => g < 3.5"
+      },
+      "applicability": "The PTA-preferred region (g ~ 0.85-0.91) is well within the perturbative regime. The constraint is trivially satisfied for the full preferred region.",
+      "tested_subregion": {
+        "parameter": "g",
+        "condition": "g < 3.5 (conservative)",
+        "subregion": "Full region satisfies this"
+      },
+      "applicability_notes": [
+        "Perturbativity is required for the one-loop CW calculation and perturbative expansion to be reliable.",
+        "The 1-loop beta_lambda coefficient is computed from gauge boson loops and is reliable only for perturbative g.",
+        "All PTA-preferred points have g < 1.1, safely in the perturbative regime."
+      ],
+      "source": {
+        "title": "Standard perturbativity bound from quantum field theory",
+        "arxiv_id": null,
+        "authors": null,
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "C07",
+      "name": "CMB constraints on dark matter annihilation (energy injection)",
+      "category": "CMB",
+      "description": "If dark matter particles with mass < 10 GeV have s-wave annihilation to SM fermions, Planck CMB data excludes them as thermal relics (Slatyer 2016). For sub-GeV masses, the constraint on dark matter annihilation cross section is p_eff = f_c * <sigma v> / m_chi < 3.2 x 10^{-28} cm^3/s/GeV. This is relevant if the gauge bosons (m_W ~ 0.26-0.58 GeV) are DM and annihilate to SM particles via a portal.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": [
+        "W^a_mu"
+      ],
+      "mass_range": {
+        "m_W": {
+          "min": 0.26,
+          "max": 0.58,
+          "unit": "GeV"
+        }
+      },
+      "coupling_range": {
+        "g": {
+          "min": 0.85,
+          "max": 0.91,
+          "unit": "dimensionless"
+        }
+      },
+      "observable": "p_eff = f_c * <sigma v> / m_chi (CMB energy injection parameter)",
+      "required_inputs": [
+        "m_W",
+        "annihilation cross section to SM",
+        "branching ratios",
+        "energy deposition efficiency"
+      ],
+      "required_observables": [
+        "<sigma v> for W^+W^- -> SM final states"
+      ],
+      "available_observables": [
+        "m_W from parameters"
+      ],
+      "missing_observables": [
+        "Annihilation cross section to SM (requires portal coupling and final state calculation)",
+        "Energy deposition efficiency factor f_c for MeV-GeV DM"
+      ],
+      "units": {
+        "p_eff": "cm^3 s^{-1} GeV^{-1}"
+      },
+      "conventions": {
+        "Planck_limit": "p_eff < 3.2 x 10^{-28} cm^3 s^{-1} GeV^{-1} (Slatyer 2016 PRD 93, 023527)",
+        "thermal_relic_target": "<sigma v> ~ 3 x 10^{-26} cm^3/s"
+      },
+      "applicability": "This constraint applies only if the gauge bosons are DM and have s-wave annihilation to SM particles via a portal. In the minimal model without a portal, there is no annihilation to SM. If a small portal is added (as in Borah et al.), the annihilation cross section to SM is suppressed and CMB constraints are weaker. The constraint does not directly affect the PTA-preferred region without specifying the portal.",
+      "tested_subregion": {
+        "parameter": "portal coupling and DM mass",
+        "condition": "Applies if Omega_W ~ Omega_DM and <sigma v> to SM is large enough",
+        "subregion": "Not directly testable without specifying DM model"
+      },
+      "applicability_notes": [
+        "The CMB constraint on s-wave annihilation excludes thermal WIMPs with m_chi < 10 GeV for e+e- final states.",
+        "For p-wave annihilation, the constraint is much weaker (Planck only constrains p-wave for m_chi > few GeV).",
+        "In the minimal secluded model, gauge bosons cannot annihilate to SM, so CMB constraints are not relevant.",
+        "If a freeze-in portal (lambda_2 ~ 10^{-9}) is added, the annihilation rate is negligible and CMB bounds are easily satisfied."
+      ],
+      "source": {
+        "title": "Indirect dark matter signatures in the cosmic dark ages. I. Generalizing the bound on s-wave dark matter annihilation from Planck results",
+        "arxiv_id": "1210.6845",
+        "authors": "Slatyer",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C08",
+      "name": "Supernova cooling constraints on light dark sector particles",
+      "category": "supernova",
+      "description": "Light dark sector particles (m < 100 MeV) can be copiously produced in supernovae and carry away energy, affecting the neutrino signal. The SN1987A neutrino signal constrains any new particle that is lighter than ~100 MeV and couples to SM particles (even through a small portal). For the SU(2) gauge bosons (m_W ~ 260-580 MeV), these are above the typical supernova core temperature (~30 MeV), suppressing thermal production. The radial mode (m_chi ~ 38-89 MeV) is light enough that production might be possible, but in the purely conformal limit it does not couple to SM matter.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Phi (radial mode)",
+        "W^a_mu"
+      ],
+      "mass_range": {
+        "m_chi": {
+          "min": 0.038,
+          "max": 0.089,
+          "unit": "GeV"
+        },
+        "m_W": {
+          "min": 0.26,
+          "max": 0.58,
+          "unit": "GeV"
+        }
+      },
+      "coupling_range": {
+        "g": {
+          "min": 0.85,
+          "max": 0.91,
+          "unit": "dimensionless"
+        }
+      },
+      "observable": "Energy loss rate per unit mass (epsilon) or luminosity (L) in the proto-neutron star",
+      "required_inputs": [
+        "Particle masses",
+        "Coupling to SM (portal)",
+        "SN core temperature (~30 MeV)",
+        "Dark sector thermalization"
+      ],
+      "required_observables": [
+        "Production cross section in SN core",
+        "Trapping/absorption optical depth"
+      ],
+      "available_observables": [
+        "masses from parameters"
+      ],
+      "missing_observables": [
+        "Portal coupling to SM (needed for production)",
+        "Scattering cross section in dense nuclear matter"
+      ],
+      "units": {
+        "epsilon": "erg g^{-1} s^{-1}",
+        "L": "erg s^{-1}"
+      },
+      "conventions": {
+        "SN1987A_limit": "L_new < 3 x 10^{52} erg/s (Raffelt criterion)"
+      },
+      "applicability": "Gauge bosons (m_W ~ 260-580 MeV) are heavier than the SN core temperature (~30 MeV), so thermal production is Boltzmann-suppressed. The radial mode (m_chi ~ 38-89 MeV) is light enough but does not couple to SM in the purely conformal model. SN constraints are not directly applicable without adding a portal. Even with a portal, for m > 30 MeV, production is suppressed by Boltzmann factor exp(-m/T).",
+      "tested_subregion": {
+        "parameter": "m_chi < 30 MeV and non-zero portal coupling",
+        "condition": "Constrained only if m_chi < T_SN ~ 30 MeV AND there is a portal to SM",
+        "subregion": "m_chi ~ 38-89 MeV is marginally above the SN core temperature; Boltzmann suppression factor exp(-m/T) ~ 0.3-0.05"
+      },
+      "applicability_notes": [
+        "Chang, Essig, McDermott (2017 JHEP) provide detailed SN1987A bounds on dark photons with kinetic mixing.",
+        "For m > T_SN ~ 30 MeV, production is exponentially suppressed, so the bound weakens rapidly.",
+        "Caputo et al. (2025 PRL) find new constraints from shock revival failure for m ~ 0.1-0.4 MeV.",
+        "The radial mode mass range (38-89 MeV) is near or above the SN core temperature, so SN bounds are not the strongest constraint.",
+        "Self-trapping (Sung et al. 2021) can evade SN bounds for self-interacting dark sectors."
+      ],
+      "source": {
+        "title": "Supernova bounds on the dark photon using its electromagnetic decay",
+        "arxiv_id": "1410.0221",
+        "authors": "Kazanas et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C09",
+      "name": "Dark sector thermalization with SM: Higgs portal constraints",
+      "category": "thermalization",
+      "description": "If the dark sector couples to the SM via a Higgs portal (lambda_2 |Phi|^2 |H|^2), there are constraints from Higgs invisible decays (BR_inv < 0.11 from ATLAS), direct dark matter detection (LZ, XENONnT), and collider searches. In the minimal conformal model, no such coupling is assumed. The PTA-preferred region determines the allowed portal coupling if one is added. For freeze-in DM (Borah et al.), lambda_2 ~ 10^{-9} is naturally consistent with all constraints.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": [
+        "Phi",
+        "W^a_mu"
+      ],
+      "mass_range": {
+        "m_chi": {
+          "min": 0.038,
+          "max": 0.089,
+          "unit": "GeV"
+        },
+        "m_W": {
+          "min": 0.26,
+          "max": 0.58,
+          "unit": "GeV"
+        }
+      },
+      "coupling_range": {
+        "g": {
+          "min": 0.85,
+          "max": 0.91,
+          "unit": "dimensionless"
+        }
+      },
+      "observable": "Higgs invisible branching ratio, DM-nucleon scattering cross section (if DM), collider production cross section",
+      "required_inputs": [
+        "Portal coupling strength",
+        "Particle masses",
+        "Mixing angle with Higgs"
+      ],
+      "required_observables": [
+        "BR(h -> invisible)",
+        "sigma_SI(DM-nucleon)"
+      ],
+      "available_observables": [
+        "Particle masses"
+      ],
+      "missing_observables": [
+        "Portal coupling (not specified in the minimal model)",
+        "Mixing angle between dark scalar and SM Higgs"
+      ],
+      "units": {
+        "BR_inv": "dimensionless",
+        "sigma_SI": "cm^2 (or pb)"
+      },
+      "conventions": {
+        "ATLAS_Higgs_invisible": "BR(h -> inv) < 0.11 at 95% CL",
+        "LZ_2022": "sigma_SI < 10^{-10} pb for m_DM ~ 30 GeV"
+      },
+      "applicability": "This is a conditional constraint: it applies only if a portal to the SM is added. The minimal model does not include any portal. If freeze-in DM is desired (as in Borah et al. 2021), a tiny portal (lambda_2 ~ 10^{-9}) is negligible for all current constraints. The constraint does not directly affect the PTA-preferred GW analysis region.",
+      "tested_subregion": {
+        "parameter": "Portal coupling",
+        "condition": "Constrainable only if portal exists; for lambda_2 ~ 10^{-9} all constraints are evaded",
+        "subregion": "Not applicable in minimal model; no preferred region constraint"
+      },
+      "applicability_notes": [
+        "The minimal conformal model has NO portal, so these constraints are not active.",
+        "Borah et al. (2109.11558) add lambda_2 ~ 10^{-9} for DM freeze-in, safely below all constraints.",
+        "If one adds a larger portal for dark sector decay (to avoid Delta N_eff), these constraints become important.",
+        "The thermalization rate scales as Gamma ~ lambda_2^2 T, so lambda_2 < 10^{-6} prevents thermalization."
+      ],
+      "source": {
+        "title": "A first order dark SU(2)_D phase transition with vector dark matter in the light of NANOGrav 12.5 yr data",
+        "arxiv_id": "2109.11558",
+        "authors": "Borah, Dasgupta, Kang",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C10",
+      "name": "Eternal inflation bound on supercooling",
+      "category": "theory",
+      "description": "For supercooled phase transitions, the false vacuum can undergo eternal inflation if the bubble nucleation rate is too slow. The condition for avoiding eternal inflation is that the nucleation rate per Hubble volume exceeds Hubble rate: Gamma / H^4 > 1. The PTA analysis checked this and found that the 1-sigma preferred region (and all best-fit points) satisfy this bound. 14 out of ~1660 scan points were excluded by eternal inflation.",
+      "applicability_class": "direct",
+      "constraint_applied": true,
+      "affected_particles": [
+        "W^a_mu",
+        "Phi"
+      ],
+      "mass_range": null,
+      "coupling_range": {
+        "g": {
+          "min": 0.85,
+          "max": 0.91,
+          "unit": "dimensionless"
+        }
+      },
+      "observable": "Bubble nucleation rate per Hubble volume Gamma / H^4",
+      "required_inputs": [
+        "S_3/T",
+        "T_p",
+        "beta/H",
+        "chi0",
+        "g"
+      ],
+      "required_observables": [
+        "Gamma/H^4 > 1 condition"
+      ],
+      "available_observables": [
+        "Already computed: 14/1660 points excluded by eternal inflation check in the FOPT pipeline"
+      ],
+      "missing_observables": [],
+      "units": {
+        "Gamma/H^4": "dimensionless"
+      },
+      "conventions": {
+        "eternal_inflation_condition": "Gamma/H^4 < 1 excluded (Guth 2007)"
+      },
+      "applicability": "The eternal inflation check has already been performed in the FOPT pipeline. The 1-sigma PTA-preferred region survives this check. The lowest 14 scan points (mostly at very low chi0) were excluded. The constraint is satisfied for the full PTA-preferred region.",
+      "tested_subregion": {
+        "parameter": "Gamma/H^4",
+        "condition": "Gamma/H^4 > 1 required",
+        "subregion": "14/1660 points with very low chi0 were excluded; PTA-preferred region is safe"
+      },
+      "applicability_notes": [
+        "Already computed by the FOPT pipeline and verified by the PTA analysis.",
+        "All points with T_p ~ MeV and chi0 ~ GeV satisfy Gamma/H^4 > 1.",
+        "The constraint removes the low-chi0 tail, which is not in the PTA-preferred 1-sigma region."
+      ],
+      "source": {
+        "title": "Eternal inflation and its implications",
+        "arxiv_id": null,
+        "authors": "Guth",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "C11",
+      "name": "Dark photon/hidden photon constraints from beam dump and fixed-target experiments",
+      "category": "beam_dump",
+      "description": "If the SU(2) gauge bosons have kinetic mixing with the SM photon (epsilon F_{munu} F'^{munu}), experiments like LSND, MiniBooNE, NA64, and BaBar constrain the mixing. For dark photon masses m_A' ~ 0.1-1 GeV, the strongest bounds come from BaBar (epsilon < 10^{-3} for m_A' ~ 0.02-10 GeV from invisible decays) and NA64 (epsilon < 10^{-3} for m_A' < 1 GeV from missing energy). However, the SU(2) gauge bosons are non-Abelian and have three massive states, changing the phenomenology. In the minimal model, no kinetic mixing is assumed.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": [
+        "W^a_mu"
+      ],
+      "mass_range": {
+        "m_W": {
+          "min": 0.26,
+          "max": 0.58,
+          "unit": "GeV"
+        }
+      },
+      "coupling_range": {
+        "g": {
+          "min": 0.85,
+          "max": 0.91,
+          "unit": "dimensionless"
+        }
+      },
+      "observable": "Kinetic mixing parameter epsilon (or effective coupling to SM)",
+      "required_inputs": [
+        "m_W",
+        "dark sector-SM coupling",
+        "production cross section at colliders"
+      ],
+      "required_observables": [
+        "Kinetic mixing or portal strength"
+      ],
+      "available_observables": [
+        "m_W from parameters"
+      ],
+      "missing_observables": [
+        "Kinetic mixing parameter epsilon (not part of the minimal model)",
+        "Effective coupling of SU(2) triplet to electromagnetic current"
+      ],
+      "units": {
+        "epsilon": "dimensionless"
+      },
+      "conventions": {
+        "BaBar_invisible": "epsilon < 10^{-3} for m_A' = 0.02-10 GeV (Lees et al. 2017)",
+        "NA64": "epsilon < 3 x 10^{-4} for m_A' < 1 GeV (Banerjee et al. 2019)",
+        "LSND": "epsilon < 10^{-3} to 3 x 10^{-2} for m = 10-300 MeV"
+      },
+      "applicability": "Dark photon bounds apply only if the SU(2) gauge bosons have a kinetic mixing portal with the photon. In the minimal model, no such mixing is included. If added, the non-Abelian nature modifies production and decay compared to the single-dark-photon case, requiring a recast. The gauge boson mass range (260-580 MeV) is within the sensitivity of BaBar and NA64, so constraints would be strong if mixing exists.",
+      "tested_subregion": {
+        "parameter": "Kinetic mixing epsilon (if present)",
+        "condition": "For epsilon > 10^{-4}-10^{-3}, the 260-580 MeV mass range is constrained by BaBar/NA64",
+        "subregion": "Constrained only if a kinetic mixing portal is added"
+      },
+      "applicability_notes": [
+        "The minimal model has no kinetic mixing. This constraint is only relevant if the model is extended.",
+        "For SU(2) rather than U(1), the three massive gauge bosons have different production phenomenology.",
+        "Belle II and LDMX will probe significantly smaller kinetic mixing in the future.",
+        "Relevant only if the goal is to add a decay portal to avoid the Delta N_eff constraint."
+      ],
+      "source": {
+        "title": "Search for Invisible Decays of a Dark Photon Produced in e+e- Collisions at BaBar",
+        "arxiv_id": "1702.03327",
+        "authors": "BaBar Collaboration (Lees et al.)",
+        "citation_verified": true
+      }
+    }
+  ],
+  "missing_calculations": [
+    {
+      "observable": "Delta N_eff from dark sector after FOPT",
+      "needed_for_constraints": [
+        "C01: Delta N_eff bound"
+      ],
+      "required_inputs": [
+        "Dark sector temperature ratio xi = T_D/T_SM at BBN",
+        "g_*_SM(T) at the decoupling epoch",
+        "Whether dark sector particles are relativistic or non-relativistic at BBN/CMB",
+        "Degrees of freedom and their masses"
+      ],
+      "suggested_backend_module": "DeltaN_eff_calculator using thermal history from FOPT scan outputs (T_reh, alpha)",
+      "validation_checks": [
+        "Compare with analytic estimate for 13 bosonic dof",
+        "Check consistency with Bringmann et al. (2306.09411) results",
+        "Verify that xi and g_* input produce physically sensible Delta N_eff"
+      ],
+      "priority": "high"
+    },
+    {
+      "observable": "Dark matter relic abundance from SU(2) gauge bosons",
+      "needed_for_constraints": [
+        "C03: DM overproduction",
+        "C04: SIDM constraints",
+        "C07: CMB annihilation"
+      ],
+      "required_inputs": [
+        "m_W = g*chi0/2",
+        "gauge coupling g",
+        "Dark sector thermal history (reheat temperature, entropy production from FOPT)",
+        "Annihilation cross section W^+W^- -> all final states in the dark sector",
+        "Portal coupling (if any) for freeze-in production"
+      ],
+      "suggested_backend_module": "Relic abundance solver (e.g., MicrOMEGAs or direct Boltzmann solver) for SU(2) vector DM",
+      "validation_checks": [
+        "Cross-check with analytic freeze-out/freeze-in estimates",
+        "Compare with Borah et al. (2109.11558) benchmark for lambda_2 ~ 10^{-9}",
+        "Check that resulting Omega h^2 is consistent with Planck measurement"
+      ],
+      "priority": "high"
+    },
+    {
+      "observable": "Self-interaction cross section sigma_T/m for SU(2) gauge bosons",
+      "needed_for_constraints": [
+        "C04: SIDM structure formation bounds"
+      ],
+      "required_inputs": [
+        "m_W = g*chi0/2",
+        "gauge coupling g",
+        "Dark matter velocity distribution (dwarf, galaxy, cluster scales)"
+      ],
+      "suggested_backend_module": "Cross section calculator for non-Abelian gauge boson scattering including Sommerfeld enhancement and multiple mediator exchanges",
+      "validation_checks": [
+        "Compare analytic Born-level estimate: sigma ~ g^4/(96*pi*m_W^2)",
+        "Check consistency with known SIDM constraints from bullet cluster and halo shapes",
+        "Include non-perturbative effects if coupling is strong"
+      ],
+      "priority": "medium"
+    }
+  ]
+}

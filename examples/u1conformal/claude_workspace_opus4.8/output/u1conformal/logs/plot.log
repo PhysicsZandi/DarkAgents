@@ -1,0 +1,25 @@
+Starting import from ./output/u1conformal/chains/np_model/
+Finished importing   output/u1conformal/chains/np_model in 0.03s
+----- Stats for sample #0-----
+No 1D k-bounds available for this sample
+
+Lower 68.0%-HPDI limit is reached for log10-v = -0.14223517572463495
+Upper 68.0%-HPDI limit is reached for log10-v = 0.13146514737232962
+Lower 95.0%-HPDI limit is reached for log10-v = -0.3953320858905589
+Upper 95.0%-HPDI limit is reached for log10-v = 0.19515824649085323
+Lower 99.0%-HPDI limit is reached for log10-v = -0.6203799533251403
+Upper 99.0%-HPDI limit is reached for log10-v = 0.23038193999362577
+Lower 68.0%-HPDI limit is reached for g-D = 0.5036613811624082
+Upper 68.0%-HPDI limit is reached for g-D = 0.5335966108979507
+Lower 95.0%-HPDI limit is reached for g-D = 0.5024958793077944
+Upper 95.0%-HPDI limit is reached for g-D = 0.5693570324185235
+Lower 99.0%-HPDI limit is reached for g-D = 0.5018580876116208
+Upper 99.0%-HPDI limit is reached for g-D = 0.6139363166227509
+The Bayes estimator for log10-v is -0.05993657129987464 +- 0.1656493195830397
+The Bayes estimator for g-D is 0.5271764315449816 +- 0.021340581296956453
+The maximum posterior value for log10-v is 0.03800649895932868
+The maximum posterior value for g-D is 0.5280166512106359
+
+
+MAP: {'log10-v': 0.03800649895932868, 'g-D': 0.5280166512106359}
+BAYES: {'log10-v': (-0.05993657129987464, 0.1656493195830397), 'g-D': (0.5271764315449816, 0.021340581296956453)}

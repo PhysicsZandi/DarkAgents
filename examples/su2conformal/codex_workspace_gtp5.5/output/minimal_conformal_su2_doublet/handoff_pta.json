@@ -1,0 +1,464 @@
+{
+  "model": "minimal_conformal_su2_doublet",
+  "agent": "pta-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "ptarcade_campaign",
+  "created_from": [
+    "output/minimal_conformal_su2_doublet/handoff_model.json",
+    "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+    "output/minimal_conformal_su2_doublet/handoff_critique.json",
+    "output/minimal_conformal_su2_doublet/handoff_fopt.json",
+    "output/minimal_conformal_su2_doublet/fopt_benchmarks.csv"
+  ],
+  "commands": [
+    "MPLCONFIGDIR=output/minimal_conformal_su2_doublet/.mplconfig XDG_CACHE_HOME=output/minimal_conformal_su2_doublet/.cache conda run -n ptarcade python output/minimal_conformal_su2_doublet/pta_scan.py",
+    "MPLCONFIGDIR=output/minimal_conformal_su2_doublet/.mplconfig XDG_CACHE_HOME=output/minimal_conformal_su2_doublet/.cache conda run -n ptarcade ptarcade -m output/minimal_conformal_su2_doublet/ptarcade_model.py -c output/minimal_conformal_su2_doublet/ptarcade_config_smoke.py",
+    "MPLCONFIGDIR=output/minimal_conformal_su2_doublet/.mplconfig XDG_CACHE_HOME=output/minimal_conformal_su2_doublet/.cache conda run -n ptarcade ptarcade -m output/minimal_conformal_su2_doublet/ptarcade_model.py -c output/minimal_conformal_su2_doublet/ptarcade_config.py",
+    "mv output/minimal_conformal_su2_doublet/chains output/minimal_conformal_su2_doublet/chains_prior_boundary_log10vD_upper",
+    "MPLCONFIGDIR=output/minimal_conformal_su2_doublet/.mplconfig XDG_CACHE_HOME=output/minimal_conformal_su2_doublet/.cache conda run -n ptarcade ptarcade -m output/minimal_conformal_su2_doublet/ptarcade_model.py -c output/minimal_conformal_su2_doublet/ptarcade_config.py",
+    "MPLCONFIGDIR=output/minimal_conformal_su2_doublet/.mplconfig XDG_CACHE_HOME=output/minimal_conformal_su2_doublet/.cache conda run -n ptarcade python output/minimal_conformal_su2_doublet/ptarcade_plot.py"
+  ],
+  "files_read": [
+    ".codex/agents/pta-agent.md",
+    ".codex/skills/pta-analysis/SKILL.md",
+    ".codex/skills/ptarcade-campaign/SKILL.md",
+    "output/minimal_conformal_su2_doublet/handoff_model.json",
+    "output/minimal_conformal_su2_doublet/handoff_librarian_preliminary.json",
+    "output/minimal_conformal_su2_doublet/handoff_critique.json",
+    "output/minimal_conformal_su2_doublet/handoff_fopt.json",
+    "output/minimal_conformal_su2_doublet/fopt_benchmarks.csv",
+    "output/minimal_conformal_su2_doublet/fopt_model.py",
+    "docs/SPECTRUM.md",
+    "docs/PTARCADE.md",
+    "docs/HANDOFF_PTA_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "backend/spectrum.py",
+    "backend/pta_violin_windows.csv",
+    "backend/plot_violins.py",
+    "https://arxiv.org/abs/2511.15687",
+    "https://arxiv.org/abs/2209.04369"
+  ],
+  "files_written": [
+    "output/minimal_conformal_su2_doublet/pta_spectrum.py",
+    "output/minimal_conformal_su2_doublet/pta_scan.py",
+    "output/minimal_conformal_su2_doublet/pta_benchmark_scan.csv",
+    "output/minimal_conformal_su2_doublet/pta_benchmark_spectrum.pdf",
+    "output/minimal_conformal_su2_doublet/ptarcade_model.py",
+    "output/minimal_conformal_su2_doublet/ptarcade_config.py",
+    "output/minimal_conformal_su2_doublet/ptarcade_config_smoke.py",
+    "output/minimal_conformal_su2_doublet/ptarcade_plot.py",
+    "output/minimal_conformal_su2_doublet/pta_posteriors.pdf",
+    "output/minimal_conformal_su2_doublet/pta_ptarcade_spectrum.pdf",
+    "output/minimal_conformal_su2_doublet/ptarcade_bayes.json",
+    "output/minimal_conformal_su2_doublet/pta_report.md",
+    "output/minimal_conformal_su2_doublet/handoff_pta.json",
+    "output/minimal_conformal_su2_doublet/logs/ptarcade_smoke.log",
+    "output/minimal_conformal_su2_doublet/logs/ptarcade_final.log",
+    "output/minimal_conformal_su2_doublet/logs/ptarcade_final_wide_prior.log",
+    "output/minimal_conformal_su2_doublet/logs/ptarcade_plot_wide_prior.log"
+  ],
+  "warnings": [
+    "Selected DBF by regime; very large-alpha points are outside the Higgsless alpha validation hint in docs/SPECTRUM.md.",
+    "DBF amplitudes use backend/spectrum.py defaults, including ksw=1; wall velocity and microscopic efficiency are not independently computed by the FOPT backend.",
+    "Best benchmark scan point scores 13/14, so no perfect 14/14 benchmark was found in the direct-FOPT candidate/refinement scan.",
+    "Initial final PTArcade run had MAP at the upper log10_vD prior boundary; it was archived and rerun with a wider log10_vD prior.",
+    "PTArcade MAP has f_peak_est above the nominal PTA steering band; f_peak_est is only an approximate steering diagnostic, while the fitted object is the DBF spectrum."
+  ],
+  "errors": [],
+  "approximations": [
+    "Template-level DBF/BF gravitational-wave spectrum from backend/spectrum.py.",
+    "FOPT backend semianalytic high-temperature/Coleman-Weinberg approximation inherited from upstream FOPT handoff."
+  ],
+  "analysis_mode": "benchmark_plus_ptarcade",
+  "pta_parameter_basis": {
+    "independent": {
+      "gD": "dark SU(2)_D gauge coupling",
+      "vD": "Coleman-Weinberg vev in GeV"
+    },
+    "dependent": {
+      "m_WD": "gD*vD/2",
+      "gb_WD": "gD/2",
+      "alpha": "computed by fopt_model.evaluate_point",
+      "beta_H": "computed by fopt_model.evaluate_point",
+      "Treh": "computed by fopt_model.evaluate_point"
+    },
+    "fixed": {
+      "portal_coupling": 0,
+      "dark_fermions": 0,
+      "boson_dofs_W_D": 9
+    }
+  },
+  "spectrum_template": "dbf",
+  "template_validity": {
+    "status": "warning",
+    "reason": "arXiv:2511.15687 targets strongly supercooled transitions with cosmic expansion effects; local docs state DBF/BF handles very large alpha. arXiv:2209.04369 Higgsless spectra cover sound-wave simulations over wall velocity/strength choices, but local docs warn Higgsless is validated only up to alpha about 0.5, whereas many PTA-steering points here have alpha >> 1."
+  },
+  "benchmark_analysis": {
+    "scan_summary": {
+      "total_points": 2611,
+      "viable_points": 2546,
+      "boundary_expansions": [
+        "Used FOPT PTA-band support plus direct refinements around steering points; no 14/14 point found. Best accepted score was 13/14 and did not require accepting a boundary-touching scan point as perfect."
+      ]
+    },
+    "prior_ranges": {
+      "gD": {
+        "min": 0.45,
+        "max": 1.55,
+        "space": "linear"
+      },
+      "vD_GeV": {
+        "min": 0.000630957344480193,
+        "max": 5.011872336272722,
+        "space": "log10"
+      }
+    },
+    "template_comparison": {
+      "dbf": {
+        "selected": true,
+        "best_score": 13,
+        "validity": "closest implemented template for very large alpha"
+      },
+      "higgsless": {
+        "selected": false,
+        "validity": "not selected because alpha often greatly exceeds local alpha <= 0.5 validation hint"
+      },
+      "bf": {
+        "selected": false,
+        "validity": "plausible bulk-flow alternative; DBF chosen as conservative default for dissipative strongly supercooled regime"
+      }
+    },
+    "best_fit_points": [
+      {
+        "rank": 1,
+        "name": "pta_00021",
+        "parameters": {
+          "gD": 0.95,
+          "vD_GeV": 0.360437956204
+        },
+        "alpha": 373264977.5195886,
+        "beta_H": 23.690379065925526,
+        "T_star": 0.0323720364995931,
+        "score": 13.0,
+        "inside_bins": 13,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1e-08,
+        "peak_h2OmegaGW": 2.83472683521132e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.3227367963571053e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            3.9421639847697805e-10,
+            1.2797307532499659e-09,
+            2.1274894507336144e-09,
+            2.651619721330546e-09,
+            2.83472683521132e-09,
+            2.7208725715009627e-09,
+            2.49956267100142e-09,
+            2.2450584441759318e-09,
+            1.9955067931489284e-09,
+            1.764583563307893e-09,
+            1.5628022029256447e-09,
+            1.384216771667869e-09,
+            1.2296557667437515e-09,
+            1.09805027204987e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/minimal_conformal_su2_doublet/pta_benchmark_scan.csv",
+          "spectrum_id": "pta_00021"
+        }
+      },
+      {
+        "rank": 2,
+        "name": "pta_00115",
+        "parameters": {
+          "gD": 1.0366666667,
+          "vD_GeV": 0.211960956608
+        },
+        "alpha": 321827.7314610261,
+        "beta_H": 34.99974752452317,
+        "T_star": 0.0200496122297441,
+        "score": 12.0,
+        "inside_bins": 12,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1e-08,
+        "peak_h2OmegaGW": 1.403050907688641e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.3227367963571053e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            2.4731919156928497e-10,
+            7.623128195148114e-10,
+            1.1877927628020015e-09,
+            1.3890909292821855e-09,
+            1.403050907688641e-09,
+            1.271322618880927e-09,
+            1.1286487038659595e-09,
+            9.872567766421743e-10,
+            8.596824348673648e-10,
+            7.479360755561138e-10,
+            6.540302597659262e-10,
+            5.733064715773201e-10,
+            5.050085466131178e-10,
+            4.47881152073842e-10
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/minimal_conformal_su2_doublet/pta_benchmark_scan.csv",
+          "spectrum_id": "pta_00115"
+        }
+      },
+      {
+        "rank": 3,
+        "name": "pta_00020",
+        "parameters": {
+          "gD": 0.95,
+          "vD_GeV": 0.235608178427
+        },
+        "alpha": 296495114.80802834,
+        "beta_H": 24.31473523537875,
+        "T_star": 0.0216758648868651,
+        "score": 12.0,
+        "inside_bins": 12,
+        "total_bins": 14,
+        "peak_frequency_Hz": 7.943282347242822e-09,
+        "peak_h2OmegaGW": 2.757006711366895e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.3227367963571053e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            7.893692794412144e-10,
+            2.087670969060428e-09,
+            2.740440441951604e-09,
+            2.757006711366895e-09,
+            2.465686939362472e-09,
+            1.995224569423708e-09,
+            1.6634539603219287e-09,
+            1.388832171002457e-09,
+            1.1677627916512942e-09,
+            9.888590448490948e-10,
+            8.46930173026106e-10,
+            7.301077548190272e-10,
+            6.345655202697615e-10,
+            5.56755597716784e-10
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/minimal_conformal_su2_doublet/pta_benchmark_scan.csv",
+          "spectrum_id": "pta_00020"
+        }
+      },
+      {
+        "rank": 4,
+        "name": "pta_00107",
+        "parameters": {
+          "gD": 0.84,
+          "vD_GeV": 0.411787281599
+        },
+        "alpha": 4116319181418181.0,
+        "beta_H": 13.124047678417126,
+        "T_star": 0.0353834551148445,
+        "score": 12.0,
+        "inside_bins": 12,
+        "total_bins": 14,
+        "peak_frequency_Hz": 5.956621435290109e-09,
+        "peak_h2OmegaGW": 8.282495728694057e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.3227367963571053e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            2.6090758245351412e-09,
+            6.599767987596814e-09,
+            8.282495728694057e-09,
+            8.040370992734757e-09,
+            7.002465352903978e-09,
+            5.537643986699495e-09,
+            4.561282212965339e-09,
+            3.775308725791318e-09,
+            3.154202672841001e-09,
+            2.6580899540999024e-09,
+            2.2682614536286278e-09,
+            1.949704202852261e-09,
+            1.6906442044134182e-09,
+            1.480601262174022e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/minimal_conformal_su2_doublet/pta_benchmark_scan.csv",
+          "spectrum_id": "pta_00107"
+        }
+      }
+    ]
+  },
+  "ptarcade_analysis": {
+    "run_status": "ok",
+    "campaign": {
+      "pta_data": "NG15",
+      "mode": "ceffyl",
+      "out_dir": "output/minimal_conformal_su2_doublet/chains",
+      "config_file": "output/minimal_conformal_su2_doublet/ptarcade_config.py",
+      "model_file": "output/minimal_conformal_su2_doublet/ptarcade_model.py",
+      "plot_file": "output/minimal_conformal_su2_doublet/ptarcade_plot.py"
+    },
+    "prior_parameter_basis": {
+      "independent": {
+        "gD": "linear prior",
+        "log10_vD": "base-10 logarithmic prior for vD/GeV"
+      },
+      "dependent": {
+        "vD_GeV": "10**log10_vD",
+        "alpha": "computed per sample",
+        "beta_H": "computed per sample",
+        "Treh": "computed per sample"
+      },
+      "fixed": {
+        "spectrum_template": "dbf"
+      }
+    },
+    "priors": {
+      "gD": {
+        "distribution": "Uniform",
+        "min": 0.45,
+        "max": 1.55,
+        "space": "linear"
+      },
+      "log10_vD": {
+        "distribution": "Uniform",
+        "min": -3.2,
+        "max": 0.7,
+        "space": "base10_log_vD_GeV"
+      }
+    },
+    "chain_validation": {
+      "chains_found": true,
+      "finite_samples": true,
+      "notes": "Final accepted chain is the widened-prior rerun. Archived prior-boundary chain is in chains_prior_boundary_log10vD_upper."
+    },
+    "bayes_estimates": {
+      "bayes_est": {
+        "gD": {
+          "mean": 0.8836054462695611,
+          "std": 0.03534910242479358
+        },
+        "log10-vD": {
+          "mean": -0.05390840126703515,
+          "std": 0.17159915013967514
+        }
+      },
+      "credible_regions": {
+        "sigma_1": {
+          "description": "68% credible region",
+          "bounds": {
+            "gD": {
+              "low": 0.8527916813042775,
+              "high": 0.9158656299072967
+            },
+            "log10-vD": {
+              "low": -0.22173300849938934,
+              "high": 0.1004857616886799
+            }
+          }
+        },
+        "sigma_2": {
+          "description": "95% credible region",
+          "bounds": {
+            "gD": {
+              "low": 0.8454037817941346,
+              "high": 0.9826946719861296
+            },
+            "log10-vD": {
+              "low": -0.48834097948963195,
+              "high": 0.18136033732807783
+            }
+          }
+        },
+        "sigma_3": {
+          "description": "99.7% credible region",
+          "bounds": {
+            "gD": {
+              "low": 0.842529052765022,
+              "high": 1.0535829931936984
+            },
+            "log10-vD": {
+              "low": -0.811982675106135,
+              "high": 0.22249489666512567
+            }
+          }
+        }
+      },
+      "evidence": null,
+      "evidence_error": null
+    },
+    "map_estimates": {
+      "map_est": {
+        "gD": 0.8631754917681774,
+        "log10_vD": 0.04454840660657564,
+        "vD_GeV": 1.1080220589969636,
+        "Treh_GeV": 0.09782216349941285,
+        "alpha": 214404190732976.94,
+        "beta_H": 13.97981850655583,
+        "f_peak_est_Hz": 1.7539608239936732e-07
+      },
+      "map_value": null
+    }
+  },
+  "constraint_summary": []
+}

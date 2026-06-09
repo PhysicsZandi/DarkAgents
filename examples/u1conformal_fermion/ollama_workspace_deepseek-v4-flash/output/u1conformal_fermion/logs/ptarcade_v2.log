@@ -1,0 +1,134 @@
+╭─────────────────╮
+│ Starting to run │
+╰─────────────────╯
+
+Node Information                                              
+╭─────────┬──────────────────────────────────────────────────╮
+│ Node    │ CPU                                              │
+├─────────┼──────────────────────────────────────────────────┤
+│ Mac.lan │ unknown CPU (for better info install py-cpuinfo) │
+╰─────────┴──────────────────────────────────────────────────╯
+
+Done initializing PTA ✔
+
+Done initializing Sampler ✔
+
+Done with all initializtions.
+Setup times (including first sample) 0.07 seconds real, 0.20 seconds CPU
+
+Starting to sample 100000 samples
+
+Finished 0.00 percent (0.00 percent of new work) in 0.001447 s Acceptance rate = 0
+Finished 1.00 percent (1.00 percent of new work) in 17.097147 s Acceptance rate = 0.242
+Finished 2.00 percent (2.00 percent of new work) in 29.746724 s Acceptance rate = 0.1455
+Finished 3.00 percent (3.00 percent of new work) in 41.545784 s Acceptance rate = 0.134667
+Finished 4.00 percent (4.00 percent of new work) in 52.779856 s Acceptance rate = 0.12075
+Finished 5.00 percent (5.00 percent of new work) in 64.520846 s Acceptance rate = 0.1134
+Finished 6.00 percent (6.00 percent of new work) in 76.205275 s Acceptance rate = 0.110167
+Finished 7.00 percent (7.00 percent of new work) in 88.299663 s Acceptance rate = 0.109286
+Finished 8.00 percent (8.00 percent of new work) in 99.867684 s Acceptance rate = 0.108125
+Finished 9.00 percent (9.00 percent of new work) in 111.925988 s Acceptance rate = 0.109
+Finished 10.00 percent (10.00 percent of new work) in 123.368829 s Acceptance rate = 0.1126Adding DE jump with weight 50
+
+Finished 11.00 percent (11.00 percent of new work) in 135.279708 s Acceptance rate = 0.146545
+Finished 12.00 percent (12.00 percent of new work) in 147.492912 s Acceptance rate = 0.1765
+Finished 13.00 percent (13.00 percent of new work) in 159.639431 s Acceptance rate = 0.201077
+Finished 14.00 percent (14.00 percent of new work) in 171.913738 s Acceptance rate = 0.223
+Finished 15.00 percent (15.00 percent of new work) in 184.245970 s Acceptance rate = 0.2414
+Finished 16.00 percent (16.00 percent of new work) in 197.368874 s Acceptance rate = 0.258937
+Finished 17.00 percent (17.00 percent of new work) in 210.192817 s Acceptance rate = 0.273235
+Finished 18.00 percent (18.00 percent of new work) in 222.415016 s Acceptance rate = 0.284889
+Finished 19.00 percent (19.00 percent of new work) in 235.014926 s Acceptance rate = 0.298105
+Finished 20.00 percent (20.00 percent of new work) in 247.826227 s Acceptance rate = 0.3096
+Finished 21.00 percent (21.00 percent of new work) in 261.396285 s Acceptance rate = 0.316952
+Finished 22.00 percent (22.00 percent of new work) in 274.002558 s Acceptance rate = 0.323227
+Finished 23.00 percent (23.00 percent of new work) in 288.715329 s Acceptance rate = 0.325783
+Finished 24.00 percent (24.00 percent of new work) in 303.259627 s Acceptance rate = 0.330292
+Finished 25.00 percent (25.00 percent of new work) in 322.464005 s Acceptance rate = 0.33364
+Finished 26.00 percent (26.00 percent of new work) in 342.516964 s Acceptance rate = 0.339154
+Finished 27.00 percent (27.00 percent of new work) in 359.666173 s Acceptance rate = 0.343222
+Finished 28.00 percent (28.00 percent of new work) in 375.706985 s Acceptance rate = 0.34625
+Finished 29.00 percent (29.00 percent of new work) in 391.810559 s Acceptance rate = 0.349828
+Finished 30.00 percent (30.00 percent of new work) in 406.407130 s Acceptance rate = 0.352767
+Finished 31.00 percent (31.00 percent of new work) in 421.781110 s Acceptance rate = 0.352645
+Finished 32.00 percent (32.00 percent of new work) in 437.308548 s Acceptance rate = 0.352812
+Finished 33.00 percent (33.00 percent of new work) in 453.509192 s Acceptance rate = 0.351818
+Finished 34.00 percent (34.00 percent of new work) in 471.910084 s Acceptance rate = 0.352206
+Finished 35.00 percent (35.00 percent of new work) in 487.277922 s Acceptance rate = 0.352971
+Finished 36.00 percent (36.00 percent of new work) in 502.344264 s Acceptance rate = 0.352972
+Finished 37.00 percent (37.00 percent of new work) in 518.959553 s Acceptance rate = 0.354135
+Finished 38.00 percent (38.00 percent of new work) in 535.156305 s Acceptance rate = 0.355079
+Finished 39.00 percent (39.00 percent of new work) in 552.857575 s Acceptance rate = 0.355538
+Finished 40.00 percent (40.00 percent of new work) in 569.184669 s Acceptance rate = 0.35625
+Finished 41.00 percent (41.00 percent of new work) in 586.182907 s Acceptance rate = 0.355829
+Finished 42.00 percent (42.00 percent of new work) in 601.706646 s Acceptance rate = 0.355143
+Finished 43.00 percent (43.00 percent of new work) in 616.240662 s Acceptance rate = 0.354047
+Finished 44.00 percent (44.00 percent of new work) in 629.049369 s Acceptance rate = 0.352955
+Finished 45.00 percent (45.00 percent of new work) in 641.907878 s Acceptance rate = 0.351511
+Finished 46.00 percent (46.00 percent of new work) in 655.599663 s Acceptance rate = 0.350022
+Finished 47.00 percent (47.00 percent of new work) in 669.346605 s Acceptance rate = 0.349383
+Finished 48.00 percent (48.00 percent of new work) in 683.197855 s Acceptance rate = 0.347625
+Finished 49.00 percent (49.00 percent of new work) in 696.224040 s Acceptance rate = 0.346429
+Finished 50.00 percent (50.00 percent of new work) in 711.292395 s Acceptance rate = 0.34572
+Finished 51.00 percent (51.00 percent of new work) in 725.620725 s Acceptance rate = 0.344922
+Finished 52.00 percent (52.00 percent of new work) in 739.772488 s Acceptance rate = 0.343769
+Finished 53.00 percent (53.00 percent of new work) in 752.830378 s Acceptance rate = 0.341264
+Finished 54.00 percent (54.00 percent of new work) in 767.250910 s Acceptance rate = 0.339704
+Finished 55.00 percent (55.00 percent of new work) in 781.583871 s Acceptance rate = 0.338073
+Finished 56.00 percent (56.00 percent of new work) in 795.865705 s Acceptance rate = 0.336339
+Finished 57.00 percent (57.00 percent of new work) in 806.340204 s Acceptance rate = 0.334228
+Finished 58.00 percent (58.00 percent of new work) in 816.275039 s Acceptance rate = 0.332034
+Finished 59.00 percent (59.00 percent of new work) in 829.788968 s Acceptance rate = 0.331322
+Finished 60.00 percent (60.00 percent of new work) in 843.847899 s Acceptance rate = 0.33075
+Finished 61.00 percent (61.00 percent of new work) in 857.459272 s Acceptance rate = 0.328836
+Finished 62.00 percent (62.00 percent of new work) in 870.945008 s Acceptance rate = 0.327323
+Finished 63.00 percent (63.00 percent of new work) in 883.689752 s Acceptance rate = 0.325825
+Finished 64.00 percent (64.00 percent of new work) in 895.700937 s Acceptance rate = 0.323984
+Finished 65.00 percent (65.00 percent of new work) in 908.037240 s Acceptance rate = 0.322185
+Finished 66.00 percent (66.00 percent of new work) in 922.247866 s Acceptance rate = 0.320985
+Finished 67.00 percent (67.00 percent of new work) in 935.995863 s Acceptance rate = 0.319627
+Finished 68.00 percent (68.00 percent of new work) in 948.728922 s Acceptance rate = 0.317794
+Finished 69.00 percent (69.00 percent of new work) in 962.359530 s Acceptance rate = 0.316739
+Finished 70.00 percent (70.00 percent of new work) in 974.111339 s Acceptance rate = 0.315214
+Finished 71.00 percent (71.00 percent of new work) in 987.361966 s Acceptance rate = 0.314127
+Finished 72.00 percent (72.00 percent of new work) in 1000.119347 s Acceptance rate = 0.313069
+Finished 73.00 percent (73.00 percent of new work) in 1012.632447 s Acceptance rate = 0.311425
+Finished 74.00 percent (74.00 percent of new work) in 1025.694559 s Acceptance rate = 0.310162
+Finished 75.00 percent (75.00 percent of new work) in 1039.625117 s Acceptance rate = 0.309387
+Finished 76.00 percent (76.00 percent of new work) in 1054.398720 s Acceptance rate = 0.308816
+Finished 77.00 percent (77.00 percent of new work) in 1067.446151 s Acceptance rate = 0.307805
+Finished 78.00 percent (78.00 percent of new work) in 1078.841767 s Acceptance rate = 0.305962
+Finished 79.00 percent (79.00 percent of new work) in 1092.274558 s Acceptance rate = 0.304481
+Finished 80.00 percent (80.00 percent of new work) in 1107.186248 s Acceptance rate = 0.3031
+Finished 81.00 percent (81.00 percent of new work) in 1122.444423 s Acceptance rate = 0.301691
+Finished 82.00 percent (82.00 percent of new work) in 1137.039358 s Acceptance rate = 0.300671
+Finished 83.00 percent (83.00 percent of new work) in 1153.392503 s Acceptance rate = 0.299422
+Finished 84.00 percent (84.00 percent of new work) in 1169.803391 s Acceptance rate = 0.298119
+Finished 85.00 percent (85.00 percent of new work) in 1186.851681 s Acceptance rate = 0.296918
+Finished 86.00 percent (86.00 percent of new work) in 1203.338662 s Acceptance rate = 0.296163
+Finished 87.00 percent (87.00 percent of new work) in 1218.052983 s Acceptance rate = 0.294862
+Finished 88.00 percent (88.00 percent of new work) in 1233.851554 s Acceptance rate = 0.29408
+Finished 89.00 percent (89.00 percent of new work) in 1248.437657 s Acceptance rate = 0.292989
+Finished 90.00 percent (90.00 percent of new work) in 1262.275009 s Acceptance rate = 0.292111
+Finished 91.00 percent (91.00 percent of new work) in 1272.179798 s Acceptance rate = 0.289736
+Finished 92.00 percent (92.00 percent of new work) in 1285.218732 s Acceptance rate = 0.288772
+Finished 93.00 percent (93.00 percent of new work) in 1297.806219 s Acceptance rate = 0.287731
+Finished 94.00 percent (94.00 percent of new work) in 1312.031228 s Acceptance rate = 0.286979
+Finished 95.00 percent (95.00 percent of new work) in 1326.925360 s Acceptance rate = 0.286189
+Finished 96.00 percent (96.00 percent of new work) in 1341.006830 s Acceptance rate = 0.285427
+Finished 97.00 percent (97.00 percent of new work) in 1353.464268 s Acceptance rate = 0.284526
+Finished 98.00 percent (98.00 percent of new work) in 1367.022024 s Acceptance rate = 0.283735
+Finished 99.00 percent (99.00 percent of new work) in 1379.322528 s Acceptance rate = 0.282869
+Finished 100.00 percent (100.00 percent of new work) in 1392.424690 s Acceptance rate = 0.28209
+Run Complete
+
+╭───────────────╮
+│ Done sampling │
+╰───────────────╯
+
+Run Summary                                                          
+╭─────────────┬────────────────────┬────────────┬───────────────────╮
+│ Time (real) │ Time (real)/sample │ Time (CPU) │ Time (CPU)/sample │
+├─────────────┼────────────────────┼────────────┼───────────────────┤
+│ 1392.43     │ 0.0139             │ 4132.65    │ 0.0413            │
+╰─────────────┴────────────────────┴────────────┴───────────────────╯

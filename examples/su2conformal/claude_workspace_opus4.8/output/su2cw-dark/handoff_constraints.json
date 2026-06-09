@@ -1,0 +1,439 @@
+{
+  "model": "su2cw-dark",
+  "agent": "constraint-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-07",
+  "branch": "constraints",
+  "created_from": [
+    "output/su2cw-dark/handoff_model.json",
+    "output/su2cw-dark/handoff_critique.json",
+    "output/su2cw-dark/handoff_fopt.json",
+    "output/su2cw-dark/handoff_pta.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json"
+  ],
+  "commands": [
+    "conda run -n ptarcade python -c '<compute m_W, m_chi, beta_lambda over PTA 1-sigma region>'",
+    "WebSearch: supercooled FOPT reheating temperature BBN dark sector NANOGrav MeV",
+    "WebSearch: classically conformal dark vector DM relic NANOGrav SU(2) Neff",
+    "WebSearch: lower bound reheating temperature BBN MeV neutrino thermalization 4.7 MeV",
+    "WebSearch: kinetic mixing dark photon constraints 100-600 MeV supernova beam dump",
+    "WebFetch arxiv.org/html/2502.19478",
+    "WebFetch arxiv.org/html/2306.09411"
+  ],
+  "files_read": [
+    "output/su2cw-dark/handoff_model.json",
+    "output/su2cw-dark/handoff_critique.json",
+    "output/su2cw-dark/handoff_fopt.json",
+    "output/su2cw-dark/handoff_pta.json",
+    "output/su2cw-dark/handoff_librarian_preliminary.json",
+    "docs/HANDOFF_CONSTRAINTS_SCHEMA.md",
+    "https://arxiv.org/html/2502.19478",
+    "https://arxiv.org/html/2306.09411",
+    "https://arxiv.org/pdf/2109.14765"
+  ],
+  "files_written": [
+    "output/su2cw-dark/handoff_constraints.json",
+    "output/su2cw-dark/constraints_report.md",
+    "output/su2cw-dark/constraints_table.csv"
+  ],
+  "warnings": [
+    "The model as specified is SECLUDED: no tree-level portal (kinetic mixing or Higgs portal) between the dark SU(2)_D sector and the SM is given. Yet handoff_model.json assumes thermal equilibrium with the SM (xi=1). This is internally inconsistent: equilibrium requires a portal, and a portal generically breaks classical conformal invariance (Higgs portal) or adds U(1) (kinetic mixing requires an abelian factor, absent in pure SU(2)_D). This unresolved portal question controls almost every cosmological constraint below.",
+    "Several binding constraints (BBN reheating, Neff/dark radiation, relic abundance) cannot be evaluated to a definitive pass/fail without computing the dark-sector energy budget after percolation and the rate of energy transfer to the SM, which are NOT in any upstream handoff.",
+    "Treh in handoff_fopt.json benchmarks (~0.5-1.5 MeV) and pta T_star (~37-138 MeV) use the spectrum 'reheating-temperature' convention; whether the SM photon-neutrino bath actually reaches >~2-4.7 MeV depends on energy transfer and is not established."
+  ],
+  "errors": [],
+  "approximations": [
+    "Derived masses m_W=g*chi0/2 and m_chi=sqrt(beta_lambda)*chi0 evaluated at PTArcade 1-sigma corners and MAP; beta_lambda=9*(g/2)^4/(8 pi^2) with negligible scalar self-loop (<0.04% per critic).",
+    "BBN reheating lower bound taken as Treh >~ 2-4.7 MeV (oscillation-corrected to ~2 MeV; Planck-era ~4.7 MeV) from low-reheating literature, applied to the SM bath temperature, not the dark-sector temperature."
+  ],
+  "analysis_mode": "ptarcade_1sigma",
+  "input_region": {
+    "source": "ptarcade_1sigma",
+    "parameters": {
+      "g": {"low": 0.8523, "high": 0.9158, "MAP": 0.8656},
+      "chi0_GeV": {"low": 0.605, "high": 1.281, "MAP": 1.122, "log10_chi0_range": [-0.2178, 0.1075]}
+    },
+    "derived_masses": {
+      "m_W_GeV": {"low": 0.258, "high": 0.586, "MAP": 0.486, "formula": "g*chi0/2", "note": "3 degenerate dark gauge bosons, vector DM candidate"},
+      "m_chi_GeV": {"low": 0.037, "high": 0.091, "MAP": 0.071, "formula": "sqrt(beta_lambda)*chi0", "note": "CW pseudo-dilaton; m_chi < m_W < 2*m_W so chi->W W kinematically closed, chi is long-lived in the secluded sector"},
+      "beta_lambda": {"low": 0.0038, "high": 0.0050, "MAP": 0.0040}
+    },
+    "notes": [
+      "MAP m_chi (71 MeV) < m_W (486 MeV): the pseudo-dilaton cannot decay to on-shell dark gauge bosons; with no SM portal it has no decay channel and is cosmologically stable/long-lived -> potential late-decaying or dark-radiation/relic problem.",
+      "m_chi ~ 37-91 MeV and m_W ~ 0.26-0.59 GeV are all sub-GeV, squarely in the range probed by beam-dump, supernova and CMB/BBN energy-injection constraints IF a SM portal exists.",
+      "Treh (spectrum convention) at MAP ~ 0.1 GeV from pta benchmarks; fopt benchmarks at deeper supercooling give Treh down to ~0.5-1.5 MeV. The relevant BBN quantity is the post-transition SM bath temperature."
+    ]
+  },
+  "constraint_summary": {
+    "total_constraints_considered": 11,
+    "directly_testable": 0,
+    "approximately_testable": 2,
+    "requires_recast": 3,
+    "requires_new_backend": 5,
+    "not_applicable": 1
+  },
+  "constraints": [
+    {
+      "id": "C1",
+      "name": "BBN lower bound on reheating temperature",
+      "category": "BBN",
+      "description": "A supercooled FOPT dumps the vacuum energy into the plasma; the SM photon-neutrino bath must reheat above ~2-4.7 MeV so that neutrinos re-thermalize and light-element abundances are preserved. If the latent heat stays in the dark sector (no portal) or the SM bath is reheated below this, BBN is spoiled.",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": ["W_D", "chi"],
+      "mass_range": {"chi0_GeV": [0.605, 1.281]},
+      "coupling_range": {"g": [0.852, 0.916]},
+      "observable": "SM-bath reheating temperature after percolation",
+      "required_inputs": ["latent heat / vacuum energy released", "fraction transferred to SM bath", "dark-to-SM portal rate"],
+      "required_observables": ["T_SM_reheat after FOPT"],
+      "available_observables": ["Treh (spectrum convention, dark+SM)", "Tp", "Tn", "alpha", "gstar_eff"],
+      "missing_observables": ["SM-only bath temperature after percolation and entropy transfer"],
+      "units": {"T": "MeV"},
+      "conventions": {"Treh_handoff": "spectrum reheating-temperature convention (combined bath), not necessarily SM photon-neutrino bath"},
+      "applicability": "Binding in principle over the entire PTA-preferred region; the fopt benchmarks reach Treh ~0.5-1.5 MeV (deep supercooling) which would violate the >~2 MeV bound, while pta T_star ~37-138 MeV at the PTA-preferred chi0~1 GeV would satisfy it IF that energy reaches the SM bath.",
+      "tested_subregion": {"note": "PTA 1-sigma region has T_star/Treh ~0.04-0.14 GeV (above 2 MeV); deeper-supercooling fopt benchmarks at chi0~few MeV fall below 2 MeV but are outside the PTA 1-sigma region."},
+      "applicability_notes": [
+        "Bai/Korwar-type cosmological-FOPT bound and low-reheating literature: Treh >~ 4.7 MeV (Planck) relaxing to ~2 MeV with neutrino oscillations.",
+        "Cannot be declared pass/fail until SM-bath reheating is computed; the secluded model gives NO SM energy transfer, in which case the SM bath is NOT reheated and the bound is effectively violated."
+      ],
+      "source": {
+        "title": "Cosmological constraints on first-order phase transitions; Bounds on very low reheating scenarios after Planck",
+        "arxiv_id": "2109.14765; 1511.00672",
+        "authors": "Y. Bai, M. Korwar; P. F. de Salas et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C2",
+      "name": "Dark radiation / Neff from a secluded dark sector",
+      "category": "Neff",
+      "description": "If the dark SU(2)_D sector does not transfer its energy to the SM before neutrino decoupling, its relativistic content (gauge bosons, pseudo-dilaton, dark thermal bath) contributes dark radiation Delta Neff, constrained by Planck/BBN.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["W_D", "chi"],
+      "mass_range": {"m_W_GeV": [0.258, 0.586], "m_chi_GeV": [0.037, 0.091]},
+      "coupling_range": {"g": [0.852, 0.916]},
+      "observable": "Delta Neff",
+      "required_inputs": ["dark-to-SM temperature ratio xi at neutrino decoupling", "dark-sector relativistic dof at T~MeV", "portal decay/annihilation rate to SM"],
+      "required_observables": ["Delta Neff(xi, g_dark)"],
+      "available_observables": ["gstar_eff (FOPT epoch only)"],
+      "missing_observables": ["xi at BBN/CMB", "Delta Neff"],
+      "units": {"Delta_Neff": "dimensionless"},
+      "conventions": {"Planck": "Neff = 2.99 +/- 0.17; Delta Neff > 0.22 excluded at 95% CL"},
+      "applicability": "Binding over the whole PTA-preferred region IF the sector stays secluded. NANOGrav-dedicated study 2306.09411 states a completely secluded dark-sector FOPT is strongly disfavoured.",
+      "tested_subregion": {"note": "Entire PTA 1-sigma region, conditional on no portal."},
+      "applicability_notes": [
+        "2306.09411: 'a phase transition in a completely secluded dark sector is strongly disfavoured'; Delta Neff > 0.22 excluded (95% CL).",
+        "The model assumes xi=1 (full equilibrium) which REQUIRES a portal; with a portal that decays the dark sector to the SM before nu decoupling, Delta Neff can be acceptable. Quantitative xi and Delta Neff are not computed anywhere upstream."
+      ],
+      "source": {
+        "title": "Does NANOGrav observe a dark sector phase transition?",
+        "arxiv_id": "2306.09411",
+        "authors": "Bringmann, Depta, Hufnagel, Kersten, Mariotti, et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C3",
+      "name": "Portal requirement / thermalization with SM bath",
+      "category": "thermalization",
+      "description": "handoff_model.json assumes dark-SM thermal equilibrium (xi=1) but specifies NO portal. Maintaining equilibrium and draining the dark-sector energy to the SM both require a portal. In pure SU(2)_D (no U(1)) kinetic mixing is forbidden at renormalizable level; a Higgs portal |Phi|^2|H|^2 breaks the classical conformal symmetry that the whole CW mechanism relies on.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["Phi", "W_D", "chi"],
+      "mass_range": {"chi0_GeV": [0.605, 1.281]},
+      "coupling_range": {"portal": "unspecified"},
+      "observable": "thermalization rate vs Hubble; conformal-symmetry breaking from portal",
+      "required_inputs": ["portal operator and coupling", "Gamma_portal(T) vs H(T)"],
+      "required_observables": ["decoupling temperature", "portal-induced explicit scale"],
+      "available_observables": [],
+      "missing_observables": ["portal coupling", "Gamma_portal/H"],
+      "units": {},
+      "conventions": {},
+      "applicability": "Foundational: determines whether C1/C2/C5/C7-C10 are evaluated in the equilibrium or secluded regime. The model is currently under-specified on this point.",
+      "tested_subregion": {"note": "Whole region; structural, not parameter-dependent."},
+      "applicability_notes": [
+        "Sister model 2502.19478 (conformal U(1)' has a dark photon) uses kinetic mixing kappa ~ 1e-7..1e-3 to keep equilibrium and decay the sector to e+e-; that mechanism is unavailable in pure non-abelian SU(2)_D without adding fields.",
+        "Resolving the portal is a prerequisite to closing C1 and C2; flag to model/proposer/critic."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz GW from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan, Bringmann, Kahlhoefer, Matuszak, Tasillo",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C4",
+      "name": "Transition completion / percolation in deep supercooling",
+      "category": "theory",
+      "description": "Strongly supercooled (alpha>>1) conformal transitions risk failing to percolate or leading to eternal false-vacuum/inflation. Already checked by fopt-agent for benchmarks, but the PTA-preferred region must percolate without runaway.",
+      "applicability_class": "approximate",
+      "constraint_applied": true,
+      "affected_particles": ["Phi"],
+      "mass_range": {"chi0_GeV": [0.605, 1.281]},
+      "coupling_range": {"g": [0.852, 0.916]},
+      "observable": "percolation temperature Tp finite; eternal_inflation False",
+      "required_inputs": ["Tp", "eternal_inflation flag"],
+      "required_observables": ["Tp", "eternal_inflation"],
+      "available_observables": ["Tp", "eternal_inflation (False for benchmarks)"],
+      "missing_observables": [],
+      "units": {"T": "GeV"},
+      "conventions": {},
+      "applicability": "Satisfied: fopt-agent verified percolation (Tp finite) and eternal_inflation=False for all viable points; pta-agent confirmed viability across the 1-sigma window.",
+      "tested_subregion": {"note": "All viable fopt/pta points percolate."},
+      "applicability_notes": ["This is a self-consistency/theory check, already passed upstream; recorded for completeness."],
+      "source": {
+        "title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data",
+        "arxiv_id": "2501.11619",
+        "authors": "Goncalves, Marfatia, Morais, Pasechnik",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C5",
+      "name": "Vector dark matter relic abundance",
+      "category": "indirect_detection",
+      "description": "The 3 degenerate dark gauge bosons W_D (m~0.26-0.59 GeV) are a vector DM candidate. Their relic abundance must not overclose the Universe (Omega h^2 <= 0.12). In the secluded model the abundance is set by dark-sector freeze-out and/or non-thermal production via the (unspecified) portal.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["W_D"],
+      "mass_range": {"m_W_GeV": [0.258, 0.586]},
+      "coupling_range": {"g": [0.852, 0.916]},
+      "observable": "Omega_DM h^2",
+      "required_inputs": ["W_D annihilation cross section (W W -> chi chi etc.)", "portal coupling", "dark-sector temperature", "W_D stability/lifetime"],
+      "required_observables": ["relic abundance Omega_W h^2"],
+      "available_observables": ["m_W", "g"],
+      "missing_observables": ["annihilation cross section", "relic yield", "W_D lifetime"],
+      "units": {"Omega_h2": "dimensionless"},
+      "conventions": {"Planck": "Omega_DM h^2 = 0.120 +/- 0.001"},
+      "applicability": "Applies across the region if W_D is the DM. Whether under-, over-, or correctly abundant cannot be stated without a relic calculation. In 2109.11558 (same model) the relic is set non-thermally via scalar-portal mixing.",
+      "tested_subregion": {"note": "Whole region; not evaluable without cross-section/portal."},
+      "applicability_notes": [
+        "Custodial SO(4) of the single doublet can render the W_D triplet stable (vector DM); confirm stability.",
+        "2109.11558 obtains the relic non-thermally via scalar-portal mixing; requires the same portal that C3 flags as unspecified."
+      ],
+      "source": {
+        "title": "A first order dark SU(2)_D phase transition with vector dark matter (NANOGrav 12.5yr)",
+        "arxiv_id": "2109.11558",
+        "authors": "Borah, Dasgupta, Kang",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C6",
+      "name": "Pseudo-dilaton (chi) cosmological stability / late decays",
+      "category": "BBN",
+      "description": "At the PTA-preferred point m_chi (37-91 MeV) < m_W (0.26-0.59 GeV), so chi->W W is closed. In a strictly secluded sector chi has no decay channel and is cosmologically stable, acting as extra (cold or warm) matter/dark radiation; with a portal it decays to SM (e+e-, gamma gamma) and is constrained by BBN/CMB energy injection depending on its lifetime.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["chi"],
+      "mass_range": {"m_chi_GeV": [0.037, 0.091]},
+      "coupling_range": {"portal": "unspecified"},
+      "observable": "chi lifetime and abundance; BBN/CMB energy injection",
+      "required_inputs": ["chi decay width via portal", "chi relic abundance", "chi branching ratios"],
+      "required_observables": ["tau_chi", "Omega_chi", "BR(chi->SM)"],
+      "available_observables": ["m_chi"],
+      "missing_observables": ["chi width/lifetime", "chi abundance"],
+      "units": {"tau": "s"},
+      "conventions": {},
+      "applicability": "Binding in the secluded case (stable light scalar => overproduction / dark radiation) and in the portal case (late e+e-/gamma injection constrained by BBN and CMB). Cannot be evaluated without lifetime and abundance.",
+      "tested_subregion": {"note": "Whole region; m_chi always < m_W so chi->WW closed throughout."},
+      "applicability_notes": [
+        "If chi decays after ~0.1 s with e+e- or photons, BBN/CMB energy-injection bounds apply (cf. 2502.19478 tau_phi ~ 2500 s flagged as constrained).",
+        "If chi is stable and relic, it adds dark matter/dark radiation -> Neff or Omega bounds."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz GW from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan, Bringmann, Kahlhoefer, Matuszak, Tasillo",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C7",
+      "name": "Beam-dump / fixed-target bounds on a kinetic-mixing portal",
+      "category": "beam_dump",
+      "description": "IF the required SM portal is kinetic mixing epsilon of a dark vector with mass ~0.26-0.59 GeV, beam-dump experiments (E137, CHARM, nu-cal) exclude epsilon ~ 1e-7..1e-4 for 1 MeV-1 GeV masses, overlapping the kappa ~ 1e-6..1e-4 window used by the sister model to drain the dark sector.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": ["W_D"],
+      "mass_range": {"m_W_GeV": [0.258, 0.586]},
+      "coupling_range": {"epsilon": [1e-7, 1e-4]},
+      "observable": "visible dark-photon decay yield in beam dump",
+      "required_inputs": ["portal coupling epsilon", "W_D->SM branching/lifetime"],
+      "required_observables": ["epsilon", "visible decay length"],
+      "available_observables": ["m_W"],
+      "missing_observables": ["epsilon (model has no abelian factor for kinetic mixing)"],
+      "units": {"epsilon": "dimensionless"},
+      "conventions": {"epsilon": "standard kinetic-mixing normalization F'_munu F^munu"},
+      "applicability": "Conditional: only if a kinetic-mixing portal is added (not possible for pure non-abelian SU(2)_D at renormalizable level). If a U(1) is introduced to host the portal, this beam-dump band directly tensions the epsilon window needed for BBN/relic.",
+      "tested_subregion": {"note": "m_W~0.26-0.59 GeV overlaps E137/CHARM/nu-cal coverage; epsilon needed for thermal contact (~1e-6..1e-4) overlaps excluded band."},
+      "applicability_notes": ["Do NOT apply unless the portal and epsilon are specified; current model has neither.  Recast required against the specific W_D decay structure."],
+      "source": {
+        "title": "Constraints on kinetic mixing of dark photons from dilepton spectra; beam-dump compilations",
+        "arxiv_id": "2507.11163",
+        "authors": "various (PDG-level compilation)",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C8",
+      "name": "Supernova (SN1987A) cooling bound on a light portal mediator",
+      "category": "supernova",
+      "description": "IF a kinetic-mixing portal exists, a dark vector with mass <~ O(100 MeV) and epsilon ~ 1e-10..1e-6 can be emitted from the SN1987A core and cause excess cooling. The PTA-preferred m_W~0.26-0.59 GeV is at/above the upper edge of the strongest SN exclusion; m_chi~37-91 MeV is in the SN-sensitive window if it couples to SM.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": ["W_D", "chi"],
+      "mass_range": {"m_W_GeV": [0.258, 0.586], "m_chi_GeV": [0.037, 0.091]},
+      "coupling_range": {"epsilon": [1e-10, 1e-6]},
+      "observable": "SN1987A energy-loss / late neutrino signal",
+      "required_inputs": ["portal coupling", "mediator mass", "trapping vs free-streaming regime"],
+      "required_observables": ["epsilon", "emission/trapping regime"],
+      "available_observables": ["m_W", "m_chi"],
+      "missing_observables": ["epsilon", "coupling to SM"],
+      "units": {"epsilon": "dimensionless"},
+      "conventions": {},
+      "applicability": "Conditional on a portal. The SN1987A bound bites mainly at lighter masses / smaller epsilon than the thermal-contact window, so it likely constrains a different slice than C7; record subregion, do not exclude full region.",
+      "tested_subregion": {"note": "Relevant primarily for m_chi~37-91 MeV and epsilon~1e-9..1e-6 IF chi/W_D couple to SM."},
+      "applicability_notes": ["Not applicable to the strictly secluded model. Recast needed once a portal is defined."],
+      "source": {
+        "title": "Supernova bounds on the dark photon using its electromagnetic decay",
+        "arxiv_id": "1410.0221",
+        "authors": "Kazanas, Mohapatra, Nussinov, Teplitz, Zhang",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C9",
+      "name": "Direct detection of sub-GeV vector dark matter",
+      "category": "direct_detection",
+      "description": "If W_D is DM and couples to the SM via the (unspecified) portal, sub-GeV DM-electron/nucleon scattering bounds (e.g. low-threshold experiments) could apply. For a strictly secluded sector with no portal there is no DM-SM scattering and direct detection does not apply.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["W_D"],
+      "mass_range": {"m_W_GeV": [0.258, 0.586]},
+      "coupling_range": {"portal": "unspecified"},
+      "observable": "DM-nucleon / DM-electron cross section",
+      "required_inputs": ["portal coupling", "DM mass"],
+      "required_observables": ["sigma_DM-SM"],
+      "available_observables": ["m_W"],
+      "missing_observables": ["portal coupling", "scattering cross section"],
+      "units": {"sigma": "cm^2"},
+      "conventions": {},
+      "applicability": "Not applicable in the secluded model (no DM-SM coupling). Becomes recast_needed only if a portal large enough for scattering is introduced; sub-GeV DM generically evades current heavy-WIMP direct-detection limits (cf. 2502.19478).",
+      "tested_subregion": {"note": "None in secluded case."},
+      "applicability_notes": ["Listed for completeness; flips to recast_needed only with a portal."],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz GW from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan, Bringmann, Kahlhoefer, Matuszak, Tasillo",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C10",
+      "name": "DM self-interaction (SIDM) bound on light vector DM",
+      "category": "structure_formation",
+      "description": "Light vector DM with a light mediator (here chi, m_chi~37-91 MeV, lighter than m_W) can have large self-interactions; the Bullet-cluster / halo-shape bound sigma/m <~ 1 cm^2/g constrains the gauge coupling g and mass spectrum.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["W_D"],
+      "mass_range": {"m_W_GeV": [0.258, 0.586], "m_chi_GeV": [0.037, 0.091]},
+      "coupling_range": {"g": [0.852, 0.916]},
+      "observable": "DM self-scattering cross section per mass sigma/m",
+      "required_inputs": ["g", "m_W", "m_chi (mediator)"],
+      "required_observables": ["sigma_self/m_W"],
+      "available_observables": ["g", "m_W", "m_chi"],
+      "missing_observables": ["self-scattering cross section"],
+      "units": {"sigma_over_m": "cm^2/g"},
+      "conventions": {"bound": "sigma/m <~ 0.1-1 cm^2/g (cluster scale)"},
+      "applicability": "Applies if W_D is the DM; sub-GeV DM with O(1) gauge coupling and a ~10x lighter mediator can be in the strongly self-interacting regime. Evaluable with a self-interaction calculation; all required masses/couplings ARE available.",
+      "tested_subregion": {"note": "Whole region; needs numeric sigma/m."},
+      "applicability_notes": ["Required inputs are all present in handoffs; only the cross-section computation is missing (medium priority)."],
+      "source": {
+        "title": "Self-interacting dark matter review (community)",
+        "arxiv_id": "1705.02358",
+        "authors": "Tulin, Yu",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "C11",
+      "name": "Collider invisible/visible width (Higgs portal) bounds",
+      "category": "collider",
+      "description": "IF the SM portal were the Higgs portal |Phi|^2|H|^2, it would induce Higgs invisible/exotic decays and contribute to SM Higgs signal strength; LHC invisible-Higgs limits would then apply. The Higgs portal also breaks classical conformal invariance, undermining the CW mechanism.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": ["Phi", "chi"],
+      "mass_range": {"m_chi_GeV": [0.037, 0.091]},
+      "coupling_range": {"lambda_portal": "unspecified"},
+      "observable": "Higgs invisible/exotic branching ratio",
+      "required_inputs": ["Higgs-portal coupling", "m_chi"],
+      "required_observables": ["BR(h->invisible/exotic)"],
+      "available_observables": ["m_chi"],
+      "missing_observables": ["portal coupling", "BR(h->inv)"],
+      "units": {"BR": "dimensionless"},
+      "conventions": {"LHC": "BR(h->inv) <~ 0.10-0.15"},
+      "applicability": "Conditional on a Higgs portal, which conflicts with conformal invariance; not applicable to the secluded conformal model as written. Recorded so the portal trade-off is explicit.",
+      "tested_subregion": {"note": "None unless Higgs portal added."},
+      "applicability_notes": ["Adding a Higgs portal would break the CW symmetry the model is built on; flag tension to proposer/critic."],
+      "source": {
+        "title": "ATLAS/CMS combined invisible Higgs limits (PDG-level)",
+        "arxiv_id": "",
+        "authors": "ATLAS, CMS",
+        "citation_verified": false
+      }
+    }
+  ],
+  "missing_calculations": [
+    {
+      "observable": "SM-bath reheating temperature after percolation and dark-to-SM energy transfer",
+      "needed_for_constraints": ["C1", "C2"],
+      "required_inputs": ["latent heat / vacuum energy", "portal operator and coupling", "Gamma_portal(T) vs H(T)", "gstar in dark and SM sectors"],
+      "suggested_backend_module": "reheating_and_energy_transfer (new); could extend semianalytic_pipeline outputs (alpha, Treh, gstar) with an entropy-transfer step",
+      "validation_checks": ["T_SM_reheat > 2-4.7 MeV", "energy conservation between vacuum energy, dark bath and SM bath"],
+      "priority": "high"
+    },
+    {
+      "observable": "Dark-to-SM temperature ratio xi(T) and Delta Neff at BBN/CMB",
+      "needed_for_constraints": ["C2", "C6"],
+      "required_inputs": ["portal coupling", "dark-sector dof at T~MeV", "decoupling temperature"],
+      "suggested_backend_module": "dark_thermal_history / Neff_calculator (new)",
+      "validation_checks": ["Delta Neff < 0.22 (95% CL)", "xi consistent with assumed equilibrium"],
+      "priority": "high"
+    },
+    {
+      "observable": "Portal operator and coupling (thermalization rate vs Hubble; conformal-breaking check)",
+      "needed_for_constraints": ["C1", "C2", "C3", "C5", "C6", "C7", "C8", "C9", "C11"],
+      "required_inputs": ["model extension: U(1) for kinetic mixing or |Phi|^2|H|^2 Higgs portal", "coupling value"],
+      "suggested_backend_module": "model-level decision (proposer/critic), then thermalization rate module",
+      "validation_checks": ["Gamma_portal/H >= 1 at relevant T for equilibrium", "portal does not reintroduce an explicit mass scale that spoils CW"],
+      "priority": "high"
+    },
+    {
+      "observable": "W_D vector-DM relic abundance and W_D lifetime/stability",
+      "needed_for_constraints": ["C5"],
+      "required_inputs": ["W_D annihilation cross section", "portal coupling", "dark-sector temperature", "custodial-symmetry stability check"],
+      "suggested_backend_module": "relic_abundance (new; micrOMEGAs-style or analytic freeze-out/freeze-in)",
+      "validation_checks": ["Omega_W h^2 <= 0.12", "W_D lifetime > age of Universe if it is the DM"],
+      "priority": "high"
+    },
+    {
+      "observable": "chi (pseudo-dilaton) decay width, lifetime and relic abundance",
+      "needed_for_constraints": ["C6"],
+      "required_inputs": ["portal coupling", "m_chi", "available SM final states (e+e-, gamma gamma)"],
+      "suggested_backend_module": "scalar_decay_width (new)",
+      "validation_checks": ["tau_chi vs BBN (t<~0.1 s) and CMB energy-injection windows", "Omega_chi not overclosing"],
+      "priority": "medium"
+    },
+    {
+      "observable": "W_D self-interaction cross section per mass sigma/m",
+      "needed_for_constraints": ["C10"],
+      "required_inputs": ["g", "m_W", "m_chi (mediator)"],
+      "suggested_backend_module": "sidm_cross_section (new; analytic Yukawa/Born or Sommerfeld)",
+      "validation_checks": ["sigma/m <~ 1 cm^2/g at cluster scales", "halo-scale velocity dependence"],
+      "priority": "medium"
+    }
+  ]
+}

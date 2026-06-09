@@ -1,0 +1,463 @@
+{
+  "model": "u1conformal_fermion",
+  "agent": "report-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-08",
+  "branch": "report",
+  "created_from": [
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json",
+    "output/u1conformal_fermion/handoff_critique.json",
+    "output/u1conformal_fermion/handoff_fopt.json",
+    "output/u1conformal_fermion/handoff_pta.json",
+    "output/u1conformal_fermion/handoff_constraints.json",
+    "output/u1conformal_fermion/handoff_prior_audit.json",
+    "output/u1conformal_fermion/handoff_proposed_model.json",
+    ".claude/agents/report-agent.md",
+    "docs/HANDOFF_REPORT_SCHEMA.md"
+  ],
+  "commands": [
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex (run 1 of 5)",
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex (run 2 of 5, fixed N_eff underscore issue)",
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex (run 3 of 5, fixed double backslash)",
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex (run 4 of 5, reference resolution)",
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex (run 5 of 5, final resolution)"
+  ],
+  "files_read": [
+    "output/u1conformal_fermion/handoff_model.json",
+    "output/u1conformal_fermion/handoff_librarian_preliminary.json",
+    "output/u1conformal_fermion/handoff_critique.json",
+    "output/u1conformal_fermion/handoff_fopt.json",
+    "output/u1conformal_fermion/handoff_pta.json",
+    "output/u1conformal_fermion/handoff_constraints.json",
+    "output/u1conformal_fermion/handoff_prior_audit.json",
+    "output/u1conformal_fermion/handoff_proposed_model.json",
+    "docs/HANDOFF_REPORT_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/u1conformal_fermion/final_report.tex",
+    "output/u1conformal_fermion/final_report.pdf",
+    "output/u1conformal_fermion/handoff_report.json"
+  ],
+  "warnings": [
+    "The high-T expansion validity in supercooling is a critical uncontrolled approximation (severity 8).",
+    "The xi=1 assumption is inconsistent with zero portal couplings (severity 10).",
+    "DM relic abundance not computed (severity 10).",
+    "The y_psi posterior has no lower bound at 68% HPDI, indicating a prior-driven degeneracy.",
+    "Benchmark scan (v~10-20 MeV) and PTArcade posterior (v~0.65-1.45 GeV) point to different mass regimes.",
+    "40.8% numerical failure rate in FOPT scan at high g_D (>1.5) causes systematic coverage gap.",
+    "PTArcade MCMC used single chain with only 7501 post-burnin samples; no R-hat computed.",
+    "Three citations could not be verified from upstream handoffs: arXiv:1602.04816 (Fermi-LAT), arXiv:2408.08791 (XENONnT), arXiv:2309.11521 (ATLAS invisible Higgs). These are well-established experimental papers but were not independently re-verified against source handoffs."
+  ],
+  "errors": [],
+  "approximations": [
+    "High-temperature expansion of finite-T effective potential valid in supercooling regime (potentially invalid)",
+    "Gaussian approximation for false vacuum fraction",
+    "Single-field approximation for FOPT analysis",
+    "Scalar loop contributions to CW potential neglected (gb_scalar = 0 in backend)",
+    "Renormalisation scale set to vev; no RG running included",
+    "No Daisy resummation included",
+    "DBF template assumes thin-wall, ultra-relativistic bubble expansion (v_w ~ 1)",
+    "DBF template calibrated for beta/H in range ~4 to >100",
+    "DBF template assumes vacuum energy dominates before transition (alpha >> 1)",
+    "Dark sector thermalised with SM (xi = 1), inconsistent with zero portals"
+  ],
+  "included_sections": [
+    {
+      "name": "Summary",
+      "status": "included",
+      "source": "handoff_report.json + final_report.tex",
+      "notes": ["Conditionally affirmative answer with caveats"]
+    },
+    {
+      "name": "Model Description",
+      "status": "included",
+      "source": "handoff_model.json, handoff_critique.json",
+      "notes": ["Symmetries, field content, Lagrangian, parameters, backend compatibility"]
+    },
+    {
+      "name": "Pipeline Status",
+      "status": "included",
+      "source": "All upstream handoffs",
+      "notes": ["Table with run_status for each stage"]
+    },
+    {
+      "name": "Preliminary Literature Searches",
+      "status": "included",
+      "source": "handoff_librarian_preliminary.json",
+      "notes": ["12 papers, novelty verdict, benchmark hints"]
+    },
+    {
+      "name": "FOPT Results",
+      "status": "included",
+      "source": "handoff_fopt.json",
+      "notes": ["Scan configuration, benchmarks, failure diagnostics"]
+    },
+    {
+      "name": "PTA Results",
+      "status": "included",
+      "source": "handoff_pta.json",
+      "notes": ["Benchmark spectra with violin plot, PTArcade posteriors, MAP spectrum"]
+    },
+    {
+      "name": "Constraints",
+      "status": "included",
+      "source": "handoff_constraints.json",
+      "notes": ["17 constraints classified by applicability"]
+    },
+    {
+      "name": "Assumptions and Limitations",
+      "status": "included",
+      "source": "handoff_prior_audit.json",
+      "notes": ["38 items, severity distribution, critical/major/controlled"]
+    },
+    {
+      "name": "Conclusions",
+      "status": "included",
+      "source": "Synthesis of all upstream outputs",
+      "notes": ["Viable model, strong FOPT, PTA compatibility, critical caveats"]
+    },
+    {
+      "name": "Reference List",
+      "status": "included",
+      "source": "All upstream handoffs",
+      "notes": ["28 cited references with arXiv IDs"]
+    },
+    {
+      "name": "Additional Figures (Appendix)",
+      "status": "included",
+      "source": "handoff_pta.json",
+      "notes": ["Alternative posterior corner plot"]
+    }
+  ],
+  "figures_included": [
+    {
+      "label": "fig:benchmark_spectrum",
+      "file": "pta_benchmark_spectrum.pdf",
+      "caption": "GW energy density spectra for benchmark points BP-A through BP-D compared to NANOGrav 15-year data",
+      "source": "handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "fig:posteriors",
+      "file": "pta_posteriors.pdf",
+      "caption": "Marginalised posterior distributions from PTArcade ceffyl analysis",
+      "source": "handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "fig:map_spectrum",
+      "file": "pta_ptarcade_spectrum.pdf",
+      "caption": "GW spectrum at the MAP point from PTArcade analysis",
+      "source": "handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "fig:posteriors_alt",
+      "file": "u1conformal_fermion_posteriors.pdf",
+      "caption": "Alternative posterior corner plot from PTArcade analysis",
+      "source": "output/u1conformal_fermion/",
+      "notes": ["Additional plot found in output directory"]
+    }
+  ],
+  "tables_included": [
+    {
+      "label": "tab:particles",
+      "file": "final_report.tex",
+      "caption": "Dark sector particle content",
+      "source": "handoff_model.json",
+      "notes": []
+    },
+    {
+      "label": "tab:params",
+      "file": "final_report.tex",
+      "caption": "Model parameters",
+      "source": "handoff_model.json",
+      "notes": []
+    },
+    {
+      "label": "tab:pipeline",
+      "file": "final_report.tex",
+      "caption": "Pipeline execution status",
+      "source": "All upstream handoffs",
+      "notes": []
+    },
+    {
+      "label": "tab:papers",
+      "file": "final_report.tex",
+      "caption": "Key papers from literature search",
+      "source": "handoff_librarian_preliminary.json",
+      "notes": ["12 papers ranked by relevance"]
+    },
+    {
+      "label": "tab:fopt_scan",
+      "file": "final_report.tex",
+      "caption": "FOPT scan summary",
+      "source": "handoff_fopt.json",
+      "notes": []
+    },
+    {
+      "label": "tab:benchmarks",
+      "file": "final_report.tex",
+      "caption": "FOPT benchmark points",
+      "source": "handoff_fopt.json",
+      "notes": ["5 PTA-centered benchmark points"]
+    },
+    {
+      "label": "tab:pta_benchmarks",
+      "file": "final_report.tex",
+      "caption": "Best-fit points from PTA benchmark scan",
+      "source": "handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "tab:bayes",
+      "file": "final_report.tex",
+      "caption": "PTArcade posterior summary",
+      "source": "handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "tab:constraints",
+      "file": "final_report.tex",
+      "caption": "Constraints summary",
+      "source": "handoff_constraints.json",
+      "notes": ["17 constraints with applicability classification"]
+    },
+    {
+      "label": "tab:severity",
+      "file": "final_report.tex",
+      "caption": "Assumptions severity distribution",
+      "source": "handoff_prior_audit.json",
+      "notes": ["38 audited assumptions and limitations"]
+    }
+  ],
+  "cited_sources": [
+    {
+      "title": "Radiative Corrections as the Origin of Spontaneous Symmetry Breaking",
+      "arxiv_id": "hep-th/0507214",
+      "source_file": "handoff_librarian_preliminary.json (implied reference)",
+      "source_type": "paper",
+      "citation_verified": false
+    },
+    {
+      "title": "Gravitational waves and dark matter from classical scale invariance",
+      "arxiv_id": "2212.04784",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+      "arxiv_id": "2502.19478",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data",
+      "arxiv_id": "2501.11619",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "The Sound of Dark Sectors in Pulsar Timing Arrays",
+      "arxiv_id": "2412.16282",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Gravitational waves from a dark U(1)_D phase transition in the light of NANOGrav 12.5 yr data",
+      "arxiv_id": "2105.01007",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Supercooled Dark Scalar Phase Transitions explanation of NANOGrav data",
+      "arxiv_id": "2501.15649",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Gauge-independent gravitational waves from a minimal dark U(1) sector with viable dark matter candidates",
+      "arxiv_id": "2602.14866",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Forbidden dark matter assisted by first-order phase transition and associated gravitational waves",
+      "arxiv_id": "2601.12319",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Gravitational waves from supercooled phase transitions and pulsar timing array signals",
+      "arxiv_id": "2602.14324",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Forbidden conformal dark matter at a GeV",
+      "arxiv_id": "2308.16219",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "NANOGrav Signal from a Dark Conformal Phase Transition",
+      "arxiv_id": "2306.17086",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Gravitational waves from scale-invariant vector dark matter model: Probing below the neutrino-floor",
+      "arxiv_id": "1907.08899",
+      "source_file": "handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Dissipative bulk flow in strongly supercooled phase transitions",
+      "arxiv_id": "2511.15687",
+      "source_file": "handoff_pta.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Status of Dark Photons",
+      "arxiv_id": "2405.08534",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "The Heavy Dark Photon Handbook",
+      "arxiv_id": "2511.15785",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Joint CMB and BBN Constraints on Light Dark Sectors with Dark Radiation",
+      "arxiv_id": "2109.03246",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Planck 2018 results. VI. Cosmological parameters",
+      "arxiv_id": "1807.06209",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Dark photon pair production via off-shell dark Higgs at FASER",
+      "arxiv_id": "2406.17760",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Coherent self-interactions of dark matter in the Bullet Cluster",
+      "arxiv_id": "2311.07648",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Cosmological Constraints on First-Order Phase Transitions",
+      "arxiv_id": "2109.14765",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Gravitational production of dark matter during reheating",
+      "arxiv_id": "2210.05716",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Lower N_eff from strong first-order phase transitions",
+      "arxiv_id": "2304.06576",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "High-temperature effective theory for supercooled phase transitions",
+      "arxiv_id": "2511.02910",
+      "source_file": "handoff_prior_audit.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Gauge dependence of the effective potential in the high-temperature expansion",
+      "arxiv_id": "2410.23210",
+      "source_file": "handoff_prior_audit.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Thermal Resummation and Phase Transitions",
+      "arxiv_id": "1808.08849",
+      "source_file": "handoff_prior_audit.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Bubble wall velocity in first-order phase transitions with massive gauge bosons",
+      "arxiv_id": "2212.10572",
+      "source_file": "handoff_prior_audit.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Scalar contributions to the CW potential in conformal models",
+      "arxiv_id": "2312.12413",
+      "source_file": "handoff_prior_audit.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Renormalisation scale prescription for thermal phase transitions",
+      "arxiv_id": "2602.02829",
+      "source_file": "handoff_prior_audit.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Fermi-LAT 2016 dSph combined analysis",
+      "arxiv_id": "1602.04816",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": false
+    },
+    {
+      "title": "XENONnT 2024 results",
+      "arxiv_id": "2408.08791",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": false
+    },
+    {
+      "title": "ATLAS combination of Higgs invisible decays",
+      "arxiv_id": "2309.11521",
+      "source_file": "handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": false
+    }
+  ],
+  "compiled_pdf": true,
+  "compile_errors": []
+}
