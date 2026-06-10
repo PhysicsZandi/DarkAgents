@@ -5,7 +5,7 @@
 **Towards an agentic system for theoretical astroparticle physics**
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE.txt)
-[![arXiv](https://img.shields.io/badge/arXiv-2606.00000-b31b1b.svg)](https://arxiv.org/abs/2606.00000)
+[![arXiv](https://img.shields.io/badge/arXiv-2606.11157-b31b1b.svg)](https://arxiv.org/abs/2606.11157)
 
 </div>
 
@@ -19,7 +19,7 @@ As first implementation, we apply **DarkAgents** to the study of cosmological fi
 
 **DarkAgent-PT** provides as output i) the best-fit values of model parameters, ii) their existing experimental and observational constraints, iii) an audit report of the assumptions and priors entering both i) and ii), of particular relevance for astroparticle physics. 
 
-A companion pre-print is available on the arXiv: <a href="https://arxiv.org/abs/2606.00000">"2606.00000"</a>.
+A companion pre-print is available on the arXiv: <a href="https://arxiv.org/abs/2606.11157">"2606.11157"</a>.
 
 ## Installation And Setup
 
@@ -113,7 +113,7 @@ What is the minimal conformal non-abelian model that can explain the NANOGrav si
 ```
 or  
 ```bash
-Can a classically scale-invariant $U(1)$ model with a dark scalar, a dark gauge boson and a dark fermion can explain the NANOGrav signal through a cosmological FOPT?
+Can a classically scale-invariant U(1) model with a dark scalar, a dark gauge boson and a dark fermion can explain the NANOGrav signal through a cosmological FOPT?
 ```
 
 
@@ -189,7 +189,14 @@ The sub-agents and their skills implemented in the current release are listed in
 
 To cite this work:
 ```bibtex
-@article{
+@article{Lucente:2026kgh,
+    author = "Lucente, Michele and Pascoli, Silvia and Sala, Filippo and Zandi, Matteo",
+    title = "{DarkAgents}",
+    eprint = "2606.11157",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ph",
+    month = "6",
+    year = "2026"
 }
 ```
 
