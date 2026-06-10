@@ -5,55 +5,50 @@ The input/u1conformal/prompt.md file contains the following text:
 
 ## Model description
 
-Consider a classically scale-invariant dark U(1)_D extension of the Standard Model. The dark sector contains one complex scalar Phi of U(1)_D charge +1 and a dark gauge boson A'_mu.
+Consider a classically scale-invariant/conformal dark $U(1)_D$ extension of the Standard Model. The dark sector contains a complex scalar $\Phi$ of $U(1)_D$ and a dark gauge boson $A'$.
 
 The dark-sector Lagrangian is
-L_D = |D_mu Phi|^2 - lambda_Phi |Phi|^4 - 1/4 F'_{mu nu} F'^{mu nu},
-with
-D_mu = partial_mu - i g_D A'_mu.
+$$
+L_D = |D_\mu \Phi|^2 - \lambda_\Phi |\Phi|^4 - \frac{1}{4} F'_{\mu \nu} F'^{\mu \nu} ~,
+$$
+where
+$$
+D_\mu = \partial_\mu - i g_D A'_\mu ~.
+$$
 
-We use the background-field convention
-Phi(x) = [phi + rho(x) + i G(x)] / sqrt(2),
-where phi is the classical background field, rho is the radial fluctuation, and G is the Goldstone mode. The radiatively generated vacuum expectation value is v, and the MS-bar renormalization scale is chosen as mu = m_A'(v) = g_D v.
+The background-field/vev convention is 
+$$
+\Phi(x) = \frac{\chi + \rho(x) + i G(x)}{\sqrt{2}} ~,
+$$
+where $\chi$ is the classical background field (associated to the vev), $\rho$ is the radial fluctuation, and $G$ is the Goldstone mode. 
 
-The tree-level background potential is
-V_tree(phi) = lambda_Phi phi^4 / 4.
+The tree-level potential is
+$$
+V_{\text{tree}}(\chi) = \lambda_\Phi \frac{\chi^4}{4}  ~,
+$$
+where the quartic $\lambda_\Phi$ is a dependent parameter fixed by the Coleman-Weinberg minimization condition $V_{\text{eff}}'(v) = 0$.
 
-The field-dependent tree-level masses are
-m_rho^2(phi) = 3 lambda_Phi phi^2,
-m_G^2(phi) = lambda_Phi phi^2,
-m_A'^2(phi) = g_D^2 phi^2.
+The free parameters of the model are the vev $v$ and the gauge coupling $g_D$. The field-dependent mass of the gauge boson is
+$$
+m_A'^2(\chi) = g_D^2 \chi^2 ~.
+$$
 
-The free parameters of the model are the vev v and the gauge coupling g_D. The quartic coupling lambda_Phi is fixed by the CW condition to be 
-lambda_Phi = g_D^4 / (16 pi^2) 
-
-In fact, the effective potential is 
-V_eff(phi) = lambda_Phi phi^4 / 4 + (3 m_A'^4(phi) / (64 pi^2)) [log(m_A'^2(phi)/mu^2) - 5/6],
-where the gauge boson contribution dominates over the scalar contributions. The CW condition is derived by minimizing the effective potential 
-dV_eff/dphi = 0 at phi = v, which gives the relation between lambda_Phi and g_D
-lambda_Phi = 3 g_D^4 / (16 pi^2) [1/3 - log(g_D^2 v^2 / mu^2)],
-where c is a numerical constant that depends on the renormalization scheme. Choosing mu = g_D v gives the simplified relation
-lambda_Phi = g_D^4 / (16 pi^2).
-
-At finite temperature, the daisy-resummed scalar masses are
-M_rho^2(phi,T) = 3 lambda_Phi phi^2 + Pi_Phi(T),
-M_G^2(phi,T) = lambda_Phi phi^2 + Pi_Phi(T),
-where 
-Pi_Phi(T) = [lambda_Phi/3 + g_D^2/4] T^2 ~.
-
-The dark gauge boson thermal masses are separated into transverse and longitudinal modes:
-M_A'_T^2(phi,T) = g_D^2 phi^2,
-M_A'_L^2(phi,T) = g_D^2 phi^2 + Pi_A'(T),
-where 
-Pi_A'(T) = g_D^2 T^2 / 3 ~.
-Only the longitudinal gauge mode receives the perturbative Debye thermal mass. The transverse gauge modes do not receive a perturbative O(g_D^2 T^2) thermal mass.
+The radial mode then acquires a radiatively generated mass set by the one-loop $\beta$-function of the quartic,
+$$
+m_\rho^2 = \beta_\lambda v^2 ~, \qquad
+\beta_\lambda = \frac{1}{8 \pi^2} \left( \sum_b n_b g_b^4 - \sum_f n_f g_f^4 \right) = \frac{3 g_D^4}{8 \pi^2} ~,
+$$
+where $g_b = m_b/v$ and $g_f = m_f/v$ are the mass-over-vev ratios and the only contribution here is the dark gauge boson ($g_b = g_D$, $n_b = 3$).
 
 For phenomenological purposes, the model may also include the Standard Model portal interactions
-lambda_HPhi |H|^2 |Phi|^2
+$$
+\lambda_{H\Phi} |H|^2 |\Phi|^2
+$$
 and gauge kinetic mixing
-epsilon/2 F'_{mu nu} F^{mu nu}.
-
-Suppose that the temperature of the dark sector is the same as the visible sector, and that the portal coupling lambda_HPhi and the kinetic mixing epsilon are small enough to not affect the phase transition dynamics.
+$$
+\frac{\epsilon}{2} F'_{\mu \nu} F^{\mu \nu} ~.
+$$
+For the analysis of the phase transition dynamics and the gravitational wave signal, this couplings are assumed to be small enough to not affect the results. However, they can be important for the phenomenology of the model and for the constraints on the parameter space. Finally, suppose that the dark sector and the visible sector are thermalised at the same temperature, i.e. $\xi \equiv T_{\rm dark}/T_{\rm visible} = 1$, with the dark relativistic degrees of freedom added to $g_*$ separately from the visible ones.
 
 ## Target signal 
 
