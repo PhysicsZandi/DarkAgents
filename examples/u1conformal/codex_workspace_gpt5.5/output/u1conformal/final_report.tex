@@ -1,0 +1,370 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\newcommand{\model}{\texttt{u1conformal}}
+\newcommand{\ap}{A^\prime}
+\newcommand{\gD}{g_D}
+\newcommand{\lamHP}{\lambda_{H\Phi}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\msun}{M_\odot}
+\newcommand{\status}[1]{\texttt{#1}}
+
+\title{Final Report on the Classically Conformal Dark \(U(1)_D\) Model for PTA-Scale Gravitational Waves}
+\author{DarkAgents}
+\date{June 10, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We summarize the completed \texttt{fopt-pta} pipeline for the model \model. The model is an internally consistent minimal classically conformal dark Abelian Higgs sector for the semi-analytic first-order phase-transition backend. The FOPT scan found many viable semi-analytic transition points, and the PTA stage found benchmark spectra and a PTArcade posterior region that can match the tabulated PTA violin bands under the selected bulk-flow template. These are conditional results. The same pipeline also found that most experimental, astrophysical, and cosmological constraints cannot yet be applied because the kinetic mixing \(\eps\), Higgs portal coupling \(\lamHP\), decay tables, lifetimes, thermal history, and posterior-level validity checks are missing. The robust conclusion is therefore not that the preferred region is phenomenologically allowed, but that the selected approximate FOPT/PTA machinery identifies a PTA-compatible region whose viability requires dedicated portal, cosmology, wall-dynamics, and finite-temperature follow-up calculations.
+\end{abstract}
+
+\section{Summary}
+
+The requested branch was \texttt{fopt-pta}: compute a stochastic gravitational-wave spectrum from a first-order phase transition and compare it to pulsar-timing-array data. The pipeline used the machine-readable handoffs in \texttt{output/u1conformal/} as authoritative inputs. The validated model has independent parameters \(v\) and \(\gD\), a charge convention \(q_\Phi=1\), a fixed dark-to-visible temperature ratio \(\xi=T_{\rm dark}/T_{\rm visible}=1\), and a Coleman-Weinberg quartic that is treated as dependent rather than scanned.
+
+The robust outputs are the internal model validation, the semi-analytic FOPT scan status, the implemented PTA benchmark and PTArcade run status, and the list of missing observables needed for constraints. The caveated outputs are the inferred PTA-preferred parameter ranges and spectra, because they depend on a closest-template choice for a strongly supercooled transition, incomplete wall dynamics, limited PTArcade convergence checks, and semi-analytic FOPT approximations. No laboratory, BBN/CMB, supernova, direct-detection, or indirect-detection exclusion should be inferred from this report unless the relevant constraint was explicitly marked as applied.
+
+\section{Prompt and Input}
+
+The terminal request for the workflow was:
+\begin{quote}
+\texttt{can you study the model in input/u1conformal/prompt.md?}
+\end{quote}
+The input file describes a classically scale-invariant dark \(U(1)_D\) model with a complex scalar \(\Phi\), dark gauge boson \(\ap\), tree potential \(V_{\rm tree}=\lambda_\Phi \chi^4/4\), \(m_{\ap}^2(\chi)=\gD^2\chi^2\), and \(\beta_\lambda=3\gD^4/(8\pi^2)\). It asks for the gravitational-wave spectrum from the resulting first-order transition, comparison to PTA data, preparation for PTArcade inference, and a survey of collider, astrophysical, cosmological, and interpretive constraints.
+
+\section{Model Description}
+
+The authoritative model handoff defines a dark-sector Lagrangian
+\begin{equation}
+{\cal L}_D = |D_\mu \Phi|^2 - \lambda_\Phi |\Phi|^4 - \frac{1}{4}F'_{\mu\nu}F'^{\mu\nu},
+\qquad
+D_\mu=\partial_\mu-i\gD A'_\mu .
+\end{equation}
+The scalar is written as
+\begin{equation}
+\Phi(x)=\frac{\chi+\rho(x)+iG(x)}{\sqrt{2}},
+\end{equation}
+where \(\chi\) is the background field and \(v=\langle\chi\rangle\). With \(q_\Phi=1\), the vector mass convention is \(m_{\ap}= \gD v\). The Goldstone \(G\) is eaten after symmetry breaking, leaving one radial scalar \(\rho\) and one massive vector \(\ap\). The degree-of-freedom accounting is consistent, and no new chiral fermions are present, so the critic found no gauge-anomaly obstruction.
+
+The independent scan parameters are \(v\) in GeV and \(\gD>0\). The dependent Coleman-Weinberg quantities are
+\begin{equation}
+\beta_\lambda = \frac{3\gD^4}{8\pi^2}, \qquad
+m_\rho = \sqrt{\beta_\lambda}\,v, \qquad
+m_{\ap}=\gD v .
+\end{equation}
+The optional Higgs portal \(\lamHP |H|^2|\Phi|^2\) and kinetic mixing \((\eps/2)F'_{\mu\nu}F^{\mu\nu}\) are gauge invariant but were not assigned numerical values. They were assumed negligible in the FOPT potential, while the constraint handoff identified them as essential for visible-sector phenomenology.
+
+\section{Pipeline Status}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{p{0.24\linewidth}p{0.16\linewidth}p{0.50\linewidth}}
+\toprule
+Stage & Status & Interpretation \\
+\midrule
+Preliminary literature & \status{warning} & No exact no-fermion, charge-one, PTArcade-ready prior study was found; close benchmarks require convention and content translation. \\
+Critic/model & \status{warning} & The model is compatible with the semi-analytic backend, but portals, thermal history, full thermal masses, and gauge dependence remain warnings. \\
+FOPT & \status{ok} & The semi-analytic scan executed and produced viable points, with backend caveats. \\
+PTA/PTArcade & \status{warning} & Benchmark and PTArcade runs completed; template validity and convergence checks are limited. \\
+Constraints & \status{warning} & Only theory consistency checks were directly applied; most phenomenological constraints require new observables or recasts. \\
+Prior audit & \status{warning} & The workflow is usable but dominated by high-severity uncontrolled assumptions. \\
+\bottomrule
+\end{tabular}
+\caption{Pipeline status from the machine-readable handoffs. Warning stages are usable inputs but limit the strength of final claims.}
+\label{tab:pipeline}
+\end{table}
+
+\section{Preliminary Literature Search}
+
+The broad model class is not novel: classically conformal or Coleman-Weinberg dark \(U(1)\) sectors with first-order transitions and nano-Hz gravitational waves have been studied before. The closest same-model benchmark is the dark \(U(1)_D\) NANOGrav study of Borah, Dasgupta, and Kang \cite{Borah:2021}, but it uses a different mass convention, \(m_{Z_D}=2g_D M\), which must not be compared directly to the present \(m_{\ap}=\gD v\) convention. A very close PTArcade-oriented conformal \(U(1)^\prime\) study by Balan et al. \cite{Balan:2025} uses a matching vector mass convention but includes anomaly-cancelling fermions and dark-matter dynamics that are absent here.
+
+Other relevant studies provide context rather than direct benchmarks: classical-scale-invariance gravitational-wave models \cite{Khoze:2023}, a dark conformal phase transition for NANOGrav \cite{Fujikura:2023}, dark \(U(1)_X\) phase transitions at higher scales \cite{Hashino:2018}, and gauge-independent treatments of minimal dark \(U(1)\) sectors \cite{Feng:2026}. The literature handoff therefore classifies the novelty as partial: the exact stripped-down no-fermion convention and local PTArcade implementation may be distinct, but the physics class and target signal are established.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{p{0.24\linewidth}p{0.22\linewidth}p{0.44\linewidth}}
+\toprule
+Reference & Relation to this model & Caveat for use \\
+\midrule
+\cite{Borah:2021} & Closest same-model PTA-scale Coleman-Weinberg \(U(1)_D\) benchmark. & Different \(U(1)\) charge/mass convention. \\
+\cite{Balan:2025} & Close conformal \(U(1)^\prime\) PTA/PTArcade analysis. & Includes fermions, dark matter, and additional thermal effects. \\
+\cite{Feng:2026} & Relevant gauge-dependence and dark-\(U(1)\) validity study. & Not the exact conformal Coleman-Weinberg target. \\
+\cite{Fujikura:2023} & Same PTA signal motivation in a conformal dark sector. & Confining/dilaton sector, not perturbative Abelian Higgs. \\
+\bottomrule
+\end{tabular}
+\caption{Main literature caveats used to seed and interpret the pipeline.}
+\label{tab:literature}
+\end{table}
+
+\section{FOPT Results}
+
+The FOPT agent selected the \texttt{semianalytic\_pipeline} backend because the model is a conformal single-field theory with field-dependent masses proportional to \(v\). The backend was executed with \(\chi_0=v\), boson mass-over-vev ratio \(\gD\), vector degrees of freedom \(3\), no fermions, \(q_\Phi=1\), and \(\xi=1\). The initial scan covered \(v\in[0.01,1.0]\) GeV and \(\gD\in[0.1,0.9]\). Out of 120 scanned points, 79 were viable, 40 were classified as \status{not\_fopt}, and one was a physical failure due to eternal inflation.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{rrrrrrr}
+\toprule
+\(v\) [GeV] & \(\gD\) & \(\alpha\) & \(\beta/H\) & \(T_n\) [GeV] & \(T_{\rm reh}\) [GeV] & \(f_{\rm est}\) [Hz] \\
+\midrule
+0.01668 & 0.650 & \(5.22{\times}10^3\) & 48.72 & \(2.56{\times}10^{-4}\) & \(1.72{\times}10^{-3}\) & \(9.26{\times}10^{-9}\) \\
+0.02783 & 0.600 & \(7.71{\times}10^5\) & 34.50 & \(1.31{\times}10^{-4}\) & \(2.88{\times}10^{-3}\) & \(1.10{\times}10^{-8}\) \\
+0.01668 & 0.677 & \(7.95{\times}10^2\) & 57.48 & \(3.99{\times}10^{-4}\) & \(1.73{\times}10^{-3}\) & \(1.10{\times}10^{-8}\) \\
+0.07743 & 0.500 & \(4.36{\times}10^{14}\) & 14.57 & \(2.48{\times}10^{-6}\) & \(6.85{\times}10^{-3}\) & \(1.10{\times}10^{-8}\) \\
+0.02783 & 0.570 & \(3.66{\times}10^7\) & 28.07 & \(5.06{\times}10^{-5}\) & \(2.81{\times}10^{-3}\) & \(8.69{\times}10^{-9}\) \\
+\bottomrule
+\end{tabular}
+\caption{Top FOPT benchmark points from the FOPT handoff. The frequency \(f_{\rm est}\) is only a template-independent order-of-magnitude redshifted scale setter; final PTA spectra come from the PTA stage.}
+\label{tab:foptbest}
+\end{table}
+
+The FOPT results are warning-limited by the semi-analytic high-temperature polynomial approximation, subleading treatment of scalar and Goldstone thermal effects, the backend's Gaussian false-vacuum-fraction/percolation approximation, and the absence of a full Daisy-resummed finite-temperature effective-potential calculation. These caveats affect \(\alpha\), \(\beta/H\), \(T_n\), \(T_p\), reheating, and downstream PTA spectra.
+
+\section{PTA and PTArcade Results}
+
+The PTA stage selected the \texttt{bf} spectrum template. This was not a first-principles derivation of the gravitational-wave source; it was a closest available template for strongly supercooled points. The handoff explicitly warns that wall friction, runaway conditions, and the bulk-flow versus dissipative-bulk-flow partition were not computed. The \texttt{higgsless} sound-wave template was also scored but was not selected because the preferred points have very large \(\alpha\), outside clean sound-wave validity assumptions. The template references were checked against arXiv metadata: the strongly supercooled expansion study is by Lewicki and Vaskonen \cite{Lewicki:2025}, while the higgsless simulations are by Jinno et al. \cite{Jinno:2022}.
+
+The benchmark scan covered 343 points and found 303 viable spectra. For the selected \texttt{bf} template, the best two benchmark points entered all 14 PTA violin bins:
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{rrrrrrr}
+\toprule
+Rank & \(v\) [GeV] & \(\gD\) & \(\alpha\) & \(\beta/H\) & \(T_\star\) [GeV] & Peak \(h^2\Omega_{\rm GW}\) \\
+\midrule
+1 & 0.5111 & 0.600 & \(2.10{\times}10^6\) & 29.38 & 0.0457 & \(1.83{\times}10^{-9}\) \\
+2 & 1.7985 & 0.540 & \(2.09{\times}10^{11}\) & 17.10 & 0.1527 & \(2.93{\times}10^{-9}\) \\
+\bottomrule
+\end{tabular}
+\caption{PTA benchmark points from the selected \texttt{bf} template. The excellent violin-bin score should be read together with the strong-supercooling and wall-dynamics caveats.}
+\label{tab:ptabench}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\linewidth]{pta_benchmark_spectrum.pdf}
+\caption{PTA benchmark spectrum generated by the PTA agent for the selected benchmark scan.}
+\label{fig:pta-benchmark}
+\end{figure}
+
+The PTArcade campaign used NG15 in \texttt{ceffyl} mode, with \(N_{\rm samples}=100000\), 14 red-noise components, 14 gravitational-wave-background components, \texttt{corr=false}, and the \texttt{bf} template fixed. The prior was uniform in \(\log_{10}v\) over \(v\in[0.003,5.0]\) GeV and uniform in \(\gD\in[0.42,1.05]\). The chain was finite, with acceptance rate 0.45414 and 10001 thinned rows. However, no multi-chain convergence, autocorrelation, effective-sample-size, evidence, or prior-sensitivity study was performed.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{lcc}
+\toprule
+Quantity & Estimate or interval & Notes \\
+\midrule
+\(v\) geometric mean & 0.901 GeV & Mean in \(\log_{10}v\). \\
+\(\gD\) mean & 0.5488 & Linear sampled parameter. \\
+MAP \(v,\gD\) & \(1.339\) GeV, \(0.5357\) & MAP value itself not reported. \\
+68\% \(v\) interval & \(0.536-1.474\) GeV & From handoff credible region. \\
+68\% \(\gD\) interval & \(0.523-0.574\) & From handoff credible region. \\
+95\% \(v\) interval & \(0.250-1.863\) GeV & Prior-sensitive until checked. \\
+95\% \(\gD\) interval & \(0.509-0.613\) & Prior-sensitive until checked. \\
+\bottomrule
+\end{tabular}
+\caption{PTArcade posterior summary under the selected model, priors, and \texttt{bf} template.}
+\label{tab:ptarcade}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\linewidth]{pta_ptarcade_spectrum.pdf}
+\caption{PTArcade MAP-spectrum figure produced by the PTA agent.}
+\label{fig:pta-ptarcade}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\linewidth]{pta_posteriors.pdf}
+\caption{PTArcade posterior figure produced by the PTA agent.}
+\label{fig:pta-posteriors}
+\end{figure}
+
+\section{Constraints}
+
+The constraint handoff considered the PTArcade 68\% region as a rectangular box, not as correlated chain samples. In that box,
+\begin{equation}
+v = 0.536-1.474~{\rm GeV}, \qquad
+\gD=0.523-0.574,
+\end{equation}
+which implies
+\begin{equation}
+m_{\ap}=0.281-0.846~{\rm GeV}, \qquad
+m_\rho=0.0286-0.0947~{\rm GeV}.
+\end{equation}
+At the MAP point, \(m_{\ap}=0.717\) GeV and \(m_\rho=0.0749\) GeV.
+
+Out of 18 considered constraints, only two were directly applied: perturbativity/tree-level dark-sector consistency and anomaly/degree-of-freedom consistency. Both pass. Two further checks were approximate, one requires a recast, eleven require new backend observables, and two are not applicable as stated. Therefore the current analysis does not establish an experimentally allowed region; it identifies which exclusions cannot yet be applied and why.
+
+\begin{longtable}{p{0.20\linewidth}p{0.17\linewidth}p{0.17\linewidth}p{0.34\linewidth}}
+\caption{Constraint applicability summary. ``Applied'' means a constraint or theory check was actually evaluated, not merely that a mass range overlaps an experiment.}\label{tab:constraints}\\
+\toprule
+Constraint class & Applicability & Applied & Missing information or reason \\
+\midrule
+\endfirsthead
+\toprule
+Constraint class & Applicability & Applied & Missing information or reason \\
+\midrule
+\endhead
+Visible dark photon searches \cite{BaBar:2014,LHCb:2017,Ilten:2018} & New backend & No & Need \(\eps\), widths, branching fractions, decay lengths, and acceptances. \\
+Invisible or missing-energy searches \cite{BaBarInvisible:2017} & Recast needed & No & Need invisible final states, \(BR_{\rm inv}\), and \(\eps\). \\
+Rare meson/resonance channels \cite{CosmicVisions:2017} & New backend & No & \(\pi^0\) channel is closed; heavier channels need recasts and branching fractions. \\
+Light scalar and Higgs exotic searches \cite{Fradette:2018,FIPs:2023} & New backend & No & Need \(\lamHP\), Higgs mixing, \(\rho\) widths, and lifetimes. \\
+BBN/CMB and \(\Delta N_{\rm eff}\) \cite{Berger:2016,Fujikura:2023} & New backend & No & Need yields, lifetimes, branching fractions, and \(\xi(T)\). \\
+\(\xi=1\) thermalization \cite{Balan:2025} & New backend & No & Need \(\Gamma_{\rm SM-dark}/H\), decoupling, and entropy transfer. \\
+SN1987A \cite{Mahoney:2017} & Approximate & No & Need \(\eps\), in-medium production, and trapping; mass range is mostly heavy for strongest bounds. \\
+Ordinary stellar cooling \cite{FIPs:2023} & Not applicable & No & Particles are too heavy for standard keV stellar-core production. \\
+Direct detection \cite{An:2014} & Not applicable & No & No stable dark matter particle or local density fraction is defined. \\
+Indirect detection and late decays \cite{Mondino:2020} & New backend & No & Need abundance, lifetimes, branching fractions, and annihilation rates. \\
+Perturbativity and unitarity & Direct & Yes & Passes in the 68\% box; this is not an experimental exclusion. \\
+Anomaly and degree-of-freedom check & Direct & Yes & Passes for the validated no-chiral-fermion model. \\
+FOPT/PTA validity \cite{Feng:2026} & Approximate & No & Need wall friction, runaway checks, gauge-independent potential variants, and posterior percolation. \\
+\bottomrule
+\end{longtable}
+
+The highest-priority missing calculations are dark-photon widths and recasts, dark-Higgs portal mixing and decay tables, thermalization and \(\xi(T)\), freeze-in/residual yields with BBN/CMB energy-injection observables, and posterior-level FOPT validity diagnostics.
+
+\section{Assumptions and Limitations}
+
+The prior audit identified 26 interpretation risks. The dominant high-severity uncontrolled assumptions are:
+\begin{itemize}[leftmargin=1.2em]
+\item \(\eps\) and \(\lamHP\) are unspecified; without them, laboratory, visible-sector, BBN/CMB, and lifetime constraints cannot be applied.
+\item The PTA/FOPT calculation assumes \(\xi=1\), but the interactions that could enforce thermal contact are small or unspecified.
+\item The FOPT calculation uses a semi-analytic conformal single-field backend rather than a full finite-temperature potential with Daisy/RG/gauge-prescription variations.
+\item The preferred PTA points are strongly supercooled, with very large \(\alpha\), so reheating, vacuum domination, \(\beta/H\), and fluid approximations need posterior-level audits.
+\item Wall velocity, friction, runaway conditions, and the bulk-flow/dissipative partition were not computed.
+\item The selected \texttt{bf} template is a closest available template, not a unique physical prediction of the model.
+\item PTArcade was run with finite chains but without multi-chain convergence, autocorrelation, effective sample size, evidence, or prior sensitivity.
+\end{itemize}
+
+These limitations do not invalidate the local pipeline outputs, but they determine how those outputs should be interpreted: as an approximate PTA-compatible target region for further study, not as a final allowed model.
+
+\section{Conclusions}
+
+The minimal conformal dark \(U(1)_D\) model in the input prompt is internally consistent in the charge-one convention and compatible with the local semi-analytic FOPT backend. The FOPT scan found 79 viable semi-analytic transition points out of 120 scanned points. The PTA stage found benchmark spectra that enter all 14 tabulated PTA violin bins and produced a PTArcade posterior under the selected \texttt{bf} template, with a 68\% region around \(v=0.536-1.474\) GeV and \(\gD=0.523-0.574\).
+
+Those numerical results are conditional. The strongest final statement is that the approximate FOPT/PTA machinery identifies a plausible PTA-fitting region in this two-parameter model. The report cannot claim that this region is excluded or allowed by laboratory, astrophysical, or cosmological data, because the needed portal couplings, decay tables, lifetimes, abundances, thermal history, and recast backends were not supplied or computed. The next scientifically necessary steps are to specify \(\eps\) and \(\lamHP\), compute dark-photon and dark-Higgs decay/production observables, test \(\xi=1\), apply BBN/CMB and accelerator constraints, and quantify finite-temperature and wall-dynamics theory uncertainties across the PTArcade posterior.
+
+\begin{thebibliography}{99}
+
+\bibitem{Borah:2021}
+D. Borah, A. Dasgupta, and S. K. Kang,
+``Gravitational waves from a dark \(U(1)_D\) phase transition in the light of NANOGrav 12.5 yr data,''
+arXiv:2105.01007.
+
+\bibitem{Balan:2025}
+S. Balan, T. Bringmann, F. Kahlhoefer, J. Matuszak, and C. Tasillo,
+``Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector,''
+arXiv:2502.19478.
+
+\bibitem{Khoze:2023}
+V. V. Khoze and D. L. Milne,
+``Gravitational waves and dark matter from classical scale invariance,''
+arXiv:2212.04784.
+
+\bibitem{Feng:2026}
+W.-Z. Feng and Z.-H. Zhang,
+``Gauge-independent gravitational waves from a minimal dark \(U(1)\) sector with viable dark matter candidates,''
+arXiv:2602.14866.
+
+\bibitem{Fujikura:2023}
+K. Fujikura, S. Girmohanta, Y. Nakai, and M. Suzuki,
+``NANOGrav Signal from a Dark Conformal Phase Transition,''
+arXiv:2306.17086.
+
+\bibitem{Hashino:2018}
+K. Hashino, M. Kakizaki, S. Kanemura, P. Ko, and T. Matsui,
+``Gravitational waves from first order electroweak phase transition in models with the \(U(1)_X\) gauge symmetry,''
+arXiv:1802.02947.
+
+\bibitem{Lewicki:2025}
+M. Lewicki and V. Vaskonen,
+``Impact of cosmic expansion on gravitational wave spectra from strongly supercooled first-order phase transitions,''
+arXiv:2511.15687.
+
+\bibitem{Jinno:2022}
+R. Jinno, T. Konstandin, H. Rubira, and I. Stomberg,
+``Higgsless simulations of cosmological phase transitions and gravitational waves,''
+arXiv:2209.04369.
+
+\bibitem{BaBar:2014}
+The BABAR Collaboration,
+``Search for a dark photon in \(e^+e^-\) collisions at BABAR,''
+arXiv:1406.2980.
+
+\bibitem{LHCb:2017}
+LHCb Collaboration,
+``Search for dark photons produced in 13 TeV \(pp\) collisions,''
+arXiv:1710.02867.
+
+\bibitem{Ilten:2018}
+P. Ilten, Y. Soreq, M. Williams, and W. Xue,
+``Serendipity in dark photon searches,''
+arXiv:1801.04847.
+
+\bibitem{BaBarInvisible:2017}
+J. P. Lees on behalf of the BaBar Collaboration,
+``Search for Invisible Decays of a Dark Photon Produced in \(e^+e^-\) Collisions at BaBar,''
+arXiv:1702.03327.
+
+\bibitem{CosmicVisions:2017}
+M. Battaglieri et al.,
+``US Cosmic Visions: New Ideas in Dark Matter 2017: Community Report,''
+arXiv:1707.04591.
+
+\bibitem{Fradette:2018}
+A. Fradette, M. Pospelov, J. Pradler, and A. Ritz,
+``Cosmological beam dump: constraints on dark scalars mixed with the Higgs boson,''
+arXiv:1812.07585.
+
+\bibitem{FIPs:2023}
+C. Antel et al.,
+``Feebly Interacting Particles: FIPs 2022 workshop report,''
+arXiv:2305.01715.
+
+\bibitem{Berger:2016}
+J. Berger, K. Jedamzik, and D. G. E. Walker,
+``Cosmological Constraints on Decoupled Dark Photons and Dark Higgs,''
+arXiv:1605.07195.
+
+\bibitem{Mahoney:2017}
+C. Mahoney, A. K. Leibovich, and A. R. Zentner,
+``Updated Constraints on Self-Interacting Dark Matter from Supernova 1987A,''
+arXiv:1706.08871.
+
+\bibitem{An:2014}
+H. An, M. Pospelov, J. Pradler, and A. Ritz,
+``Direct Detection Constraints on Dark Photon Dark Matter,''
+arXiv:1412.8378.
+
+\bibitem{Mondino:2020}
+C. Mondino, M. Pospelov, J. T. Ruderman, and O. Slone,
+``Dark Higgs Dark Matter,''
+arXiv:2005.02397.
+
+\end{thebibliography}
+
+\end{document}

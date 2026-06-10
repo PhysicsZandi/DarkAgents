@@ -1,0 +1,399 @@
+{
+  "model": "u1conformal",
+  "agent": "critic-agent",
+  "run_status": "ok",
+  "gauge_groups": [
+    {
+      "name": "U(1)_D",
+      "group_type": "abelian",
+      "coupling": "g_D",
+      "notes": "Dark U(1) gauge group. Higgsed by complex scalar Phi with charge +1. Gauge boson A' gets mass g_D * v. No chiral fermions, hence anomaly-free."
+    }
+  ],
+  "global_symmetries": [
+    {
+      "name": "Classical scale invariance (conformal symmetry)",
+      "type": "spacetime",
+      "status": "tree_level",
+      "breaking": "radiative via Coleman-Weinberg mechainsm",
+      "notes": "No dimensionful parameters in the tree-level Lagrangian. Scale invariance is broken spontaneously by the CW mechanism (dimensional transmutation). The vev v sets the dark sector mass scale."
+    }
+  ],
+  "particle_content": [
+    {
+      "name": "Phi",
+      "type": "scalar",
+      "spin": 0,
+      "statistics": "boson",
+      "dof_before_ssb": 2,
+      "dof_after_ssb": 2,
+      "gauge_charges": {
+        "U(1)_D": 1
+      },
+      "notes": "Complex scalar. After SSB: decomposes into radial mode rho (1 dof, physical Higgs) and Goldstone G (1 dof, eaten by A'). Vev convention: Phi = (chi + rho + i G) / sqrt(2). No tree-level mass."
+    },
+    {
+      "name": "rho",
+      "type": "scalar",
+      "spin": 0,
+      "statistics": "boson",
+      "dof_before_ssb": "none (constituent of Phi)",
+      "dof_after_ssb": 1,
+      "gauge_charges": {
+        "U(1)_D": 0
+      },
+      "notes": "Radial mode (physical dark Higgs). Real scalar. Mass generated radiatively via CW: m_rho^2 = 3 * g_D^4 * v^2 / (8 * pi^2). No tree-level mass. Can decay to SM via Higgs portal or to A' pairs if kinematically allowed."
+    },
+    {
+      "name": "A'",
+      "type": "gauge_boson",
+      "spin": 1,
+      "statistics": "boson",
+      "dof_before_ssb": 2,
+      "dof_after_ssb": 3,
+      "gauge_charges": {
+        "U(1)_D": "adjoint (0)"
+      },
+      "notes": "Dark gauge boson (dark photon). Massless before SSB (2 transverse polarizations). Massive after SSB via Higgs mechanism: m_A' = g_D * v (3 polarizations: 2 transverse + 1 longitudinal from eaten Goldstone)."
+    },
+    {
+      "name": "G",
+      "type": "goldstone",
+      "spin": 0,
+      "statistics": "boson",
+      "dof_before_ssb": "none (constituent of Phi)",
+      "dof_after_ssb": 0,
+      "gauge_charges": {
+        "U(1)_D": 0
+      },
+      "notes": "Goldstone mode. Eaten by A' to become longitudinal polarization. Not a physical degree of freedom in unitary gauge."
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "Dark scalar kinetic term",
+      "field": "Phi",
+      "expression": "(partial_mu - conjugate(g_D) * A'_mu) * Phi * conjugate((partial^mu - conjugate(g_D) * A'^mu) * Phi)",
+      "notes": "Gauge-invariant kinetic term for Phi. D_mu = partial_mu - i g_D A'_mu with the standard covariant derivative convention. The gauge coupling g_D is real."
+    },
+    {
+      "name": "Dark scalar quartic self-interaction",
+      "field": "Phi",
+      "expression": "- lambda_Phi * (Phi * conjugate(Phi))**2",
+      "notes": "Only scalar interaction at tree level. No mass term (scale invariant). Sign: L = kinetic - V, so V = lambda_Phi |Phi|^4 with lambda_Phi > 0. lambda_Phi is dependent (CW-fixed)."
+    },
+    {
+      "name": "Dark gauge kinetic term",
+      "field": "A'",
+      "expression": "-1/4 * F'_mu_nu * F'^mu_nu",
+      "notes": "Standard Maxwell kinetic term for the U(1)_D gauge boson. F'_mu_nu = partial_mu A'_nu - partial_nu A'_mu."
+    },
+    {
+      "name": "Higgs portal (optional, assumed small)",
+      "field": "Phi, H",
+      "expression": "- lambda_HPhi * (H * dagger(H)) * (Phi * conjugate(Phi))",
+      "notes": "Coupling between dark scalar and SM Higgs. Gauge invariant under SM x U(1)_D. Assumed sufficiently small to not affect FOPT dynamics. Value not specified, needed for constraint analysis."
+    },
+    {
+      "name": "Gauge kinetic mixing (optional, assumed small)",
+      "field": "A', A (SM U(1)_Y / photon)",
+      "expression": "- epsilon/2 * F'_mu_nu * F^mu_nu",
+      "notes": "Kinetic mixing between dark U(1)_D and SM hypercharge/U(1)_QED. Renormalizable portal. Assumed small for FOPT analysis. Essential for dark sector thermalization with SM. Value not specified."
+    }
+  ],
+  "free_parameters": [
+    {
+      "name": "v",
+      "type": "continuous",
+      "dimension": "mass",
+      "unit": "GeV",
+      "range": "1e-2 to 1e3",
+      "basis": "independent",
+      "notes": "Scalar vev from CW breaking. Sets all dark sector masses. For PTA nHz signal, literature indicates v ~ O(10-1000) MeV."
+    },
+    {
+      "name": "g_D",
+      "type": "continuous",
+      "dimension": "dimensionless",
+      "unit": "1",
+      "range": "0.1 to 4*pi (perturbativity bound)",
+      "basis": "independent",
+      "notes": "U(1)_D gauge coupling. Expected PTA-relevant range from literature: 0.5-1.2. The CW condition requires g_D > 0 to generate a non-trivial minimum. Typical bounds: g_D < 4*pi for perturbativity."
+    },
+    {
+      "name": "lambda_Phi",
+      "type": "continuous",
+      "dimension": "dimensionless",
+      "unit": "1",
+      "range": "> 0",
+      "basis": "dependent",
+      "determination": "CW-fixed. Determined by gauge coupling through the CW minimization condition. The backend derives the effective potential from the g_b = g_D inputs, not from lambda_Phi directly.",
+      "notes": "Tree-level quartic coupling. In the CW mechanism, lambda_Phi at the minimum is related to g_D via the one-loop RG running. Not a free parameter to scan."
+    },
+    {
+      "name": "m_rho",
+      "type": "continuous",
+      "dimension": "mass",
+      "unit": "GeV",
+      "range": "> 0",
+      "basis": "dependent",
+      "determination": "m_rho^2 = 3 * g_D^4 * v^2 / (8 * pi^2)",
+      "notes": "Radial mode mass. Radiatively generated by CW mechanism. Fixed by v and g_D."
+    },
+    {
+      "name": "m_A_prime",
+      "type": "continuous",
+      "dimension": "mass",
+      "unit": "GeV",
+      "range": "> 0",
+      "basis": "dependent",
+      "determination": "m_A' = g_D * v",
+      "notes": "Dark photon mass. Tree-level via Higgs mechanism."
+    },
+    {
+      "name": "epsilon",
+      "type": "continuous",
+      "dimension": "dimensionless",
+      "unit": "1",
+      "range": "unspecified, assumed small",
+      "basis": "fixed",
+      "determination": "User-defined constant. Kinetic mixing between U(1)_D and SM U(1).",
+      "notes": "Value not specified in the current model. Must be quantified for constraint analysis. Typical PTA-relevant values from literature: epsilon ~ 10^{-12} to 10^{-5}."
+    },
+    {
+      "name": "lambda_HPhi",
+      "type": "continuous",
+      "dimension": "dimensionless",
+      "unit": "1",
+      "range": "unspecified, assumed small",
+      "basis": "fixed",
+      "determination": "User-defined constant. Higgs portal coupling.",
+      "notes": "Value not specified in the current model. Must be quantified for constraint analysis."
+    },
+    {
+      "name": "xi",
+      "type": "continuous",
+      "dimension": "dimensionless",
+      "unit": "1",
+      "range": "1 (fixed)",
+      "basis": "fixed",
+      "determination": "Assumed T_dark/T_visible = 1 for thermalised sectors.",
+      "notes": "Hardcoded to 1 in the backend (self.xi = 1). Can be changed by modifying the backend."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "v": {
+        "type": "continuous",
+        "dimension": "mass",
+        "unit": "GeV",
+        "range": "1e-2 to 1e3",
+        "notes": "Scalar vev. Only dimensionful parameter. PTA-relevant scale."
+      },
+      "g_D": {
+        "type": "continuous",
+        "dimension": "dimensionless",
+        "unit": "1",
+        "range": "0.1 to 4*pi",
+        "notes": "U(1)_D gauge coupling. Drives CW symmetry breaking."
+      }
+    },
+    "dependent": {
+      "lambda_Phi": {
+        "type": "continuous",
+        "dimension": "dimensionless",
+        "unit": "1",
+        "determination": "CW minimization condition: dV_eff/dchi|_{chi=v} = 0",
+        "notes": "Tree-level quartic. Fixed by g_D via CW mechanism. Not a free parameter."
+      },
+      "m_rho": {
+        "type": "continuous",
+        "dimension": "mass",
+        "unit": "GeV",
+        "determination": "m_rho^2 = 3 * g_D^4 * v^2 / (8 * pi**2)",
+        "notes": "Radial mode mass from CW curvature."
+      },
+      "m_A_prime": {
+        "type": "continuous",
+        "dimension": "mass",
+        "unit": "GeV",
+        "determination": "m_A' = g_D * v",
+        "notes": "Dark photon mass from Higgs mechanism."
+      },
+      "beta_lambda": {
+        "type": "continuous",
+        "dimension": "dimensionless",
+        "unit": "1",
+        "determination": "beta_lambda = 3 * g_D**4 / (8 * pi**2)",
+        "notes": "One-loop quartic beta function coefficient. Positive, ensuring radiative symmetry breaking."
+      }
+    },
+    "fixed": {
+      "xi": {
+        "value": 1.0,
+        "notes": "Temperature ratio T_dark/T_visible. Hardcoded in backend."
+      },
+      "epsilon": {
+        "value": "assumed small",
+        "notes": "Kinetic mixing parameter. Value needed for constraint analysis."
+      },
+      "lambda_HPhi": {
+        "value": "assumed small",
+        "notes": "Higgs portal coupling. Value needed for constraint analysis."
+      }
+    }
+  },
+  "assumptions": [
+    {
+      "item": "xi = T_dark/T_visible = 1",
+      "notes": "Dark and visible sectors are in thermal equilibrium at the same temperature. Requires portal couplings large enough for thermalization. Value hardcoded in backend."
+    },
+    {
+      "item": "Portal couplings negligible for FOPT dynamics",
+      "notes": "Kinetic mixing epsilon and Higgs portal lambda_HPhi are assumed small enough to not modify the effective potential or FOPT dynamics. Quantification needed for constraint analysis."
+    },
+    {
+      "item": "No dark fermions",
+      "notes": "No fermionic dark matter candidate. Dark sector contains only scalar Phi and gauge boson A'. CW is purely boson-driven (beta_lambda > 0)."
+    },
+    {
+      "item": "One-loop CW approximation with fixed-scale logs",
+      "notes": "The backend uses a simplified CW treatment with log terms evaluated at chi = chi0. Full RG-improvement or 3D EFT could give quantitatively different results."
+    },
+    {
+      "item": "Runaway bubble walls (v_w -> 1)",
+      "notes": "Supercooled FOPTs typically have runaway walls. The backend and PTArcade templates assume this regime. NLO friction (Bodeker-Moore) could modify this."
+    }
+  ],
+  "backend_compatibility": [
+    {
+      "backend": "semianalytic_pipeline",
+      "status": "compatible",
+      "mapping": {
+        "chi0": "v",
+        "boson_gbs": "{\"Aprime\": g_D}",
+        "boson_dofs": "{\"Aprime\": 3}",
+        "fermion_gfs": "{}",
+        "fermion_dofs": "{}"
+      },
+      "notes": "The backend is designed for single-field CSI Abelian Higgs models. The example usage in semianalytic_pipeline.py (lines 398-421) matches this model exactly. The backend computes beta_lambda = 3 * g_D^4 / (8 * pi^2), delta_V = beta_lambda * v^4 / 16, and reconstructs the finite-T effective potential using high-T expansion with daisy resummation (Arnold-Espinosa scheme)."
+    }
+  ],
+  "ssb_pattern": [
+    {
+      "initial_gauge": "U(1)_D",
+      "final_gauge": "nothing",
+      "order_parameter": "complex scalar Phi with charge +1",
+      "broken_generators": 1,
+      "goldstone_modes": 1,
+      "notes": "U(1)_D is completely broken by the vev of Phi. One Goldstone mode G is eaten by A'. No unbroken gauge symmetry remains in the dark sector."
+    }
+  ],
+  "vev_convention": {
+    "expression": "Phi = (chi + rho + I * G) / sqrt(2)",
+    "background_field": "chi",
+    "vev": "v = <chi>",
+    "radial_mode": "rho",
+    "goldstone": "G",
+    "notes": "Standard expansion around real background field. chi is the RG-improved invariant (RGI) background direction. The physical vev v is determined by the minimum of the effective potential, dV_eff/dchi|_{chi=v} = 0."
+  },
+  "tree_level_potential": {
+    "expression": "lambda_Phi * chi**4 / 4",
+    "notes": "From V = lambda_Phi |Phi|^4 with Phi = chi / sqrt(2) along the background direction. The quartic lambda_Phi is CW-fixed and not a free parameter. The backend does not use this directly; it reconstructs the potential from the g_b inputs."
+  },
+  "field_dependent_masses": [
+    {
+      "particle": "A'",
+      "m2_of_chi": "gD**2 * chi**2",
+      "dof": 3,
+      "statistics": "boson",
+      "notes": "Derived from |D_mu <Phi>|^2 = (1/2) g_D^2 chi^2 A'_mu A'^mu. For a real vector field, the mass term coefficient (1/2) m^2 gives m_A'^2 = g_D^2 chi^2."
+    },
+    {
+      "particle": "rho",
+      "m2_of_chi": "3 * gD**4 * chi**2 / (8 * pi**2)",
+      "dof": 1,
+      "statistics": "boson",
+      "notes": "Radial mode from CW curvature d^2V_eff/dchi^2. Field-dependent mass: m_rho^2(chi) = beta_lambda * chi^2. Physical mass at minimum: m_rho^2(v) = 3 * g_D^4 * v^2 / (8 * pi^2)."
+    },
+    {
+      "particle": "G",
+      "m2_of_chi": "0",
+      "dof": 0,
+      "statistics": "boson",
+      "notes": "Goldstone mode. Zero mass in Landau gauge. Eaten by A' in unitary gauge. Not a physical particle."
+    }
+  ],
+  "thermal_masses": [
+    {
+      "particle": "A' (longitudinal)",
+      "Pi_T_eq": "(3 * gD**2 * T**2) / 12",
+      "simplified": "gD**2 * T**2 / 4",
+      "dof": 1,
+      "notes": "Longitudinal (Debye) thermal mass for the gauge boson. Handled internally by backend in get_coeffs() via g2sq = sum(dof * gb^2)."
+    },
+    {
+      "particle": "A' (transverse)",
+      "Pi_T_eq": "0",
+      "dof": 2,
+      "notes": "Transverse gauge bosons do not acquire Debye mass at leading order."
+    },
+    {
+      "particle": "rho",
+      "Pi_T_eq": "(scalar * gD**2 * T**2) / 12",
+      "simplified": "0 (g_b = 0 for scalar in backend)",
+      "dof": 1,
+      "notes": "Scalar thermal mass. The backend sets boson_gbs['scalar'] = 0, so the scalar's Debye mass is zero at leading order. This is a standard approximation since the scalar-gauge coupling contribution is subleading compared to gauge boson self-interactions."
+    }
+  ],
+  "expression_symbols": [
+    {
+      "symbol": "chi",
+      "type": "background_field",
+      "dimension": "mass",
+      "notes": "Classical background field (RGI scalar direction). Real, positive. The vev is v = <chi>."
+    },
+    {
+      "symbol": "gD",
+      "type": "parameter",
+      "dimension": "dimensionless",
+      "notes": "U(1)_D gauge coupling. Free independent parameter."
+    },
+    {
+      "symbol": "v",
+      "type": "parameter",
+      "dimension": "mass",
+      "notes": "Vev (minimum of effective potential). Free independent parameter. Unit: GeV."
+    },
+    {
+      "symbol": "T",
+      "type": "variable",
+      "dimension": "temperature",
+      "notes": "Temperature. Used in thermal mass expressions and effective potential."
+    },
+    {
+      "symbol": "pi",
+      "type": "constant",
+      "dimension": "dimensionless",
+      "notes": "Mathematical constant pi."
+    },
+    {
+      "symbol": "lambda_Phi",
+      "type": "parameter",
+      "dimension": "dimensionless",
+      "notes": "Tree-level quartic coupling. CW-fixed. Dependent parameter."
+    },
+    {
+      "symbol": "epsilon",
+      "type": "parameter",
+      "dimension": "dimensionless",
+      "notes": "Kinetic mixing parameter between U(1)_D and SM U(1). Assumed small, value unspecified."
+    },
+    {
+      "symbol": "lambda_HPhi",
+      "type": "parameter",
+      "dimension": "dimensionless",
+      "notes": "Higgs portal coupling. Assumed small, value unspecified."
+    }
+  ]
+}

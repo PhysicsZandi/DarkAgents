@@ -1,0 +1,500 @@
+{
+  "model": "scale-invariant-dark-u1-zprime",
+  "agent": "pta-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-10",
+  "branch": "ptarcade_campaign",
+  "created_from": [
+    "output/scale-invariant-dark-u1-zprime/handoff_fopt.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_model.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_librarian_preliminary.json",
+    "output/scale-invariant-dark-u1-zprime/fopt_benchmarks.csv"
+  ],
+  "commands": [
+    "conda run -n ptarcade python output/scale-invariant-dark-u1-zprime/pta_scan.py",
+    "conda run -n ptarcade python output/scale-invariant-dark-u1-zprime/pta_benchmark_plot.py",
+    "conda run -n ptarcade ptarcade -m output/scale-invariant-dark-u1-zprime/ptarcade_model.py -c output/scale-invariant-dark-u1-zprime/ptarcade_config.py",
+    "conda run -n ptarcade python output/scale-invariant-dark-u1-zprime/ptarcade_plot.py",
+    "conda run -n ptarcade python output/scale-invariant-dark-u1-zprime/pta_ptarcade_spectrum.py"
+  ],
+  "files_read": [
+    "output/scale-invariant-dark-u1-zprime/handoff_fopt.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_model.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_librarian_preliminary.json",
+    "output/scale-invariant-dark-u1-zprime/fopt_model.py",
+    "backend/spectrum.py",
+    "backend/pta_violin_windows.csv",
+    "backend/plot_violins.py",
+    "docs/SPECTRUM.md",
+    "docs/PTARCADE.md"
+  ],
+  "files_written": [
+    "output/scale-invariant-dark-u1-zprime/pta_spectrum.py",
+    "output/scale-invariant-dark-u1-zprime/pta_scan.py",
+    "output/scale-invariant-dark-u1-zprime/pta_benchmark_scan.csv",
+    "output/scale-invariant-dark-u1-zprime/pta_benchmark_plot.py",
+    "output/scale-invariant-dark-u1-zprime/pta_benchmark_spectrum.pdf",
+    "output/scale-invariant-dark-u1-zprime/ptarcade_model.py",
+    "output/scale-invariant-dark-u1-zprime/ptarcade_config.py",
+    "output/scale-invariant-dark-u1-zprime/ptarcade_plot.py",
+    "output/scale-invariant-dark-u1-zprime/ptarcade_bayes.json",
+    "output/scale-invariant-dark-u1-zprime/pta_posteriors.pdf",
+    "output/scale-invariant-dark-u1-zprime/pta_ptarcade_spectrum.py",
+    "output/scale-invariant-dark-u1-zprime/pta_ptarcade_spectrum.pdf",
+    "output/scale-invariant-dark-u1-zprime/handoff_pta.json"
+  ],
+  "warnings": [
+    "g_D and y near the prior upper edge (2.0) approach the perturbativity boundary; posterior mass is far from there.",
+    "FOPT is extremely supercooled (alpha up to ~1e15-1e16); dbf template amplitude saturates (K_sw->1) and is used in its strong-PT regime.",
+    "Posterior on w is mild/broad in log; lower 99% HPDI of log10_w (-0.62) is interior to the prior [log10(0.05),log10(10)]=[-1.30,1.00]."
+  ],
+  "errors": [],
+  "approximations": [
+    "dbf bulk-flow template (arXiv:2511.15687) with runaway walls vw->1",
+    "T=Treh used as redshift temperature",
+    "FOPT high-T bounce + Gaussian percolation (upstream backend)",
+    "hard cut y^4<1.5 g_D^4 applied per point"
+  ],
+  "analysis_mode": "benchmark_plus_ptarcade",
+  "pta_parameter_basis": {
+    "independent": {
+      "g_D": {
+        "role": "dark gauge coupling",
+        "scan_range": [
+          0.15,
+          1.4
+        ]
+      },
+      "y": {
+        "role": "dark Yukawa",
+        "scan_range": [
+          0.0,
+          0.9
+        ],
+        "constraint": "y^4<1.5 g_D^4"
+      },
+      "w": {
+        "role": "CW vev in GeV (log-scanned)",
+        "scan_range": [
+          0.05,
+          10.0
+        ]
+      }
+    },
+    "dependent": {
+      "alpha": "from FOPT backend",
+      "beta_H": "from FOPT backend",
+      "Treh": "from FOPT backend",
+      "m_Zp": "g_D*w",
+      "m_chi": "y*w/sqrt(2)",
+      "beta_lambda": "(1/(8pi^2))(3 g_D^4-8(y/sqrt2)^4)"
+    },
+    "fixed": {
+      "vw": "1 (runaway, vacuum domination)",
+      "lambda_portal": 0.0,
+      "epsilon": 0.0,
+      "mu_renorm": "w"
+    }
+  },
+  "spectrum_template": "dbf",
+  "template_validity": {
+    "status": "ok",
+    "reason": "FOPT is strongly supercooled and vacuum-dominated (alpha>>1, beta/H~12-24, runaway walls vw->1). arXiv:2511.15687 dbf is designed for strongly supercooled transitions; the higgsless sound-wave template (2209.04369) is invalid for alpha>>1 with runaway walls. Dissipative bulk flow chosen over pure bf because the thermalised dark Z plasma dissipates part of the bulk-flow energy; bf used as cross-check (nearly identical peak)."
+  },
+  "benchmark_analysis": {
+    "scan_summary": {
+      "total_points": 945,
+      "viable_points": 238,
+      "points_14_of_14": 29,
+      "boundary_expansions": [
+        "none required: best 14/14 points are interior in g_D (0.51-0.77), y (0.0-0.85) and w (0.36-2.83 GeV); refinement kept wide support"
+      ]
+    },
+    "prior_ranges": {
+      "g_D": [
+        0.15,
+        1.4
+      ],
+      "y": [
+        0.0,
+        0.9
+      ],
+      "w": [
+        0.05,
+        10.0
+      ]
+    },
+    "template_comparison": {
+      "dbf": {
+        "best_score": 14,
+        "validity": "ok"
+      },
+      "bf": {
+        "note": "cross-check, near-identical peak"
+      },
+      "higgsless": {
+        "validity": "invalid for alpha>>1 runaway walls"
+      }
+    },
+    "best_fit_points": [
+      {
+        "rank": 1,
+        "name": "rank1",
+        "parameters": {
+          "g_D": 0.5071,
+          "y": 0.0,
+          "w": 1.371241
+        },
+        "alpha": 1644632463268193.2,
+        "beta_H": 12.692095655538083,
+        "T_star": 0.1041092147145361,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1.9010782799232996e-08,
+        "peak_h2OmegaGW": 8.017664423627671e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.322736796357105e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            3.259104242015657e-10,
+            1.2216162519542959e-09,
+            2.4849213263712878e-09,
+            3.890012851191081e-09,
+            5.261114586584224e-09,
+            6.675522046194686e-09,
+            7.421564837629179e-09,
+            7.852110251489419e-09,
+            8.017664423627671e-09,
+            7.979581605554207e-09,
+            7.797928138294929e-09,
+            7.51617267283074e-09,
+            7.174059027701812e-09,
+            6.805350445270993e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/scale-invariant-dark-u1-zprime/pta_benchmark_scan.csv",
+          "spectrum_id": "rank1"
+        }
+      },
+      {
+        "rank": 2,
+        "name": "b2",
+        "parameters": {
+          "g_D": 0.6024,
+          "y": 0.35,
+          "w": 0.5
+        },
+        "alpha": 313536634.7980584,
+        "beta_H": 23.5571165118813,
+        "T_star": 0.04073186897116205,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1.2676518658578448e-08,
+        "peak_h2OmegaGW": 2.8034620512419174e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.322736796357105e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            2.502475207660221e-10,
+            8.733970769892566e-10,
+            1.600326407522782e-09,
+            2.2127540031792594e-09,
+            2.615333123259444e-09,
+            2.8034620512419174e-09,
+            2.762760461621664e-09,
+            2.6268480852626037e-09,
+            2.4444497679195607e-09,
+            2.2440257587017002e-09,
+            2.047983162176375e-09,
+            1.8598333276245268e-09,
+            1.6866147366832304e-09,
+            1.5318646609085028e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/scale-invariant-dark-u1-zprime/pta_benchmark_scan.csv",
+          "spectrum_id": "b2"
+        }
+      },
+      {
+        "rank": 3,
+        "name": "b3",
+        "parameters": {
+          "g_D": 0.6857,
+          "y": 0.6833,
+          "w": 2.000001
+        },
+        "alpha": 144670009065.4693,
+        "beta_H": 17.965731210438207,
+        "T_star": 0.14643514378132846,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 2.9580124665515465e-08,
+        "peak_h2OmegaGW": 3.6084272776222123e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.322736796357105e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            3.9708081879708367e-11,
+            1.5571595160124595e-10,
+            3.401040848277404e-10,
+            5.844564468035108e-10,
+            8.856909546734728e-10,
+            1.324893459952434e-09,
+            1.6882082614872662e-09,
+            2.048353756018728e-09,
+            2.391141324512433e-09,
+            2.7100737484918114e-09,
+            2.990859732681765e-09,
+            3.2375822676645e-09,
+            3.4441608724014234e-09,
+            3.6084272776222123e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/scale-invariant-dark-u1-zprime/pta_benchmark_scan.csv",
+          "spectrum_id": "b3"
+        }
+      },
+      {
+        "rank": 4,
+        "name": "b4",
+        "parameters": {
+          "g_D": 0.769,
+          "y": 0.85,
+          "w": 2.828428
+        },
+        "alpha": 371186241.6189587,
+        "beta_H": 20.704738570501036,
+        "T_star": 0.07803635015784503,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 2.322736796357105e-08,
+        "peak_h2OmegaGW": 3.3749019931865735e-09,
+        "spectrum": {
+          "frequency_Hz": [
+            1.9952623149688828e-09,
+            3.981071705534969e-09,
+            5.956621435290109e-09,
+            7.943282347242822e-09,
+            1e-08,
+            1.2676518658578448e-08,
+            1.4791083881682072e-08,
+            1.690440931643263e-08,
+            1.9010782799232996e-08,
+            2.1134890398366476e-08,
+            2.322736796357105e-08,
+            2.535128630497907e-08,
+            2.7478941531023972e-08,
+            2.9580124665515465e-08
+          ],
+          "h2OmegaGW": [
+            1.0218740138820407e-10,
+            3.8893367004706134e-10,
+            8.10055563220786e-10,
+            1.3068819310358407e-09,
+            1.8313353933961463e-09,
+            2.4401421169326866e-09,
+            2.819077321339473e-09,
+            3.0941459489414426e-09,
+            3.269064906621784e-09,
+            3.35775688830151e-09,
+            3.3749019931865735e-09,
+            3.3374178974461845e-09,
+            3.259352563368574e-09,
+            3.1547691429463062e-09
+          ]
+        },
+        "spectrum_file_ref": {
+          "file": "output/scale-invariant-dark-u1-zprime/pta_benchmark_scan.csv",
+          "spectrum_id": "b4"
+        }
+      }
+    ]
+  },
+  "ptarcade_analysis": {
+    "run_status": "ok",
+    "campaign": {
+      "pta_data": "NG15",
+      "mode": "ceffyl",
+      "out_dir": "output/scale-invariant-dark-u1-zprime/chains",
+      "config_file": "output/scale-invariant-dark-u1-zprime/ptarcade_config.py",
+      "model_file": "output/scale-invariant-dark-u1-zprime/ptarcade_model.py",
+      "plot_file": "output/scale-invariant-dark-u1-zprime/ptarcade_plot.py",
+      "N_samples": 100000,
+      "acceptance_rate": 0.269
+    },
+    "prior_parameter_basis": {
+      "independent": {
+        "g_D": "Uniform(0.1,2.0)",
+        "y": "Uniform(0.0,2.0)",
+        "log10_w": "Uniform(log10(0.05),log10(10.0))"
+      },
+      "dependent": {
+        "alpha": "FOPT backend",
+        "beta_H": "FOPT backend",
+        "Treh": "FOPT backend",
+        "w": "10**log10_w"
+      },
+      "fixed": {
+        "vw": 1.0,
+        "lambda_portal": 0.0,
+        "epsilon": 0.0
+      }
+    },
+    "priors": {
+      "g_D": [
+        0.1,
+        2.0
+      ],
+      "y": [
+        0.0,
+        2.0
+      ],
+      "log10_w": [
+        -1.30103,
+        1.0
+      ]
+    },
+    "chain_validation": {
+      "chains_found": true,
+      "finite_samples": true,
+      "notes": "chain_0 with 10001 thinned samples from 1e5; posteriors peaked and interior; no prior-edge contact at 3 sigma."
+    },
+    "bayes_estimates": {
+      "bayes_est": {
+        "g-D": {
+          "mean": 0.5877937102091472,
+          "std": 0.05985192507086137
+        },
+        "y": {
+          "mean": 0.3772731532778366,
+          "std": 0.22200737630873787
+        },
+        "log10-w": {
+          "mean": -0.002061527013656485,
+          "std": 0.18238448403668658
+        }
+      },
+      "credible_regions": {
+        "sigma_1": {
+          "description": "68% credible region",
+          "bounds": {
+            "g-D": {
+              "low": 0.5285875252362462,
+              "high": 0.6532450412033991
+            },
+            "y": {
+              "low": 0.1186736907935367,
+              "high": 0.6380436515827701
+            },
+            "log10-w": {
+              "low": -0.17542716071670925,
+              "high": 0.16333366625977358
+            }
+          }
+        },
+        "sigma_2": {
+          "description": "95% credible region",
+          "bounds": {
+            "g-D": {
+              "low": 0.5127865118970202,
+              "high": 0.7272559921782896
+            },
+            "y": {
+              "low": 0.01837062308186854,
+              "high": 0.7781991364859652
+            },
+            "log10-w": {
+              "low": -0.4629393292638324,
+              "high": 0.25848561097165107
+            }
+          }
+        },
+        "sigma_3": {
+          "description": "99.7% credible region",
+          "bounds": {
+            "g-D": {
+              "low": 0.5063087900221112,
+              "high": 0.7762923771079846
+            },
+            "y": {
+              "low": 0.0023397195954580874,
+              "high": 0.838521373302943
+            },
+            "log10-w": {
+              "low": -0.8029545186259296,
+              "high": 0.4422824614226568
+            }
+          }
+        }
+      },
+      "evidence": null,
+      "evidence_error": null
+    },
+    "map_estimates": {
+      "map_est": {
+        "g-D": 0.5348717387715283,
+        "y": 0.2944039128874555,
+        "log10-w": 0.09711316485286241
+      },
+      "map_value": null,
+      "map_derived": {
+        "w_GeV": 1.2505848547912184,
+        "alpha": 1796056471966022.2,
+        "beta_H": 13.035158852716222,
+        "Treh_GeV": 0.09858068622163305,
+        "inside_bins": 14,
+        "total_bins": 14
+      }
+    }
+  },
+  "constraint_summary": []
+}

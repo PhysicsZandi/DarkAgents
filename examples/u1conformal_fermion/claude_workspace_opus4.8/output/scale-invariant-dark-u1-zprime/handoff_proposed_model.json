@@ -1,0 +1,199 @@
+{
+  "model": "scale-invariant-dark-u1-zprime",
+  "agent": "proposer-agent",
+  "run_status": "ok",
+  "gauge_groups": [
+    {
+      "name": "U(1)_D",
+      "type": "abelian",
+      "coupling": "g_D",
+      "notes": "New dark abelian gauge symmetry; SM sector is a singlet under it."
+    }
+  ],
+  "global_symmetries": [
+    {
+      "name": "U(1)_chi",
+      "type": "dark fermion number",
+      "notes": "Conserved by the Dirac mass term; renders lightest dark fermion stable."
+    },
+    {
+      "name": "classical scale invariance",
+      "type": "conformal (tree level)",
+      "notes": "Only dimension-4 operators; no explicit mass scales. Broken radiatively (Coleman-Weinberg)."
+    }
+  ],
+  "particle_content": [
+    {
+      "name": "Phi",
+      "type": "scalar",
+      "spin": 0,
+      "U(1)_D_charge": 1,
+      "SM_rep": "singlet",
+      "statistics": "boson",
+      "dof": 2,
+      "notes": "Complex dark scalar; radial direction is the pseudo-dilaton, angular part eaten by Z'."
+    },
+    {
+      "name": "Zp",
+      "type": "gauge_boson",
+      "spin": 1,
+      "U(1)_D_charge": 0,
+      "SM_rep": "singlet",
+      "statistics": "boson",
+      "dof": 3,
+      "notes": "Dark gauge boson; massive after radiative SSB, m_Zp = g_D * w."
+    },
+    {
+      "name": "psi_L",
+      "type": "fermion",
+      "spin": 0.5,
+      "U(1)_D_charge": 0.5,
+      "SM_rep": "singlet",
+      "statistics": "fermion",
+      "dof": 2,
+      "notes": "Left Weyl component of Dirac dark fermion chi."
+    },
+    {
+      "name": "psi_R",
+      "type": "fermion",
+      "spin": 0.5,
+      "U(1)_D_charge": -0.5,
+      "SM_rep": "singlet",
+      "statistics": "fermion",
+      "dof": 2,
+      "notes": "Right Weyl component of Dirac dark fermion chi."
+    },
+    {
+      "name": "eta_L",
+      "type": "fermion",
+      "spin": 0.5,
+      "U(1)_D_charge": -0.5,
+      "SM_rep": "singlet",
+      "statistics": "fermion",
+      "dof": 2,
+      "notes": "Anomaly-partner Weyl fermion (mirror charge)."
+    },
+    {
+      "name": "eta_R",
+      "type": "fermion",
+      "spin": 0.5,
+      "U(1)_D_charge": 0.5,
+      "SM_rep": "singlet",
+      "statistics": "fermion",
+      "dof": 2,
+      "notes": "Anomaly-partner Weyl fermion; eta_L+eta_R form a second Dirac fermion, degenerate with chi."
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "gauge_kinetic",
+      "expression": "-1/4 * Fp_munu * Fp_munu",
+      "notes": "U(1)_D field strength kinetic term."
+    },
+    {
+      "name": "scalar_kinetic",
+      "expression": "Dmu_Phi_conj * Dmu_Phi",
+      "notes": "D_mu Phi = (d_mu - i*g_D*Zp_mu)*Phi, charge q_Phi = 1."
+    },
+    {
+      "name": "fermion_kinetic",
+      "expression": "I * psibar * gammaslash_D * psi + I * etabar * gammaslash_D * eta",
+      "notes": "Covariant kinetic terms with chiral U(1)_D charges (+1/2,-1/2) and mirror."
+    },
+    {
+      "name": "yukawa",
+      "expression": "-( y * Phi * psibar_L * psi_R + y * Phi * etabar_L * eta_R + h.c. )",
+      "notes": "Gauge invariant: q(Phi)+q(psi_R)-q(psi_L)=1-1/2-1/2=0. Generates Dirac mass after SSB."
+    },
+    {
+      "name": "quartic_potential",
+      "expression": "-lambda * (Phi_conj * Phi)**2",
+      "notes": "Only scalar self-interaction; no tree mass term (scale invariance)."
+    }
+  ],
+  "free_parameters": [
+    { "name": "g_D", "range": [0.1, 1.5], "determination": "independent; dark gauge coupling, sets gb_gauge and barrier strength" },
+    { "name": "y", "range": [0.0, 1.0], "determination": "independent; dark Yukawa, sets gf_fermion=y/sqrt(2); kept small so bosons dominate" },
+    { "name": "w", "range": [100.0, 1000000.0], "determination": "independent; radiatively generated vev in GeV; sets overall transition scale" },
+    { "name": "lambda", "determination": "dependent; fixed by Coleman-Weinberg minimization, not scanned" },
+    { "name": "beta_lambda", "determination": "dependent; (1/(8*pi**2))*(3*g_D**4 - 8*(y/sqrt(2))**4)" },
+    { "name": "m_chi_radial", "determination": "dependent; sqrt(beta_lambda)*w" }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "g_D": { "range": [0.1, 1.5], "role": "gb_gauge = g_D" },
+      "y": { "range": [0.0, 1.0], "role": "gf_fermion = y/sqrt(2)" },
+      "w": { "range": [100.0, 1000000.0], "unit": "GeV", "role": "chi0 = w" }
+    },
+    "dependent": {
+      "lambda": { "relation": "fixed by CW minimization at chi=w (renormalization-scale dependent, not used by backend)" },
+      "beta_lambda": { "relation": "(1/(8*pi**2)) * ( 3*g_D**4 - 8*(y/sqrt(2))**4 )", "constraint": "beta_lambda > 0" },
+      "m_chi_radial": { "relation": "sqrt(beta_lambda) * w" },
+      "m_Zp": { "relation": "g_D * w" },
+      "m_chi": { "relation": "y * w / sqrt(2)" }
+    },
+    "fixed": {
+      "lambda_portal": { "value": 0.0, "notes": "Higgs portal neglected for FOPT dynamics" },
+      "epsilon": { "value": 0.0, "notes": "gauge kinetic mixing neglected" },
+      "mu_renorm": { "value": "w", "notes": "renormalization scale set to vev; no RG running, no Daisy" }
+    }
+  },
+  "ssb_pattern": [
+    "U(1)_D -> nothing via radiative (Coleman-Weinberg) breaking of Phi along the flat direction; Goldstone eaten by Z'."
+  ],
+  "vev_convention": [
+    "Phi = (1/sqrt(2)) * chi * exp(i*theta); chi real radial background; <chi> = w; theta = eaten Goldstone."
+  ],
+  "tree_level_potential": [
+    { "expression": "(lambda/4) * chi**4", "notes": "purely quartic along flat direction; no mass term." }
+  ],
+  "field_dependent_masses": [
+    { "particle": "Zp", "m2_of_chi": "g_D**2 * chi**2", "dof": 3, "statistics": "boson", "notes": "transverse+longitudinal massive vector" },
+    { "particle": "chi_fermion", "m2_of_chi": "(y**2 / 2) * chi**2", "dof": 8, "statistics": "fermion", "notes": "two degenerate Dirac fermions (psi and eta)" },
+    { "particle": "radial_scalar", "m2_of_chi": "3 * lambda * chi**2", "dof": 1, "statistics": "boson", "notes": "negligible contribution; not supplied to backend" },
+    { "particle": "goldstone", "m2_of_chi": "lambda * chi**2", "dof": 1, "statistics": "boson", "notes": "eaten by Z'; negligible; not supplied to backend" }
+  ],
+  "thermal_masses": [
+    { "particle": "Zp_longitudinal", "debye_m2": "g_D**2 * T**2 * ( 1.0/3.0 + (1.0/3.0) * n_chi_charge_factor )", "notes": "leading high-T Debye mass; n_chi_charge_factor from sum of fermion charges-squared (each 1/2). Backend reconstructs barrier internally from gb/gf and dof." }
+  ],
+  "expression_symbols": [
+    { "symbol": "chi", "meaning": "real radial background field of Phi" },
+    { "symbol": "g_D", "meaning": "U(1)_D gauge coupling" },
+    { "symbol": "y", "meaning": "dark Yukawa coupling" },
+    { "symbol": "lambda", "meaning": "scalar quartic coupling (CW-dependent)" },
+    { "symbol": "w", "meaning": "scalar vev <chi> in GeV" },
+    { "symbol": "T", "meaning": "temperature" },
+    { "symbol": "pi", "meaning": "mathematical constant pi" },
+    { "symbol": "beta_lambda", "meaning": "CW beta-function combination fixing radial scalar mass" },
+    { "symbol": "n_chi_charge_factor", "meaning": "fermionic charge-squared weight in Z' Debye mass" }
+  ],
+  "assumptions": [
+    "Single-field conformal approximation; SM and portal back-reaction neglected.",
+    "beta_lambda > 0 required (Z' bosonic contribution dominates fermionic); enforced by y small vs g_D.",
+    "High-temperature expansion and Gaussian percolation approximation of the backend (valid in supercooled regime, arXiv:2602.02829).",
+    "Renormalization scale mu = w; no RG running and no Daisy resummation (backend convention).",
+    "Strong supercooling required so percolation temperature lands in the nanohertz PTA window.",
+    "Eternal-inflation regions must be excluded downstream.",
+    "Dark fermion sector is vector-like as a whole, hence exactly anomaly-free (U(1)_D^3 and mixed grav anomalies vanish)."
+  ],
+  "backend_compatibility": [
+    {
+      "backend": "semianalytic_pipeline",
+      "status": "compatible",
+      "mapping": {
+        "chi0": "w",
+        "boson_gbs": { "Zp": "g_D" },
+        "boson_dofs": { "Zp": 3 },
+        "fermion_gfs": { "chi": "y / sqrt(2)" },
+        "fermion_dofs": { "chi": 8 }
+      },
+      "notes": "Classically scale-invariant single scalar; all masses proportional to w; no tree mass term; CW-fixed quartic (dependent). Scalar/Goldstone contributions negligible and not passed to backend."
+    },
+    {
+      "backend": "spectrum",
+      "status": "compatible",
+      "mapping": {},
+      "notes": "GW spectrum from alpha, beta_H, Treh via Spectrum template (e.g. higgsless/bf) downstream."
+    }
+  ]
+}

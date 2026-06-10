@@ -1,0 +1,148 @@
+{
+  "model": "scale-invariant-dark-u1-zprime",
+  "agent": "preliminary-librarian-agent",
+  "run_status": "ok",
+  "scan_mode": "preliminary_scan",
+  "papers": [
+    {
+      "arxiv_id": "2502.19478",
+      "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+      "authors": ["Sowmiya Balan", "Torsten Bringmann", "Felix Kahlhoefer", "Jonas Matuszak", "Carlo Tasillo"],
+      "year": 2025,
+      "journal": "JCAP 08 (2025) 062",
+      "relevance_score": 10,
+      "brief_description": "Classically conformal (Coleman-Weinberg) hidden U(1)' dark sector with a complex dark scalar that radiatively breaks the symmetry, a dark photon, and a stable Dirac dark fermion that gets its mass from a Yukawa coupling to the dark scalar. A supercooled FOPT in the MeV range gives the NANOGrav nHz GW signal while the fermion is sub-GeV dark matter. This is essentially the same model as the target, with an added kinetic-mixing portal to the SM.",
+      "model_studied": "Classically conformal dark U(1)' with complex scalar (radial = dilaton, angular eaten), dark photon A' (m_A' = g*v), Dirac dark fermion chi with Yukawa y (m_chi = y*v/sqrt2), CW radiative breaking. Kinetic mixing to SM hypercharge for phenomenology.",
+      "similarity_to_target": "Near-identical structural match: conformal U(1)_D, CW SSB, complex scalar, Z'/dark photon, Dirac dark fermion via Yukawa, supercooled FOPT, NANOGrav nHz target. Differences: target adds an explicit mirror fermion for anomaly cancellation and neglects kinetic mixing for the FOPT; this paper uses kinetic mixing as a portal.",
+      "paper_classification": "same_model",
+      "metadata_only": false,
+      "experimental_constraints": ["NANOGrav 15yr SGWB fit", "BBN T_reh > ~few MeV", "dark photon laboratory searches", "DM relic abundance", "N_eff"],
+      "observables": ["nHz GW spectrum", "sub-GeV DM relic density", "dark photon kinetic mixing signals"],
+      "benchmark_points": [
+        {"label": "Point A (coupled)", "g_D": 0.877, "y": 0.363, "v_MeV": 92.9, "m_Zp_MeV": 81.4, "m_phi_MeV": 32.6, "m_chi_MeV": 23.8, "T_p_MeV": 8.36, "T_reh_MeV": 12.9, "alpha": 4.99, "beta_over_H": 21.1},
+        {"label": "Point B (secluded)", "g_D": 0.790, "y": 0.401, "v_MeV": 343.0, "m_Zp_MeV": 271.0, "m_phi_MeV": 97.1, "m_chi_MeV": 97.3, "T_p_MeV": 15.2, "T_reh_MeV": 39.3, "alpha": 62.6, "beta_over_H": 13.3}
+      ],
+      "assumptions": ["CW radiative breaking at one loop", "single-field conformal potential", "supercooled / vacuum-dominated transition", "sound-wave/collision GW template"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2501.11619",
+      "title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data",
+      "authors": ["Joao Goncalves", "Danny Marfatia", "Antonio P. Morais", "Roman Pasechnik"],
+      "year": 2025,
+      "journal": "Phys. Lett. B 869 (2025) 139829",
+      "relevance_score": 9,
+      "brief_description": "Conformal dark U(1)' model with radiative (Coleman-Weinberg) symmetry breaking producing a massive Z' and a light scalon. Supercooled FOPT explains NANOGrav nHz data; argues such transitions CAN fit PTA contrary to some prior claims. Provides a best-fit benchmark.",
+      "model_studied": "Dark U(1)' with conformal scalar potential, scalon (radial pseudo-dilaton), massive Z', small kinetic mixing to SM. CW radiative SSB.",
+      "similarity_to_target": "Strong match for the scalar+gauge sector and CW/conformal mechanism and PTA target. Does not emphasize the Dirac dark fermion/Yukawa sector that the target includes.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": ["NANOGrav 15yr fit", "BBN reheating", "kinetic mixing |lambda_sigma_h| < 1e-10"],
+      "observables": ["nHz GW spectrum"],
+      "benchmark_points": [
+        {"label": "Best fit (Table 1)", "g_D": 0.59, "m_scalon_MeV": 12.4, "m_Zp_MeV": 107.3, "T_reh_MeV": 11.7, "alpha": 2.6e5, "beta_over_H": 39.5, "kinetic_mixing": 2e-10}
+      ],
+      "assumptions": ["conformal/CW one-loop potential", "percolation at 34% true-vacuum fraction", "strong supercooling, vacuum domination", "g_D sampled in [0.25, 1.5]"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2501.15649",
+      "title": "Supercooled Dark Scalar Phase Transitions explanation of NANOGrav data",
+      "authors": ["Francesco Costa", "Jaime Hoefken Zink", "Michele Lucente", "Silvia Pascoli", "Salvador Rosauro-Alcaraz"],
+      "year": 2025,
+      "journal": "Phys. Lett. B 868 (2025) 139634",
+      "relevance_score": 9,
+      "brief_description": "Minimal dark U(1) gauge group plus a dark scalar undergoing a strongly supercooled FOPT in the 100 MeV - GeV range to explain the NANOGrav nHz SGWB. Tracks the transition from onset to completion including vacuum domination and finds a correlation between gauge coupling and quartic. Provides four benchmark points.",
+      "model_studied": "Dark U(1) with complex/dark scalar, massive Z' (m_Zp = g_D*v), light dark scalar m_phi. Supercooled FOPT; close to conformal regime (small quartic) with g_D-lambda correlation.",
+      "similarity_to_target": "Strong match in scalar+gauge sector, PTA target, supercooled regime, vev/scale in 0.5-10 GeV. Treats lambda as a small free parameter rather than strictly CW-fixed; no dedicated dark-fermion DM Yukawa sector emphasized.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": ["NANOGrav 15yr fit", "BBN", "vacuum domination / percolation completion"],
+      "observables": ["nHz GW spectrum"],
+      "benchmark_points": [
+        {"label": "BP1", "v_GeV": 0.5, "lambda_phi": 0.006, "g_D": 0.75, "T_p_MeV": 12.54, "HR_star": 0.4771, "alpha": 342.34, "m_phi_GeV": 0.055, "m_Zp_GeV": 0.375},
+        {"label": "BP2", "v_GeV": 1.0, "lambda_phi": 0.006, "g_D": 0.75, "T_p_MeV": 22.54, "HR_star": 0.7729, "alpha": 522.85, "m_phi_GeV": 0.110, "m_Zp_GeV": 0.750},
+        {"label": "BP3", "v_GeV": 10.0, "lambda_phi": 0.006, "g_D": 0.75, "T_p_MeV": 193.87, "HR_star": 1.399, "alpha": 463.12, "m_phi_GeV": 1.10, "m_Zp_GeV": 7.50},
+        {"label": "BP4", "v_GeV": 1.0, "lambda_phi": 0.010, "g_D": 0.86, "T_p_MeV": 38.03, "HR_star": 0.8804, "alpha": 102.16, "m_phi_GeV": 0.144, "m_Zp_GeV": 0.862}
+      ],
+      "assumptions": ["small quartic ~ near-conformal", "strong supercooling with g_D-lambda correlation", "percolation/completion tracked", "H*R* used instead of beta/H"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2105.01007",
+      "title": "Gravitational waves from a dark U(1)_D phase transition in the light of NANOGrav 12.5 yr data",
+      "authors": ["Debasish Borah", "Arnab Dasgupta", "Sin Kyu Kang"],
+      "year": 2021,
+      "journal": "Phys. Rev. D 104 (2021) 063501",
+      "relevance_score": 7,
+      "brief_description": "Early study of a strong sub-electroweak FOPT in a U(1)_D extension with a complex singlet scalar and U(1)_D vector boson, fitting NANOGrav 12.5yr. A U(1)_D-charged singlet fermion can be (non-thermal) dark matter. Establishes the minimal dark U(1)_D + GW + NANOGrav program.",
+      "model_studied": "U(1)_D extension with complex singlet scalar and Z'; thermal effective potential FOPT (not strictly classically scale-invariant; uses standard finite-T potential, generally with explicit/soft mass terms).",
+      "similarity_to_target": "Same dark U(1)_D + complex scalar + Z' + optional charged dark fermion and same NANOGrav target, but pre-15yr data and not in the classically scale-invariant / Coleman-Weinberg regime, so its benchmark numbers are background/qualitative rather than directly transferable.",
+      "paper_classification": "same_target_signal_different_model",
+      "metadata_only": true,
+      "experimental_constraints": ["NANOGrav 12.5yr fit", "sub-EW transition scale"],
+      "observables": ["nHz GW spectrum", "non-thermal DM"],
+      "benchmark_points": [],
+      "assumptions": ["standard thermal FOPT effective potential", "sub-electroweak transition scale"],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2306.17086",
+      "title": "NANOGrav Signal from a Dark Conformal Phase Transition",
+      "authors": ["Kohei Fujikura", "Sudhakantha Girmohanta", "Yuichiro Nakai", "Motoo Suzuki"],
+      "year": 2023,
+      "journal": "Phys. Lett. B (2023)",
+      "relevance_score": 5,
+      "brief_description": "A nearly-conformal dark sector (dark Yang-Mills / dilaton-radion, holographic dual) with a confining/dilaton phase transition explaining NANOGrav, avoiding DeltaN_eff constraints via a decoupled dark thermal history. Conformal-PT-for-NANOGrav context but a different (non-Abelian confinement/dilaton) mechanism.",
+      "model_studied": "Nearly conformal dark Yang-Mills with light dilaton/radion, dark glueballs; confinement/dilaton FOPT.",
+      "similarity_to_target": "Shares the conformal-PT + NANOGrav theme and supercooling/dilaton physics, but the symmetry-breaking mechanism (strong dynamics / radion) differs from the target's weakly-coupled CW gauged U(1). Useful for context and DeltaN_eff/thermal-decoupling discussion only.",
+      "paper_classification": "background_context_only",
+      "metadata_only": true,
+      "experimental_constraints": ["NANOGrav fit", "DeltaN_eff"],
+      "observables": ["nHz GW spectrum", "dark glueballs"],
+      "benchmark_points": [],
+      "assumptions": ["nearly conformal strong dynamics / 5D holographic dual", "decoupled dark sector thermal history"],
+      "citation_verified": true
+    }
+  ],
+  "searched_sources": ["arXiv", "INSPIRE-HEP (via web)", "ADS", "JCAP/PLB/PRD publisher pages"],
+  "novelty_verdict": "not_novel_close_precedent_exists",
+  "novelty_notes": "The target model (classically scale-invariant / Coleman-Weinberg gauged dark U(1)_D with complex scalar Phi, dark photon Z', and a Dirac dark fermion chi obtaining mass via a Yukawa to Phi, driving a strongly supercooled FOPT for the NANOGrav nHz signal) is very closely matched in the literature, most directly by Balan, Bringmann, Kahlhoefer, Matuszak & Tasillo (arXiv:2502.19478, JCAP 08(2025)062), which is essentially the same model including the Yukawa-mass dark fermion as sub-GeV DM. Closely related conformal/supercooled dark U(1) PTA explanations are Goncalves, Marfatia, Morais & Pasechnik (2501.11619) and Costa et al. (2501.15649). The mostly-novel ingredient of the target is the explicit mirror fermion (eta) introduced purely for U(1)_D anomaly cancellation with the chiral chi charges and the deliberate neglect of kinetic mixing for the FOPT; the FOPT phenomenology itself is well-precedented.",
+  "benchmark_hints": [
+    {
+      "source": "arXiv:2502.19478 (Balan et al.) Table 1",
+      "parameters": {"g_D": 0.877, "y": 0.363, "v_MeV": 92.9, "T_p_MeV": 8.36, "T_reh_MeV": 12.9, "alpha": 4.99, "beta_over_H": 21.1},
+      "confidence": "direct",
+      "conventions": {"vev": "v = <chi>, m_Zp = g_D*v, m_chi = y*v/sqrt(2)", "potential": "classically conformal one-loop CW", "regime": "supercooled, vacuum domination", "note": "same vev and mass conventions as target handoff"},
+      "notes": "Coupled benchmark (Point A): moderate supercooling alpha~5, beta/H~21. Maps directly onto target free parameters (g_D, y, w=v). Best single anchor point. Point B (g_D=0.79, y=0.401, v=343 MeV, alpha=62.6, beta/H=13.3) gives stronger supercooling."
+    },
+    {
+      "source": "arXiv:2501.15649 (Costa et al.) Table 1",
+      "parameters": {"g_D": 0.75, "lambda_phi": 0.006, "v_GeV": "0.5-10", "T_p_MeV": "12.5-194", "alpha": "100-520", "HR_star": "0.48-1.4"},
+      "confidence": "adaptable",
+      "conventions": {"vev": "m_Zp = g_D*v", "potential": "small-quartic near-conformal (lambda treated free, not strictly CW-fixed)", "GW_size": "uses H*R* rather than beta/H"},
+      "notes": "Spans w = 0.5-10 GeV, overlapping the target's GeV-scale window. Very strong supercooling (alpha~10^2-10^3). Convert H*R* to beta/H downstream. lambda is an input here vs CW-dependent in target."
+    },
+    {
+      "source": "arXiv:2501.11619 (Goncalves et al.) Table 1",
+      "parameters": {"g_D": 0.59, "m_Zp_MeV": 107.3, "m_scalon_MeV": 12.4, "T_reh_MeV": 11.7, "alpha": 2.6e5, "beta_over_H": 39.5, "kinetic_mixing": 2e-10},
+      "confidence": "adaptable",
+      "conventions": {"potential": "fully conformal/CW (scalon = pseudo-dilaton)", "regime": "extreme supercooling, vacuum domination", "portal": "tiny kinetic mixing 2e-10 (target neglects mixing)"},
+      "notes": "Genuine CW/conformal best fit with very strong supercooling (alpha~10^5). m_Zp/v consistent with g_D~0.59. No explicit Yukawa fermion sector. Useful to bracket the strong-supercooling end of g_D-space."
+    }
+  ],
+  "constraint_summary": [],
+  "theory_uncertainties": [
+    "Renormalization-scheme / scale choice in the CW potential (target fixes mu = w, no RG running, no Daisy; literature varies and 2511.02910 cautions on Daisy vs 3D-EFT treatment of supercooled CW PTs).",
+    "Percolation vs nucleation vs reheating temperature definitions differ across papers (T_p at 34% true vacuum vs T_*; reheating after vacuum domination). Match the backend's definitions carefully.",
+    "GW strength measure not uniform: alpha+beta/H (2502.19478, 2501.11619) vs alpha+H*R* (2501.15649). Convert consistently for the spectrum template.",
+    "Whether lambda is strictly CW-fixed (target, 2502.19478, 2501.11619) or a small free input (2501.15649) shifts the g_D-lambda relation and the supercooling depth."
+  ],
+  "recommended_next_steps": [
+    "Adopt arXiv:2502.19478 Point A (g_D=0.877, y=0.363, w=92.9 MeV) as the primary anchor benchmark; it shares the target's exact field content and mass conventions.",
+    "Use arXiv:2501.15649 BP1-BP4 (g_D~0.75-0.86, w=0.5-10 GeV) to scan the GeV-scale vev window of the target and bracket strong supercooling.",
+    "Cross-check g_D-only conformal limit (small y) against arXiv:2501.11619 (g_D=0.59, alpha~1e5) for the deep-supercooling regime.",
+    "Reconcile the target backend's T_*/T_p/T_reh and alpha vs beta/H vs H*R* definitions with each cited paper before transferring numbers.",
+    "Flag for critic-agent: the model is structurally non-novel (closest = 2502.19478); the only distinctive feature is the anomaly-canceling mirror fermion eta and neglected kinetic mixing."
+  ]
+}

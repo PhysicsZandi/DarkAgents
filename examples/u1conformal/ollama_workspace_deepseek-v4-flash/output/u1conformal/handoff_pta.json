@@ -1,0 +1,328 @@
+{
+  "model": "u1conformal",
+  "agent": "pta-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-10",
+  "branch": "fopt-pta",
+  "created_from": [
+    "handoff_fopt.json",
+    "handoff_model.json",
+    "handoff_librarian_preliminary.json",
+    "handoff_critique.json"
+  ],
+  "commands": [
+    "conda run -n ptarcade python3 output/u1conformal/pta_scan.py",
+    "conda run -n ptarcade python3 output/u1conformal/pta_benchmark_plot.py",
+    "conda run -n ptarcade ptarcade -m output/u1conformal/ptarcade_model.py -c output/u1conformal/ptarcade_config_smoke.py",
+    "conda run -n ptarcade ptarcade -m output/u1conformal/ptarcade_model.py -c output/u1conformal/ptarcade_config.py",
+    "conda run -n ptarcade python3 output/u1conformal/ptarcade_plot.py",
+    "conda run -n ptarcade python3 output/u1conformal/pta_ptarcade_spectrum_plot.py"
+  ],
+  "files_read": [
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/handoff_model.json",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/fopt_benchmarks.csv",
+    "output/u1conformal/fopt_model.py",
+    "backend/semianalytic_pipeline.py",
+    "backend/spectrum.py",
+    "backend/pta_violin_windows.csv",
+    "backend/plot_violins.py",
+    "docs/SPECTRUM.md",
+    "docs/PTARCADE.md",
+    "docs/HANDOFF_PTA_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/u1conformal/pta_spectrum.py",
+    "output/u1conformal/pta_scan.py",
+    "output/u1conformal/pta_benchmark_scan.csv",
+    "output/u1conformal/pta_benchmark_plot.py",
+    "output/u1conformal/pta_benchmark_spectrum.pdf",
+    "output/u1conformal/ptarcade_model.py",
+    "output/u1conformal/ptarcade_config_smoke.py",
+    "output/u1conformal/ptarcade_config.py",
+    "output/u1conformal/ptarcade_plot.py",
+    "output/u1conformal/ptarcade_bayes.json",
+    "output/u1conformal/pta_posteriors.pdf",
+    "output/u1conformal/pta_ptarcade_spectrum_plot.py",
+    "output/u1conformal/pta_ptarcade_spectrum.pdf",
+    "output/u1conformal/handoff_pta.json",
+    "output/u1conformal/pta_report.md"
+  ],
+  "warnings": [
+    "Bayesian estimates from PTArcade campaign with N_samples=1e5 (~100k samples) are reported.",
+    "Template validity caveat: the dbf (dissipative bulk flow) template is the most appropriate choice for the strong-supercooling regime (alpha >> 1, alpha up to 10^15), but is based on simulations that assume runaway walls. For the most extreme alpha values (10^11-10^15), the template's prefactor A_LEWICKI2025 may be pushing its calibration range."
+  ],
+  "errors": [],
+  "approximations": [
+    "GW spectrum uses the dbf template from Lewicki et al. 2025 (arXiv:2511.15687), which assumes runaway bubble walls (vw -> 1) appropriate for strong supercooling",
+    "FOPT computation uses high-temperature expansion and the Gaussian approximation for the false vacuum fraction",
+    "No non-Gaussianity, polarisation, or frequency-dependent speed of sound effects were modeled",
+    "The temperature ratio xi = T_dark / T_SM = 1 (thermal equilibrium) is assumed, consistent with the upstream FOPT analysis",
+    "Dark sector contains only the gauge boson A' and the radial mode rho; no fermionic content",
+    "The PTArcade log-likelihood uses the CEFFyL method (ceffyl mode) for the NG15 dataset"
+  ],
+  "analysis_mode": "benchmark_plus_ptarcade",
+  "pta_parameter_basis": {
+    "independent": {
+      "v": {
+        "type": "continuous",
+        "dimension": "mass",
+        "unit": "GeV",
+        "range": "0.005 to 10.0 (scan), 0.42 to 1.73 (best-fit region)",
+        "notes": "Scalar vev. PTA-compatible region around 0.3-2 GeV."
+      },
+      "g_D": {
+        "type": "continuous",
+        "dimension": "dimensionless",
+        "unit": "1",
+        "range": "0.49 to 1.3 (scan), 0.51 to 0.62 (best-fit region)",
+        "notes": "U(1)_D gauge coupling. PTA-compatible region around 0.51-0.62."
+      }
+    },
+    "dependent": {
+      "lambda_Phi": {
+        "type": "continuous",
+        "dimension": "dimensionless",
+        "unit": "1",
+        "determination": "CW-fixed: beta_lambda / 4 = 3 * g_D^4 / (32 * pi^2)",
+        "notes": "Tree-level quartic coupling. Not an independent parameter."
+      },
+      "m_rho": {
+        "type": "continuous",
+        "dimension": "mass",
+        "unit": "GeV",
+        "determination": "m_rho = sqrt(3/8) * g_D^2 * v / pi",
+        "notes": "Radial mode mass. Derived from v and g_D."
+      },
+      "m_A_prime": {
+        "type": "continuous",
+        "dimension": "mass",
+        "unit": "GeV",
+        "determination": "m_A' = g_D * v",
+        "notes": "Dark photon mass. Derived from v and g_D."
+      },
+      "beta_lambda": {
+        "type": "continuous",
+        "dimension": "dimensionless",
+        "unit": "1",
+        "determination": "beta_lambda = 3 * g_D^4 / (8 * pi^2)",
+        "notes": "One-loop quartic beta function coefficient."
+      }
+    },
+    "fixed": {
+      "xi": {
+        "value": 1.0,
+        "notes": "Temperature ratio T_dark / T_SM, hardcoded in backend."
+      }
+    }
+  },
+  "spectrum_template": "dbf",
+  "template_validity": {
+    "status": "ok",
+    "reason": "The dissipative bulk flow (dbf) template from Lewicki et al. 2025 (arXiv:2511.15687) is appropriate for the strong-supercooling regime (alpha >> 1, beta_H ~ 15-70, Treh ~ MeV-GeV). The FOPT parameters from the benchmark scan show alpha ranging from ~10^5 to 10^15, well within the strong-supercooling regime where bulk flow dominates over sound waves. The template assumes runaway bubble walls (vw -> 1), which is physically motivated for vacuum-dominated phase transitions with alpha >> 1."
+  },
+  "benchmark_analysis": {
+    "scan_summary": {
+      "total_points": 1600,
+      "viable_points": 524,
+      "boundary_expansions": [
+        "Stage 2 fine scan: g_D lower boundary expanded from 0.49 to 0.34 as best g_D=0.5326 was close to the initial scan boundary"
+      ]
+    },
+    "prior_ranges": {
+      "v": {
+        "min": 0.005,
+        "max": 10.0,
+        "unit": "GeV",
+        "prior_type": "log-uniform"
+      },
+      "g_D": {
+        "min": 0.3,
+        "max": 1.5,
+        "unit": "1",
+        "prior_type": "uniform"
+      }
+    },
+    "template_comparison": {
+      "dbf": {
+        "status": "chosen",
+        "reason": "Appropriate for strong supercooling (alpha >> 1). Covers the entire PTA-relevant FOPT parameter range."
+      },
+      "higgsless": {
+        "status": "rejected",
+        "reason": "Sound-wave template designed for weaker transitions (alpha ~ O(1)). Not valid for the extreme supercooling regime found in this model."
+      },
+      "bf": {
+        "status": "not_used",
+        "reason": "The dbf template is the improved version accounting for dissipation, preferred over the simpler bulk flow template."
+      }
+    },
+    "best_fit_points": [
+      {
+        "rank": 1,
+        "name": "BP1",
+        "parameters": {"v": 0.4305827, "g_D": 0.5326},
+        "alpha": 3.780e11,
+        "beta_H": 17.687,
+        "T_star": null,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 9.28e-08,
+        "peak_h2OmegaGW": null,
+        "spectrum": {
+          "frequency_Hz": [1.995e-09, 3.981e-09, 5.957e-09, 7.943e-09, 1.000e-08, 1.268e-08, 1.479e-08, 1.690e-08, 1.901e-08, 2.113e-08, 2.324e-08, 2.535e-08, 2.746e-08, 2.958e-08],
+          "h2OmegaGW": []
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "v=0.4305827, g_D=0.5326"
+        }
+      },
+      {
+        "rank": 2,
+        "name": "BP2",
+        "parameters": {"v": 0.7937005, "g_D": 0.5800},
+        "alpha": 4.242e07,
+        "beta_H": 24.837,
+        "T_star": null,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 2.09e-07,
+        "peak_h2OmegaGW": null,
+        "spectrum": {
+          "frequency_Hz": [1.995e-09, 3.981e-09, 5.957e-09, 7.943e-09, 1.000e-08, 1.268e-08, 1.479e-08, 1.690e-08, 1.901e-08, 2.113e-08, 2.324e-08, 2.535e-08, 2.746e-08, 2.958e-08],
+          "h2OmegaGW": []
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "v=0.7937005, g_D=0.5800"
+        }
+      },
+      {
+        "rank": 3,
+        "name": "BP3",
+        "parameters": {"v": 1.172034, "g_D": 0.5400},
+        "alpha": 1.496e11,
+        "beta_H": 17.590,
+        "T_star": null,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1.53e-07,
+        "peak_h2OmegaGW": null,
+        "spectrum": {
+          "frequency_Hz": [1.995e-09, 3.981e-09, 5.957e-09, 7.943e-09, 1.000e-08, 1.268e-08, 1.479e-08, 1.690e-08, 1.901e-08, 2.113e-08, 2.324e-08, 2.535e-08, 2.746e-08, 2.958e-08],
+          "h2OmegaGW": []
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "v=1.172034, g_D=0.5400"
+        }
+      },
+      {
+        "rank": 4,
+        "name": "BP4",
+        "parameters": {"v": 1.730708, "g_D": 0.5400},
+        "alpha": 2.028e11,
+        "beta_H": 17.141,
+        "T_star": null,
+        "score": 14,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 3.06e-07,
+        "peak_h2OmegaGW": null,
+        "spectrum": {
+          "frequency_Hz": [1.995e-09, 3.981e-09, 5.957e-09, 7.943e-09, 1.000e-08, 1.268e-08, 1.479e-08, 1.690e-08, 1.901e-08, 2.113e-08, 2.324e-08, 2.535e-08, 2.746e-08, 2.958e-08],
+          "h2OmegaGW": []
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "v=1.730708, g_D=0.5400"
+        }
+      }
+    ]
+  },
+  "ptarcade_analysis": {
+    "run_status": "ok",
+    "campaign": {
+      "pta_data": "NG15",
+      "mode": "ceffyl",
+      "out_dir": "output/u1conformal/chains",
+      "config_file": "output/u1conformal/ptarcade_config.py",
+      "model_file": "output/u1conformal/ptarcade_model.py",
+      "plot_file": "output/u1conformal/ptarcade_plot.py"
+    },
+    "prior_parameter_basis": {
+      "independent": {
+        "log10_v": {
+          "type": "continuous",
+          "dimension": "log10(mass)",
+          "unit": "log10(GeV)",
+          "prior": "Uniform(-3.301, 1.699)",
+          "notes": "Corresponds to v in [5e-4, 50] GeV (log-uniform). Conversion: v = 10^log10_v."
+        },
+        "g_D": {
+          "type": "continuous",
+          "dimension": "dimensionless",
+          "unit": "1",
+          "prior": "Uniform(0.3, 1.5)",
+          "notes": "U(1)_D gauge coupling."
+        }
+      },
+      "dependent": {},
+      "fixed": {}
+    },
+    "priors": {
+      "log10_v": "Uniform(-3.301, 1.699)",
+      "g_D": "Uniform(0.3, 1.5)"
+    },
+    "chain_validation": {
+      "chains_found": true,
+      "finite_samples": true,
+      "notes": "Chains found in output/u1conformal/chains/np_model/chain_0/chain_1.txt. Full campaign with N_samples=1e5 completed successfully (~30k chain samples after thinning and burn-in removal). Acceptance rate ~42%."
+    },
+    "bayes_estimates": {
+      "bayes_est": {
+        "log10_v": {"mean": -0.061, "std": 0.162},
+        "g_D": {"mean": 0.527, "std": 0.020}
+      },
+      "credible_regions": {
+        "sigma_1": {
+          "description": "68% credible region",
+          "bounds": {
+            "log10_v": {"low": -0.210, "high": 0.090},
+            "g_D": {"low": 0.509, "high": 0.545}
+          }
+        },
+        "sigma_2": {
+          "description": "95% credible region",
+          "bounds": {
+            "log10_v": {"low": -0.476, "high": 0.164},
+            "g_D": {"low": 0.504, "high": 0.583}
+          }
+        },
+        "sigma_3": {
+          "description": "99.7% credible region",
+          "bounds": {
+            "log10_v": {"low": -0.796, "high": 0.216},
+            "g_D": {"low": 0.503, "high": 0.631}
+          }
+        }
+      },
+      "evidence": null,
+      "evidence_error": null
+    },
+    "map_estimates": {
+      "map_est": {
+        "log10_v": 0.029,
+        "g_D": 0.508
+      },
+      "map_value": null
+    }
+  },
+  "constraint_summary": []
+}

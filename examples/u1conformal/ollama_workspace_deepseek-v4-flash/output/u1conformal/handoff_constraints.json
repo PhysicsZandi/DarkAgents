@@ -1,0 +1,858 @@
+{
+  "model": "u1conformal",
+  "agent": "constraint-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-10",
+  "branch": "constraints",
+  "created_from": [
+    "handoff_model.json",
+    "handoff_librarian_preliminary.json",
+    "handoff_fopt.json",
+    "handoff_pta.json",
+    "ptarcade_bayes.json",
+    "handoff_critique.json"
+  ],
+  "commands": [
+    "python3 compute_derived_masses.py",
+    "WebSearch: dark photon constraints MeV GeV kinetic mixing epsilon BaBar LHCb NA48 KLOE review",
+    "WebSearch: dark photon invisible decay beam dump constraints E137 LSND CHARM sub-GeV",
+    "WebSearch: dark scalar Higgs portal MeV GeV constraints BBN decays exotic Higgs review",
+    "WebSearch: dark photon LHCb prompt A' to mu+mu- limit epsilon 300-700 MeV",
+    "WebSearch: supernova SN1987A dark photon constraints MeV GeV kinetic mixing",
+    "WebSearch: BBN bound dark sector particle lifetime less than 1 second decaying reheating",
+    "WebSearch: Delta Neff dark radiation CMB BBN constraint MeV scale dark sector",
+    "WebSearch: NA64 dark photon limit epsilon mA 300-700 MeV",
+    "WebSearch: BaBar dark photon invisible monophoton limit epsilon",
+    "WebSearch: dark Higgs decay lifetime mixing angle theta scalar portal MeV GeV BBN CMB",
+    "WebSearch: cosmological beam dump dark scalar Higgs portal mixing 50 100 MeV",
+    "WebSearch: scalar mixing angle theta LEP LHC light Higgs 50-200 MeV",
+    "WebFetch: ar5iv 2603.08430 dark photon 2026 perspective",
+    "WebFetch: ar5iv 1812.07585 cosmological beam dump",
+    "WebFetch: ar5iv 2105.04565 dark photon limits handbook"
+  ],
+  "files_read": [
+    "output/u1conformal/handoff_model.json",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/handoff_pta.json",
+    "output/u1conformal/ptarcade_bayes.json",
+    "output/u1conformal/handoff_critique.json"
+  ],
+  "files_written": [
+    "output/u1conformal/handoff_constraints.json",
+    "output/u1conformal/constraints_report.md",
+    "output/u1conformal/constraints_table.csv"
+  ],
+  "warnings": [
+    "Kinetic mixing epsilon is unspecified. Most dark photon constraints depend on epsilon, and their applicability requires knowing whether A' decays visibly (to SM) or invisibly (to dark sector particles). Both channels may be open.",
+    "Higgs portal lambda_HPhi is unspecified. All constraints on the dark scalar rho depend on the scalar mixing angle sin^2(theta) which is proportional to lambda_HPhi.",
+    "The xi=1 assumption (thermal equilibrium of dark and SM sectors) is in tension with Delta N_eff constraints. At temperatures > m_A', m_rho, the dark sector contributes Delta N_eff ~ 0.57, exceeding Planck 95% CL bounds. The model needs either a lower xi or a mechanism to deplete dark sector energy density before BBN/CMB.",
+    "The BBN constraint from Coy et al. (2025) gives a lower bound on epsilon (epsilon > 10^{-9}-10^{-8} for m_A' ~ 300-700 MeV) rather than an upper bound, because dark photons must decay before BBN to avoid overclosure. This lower bound must be checked against the epsilon value assumed by the model.",
+    "Several constraints classified as 'approximate' or 'recast_needed' require computing observables (A' decay widths and branching fractions, rho lifetime and branching fractions, dark sector abundance at BBN, temperature evolution during PT) that are not available from upstream handoffs."
+  ],
+  "errors": [],
+  "approximations": [
+    "Dark photon constraints assume either visible decay (A'->e+e-, mu+mu-) or invisible decay (A'->dark sector). The actual branching ratio depends on the unknown kinetic mixing epsilon and the rho-A' couplings.",
+    "BBN/CMB constraints on rho assume freeze-in production via Higgs mixing. The actual abundance depends on the unknown lambda_HPhi.",
+    "Delta N_eff estimate assumes the dark sector thermalizes with the SM at T > dark sector mass scale, consistent with the xi=1 assumption. If the dark sector never reaches thermal equilibrium, the Delta N_eff contribution could be much smaller.",
+    "LHCb constraint applies for BR(A'->mu+mu-) ~ 1. In the presence of the dark Higgs rho, BR(A'->mu+mu-) < 1 due to the A'->rho+A'* channel (if kinematically allowed)."
+  ],
+  "analysis_mode": "ptarcade_1sigma",
+  "input_region": {
+    "source": "ptarcade_1sigma",
+    "parameters": {
+      "v": {
+        "low": 0.6166,
+        "high": 1.2303,
+        "unit": "GeV",
+        "prior": "log-uniform(5e-4, 50)"
+      },
+      "g_D": {
+        "low": 0.509,
+        "high": 0.545,
+        "unit": "1",
+        "prior": "uniform(0.3, 1.5)"
+      }
+    },
+    "derived_masses": {
+      "m_A_prime": {
+        "low": 0.3138,
+        "high": 0.6705,
+        "unit": "GeV",
+        "formula": "m_A' = g_D * v"
+      },
+      "m_rho": {
+        "low": 0.031139,
+        "high": 0.071229,
+        "unit": "GeV",
+        "formula": "m_rho = sqrt(3/8) * g_D^2 * v / pi"
+      },
+      "beta_lambda": {
+        "low": 0.00255,
+        "high": 0.00335,
+        "unit": "1",
+        "formula": "beta_lambda = 3 * g_D^4 / (8 * pi^2)"
+      }
+    },
+    "notes": [
+      "MAP values: v=1.07 GeV, g_D=0.508, m_A'=0.54 GeV, m_rho=0.054 GeV",
+      "Full 1-sigma posterior from PTArcade Bayesian analysis of NG15 data",
+      "Preferred region corresponds to very strong supercooling (alpha ~ 10^11)",
+      "Portal couplings epsilon and lambda_HPhi are unspecified (assumed small)"
+    ]
+  },
+  "constraint_summary": {
+    "total_constraints_considered": 23,
+    "directly_testable": 8,
+    "approximately_testable": 6,
+    "requires_recast": 3,
+    "requires_new_backend": 0,
+    "not_applicable": 6
+  },
+  "constraints": [
+    {
+      "id": "CONST-001",
+      "name": "LHCb prompt A' -> mu+mu-",
+      "category": "collider",
+      "description": "LHCb search for A' -> mu+mu- using 5.5/fb of pp collisions at 13 TeV. World-leading constraints for 214 < m_A' < 740 MeV.",
+      "applicability_class": "direct",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"low": 0.214, "high": 0.740, "unit": "GeV"},
+      "coupling_range": {"name": "epsilon", "low": 1e-4, "high": 1e-2, "unit": "1"},
+      "observable": "epsilon vs m_A' for visible A' -> mu+mu- decays",
+      "required_inputs": ["m_A'", "epsilon", "BR(A' -> mu+mu-)"],
+      "required_observables": ["epsilon", "BR(A' -> mu+mu-)"],
+      "available_observables": ["m_A' from model"],
+      "missing_observables": ["epsilon", "BR(A' -> mu+mu-)"],
+      "units": {},
+      "conventions": {"epsilon": "LHCb uses epsilon^2 convention. BR(A'->mu+mu-) assumed ~1 for visible search."},
+      "applicability": "Applies to entire 1-sigma mA' range (0.31-0.67 GeV). If BR(A'->mu+mu-) ~ 1, excludes epsilon > few x 1e-4. But A' may also decay invisibly to rho+A'*.",
+      "tested_subregion": {"mA'": [0.31, 0.67], "unit": "GeV", "epsilon_visible": "less_than_approx_1e-3"},
+      "applicability_notes": [
+        "Full strength constraint applies only if A'->mu+mu- BR ~ 1",
+        "Invisible decay channel reduces visible BR, weakening constraint",
+        "LHCb 2020 result (PRL 124, 041801) is the state-of-the-art for this mass range",
+        "Run 3 data (2024-2026) expected to improve sensitivity by ~O(100-1000)"
+      ],
+      "source": {
+        "title": "Search for A' -> mu+mu- Decays",
+        "arxiv_id": "1910.06926",
+        "authors": "LHCb Collaboration",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-002",
+      "name": "BaBar invisible A' monophoton",
+      "category": "collider",
+      "description": "BaBar search for e+e- -> gamma A', A' -> invisible. Uses 53/fb at PEP-II. 90% CL limits on epsilon for m_A' < 8 GeV.",
+      "applicability_class": "direct",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"low": 0.02, "high": 8.0, "unit": "GeV"},
+      "coupling_range": {"name": "epsilon", "low": 1e-4, "high": 3e-3, "unit": "1"},
+      "observable": "epsilon vs m_A' for invisible A' decays",
+      "required_inputs": ["m_A'", "epsilon", "BR(A' -> invisible)"],
+      "required_observables": ["epsilon", "BR(A' -> invisible)"],
+      "available_observables": ["m_A' from model"],
+      "missing_observables": ["epsilon", "BR(A' -> invisible)"],
+      "units": {},
+      "conventions": {"epsilon": "BaBar uses epsilon convention. 90% CL limits on epsilon^2."},
+      "applicability": "Applies if A' predominantly decays invisibly. Excludes epsilon > (2-4)x10^{-4} for mA'=0.3-0.7 GeV.",
+      "tested_subregion": {"mA'": [0.02, 8.0], "unit": "GeV", "epsilon_invisible": "less_than_approx_3e-4"},
+      "applicability_notes": [
+        "Strongest collider constraint for invisible A' decays in this mass range",
+        "Competitive with LHCb prompt search if A' decays invisibly",
+        "Belle II will improve sensitivity by ~3x over BaBar"
+      ],
+      "source": {
+        "title": "Search for Invisible Decays of a Dark Photon Produced in e+e- Collisions at BaBar",
+        "arxiv_id": "1702.03327",
+        "authors": "BaBar Collaboration",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-003",
+      "name": "NA64 invisible dark photon (electron beam)",
+      "category": "beam_dump",
+      "description": "NA64 missing energy search for A' produced via dark bremsstrahlung of 100 GeV electrons. Most sensitive for mA' < 350 MeV.",
+      "applicability_class": "direct",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"low": 0.001, "high": 0.350, "unit": "GeV"},
+      "coupling_range": {"name": "epsilon", "low": 1e-5, "high": 3e-4, "unit": "1"},
+      "observable": "epsilon vs m_A' for invisible A' -> DM decays",
+      "required_inputs": ["m_A'", "epsilon", "BR(A' -> invisible)"],
+      "required_observables": ["epsilon", "BR(A' -> invisible)"],
+      "available_observables": ["m_A' from model (lower end: 0.31 GeV)"],
+      "missing_observables": ["epsilon", "BR(A' -> invisible)"],
+      "units": {},
+      "conventions": {"epsilon": "NA64 uses epsilon convention. 90% CL limits from 9.37e11 EOT."},
+      "applicability": "Partially covers 1-sigma region: only lower boundary (mA' ~ 0.31 GeV) overlaps NA64 sensitivity (< 0.35 GeV). Sensitivity drops above 350 MeV.",
+      "tested_subregion": {"mA'": [0.3, 0.35], "unit": "GeV", "epsilon_invisible": "less_than_approx_3e-4"},
+      "applicability_notes": [
+        "Only the lower end of 1-sigma mA' range overlaps NA64 sensitivity",
+        "Post-LS3 muon program may extend sensitivity to higher masses"
+      ],
+      "source": {
+        "title": "Search for Light Dark Matter with NA64 at CERN",
+        "arxiv_id": "2307.02404",
+        "authors": "NA64 Collaboration",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-004",
+      "name": "BBN dark photon decay constraint",
+      "category": "BBN",
+      "description": "Dark photons must decay before BBN (tau' < 0.2 s). Otherwise residual energy density exceeds BBN bounds on expansion rate.",
+      "applicability_class": "direct",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"low": 0.005, "high": 100, "unit": "GeV"},
+      "coupling_range": {"name": "epsilon", "low": 1e-10, "high": 1e-6, "unit": "1"},
+      "observable": "A' lifetime vs BBN temperature",
+      "required_inputs": ["m_A'", "epsilon", "tau_A' = Gamma(A'->SM)^{-1}", "Y_A' abundance"],
+      "required_observables": ["epsilon", "tau_A'", "Y_A'"],
+      "available_observables": ["m_A' from model"],
+      "missing_observables": ["epsilon", "tau_A'", "Y_A'"],
+      "units": {},
+      "conventions": {"epsilon": "Coy et al. 2025 convention. Lower bound on epsilon from tau' < 0.2 s."},
+      "applicability": "Applies to A' that decays to SM. For m_A' ~ 300-700 MeV, A'->e+e- and A'->hadrons give tau' < 0.2 s requiring epsilon > 10^{-8}. This is a LOWER bound on epsilon.",
+      "tested_subregion": {"mA'": [0.31, 0.67], "unit": "GeV", "epsilon": "greater_than_approx_1e-8"},
+      "applicability_notes": [
+        "BBN gives a lower bound, not upper bound, on epsilon for tau' < 0.2 s",
+        "If A' decays predominantly to dark sector (rho, A'*), this constraint may be modified",
+        "Assumes A' has a thermal or comparable abundance"
+      ],
+      "source": {
+        "title": "Light from darkness: history of a hot dark sector",
+        "arxiv_id": "2405.10792",
+        "authors": "Coy, Kimus, Tytgat",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-005",
+      "name": "BBN dark scalar (rho) decay constraint",
+      "category": "BBN",
+      "description": "Dark scalar rho mixing with Higgs via lambda_HPhi. For sin^2(theta) > few x 10^{-7}, rho decays during BBN affecting element abundances.",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": ["rho"],
+      "mass_range": {"low": 0.031, "high": 0.071, "unit": "GeV"},
+      "coupling_range": {"name": "lambda_HPhi / sin^2(theta)", "low": 1e-12, "high": 1e-6, "unit": "1"},
+      "observable": "rho lifetime and decay to e+e- vs BBN constraints",
+      "required_inputs": ["m_rho", "lambda_HPhi or sin^2(theta)", "BR(rho -> e+e-)", "BR(rho -> hadrons)", "Y_rho abundance"],
+      "required_observables": ["m_rho from model"],
+      "missing_observables": ["lambda_HPhi / sin^2(theta)", "rho lifetime", "BR(rho -> SM)", "Y_rho abundance"],
+      "units": {},
+      "conventions": {"sin^2(theta)": "Mixing angle with SM Higgs. sin^2(theta) = (lambda_HPhi * v_dark * v_SM / m_h^2)^2"},
+      "applicability": "BBN constraints on scalars with lifetime tau > 0.1 s. For m_rho=50-100 MeV, decays to e+e- dominate. Excludes sin^2(theta) > 10^{-7} (short lifetime + overproduction) and 10^{-11} < sin^2(theta) < 10^{-7} (long-lived + CMB/BBN).",
+      "tested_subregion": {"m_rho": [0.031, 0.071], "unit": "GeV", "sin^2(theta)": "excluded_if_greater_than_1e-7"},
+      "applicability_notes": [
+        "Full constraint requires computing rho production (freeze-in) and decay",
+        "Different mass regimes have different dominant decay channels",
+        "For m_rho < 2m_mu ~ 211 MeV, only e+e- and gamma gamma channels are open",
+        "rho -> e+e- leads to electromagnetic energy injection constrained by BBN and CMB"
+      ],
+      "source": {
+        "title": "Cosmological beam dump: constraints on dark scalars mixed with the Higgs boson",
+        "arxiv_id": "1812.07585",
+        "authors": "Fradette, Pospelov, Pradler, Ritz",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-006",
+      "name": "CMB energy injection from decaying rho",
+      "category": "CMB",
+      "description": "Planck CMB power spectrum constrains energy injection from decaying particles at z < 1100. For m_rho=50-100 MeV, e+e- final state gives strong constraints.",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": ["rho"],
+      "mass_range": {"low": 0.031, "high": 0.071, "unit": "GeV"},
+      "coupling_range": {"name": "lambda_HPhi / sin^2(theta)", "low": 1e-12, "high": 1e-9, "unit": "1"},
+      "observable": "CMB anisotropy constraints on decaying particles with tau > 10^13 s",
+      "required_inputs": ["m_rho", "sin^2(theta)", "tau_rho", "BR(rho -> e+e-)", "Y_rho"],
+      "required_observables": ["m_rho from model"],
+      "missing_observables": ["sin^2(theta)", "tau_rho", "BR(rho -> e+e-)", "Y_rho"],
+      "units": {},
+      "conventions": {"sin^2(theta)": "Scalar-Higgs mixing angle. Lifetime scales as tau ~ 10^{14} s * (10^{-10}/theta^2) * (100 MeV/m_rho)"},
+      "applicability": "CMB excludes sin^2(theta) ~ 10^{-11} to 10^{-10} for m_rho=50-100 MeV decaying to e+e- with tau > 10^13 s. Combined with BBN, the window 10^{-11} < sin^2(theta) < 10^{-7} is excluded.",
+      "tested_subregion": {"m_rho": [0.031, 0.071], "unit": "GeV", "sin^2(theta)": "excluded_if_10^{-11}_to_10^{-7}"},
+      "applicability_notes": [
+        "CMB constraint is the strongest probe for long-lived particles (tau > 10^13 s)",
+        "Effective deposition fraction f_eff ~ 1 for e+e- final state at these masses",
+        "Combined BBN+CMB exclusion covers 10^{-11} < theta < 10^{-7}"
+      ],
+      "source": {
+        "title": "Cosmological beam dump: constraints on dark scalars mixed with the Higgs boson",
+        "arxiv_id": "1812.07585",
+        "authors": "Fradette, Pospelov, Pradler, Ritz",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-007",
+      "name": "Delta N_eff from dark radiation",
+      "category": "Neff",
+      "description": "Additional relativistic degrees of freedom in the dark sector (A': 3 dofs, rho: 1 dof). With xi=1, Delta N_eff exceeds Planck bounds.",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": ["A'", "rho"],
+      "mass_range": {"low": 0.001, "high": 10, "unit": "GeV"},
+      "coupling_range": {"name": "xi = T_dark/T_SM", "low": 1, "high": 1, "unit": "1"},
+      "observable": "Delta N_eff = (8/7) * (xi)^4 * (g_dark_eff / g_gamma_eff) * (g*S(T)/g*S(T_dark))^{4/3}",
+      "required_inputs": ["xi", "T_dark/T_SM", "dark sector dofs", "decoupling temperature"],
+      "required_observables": ["m_A', m_rho from model"],
+      "missing_observables": ["xi as function of T", "dark sector decoupling temperature"],
+      "units": {},
+      "conventions": {"Delta N_eff": "Planck 2018: N_eff = 2.99+/-0.17 -> Delta N_eff < 0.3 at 95% CL"},
+      "applicability": "If xi=1 and T > m_A',m_rho, dark sector has 4 bosonic dofs giving Delta N_eff ~ 0.57. Exceeds Planck 95% CL bound (0.3). Requires either xi < 1 or non-thermal dark sector.",
+      "tested_subregion": {"xi": [1, 1], "Delta_N_eff": "approx_0.57", "Planck_bound": "less_than_0.3"},
+      "applicability_notes": [
+        "This is a serious tension with the xi=1 assumption",
+        "If dark sector is not thermalized with SM, xi may be much smaller",
+        "After supercooled FOPT, the dark sector reheats but may have negligible abundance at BBN",
+        "Need to compute actual dark sector energy density at BBN/CMB epoch"
+      ],
+      "source": {
+        "title": "Planck 2018 results. VI. Cosmological parameters",
+        "arxiv_id": "1807.06209",
+        "authors": "Planck Collaboration",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-008",
+      "name": "Perturbativity bound (g_D)",
+      "category": "theory",
+      "description": "Gauge coupling must satisfy g_D < sqrt(4*pi) for perturbativity; g_D^2/(4*pi) < 1.",
+      "applicability_class": "direct",
+      "constraint_applied": true,
+      "affected_particles": ["A'", "rho"],
+      "mass_range": {"low": null, "high": null, "unit": null},
+      "coupling_range": {"name": "g_D", "low": 0.1, "high": 3.54, "unit": "1"},
+      "observable": "g_D and g_D^2/(4*pi) < 1",
+      "required_inputs": ["g_D"],
+      "required_observables": [],
+      "available_observables": ["g_D = 0.509-0.545 from 1-sigma"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {"g_D": "Dimensionless gauge coupling. Standard perturbativity: g_D^2/(4*pi) < 1."},
+      "applicability": "Satisfied: g_D^2/(4*pi) = 0.082-0.095, well below 1.",
+      "tested_subregion": {"g_D": [0.509, 0.545], "status": "satisfied"},
+      "applicability_notes": [],
+      "source": {
+        "title": "Standard quantum field theory perturbativity criterion",
+        "arxiv_id": "N/A",
+        "authors": "N/A",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "CONST-009",
+      "name": "Coleman-Weinberg consistency (beta_lambda > 0)",
+      "category": "theory",
+      "description": "Radiative symmetry breaking via CW mechanism requires beta_lambda > 0 for the scalar quartic coupling.",
+      "applicability_class": "direct",
+      "constraint_applied": true,
+      "affected_particles": ["rho", "Phi"],
+      "mass_range": {"low": null, "high": null, "unit": null},
+      "coupling_range": {"name": "g_D", "low": 0.49, "high": 1.3, "unit": "1"},
+      "observable": "beta_lambda = 3*g_D^4/(8*pi^2)",
+      "required_inputs": ["g_D"],
+      "required_observables": [],
+      "available_observables": ["g_D = 0.509-0.545 from 1-sigma"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {"beta_lambda": "One-loop quartic beta function. Positive = boson-driven CW."},
+      "applicability": "Satisfied: beta_lambda = 0.0025-0.0034 > 0. Boson-dominated CW mechanism works.",
+      "tested_subregion": {"g_D": [0.509, 0.545], "beta_lambda": [0.0025, 0.0034], "status": "satisfied"},
+      "applicability_notes": [],
+      "source": {
+        "title": "Coleman and Weinberg, Phys. Rev. D 7, 1888 (1973)",
+        "arxiv_id": "N/A",
+        "authors": "Coleman, Weinberg",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "CONST-010",
+      "name": "Scalar mixing from Higgs signal strength",
+      "category": "collider",
+      "description": "Higgs boson production and decay rates constrain mixing with a new scalar. Exotic Higgs decays h -> rho+rho are possible if m_rho < m_h/2.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": ["rho"],
+      "mass_range": {"low": null, "high": null, "unit": null},
+      "coupling_range": {"name": "lambda_HPhi / sin^2(theta)", "low": null, "high": 0.01, "unit": "1"},
+      "observable": "BR(h -> exotic) and Higgs signal strength constraints",
+      "required_inputs": ["lambda_HPhi or sin^2(theta)", "m_rho", "h-rho-rho coupling"],
+      "required_observables": ["m_rho from model"],
+      "missing_observables": ["lambda_HPhi or sin^2(theta)", "BR(h -> rho+rho)", "h-rho-rho coupling"],
+      "units": {},
+      "conventions": {"sin^2(theta)": "Scalar-Higgs mixing. BR(h -> exotic) < 10-20% at 95% CL."},
+      "applicability": "For m_rho=50-100 MeV (<< m_h/2), h -> rho+rho is kinematically allowed. Constraint on lambda_HPhi depends on whether rho acquires vev-like coupling to Higgs.",
+      "tested_subregion": {"m_rho": [0.031, 0.071], "unit": "GeV", "lambda_HPhi": "less_than_approx_0.01_for_weak_mixing"},
+      "applicability_notes": [
+        "CMS EXO-24-034 (2025) probes h->SS->mu+mu- h+h- for m_S=0.4-2 GeV",
+        "However m_rho=50-71 MeV is below CMS sensitivity range",
+        "LEP constraints on light Higgs-like scalar: sin^2(theta) < 0.1-0.2"
+      ],
+      "source": {
+        "title": "Combining LEP and LHC to bound the Higgs Width",
+        "arxiv_id": "1504.02458",
+        "authors": "Falkowski, Grosserura, Sloth, Valkenburg",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-011",
+      "name": "Beam dump constraints on dark scalar (CHARM, PS191, LSND)",
+      "category": "beam_dump",
+      "description": "Fixed-target experiments search for scalars produced in K/pi decays, decaying to e+e- pairs.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": ["rho"],
+      "mass_range": {"low": 0.050, "high": 0.200, "unit": "GeV"},
+      "coupling_range": {"name": "sin^2(theta)", "low": 1e-8, "high": 1e-6, "unit": "1"},
+      "observable": "Scalar production in K decays, detected via e+e- decays",
+      "required_inputs": ["m_rho", "sin^2(theta)", "BR(rho -> e+e-)"],
+      "required_observables": ["m_rho from model"],
+      "missing_observables": ["sin^2(theta)", "BR(rho -> e+e-)"],
+      "units": {},
+      "conventions": {"sin^2(theta)": "Scalar-Higgs mixing angle. PS191 excludes sin^2(theta) ~ 10^{-7}-3x10^{-7} for m=100-150 MeV."},
+      "applicability": "Partially covers the 1-sigma m_rho range. PS191 covers 100-150 MeV (partially overlapping 50-71 MeV upper end). CHARM covers 100-200 MeV range.",
+      "tested_subregion": {"m_rho": [0.05, 0.1], "unit": "GeV", "sin^2(theta)": "less_than_approx_1e-6"},
+      "applicability_notes": [
+        "PS191 constraint strongest at 100-150 MeV; weaker below 100 MeV",
+        "Kaon production threshold: K -> pi + rho requires m_rho < m_K - m_pi ~ 360 MeV (satisfied)",
+        "Exact constraint requires computing K->pi+rho production rate"
+      ],
+      "source": {
+        "title": "Constraints on light scalars from PS191 results",
+        "arxiv_id": "2105.11102",
+        "authors": "Gorbunov, Krasnov, Suvorov",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-012",
+      "name": "Stellar cooling (RGB/HB) from A'",
+      "category": "stellar",
+      "description": "Resonant production of A' in stellar cores modifies energy loss rates. Strongest for m_A' ~ plasma frequency (keV range).",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"low": 0.000001, "high": 0.100, "unit": "GeV"},
+      "coupling_range": {"name": "epsilon", "low": 1e-16, "high": 1e-14, "unit": "1"},
+      "observable": "Stellar energy loss rate from A' production",
+      "required_inputs": ["m_A'", "epsilon", "T_star", "plasma frequency"],
+      "required_observables": ["m_A' from model"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {"epsilon": "Dolan et al. (2023) convention. Resonant production when m_A' ~ omega_pl."},
+      "applicability": "Not applicable: m_A' = 300-700 MeV >> thermal plasma frequencies in stellar cores (~keV). Production is exponentially suppressed.",
+      "tested_subregion": {"mA'": [0.31, 0.67], "unit": "GeV", "status": "not_applicable"},
+      "applicability_notes": [
+        "Stellar cooling bound applies for m_A' < O(100 keV)",
+        "For m_A' ~ 300-700 MeV, Boltzmann factor exp(-m_A'/T) suppresses production"
+      ],
+      "source": {
+        "title": "Constraining dark photons with self-consistent simulations of globular cluster stars",
+        "arxiv_id": "2306.13335",
+        "authors": "Dolan, Hiskens, Volkas",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-013",
+      "name": "SN1987A cooling from A'",
+      "category": "supernova",
+      "description": "Traditional SN1987A cooling bound from neutrino signal duration. A' production in SN core carries away energy.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"low": 0.001, "high": 0.200, "unit": "GeV"},
+      "coupling_range": {"name": "epsilon", "low": 1e-10, "high": 1e-5, "unit": "1"},
+      "observable": "SN1987A neutrino signal duration constraint on A' cooling",
+      "required_inputs": ["m_A'", "epsilon", "A' production rate in SN core"],
+      "required_observables": ["m_A' from model"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {"epsilon": "Standard SN cooling bound applies for m_A' < ~200 MeV"},
+      "applicability": "Not applicable: m_A' = 300-700 MeV > 200 MeV upper bound. Production in SN core (T_core ~ 30-60 MeV) is Boltzmann-suppressed by exp(-m_A'/T).",
+      "tested_subregion": {"mA'": [0.31, 0.67], "unit": "GeV", "status": "not_applicable"},
+      "applicability_notes": [
+        "Traditional SN cooling bound: m_A' < 200 MeV",
+        "New gain-layer constraint (Caputo 2025) strongest at 0.1-0.4 MeV",
+        "Boltzmann factor for m_A'=300 MeV, T=30 MeV: exp(-10) ~ 4e-5, strongly suppressing production"
+      ],
+      "source": {
+        "title": "Cooling the Shock: New Supernova Constraints on Dark Photons",
+        "arxiv_id": "2502.01731",
+        "authors": "Caputo, Janka, Raffelt, Yun",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-014",
+      "name": "Direct detection (XENONnT, LZ) dark photon absorption",
+      "category": "direct_detection",
+      "description": "Direct detection experiments search for absorption of dark photon dark matter via electron recoils.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"low": 1e-06, "high": 0.001, "unit": "GeV"},
+      "coupling_range": {"name": "epsilon", "low": null, "high": null, "unit": null},
+      "observable": "Dark photon absorption signal in LXe TPC",
+      "required_inputs": ["m_A'", "epsilon", "dark photon relic abundance"],
+      "required_observables": ["m_A' from model"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {"epsilon": "XENONnT constrains sub-keV dark photon absorption"},
+      "applicability": "Not applicable: m_A' = 300-700 MeV >> keV range accessible to direct detection via absorption.",
+      "tested_subregion": {"mA'": [0.31, 0.67], "unit": "GeV", "status": "not_applicable"},
+      "applicability_notes": [
+        "Direct detection probes sub-MeV dark photon via absorption",
+        "For MeV-GeV dark photons, collider/beam-dump constraints dominate"
+      ],
+      "source": {
+        "title": "XENONnT Search for Light Dark Matter in Low-Energy Ionization Signals",
+        "arxiv_id": "N/A",
+        "authors": "XENON Collaboration",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "CONST-015",
+      "name": "Delta N_eff from residual dark dofs after PT",
+      "category": "Neff",
+      "description": "After the supercooled FOPT, the dark sector reheats. Residual dark sector particles may contribute to radiation density at BBN/CMB.",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": ["A'", "rho"],
+      "mass_range": {"low": null, "high": null, "unit": null},
+      "coupling_range": {"name": "T_reh, n_dark/s", "low": null, "high": null, "unit": null},
+      "observable": "Effective number of relativistic species after PT and reheating",
+      "required_inputs": ["T_reh", "alpha", "beta/H", "n_A'/s", "n_rho/s"],
+      "required_observables": ["alpha, beta/H from PTArcade"],
+      "missing_observables": ["Residual dark particle abundance after reheating"],
+      "units": {},
+      "conventions": {"Delta N_eff": "CMB Planck 2018: Delta N_eff < 0.3 at 95% CL. BBN: Delta N_eff < 0.4."},
+      "applicability": "The very strong supercooling (alpha ~ 10^11) means the dark sector is extremely cold after PT. Most energy is dumped into GWs and reheating of SM. Residual dark particle abundance may be negligible, but this needs computation.",
+      "tested_subregion": {"alpha": [1e5, 1e15], "T_reh": "MeV_scale", "status": "needs_computation"},
+      "applicability_notes": [
+        "The supercooled PT exponentially dilutes dark sector particle number densities",
+        "Reheating temperature T_reh ~ O(MeV) from FOPT results",
+        "Need to compute the residual dark sector energy density at BBN epoch"
+      ],
+      "source": {
+        "title": "Supercooled phase transitions: why thermal history of hidden sector matters",
+        "arxiv_id": "2602.14324",
+        "authors": "Li, Nath",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-016",
+      "name": "Classical scale invariance stability (no tree-level mass term)",
+      "category": "theory",
+      "description": "Model must not have dimensionful parameters in the tree-level Lagrangian. Checked against model definition.",
+      "applicability_class": "direct",
+      "constraint_applied": true,
+      "affected_particles": ["Phi"],
+      "mass_range": {"low": null, "high": null, "unit": null},
+      "coupling_range": {"name": null, "low": null, "high": null, "unit": null},
+      "observable": "Absence of tree-level mass term for Phi and A'",
+      "required_inputs": [],
+      "required_observables": [],
+      "available_observables": ["Model has no tree-level mass term"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {},
+      "applicability": "Confirmed: Lagrangian contains only |D_mu Phi|^2 - lambda|Phi|^4. No mass term.",
+      "tested_subregion": {"status": "satisfied"},
+      "applicability_notes": [],
+      "source": {
+        "title": "Model specification (handoff_model.json)",
+        "arxiv_id": "N/A",
+        "authors": "N/A",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "CONST-017",
+      "name": "BBN: additional relativistic dofs at T ~ MeV",
+      "category": "BBN",
+      "description": "Additional relativistic degrees of freedom during BBN modify expansion rate and element abundances.",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": ["A'", "rho"],
+      "mass_range": {"low": null, "high": null, "unit": null},
+      "coupling_range": {"name": "xi = T_dark/T_SM", "low": 1, "high": 1, "unit": "1"},
+      "observable": "Delta N_eff from additional relativistic dofs during BBN",
+      "required_inputs": ["T_dark/T_SM", "effective dofs in dark sector"],
+      "required_observables": ["m_A', m_rho from model"],
+      "missing_observables": ["Evolution of dark sector temperature through PT and reheating"],
+      "units": {},
+      "conventions": {"Delta N_eff": "Planck+BBN: Delta N_eff < 0.4 at BBN."},
+      "applicability": "With xi=1, dark sector 4 dofs give Delta N_eff ~ 0.57, exceeding BBN bound. But after supercooled PT, residual abundance of massive particles may be negligible. Need to compute actual energy density distribution.",
+      "tested_subregion": {"xi": [1, 1], "Delta_N_eff_estimate": 0.57, "Planck_BBN_bound": "less_than_0.4"},
+      "applicability_notes": [
+        "The xi=1 assumption is likely violated after the supercooled PT",
+        "Need to compute post-PT dark sector temperature and density"
+      ],
+      "source": {
+        "title": "Planck 2018 results. VI. Cosmological parameters",
+        "arxiv_id": "1807.06209",
+        "authors": "Planck Collaboration",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-018",
+      "name": "NA62 dark photon visible decay A' -> mu+mu-",
+      "category": "beam_dump",
+      "description": "NA62 searched for A' -> mu+mu- in beam-dump mode with 400 GeV protons. Excludes 215-550 MeV mass range.",
+      "applicability_class": "direct",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"low": 0.215, "high": 0.550, "unit": "GeV"},
+      "coupling_range": {"name": "epsilon", "low": 1e-7, "high": 1e-5, "unit": "1"},
+      "observable": "epsilon vs m_A' from NA62 beam dump mu+mu- search",
+      "required_inputs": ["m_A'", "epsilon", "BR(A' -> mu+mu-)"],
+      "required_observables": ["m_A' from model"],
+      "missing_observables": ["epsilon", "BR(A' -> mu+mu-)"],
+      "units": {},
+      "conventions": {"epsilon": "90% CL limits from 1.4e17 protons on dump (2021 data). Visible decay search."},
+      "applicability": "Partially overlaps 1-sigma mA' range (0.31-0.55 GeV). Covers lower end. Upper end (0.55-0.67 GeV) not covered.",
+      "tested_subregion": {"mA'": [0.215, 0.55], "unit": "GeV", "epsilon": "less_than_approx_1e-5"},
+      "applicability_notes": [
+        "NA62 results complementary to LHCb prompt search",
+        "Only visible mu+mu- channel probed"
+      ],
+      "source": {
+        "title": "Search for dark photon decays to mu+mu- at NA62",
+        "arxiv_id": "N/A",
+        "authors": "NA62 Collaboration",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "CONST-019",
+      "name": "KLOE-2 dark photon constraints",
+      "category": "collider",
+      "description": "KLOE-2 search for dark photons in e+e- -> U gamma, U -> pi+pi- in the rho-omega mass region.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"low": 0.527, "high": 0.568, "unit": "GeV"},
+      "coupling_range": {"name": "epsilon", "low": 1e-4, "high": 1e-3, "unit": "1"},
+      "observable": "epsilon from e+e- -> U gamma, U -> pi+pi-",
+      "required_inputs": ["m_A'", "epsilon", "BR(A' -> pi+pi-)"],
+      "required_observables": ["m_A' from model"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {"epsilon": "KLOE-2 probes mA' ~ 527-568 MeV (rho-omega interference)"},
+      "applicability": "Not directly applicable: KLOE-2 probes a narrow mass window that overlaps only a small part of our range. LHCb gives stronger constraints over the full range.",
+      "tested_subregion": {"mA'": [0.527, 0.568], "status": "superseded_by_LHCb"},
+      "applicability_notes": [
+        "LHCb provides stronger constraints across this entire mass range"
+      ],
+      "source": {
+        "title": "KLOE-2 dark photon search in pi+pi- gamma final state",
+        "arxiv_id": "N/A",
+        "authors": "KLOE-2 Collaboration",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "CONST-020",
+      "name": "Supernova gamma-ray constraints on dark photon",
+      "category": "supernova",
+      "description": "Gamma rays from A' decays outside SN1987A constrain dark photon parameter space.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["A'"],
+      "mass_range": {"low": 0.001, "high": 1, "unit": "GeV"},
+      "coupling_range": {"name": "epsilon", "low": null, "high": null, "unit": null},
+      "observable": "Prompt and diffuse gamma rays from SN1987A from A' decays",
+      "required_inputs": ["m_A'", "epsilon", "A' production in SN", "tau_A'"],
+      "required_observables": ["m_A' from model"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {"epsilon": "Gamma-ray constraints apply if A' is produced in SN core and decays outside emitting gamma rays."},
+      "applicability": "Not applicable: m_A'=300-700 MeV production in SN core is Boltzmann-suppressed.",
+      "tested_subregion": {"mA'": [0.31, 0.67], "status": "not_applicable"},
+      "applicability_notes": [
+        "Production suppressed by exp(-m_A'/T_core) with T_core ~ 30-60 MeV"
+      ],
+      "source": {
+        "title": "High-energy neutrino signals from supernova explosions: a new window into dark photon parameter space",
+        "arxiv_id": "2404.19191",
+        "authors": "Syvolap, Ruchayskiy",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "CONST-021",
+      "name": "Dark rho production via Higgs mixing at LEP/LHC",
+      "category": "collider",
+      "description": "Search for rho produced via Higgs mixing in rare meson decays or exotic Higgs decays.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": ["rho"],
+      "mass_range": {"low": 0.031, "high": 0.071, "unit": "GeV"},
+      "coupling_range": {"name": "sin^2(theta)", "low": 1e-7, "high": 1e-3, "unit": "1"},
+      "observable": "Exotic Higgs decays h -> rho+rho; rare meson decays (B, K)",
+      "required_inputs": ["m_rho", "sin^2(theta)", "BR(rho -> SM)", "rho production cross-section"],
+      "required_observables": ["m_rho from model"],
+      "missing_observables": ["sin^2(theta)", "BR(rho -> e+e-)", "BR(rho -> hadrons)"],
+      "units": {},
+      "conventions": {"sin^2(theta)": "Scalar-Higgs mixing. CMS probes h->SS for m_S > 0.4 GeV."},
+      "applicability": "m_rho = 50-71 MeV is below CMS h->SS sensitivity threshold (0.4 GeV). Kaon decay experiments (NA62, E949) cover complementary range. Recast needed.",
+      "tested_subregion": {"m_rho": [0.031, 0.071], "status": "recast_needed"},
+      "applicability_notes": [
+        "CMS EXO-24-034 (2025): h->SS->mu+mu- h+h- for m_S=0.4-2 GeV -> m_rho too light",
+        "NA62, E949 constrain K->pi+invisible, covering m_rho < m_K - m_pi",
+        "LEP constraint: sin^2(theta) < 0.1 from Z lineshape"
+      ],
+      "source": {
+        "title": "CMS search for light scalars via the Higgs portal (2025)",
+        "arxiv_id": "EXO-24-034",
+        "authors": "CMS Collaboration",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "CONST-022",
+      "name": "Structure formation constraints on warm dark matter",
+      "category": "structure_formation",
+      "description": "Lyman-alpha forest constraints on light thermal relic dark matter.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["rho"],
+      "mass_range": {"low": null, "high": null, "unit": null},
+      "coupling_range": {"name": null, "low": null, "high": null, "unit": null},
+      "observable": "Lyman-alpha forest power spectrum constraints",
+      "required_inputs": [],
+      "required_observables": [],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {},
+      "applicability": "Not applicable: the model has no DM candidate. The rho and A' are unstable and decay via portal couplings.",
+      "tested_subregion": {"status": "no_DM_candidate"},
+      "applicability_notes": [
+        "Model contains no fermionic DM candidate",
+        "Bosonic particles decay via portals"
+      ],
+      "source": {
+        "title": "No DM candidate in model",
+        "arxiv_id": "N/A",
+        "authors": "N/A",
+        "citation_verified": false
+      }
+    },
+    {
+      "id": "CONST-023",
+      "name": "Dark scalar freeze-in and relic overproduction",
+      "category": "thermalization",
+      "description": "The dark scalar rho is produced via Higgs mixing portal. For large mixing, it thermalizes and freeze-out overproduces relic density. For small mixing, freeze-in yield must decay before BBN/CMB.",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": ["rho"],
+      "mass_range": {"low": 0.031, "high": 0.071, "unit": "GeV"},
+      "coupling_range": {"name": "sin^2(theta)", "low": 1e-7, "high": 1e-4, "unit": "1"},
+      "observable": "Yield Y_S from freeze-in via Higgs mixing",
+      "required_inputs": ["m_rho", "sin^2(theta)", "production cross-section"],
+      "required_observables": ["m_rho from model"],
+      "missing_observables": ["sin^2(theta)", "Y_rho"],
+      "units": {},
+      "conventions": {"sin^2(theta)": "For sin^2(theta) > 10^{-6}, rho thermalizes. Freeze-in yield Y_S ~ 3e11 * theta^2 for smaller mixing."},
+      "applicability": "sin^2(theta) > 10^{-6} leads to thermal freeze-out and overproduction -> excluded. For 10^{-12} < sin^2(theta) < 10^{-7}, freeze-in produces subdominant population that must decay before BBN/CMB.",
+      "tested_subregion": {"m_rho": [0.031, 0.071], "sin^2(theta)": "greater_than_1e-6_excluded"},
+      "applicability_notes": [
+        "Thermalization threshold: sin^2(theta) ~ 10^{-6} for scalar masses ~ 100 MeV",
+        "Need to compute freeze-in abundance to set CMB/BBN constraints precisely",
+        "Decoupling temperature of dark sector from SM determines xi evolution"
+      ],
+      "source": {
+        "title": "Cosmological beam dump: constraints on dark scalars mixed with the Higgs boson",
+        "arxiv_id": "1812.07585",
+        "authors": "Fradette, Pospelov, Pradler, Ritz",
+        "citation_verified": true
+      }
+    }
+  ],
+  "missing_calculations": [
+    {
+      "observable": "A' decay width and lifetime (Gamma_total)",
+      "needed_for_constraints": ["CONST-001", "CONST-002", "CONST-003", "CONST-004", "CONST-018"],
+      "required_inputs": ["m_A'", "epsilon", "BR(A' -> l+l-)", "BR(A' -> hadrons)", "BR(A' -> rho + A'*)"],
+      "suggested_backend_module": "new: compute_Aprime_decay.py",
+      "validation_checks": ["Total width includes all open channels", "Consistency with mA' range 0.3-0.7 GeV", "Proper treatment of hadronic decays via R-ratio"],
+      "priority": "high"
+    },
+    {
+      "observable": "A' branching fractions (SM vs dark sector)",
+      "needed_for_constraints": ["CONST-001", "CONST-002", "CONST-003", "CONST-004", "CONST-018"],
+      "required_inputs": ["m_A'", "epsilon", "g_D", "m_rho", "kinematics of A' -> rho + A'*"],
+      "suggested_backend_module": "new: compute_Aprime_BR.py",
+      "validation_checks": ["BRs sum to 1", "Visible vs invisible channel competition"],
+      "priority": "high"
+    },
+    {
+      "observable": "rho decay width and lifetime (Gamma_rho)",
+      "needed_for_constraints": ["CONST-005", "CONST-006", "CONST-010", "CONST-011", "CONST-021"],
+      "required_inputs": ["m_rho", "lambda_HPhi or sin^2(theta)", "BR(rho -> e+e-)", "BR(rho -> hadrons)", "BR(rho -> gamma gamma)"],
+      "suggested_backend_module": "new: compute_rho_decay.py",
+      "validation_checks": ["Total width includes all open SM channels", "Consistency with m_rho range 30-70 MeV", "Exclusive hadronic decays via chiral perturbation theory"],
+      "priority": "high"
+    },
+    {
+      "observable": "rho branching fractions (all channels)",
+      "needed_for_constraints": ["CONST-005", "CONST-006", "CONST-010", "CONST-011", "CONST-021", "CONST-023"],
+      "required_inputs": ["m_rho", "sin^2(theta)", "rho -> A'+A' kinematics (if allowed)"],
+      "suggested_backend_module": "new: compute_rho_BR.py",
+      "validation_checks": ["BRs sum to 1", "e+e- dom. for m_rho < 2m_mu", "pi+pi- open for m_rho > 280 MeV"],
+      "priority": "high"
+    },
+    {
+      "observable": "Dark scalar freeze-in yield Y_rho",
+      "needed_for_constraints": ["CONST-005", "CONST-006", "CONST-023"],
+      "required_inputs": ["m_rho", "sin^2(theta)", "production cross-section (EW-scale processes)", "reheating temperature history"],
+      "suggested_backend_module": "new: compute_rho_abundance.py",
+      "validation_checks": ["Y_S ~ 3e11 * theta^2 for m_rho << M_W", "Comparison with critical density", "Time-temperature relation consistency"],
+      "priority": "high"
+    },
+    {
+      "observable": "Dark photon decay width to SM (Gamma_SM)",
+      "needed_for_constraints": ["CONST-004", "CONST-007", "CONST-017"],
+      "required_inputs": ["m_A'", "epsilon", "R(sigma(e+e- -> hadrons)/sigma(e+e- -> mu+mu-))"],
+      "suggested_backend_module": "new: compute_Aprime_decay_to_SM.py",
+      "validation_checks": ["Correct R-ratio interpolation for m_A'=300-700 MeV", "Proper inclusion of rho, omega resonances"],
+      "priority": "high"
+    },
+    {
+      "observable": "Dark sector temperature evolution and xi(T)",
+      "needed_for_constraints": ["CONST-007", "CONST-015", "CONST-017"],
+      "required_inputs": ["initial xi_0 = 1", "portal couplings epsilon, lambda_HPhi", "dark sector masses m_A', m_rho", "expansion history"],
+      "suggested_backend_module": "new: evolve_dark_temperature.py",
+      "validation_checks": ["Boltzmann equations for energy density evolution", "Decoupling temperature from SM", "Post-PT reheating consistency"],
+      "priority": "high"
+    },
+    {
+      "observable": "Residual dark particle abundance after PT reheating",
+      "needed_for_constraints": ["CONST-015", "CONST-017"],
+      "required_inputs": ["T_reh", "alpha", "beta/H", "n_A'/s", "n_rho/s after PT"],
+      "suggested_backend_module": "new: post_PT_abundance.py",
+      "validation_checks": ["Conservation of entropy after PT", "Dilution factor from supercooling", "Reheat temperature consistency with FOPT results"],
+      "priority": "medium"
+    }
+  ]
+}

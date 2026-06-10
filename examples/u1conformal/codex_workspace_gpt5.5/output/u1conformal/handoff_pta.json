@@ -1,0 +1,321 @@
+{
+  "model": "u1conformal",
+  "agent": "pta-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-10",
+  "branch": "ptarcade_campaign",
+  "created_from": [
+    "output/u1conformal/handoff_model.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/fopt_benchmarks.csv",
+    "output/u1conformal/fopt_model.py",
+    "docs/SPECTRUM.md",
+    "docs/PTARCADE.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_PTA_SCHEMA.md",
+    "backend/spectrum.py",
+    "backend/pta_violin_windows.csv",
+    "backend/plot_violins.py",
+    "https://arxiv.org/abs/2511.15687",
+    "https://arxiv.org/abs/2209.04369"
+  ],
+  "commands": [
+    "MPLCONFIGDIR=output/u1conformal/.mplconfig XDG_CACHE_HOME=output/u1conformal/.cache conda run -n ptarcade python output/u1conformal/pta_scan.py --quick",
+    "MPLCONFIGDIR=output/u1conformal/.mplconfig XDG_CACHE_HOME=output/u1conformal/.cache conda run -n ptarcade python output/u1conformal/pta_scan.py",
+    "MPLCONFIGDIR=output/u1conformal/.mplconfig XDG_CACHE_HOME=output/u1conformal/.cache conda run -n ptarcade python -c \"import numpy as np, sys; sys.path.insert(0,'output/u1conformal'); import ptarcade_model as m; y=m.spectrum(np.array([1e-8,2e-8]), np.log10(0.5), 0.6); print(y.tolist())\"",
+    "MPLCONFIGDIR=output/u1conformal/.mplconfig XDG_CACHE_HOME=output/u1conformal/.cache conda run -n ptarcade ptarcade -m output/u1conformal/ptarcade_model.py -c output/u1conformal/ptarcade_config_smoke.py 2>&1 | tee output/u1conformal/logs/ptarcade_smoke.log",
+    "MPLCONFIGDIR=output/u1conformal/.mplconfig XDG_CACHE_HOME=output/u1conformal/.cache conda run -n ptarcade ptarcade -m output/u1conformal/ptarcade_model.py -c output/u1conformal/ptarcade_config.py 2>&1 | tee output/u1conformal/logs/ptarcade_final.log",
+    "MPLCONFIGDIR=output/u1conformal/.mplconfig XDG_CACHE_HOME=output/u1conformal/.cache conda run -n ptarcade python output/u1conformal/ptarcade_plot.py"
+  ],
+  "files_read": [
+    ".codex/agents/pta-agent.md",
+    ".codex/skills/pta-analysis/SKILL.md",
+    ".codex/skills/ptarcade-campaign/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_PTA_SCHEMA.md",
+    "docs/SPECTRUM.md",
+    "docs/PTARCADE.md",
+    "backend/spectrum.py",
+    "backend/plot_violins.py",
+    "backend/pta_violin_windows.csv",
+    "backend/30fCP_30fiRN_3A.core",
+    "output/u1conformal/handoff_model.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/fopt_benchmarks.csv",
+    "output/u1conformal/fopt_model.py"
+  ],
+  "files_written": [
+    "output/u1conformal/pta_spectrum.py",
+    "output/u1conformal/pta_scan.py",
+    "output/u1conformal/pta_benchmark_scan.csv",
+    "output/u1conformal/pta_benchmark_scan_meta.json",
+    "output/u1conformal/pta_benchmark_spectrum.pdf",
+    "output/u1conformal/ptarcade_model.py",
+    "output/u1conformal/ptarcade_config.py",
+    "output/u1conformal/ptarcade_config_smoke.py",
+    "output/u1conformal/ptarcade_plot.py",
+    "output/u1conformal/logs/ptarcade_smoke.log",
+    "output/u1conformal/logs/ptarcade_final.log",
+    "output/u1conformal/chains/np_model/chain_0/chain_1.txt",
+    "output/u1conformal/pta_posteriors.pdf",
+    "output/u1conformal/pta_ptarcade_spectrum.pdf",
+    "output/u1conformal/ptarcade_bayes.json",
+    "output/u1conformal/pta_report.md",
+    "output/u1conformal/handoff_pta.json"
+  ],
+  "warnings": [
+    "The selected bf template is the closest implemented template for a strongly supercooled transition, but microscopic wall friction, runaway conditions, and the bf/dbf partition were not computed.",
+    "The higgsless sound-wave template can also be scored, but the very large-alpha supercooled regime is outside the clean sound-wave validity assumptions.",
+    "PTArcade completed N_samples=100000 and produced finite chains, but no multi-chain convergence or autocorrelation study was performed in this agent run.",
+    "The posterior summary uses log10_v as the PTArcade sampling coordinate for a logarithmic prior on the independent model parameter v."
+  ],
+  "errors": [],
+  "approximations": [
+    "Spectrum efficiency was left at the backend Spectrum default ksw=1.",
+    "FOPT quantities are recomputed through output/u1conformal/fopt_model.py for each sampled model point; no interpolation/cache table is used.",
+    "PTA benchmark scoring uses the tabulated 14-bin violin support in backend/pta_violin_windows.csv and does not extrapolate beyond it."
+  ],
+  "analysis_mode": "benchmark_plus_ptarcade",
+  "pta_parameter_basis": {
+    "independent": {
+      "v": {
+        "units": "GeV",
+        "scan_role": "dark Higgs background vev",
+        "ptarcade_coordinate": "log10_v"
+      },
+      "g_D": {
+        "scan_role": "dark U(1)_D gauge coupling"
+      }
+    },
+    "dependent": {
+      "lambda_Phi": "Coleman-Weinberg/backend-fixed scalar quartic",
+      "beta_lambda": "3 * g_D**4 / (8 * pi**2)",
+      "m_Aprime": "g_D * v",
+      "m_rho": "sqrt(beta_lambda) * v",
+      "alpha": "computed by output/u1conformal/fopt_model.py",
+      "beta_H": "computed by output/u1conformal/fopt_model.py",
+      "Tn": "computed by output/u1conformal/fopt_model.py",
+      "Tp": "computed by output/u1conformal/fopt_model.py",
+      "Treh": "computed by output/u1conformal/fopt_model.py"
+    },
+    "fixed": {
+      "q_Phi": 1,
+      "xi": 1,
+      "template": "bf"
+    }
+  },
+  "spectrum_template": "bf",
+  "template_validity": {
+    "status": "warning",
+    "reason": "The viable PTA-region points have very large alpha and beta/H around 17-32 for the best 14/14 benchmarks, so the arXiv:2511.15687 bulk-flow family is closer than the arXiv:2209.04369 higgsless sound-wave fit. The bf member was selected because the model does not compute dissipative wall-friction inputs. This is a closest-template choice, not a strict first-principles validation."
+  },
+  "benchmark_analysis": {
+    "scan_summary": {
+      "total_points": 343,
+      "viable_points": 303,
+      "boundary_expansions": []
+    },
+    "prior_ranges": {
+      "v": {
+        "scan_min_GeV": 0.0033333333333333335,
+        "scan_max_GeV": 1.7984527509569999,
+        "ptarcade_prior_min_GeV": 0.003,
+        "ptarcade_prior_max_GeV": 5.0
+      },
+      "g_D": {
+        "scan_min": 0.42,
+        "scan_max": 1.02,
+        "ptarcade_prior_min": 0.42,
+        "ptarcade_prior_max": 1.05
+      }
+    },
+    "template_comparison": {
+      "bf": {
+        "best_inside_bins": 14,
+        "best_distance_penalty": 0.0,
+        "validity": "closest selected template with caveats"
+      },
+      "dbf": {
+        "best_inside_bins": 14,
+        "best_distance_penalty": 0.0,
+        "validity": "same bulk-flow reference family, but dissipative inputs are not computed"
+      },
+      "higgsless": {
+        "best_inside_bins": 14,
+        "best_distance_penalty": 0.0,
+        "validity": "not selected because very large alpha/supercooling is outside clean sound-wave assumptions"
+      }
+    },
+    "best_fit_points": [
+      {
+        "rank": 1,
+        "name": "bf_scan_rank_1",
+        "parameters": {
+          "v": 0.5110871655378069,
+          "g_D": 0.6000000000000001
+        },
+        "alpha": 2101160.7305375044,
+        "beta_H": 29.37720461372351,
+        "T_star": 0.045704843302444044,
+        "score": 0.0,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 1.818698817034957e-08,
+        "peak_h2OmegaGW": 1.8279370293000069e-09,
+        "spectrum": {
+          "frequency_Hz": [1.9952623149688828e-09, 3.981071705534969e-09, 5.956621435290109e-09, 7.943282347242822e-09, 1e-08, 1.2676518658578448e-08, 1.4791083881682072e-08, 1.690440931643263e-08, 1.9010782799232996e-08, 2.1134890398366476e-08, 2.322736796357105e-08, 2.535128630497907e-08, 2.7478941531023972e-08, 2.9580124665515465e-08],
+          "h2OmegaGW": [3.0011853432709677e-10, 5.960978845342158e-10, 8.811546339911545e-10, 1.1479920372643692e-09, 1.3901671754458401e-09, 1.6328921841938695e-09, 1.7562396258588389e-09, 1.8180156480904537e-09, 1.82457369476266e-09, 1.7863289478886646e-09, 1.7167495787043883e-09, 1.6254147625670297e-09, 1.5227617023946735e-09, 1.4176212976908053e-09]
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "bf_scan_rank_1"
+        }
+      },
+      {
+        "rank": 2,
+        "name": "bf_scan_rank_2",
+        "parameters": {
+          "v": 1.7984527509569999,
+          "g_D": 0.54
+        },
+        "alpha": 209420642078.82126,
+        "beta_H": 17.096756960498286,
+        "T_star": 0.15268466248827434,
+        "score": 0.0,
+        "inside_bins": 14,
+        "total_bins": 14,
+        "peak_frequency_Hz": 2.9580124665515465e-08,
+        "peak_h2OmegaGW": 2.933597862278273e-09,
+        "spectrum": {
+          "frequency_Hz": [1.9952623149688828e-09, 3.981071705534969e-09, 5.956621435290109e-09, 7.943282347242822e-09, 1e-08, 1.2676518658578448e-08, 1.4791083881682072e-08, 1.690440931643263e-08, 1.9010782799232996e-08, 2.1134890398366476e-08, 2.322736796357105e-08, 2.535128630497907e-08, 2.7478941531023972e-08, 2.9580124665515465e-08],
+          "h2OmegaGW": [2.27014003436996e-10, 4.528103765437916e-10, 6.769401311041606e-10, 9.012295005047568e-10, 1.1313783608256874e-09, 1.4258270721013643e-09, 1.6525236208343146e-09, 1.8719533806125985e-09, 2.0816873721421295e-09, 2.2821582464544758e-09, 2.4669274828788994e-09, 2.6397597231747734e-09, 2.7964107780589413e-09, 2.933597862278273e-09]
+        },
+        "spectrum_file_ref": {
+          "file": "output/u1conformal/pta_benchmark_scan.csv",
+          "spectrum_id": "bf_scan_rank_2"
+        }
+      }
+    ]
+  },
+  "ptarcade_analysis": {
+    "run_status": "warning",
+    "campaign": {
+      "pta_data": "NG15",
+      "mode": "ceffyl",
+      "out_dir": "output/u1conformal/chains",
+      "config_file": "output/u1conformal/ptarcade_config.py",
+      "model_file": "output/u1conformal/ptarcade_model.py",
+      "plot_file": "output/u1conformal/ptarcade_plot.py"
+    },
+    "prior_parameter_basis": {
+      "independent": {
+        "v": {
+          "sampling_coordinate": "log10_v",
+          "prior": "Uniform(log10(0.003), log10(5.0))"
+        },
+        "g_D": {
+          "sampling_coordinate": "g_D",
+          "prior": "Uniform(0.42, 1.05)"
+        }
+      },
+      "dependent": {
+        "alpha": "computed per sample by output/u1conformal/fopt_model.py",
+        "beta_H": "computed per sample by output/u1conformal/fopt_model.py",
+        "Treh": "computed per sample by output/u1conformal/fopt_model.py"
+      },
+      "fixed": {
+        "template": "bf",
+        "N_samples": 100000,
+        "red_components": 14,
+        "gwb_components": 14,
+        "corr": false,
+        "bhb_th_prior": true
+      }
+    },
+    "priors": {
+      "v": {
+        "type": "log10-uniform implemented as Uniform on log10_v",
+        "min_GeV": 0.003,
+        "max_GeV": 5.0
+      },
+      "g_D": {
+        "type": "Uniform",
+        "min": 0.42,
+        "max": 1.05
+      }
+    },
+    "chain_validation": {
+      "chains_found": true,
+      "finite_samples": true,
+      "notes": "PTArcade completed 100000 requested samples with acceptance rate 0.45414. The thinned output chain has 10001 rows in output/u1conformal/chains/np_model/chain_0/chain_1.txt. Posterior and MAP-spectrum plots were generated successfully after fixing the LaTeX parameter labels."
+    },
+    "bayes_estimates": {
+      "bayes_est": {
+        "v": {
+          "geometric_mean_GeV": 0.9014218187402562,
+          "log10_v_mean": -0.04507637251642458,
+          "log10_v_std": 0.22627577938561957
+        },
+        "g_D": {
+          "mean": 0.5487563804652748,
+          "std": 0.026642810964793227
+        }
+      },
+      "credible_regions": {
+        "sigma_1": {
+          "description": "68% credible region",
+          "bounds": {
+            "v": {
+              "low": 0.5364446220230156,
+              "high": 1.474499063088339
+            },
+            "g_D": {
+              "low": 0.5230639416593472,
+              "high": 0.573908524438072
+            }
+          }
+        },
+        "sigma_2": {
+          "description": "95% credible region",
+          "bounds": {
+            "v": {
+              "low": 0.25009862877037864,
+              "high": 1.8628445879745976
+            },
+            "g_D": {
+              "low": 0.5087585881531596,
+              "high": 0.6134887383296125
+            }
+          }
+        },
+        "sigma_3": {
+          "description": "99.7% credible region",
+          "bounds": {
+            "v": {
+              "low": 0.09920270104987264,
+              "high": 2.487809982954475
+            },
+            "g_D": {
+              "low": 0.505801436098087,
+              "high": 0.6598683196504019
+            }
+          }
+        }
+      },
+      "evidence": null,
+      "evidence_error": null
+    },
+    "map_estimates": {
+      "map_est": {
+        "v": 1.3387506946928558,
+        "g_D": 0.5357342711696239
+      },
+      "map_value": null
+    }
+  },
+  "constraint_summary": []
+}

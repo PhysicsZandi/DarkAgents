@@ -1,0 +1,370 @@
+{
+  "model": "u1conformal",
+  "agent": "report-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-10",
+  "branch": "report",
+  "created_from": [
+    "output/u1conformal/handoff_model.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/handoff_pta.json",
+    "output/u1conformal/handoff_constraints.json",
+    "output/u1conformal/handoff_prior_audit.json",
+    "input/u1conformal/prompt.md",
+    ".codex/agents/report-agent.md",
+    "docs/HANDOFF_REPORT_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md"
+  ],
+  "commands": [
+    "sed -n '1,240p' .codex/agents/report-agent.md",
+    "sed -n '1,240p' docs/HANDOFF_REPORT_SCHEMA.md",
+    "sed -n '1,260p' docs/HANDOFF_SCHEMAS.md",
+    "sed -n '1,200p' input/u1conformal/prompt.md",
+    "jq . output/u1conformal/handoff_model.json",
+    "jq . output/u1conformal/handoff_critique.json",
+    "jq . output/u1conformal/handoff_librarian_preliminary.json",
+    "jq . output/u1conformal/handoff_fopt.json",
+    "jq . output/u1conformal/handoff_pta.json",
+    "jq . output/u1conformal/handoff_constraints.json",
+    "jq . output/u1conformal/handoff_prior_audit.json",
+    "web open https://arxiv.org/abs/2511.15687",
+    "web search arXiv 2209.04369 higgsless sound-wave gravitational waves phase transition",
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex",
+    "pdflatex -interaction=nonstopmode -halt-on-error final_report.tex",
+    "rg -n \"LaTeX Warning|Citation|Reference|Undefined|Rerun|Overfull|Fatal|Error\" output/u1conformal/final_report.log",
+    "pdfinfo output/u1conformal/final_report.pdf"
+  ],
+  "files_read": [
+    ".codex/agents/report-agent.md",
+    "docs/HANDOFF_REPORT_SCHEMA.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "input/u1conformal/prompt.md",
+    "output/u1conformal/handoff_model.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/handoff_pta.json",
+    "output/u1conformal/handoff_constraints.json",
+    "output/u1conformal/handoff_prior_audit.json",
+    "output/u1conformal/pta_benchmark_spectrum.pdf",
+    "output/u1conformal/pta_ptarcade_spectrum.pdf",
+    "output/u1conformal/pta_posteriors.pdf",
+    "https://arxiv.org/abs/2511.15687",
+    "https://arxiv.org/abs/2209.04369"
+  ],
+  "files_written": [
+    "output/u1conformal/final_report.tex",
+    "output/u1conformal/final_report.pdf",
+    "output/u1conformal/handoff_report.json"
+  ],
+  "warnings": [
+    "Report run_status is warning because upstream librarian, critic/model, PTA, constraints, and prior-audit handoffs have warning status.",
+    "The report treats the PTA/PTArcade posterior as conditional on the selected bf template, priors, and limited convergence checks.",
+    "The report does not claim collider, beam-dump, SN1987A, BBN, CMB, direct-detection, or indirect-detection exclusions because the constraints handoff did not apply those exclusions.",
+    "The PTA-template metadata for arXiv:2511.15687 and arXiv:2209.04369 was not fully present in the PTA handoff and was cross-checked directly on arXiv/web search before citation."
+  ],
+  "errors": [],
+  "approximations": [
+    "The final report is a synthesis of upstream handoffs and does not perform new physics calculations.",
+    "Constraint discussion follows the constraints handoff's rectangular PTArcade 1sigma box approximation.",
+    "The reference list includes only papers cited in the final report and verified through upstream handoffs or direct arXiv/web metadata checks."
+  ],
+  "included_sections": [
+    {
+      "name": "Summary",
+      "status": "included",
+      "source": "all upstream handoffs",
+      "notes": [
+        "Distinguishes robust pipeline outputs from caveated PTA and constraint claims."
+      ]
+    },
+    {
+      "name": "Prompt and Input",
+      "status": "included",
+      "source": "input/u1conformal/prompt.md and terminal request supplied by user",
+      "notes": [
+        "Quotes the terminal request and summarizes the input model."
+      ]
+    },
+    {
+      "name": "Model Description",
+      "status": "included",
+      "source": "output/u1conformal/handoff_model.json and output/u1conformal/handoff_critique.json",
+      "notes": [
+        "Uses independent and dependent parameter basis from the model handoff."
+      ]
+    },
+    {
+      "name": "Pipeline Status",
+      "status": "included",
+      "source": "all upstream handoff run_status fields",
+      "notes": []
+    },
+    {
+      "name": "Preliminary Literature Search",
+      "status": "included",
+      "source": "output/u1conformal/handoff_librarian_preliminary.json",
+      "notes": [
+        "Frames novelty as partial and convention-dependent."
+      ]
+    },
+    {
+      "name": "FOPT Results",
+      "status": "included",
+      "source": "output/u1conformal/handoff_fopt.json",
+      "notes": [
+        "Includes backend choice, scan status, best points, failure diagnostics, and backend caveats."
+      ]
+    },
+    {
+      "name": "PTA and PTArcade Results",
+      "status": "included",
+      "source": "output/u1conformal/handoff_pta.json",
+      "notes": [
+        "Includes template choice, benchmark scan, priors, posterior summaries, MAP, caveats, and requested figures."
+      ]
+    },
+    {
+      "name": "Constraints",
+      "status": "included",
+      "source": "output/u1conformal/handoff_constraints.json",
+      "notes": [
+        "Does not state experimental exclusions where constraints were not applied."
+      ]
+    },
+    {
+      "name": "Assumptions and Limitations",
+      "status": "included",
+      "source": "output/u1conformal/handoff_prior_audit.json",
+      "notes": [
+        "Emphasizes high-severity uncontrolled assumptions and required followups."
+      ]
+    },
+    {
+      "name": "Conclusions",
+      "status": "included",
+      "source": "all upstream handoffs",
+      "notes": [
+        "Restricts claims to conditional PTA compatibility and missing-constraint followups."
+      ]
+    },
+    {
+      "name": "References",
+      "status": "included",
+      "source": "output/u1conformal/handoff_librarian_preliminary.json, output/u1conformal/handoff_constraints.json, arXiv metadata checks",
+      "notes": [
+        "No rejected or unverified cited references remain."
+      ]
+    }
+  ],
+  "figures_included": [
+    {
+      "label": "fig:pta-benchmark",
+      "file": "output/u1conformal/pta_benchmark_spectrum.pdf",
+      "caption": "PTA benchmark spectrum generated by the PTA agent for the selected benchmark scan.",
+      "source": "output/u1conformal/handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "fig:pta-ptarcade",
+      "file": "output/u1conformal/pta_ptarcade_spectrum.pdf",
+      "caption": "PTArcade MAP-spectrum figure produced by the PTA agent.",
+      "source": "output/u1conformal/handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "fig:pta-posteriors",
+      "file": "output/u1conformal/pta_posteriors.pdf",
+      "caption": "PTArcade posterior figure produced by the PTA agent.",
+      "source": "output/u1conformal/handoff_pta.json",
+      "notes": []
+    }
+  ],
+  "tables_included": [
+    {
+      "label": "tab:pipeline",
+      "file": "output/u1conformal/final_report.tex",
+      "caption": "Pipeline status from the machine-readable handoffs.",
+      "source": "all upstream handoff run_status fields",
+      "notes": []
+    },
+    {
+      "label": "tab:literature",
+      "file": "output/u1conformal/final_report.tex",
+      "caption": "Main literature caveats used to seed and interpret the pipeline.",
+      "source": "output/u1conformal/handoff_librarian_preliminary.json",
+      "notes": []
+    },
+    {
+      "label": "tab:foptbest",
+      "file": "output/u1conformal/final_report.tex",
+      "caption": "Top FOPT benchmark points from the FOPT handoff.",
+      "source": "output/u1conformal/handoff_fopt.json",
+      "notes": [
+        "Reports f_est only as an order-of-magnitude scale setter."
+      ]
+    },
+    {
+      "label": "tab:ptabench",
+      "file": "output/u1conformal/final_report.tex",
+      "caption": "PTA benchmark points from the selected bf template.",
+      "source": "output/u1conformal/handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "tab:ptarcade",
+      "file": "output/u1conformal/final_report.tex",
+      "caption": "PTArcade posterior summary under the selected model, priors, and bf template.",
+      "source": "output/u1conformal/handoff_pta.json",
+      "notes": []
+    },
+    {
+      "label": "tab:constraints",
+      "file": "output/u1conformal/final_report.tex",
+      "caption": "Constraint applicability summary.",
+      "source": "output/u1conformal/handoff_constraints.json",
+      "notes": [
+        "Marks which checks were actually applied."
+      ]
+    }
+  ],
+  "cited_sources": [
+    {
+      "title": "Gravitational waves from a dark U(1)_D phase transition in the light of NANOGrav 12.5 yr data",
+      "arxiv_id": "2105.01007",
+      "source_file": "output/u1conformal/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+      "arxiv_id": "2502.19478",
+      "source_file": "output/u1conformal/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Gravitational waves and dark matter from classical scale invariance",
+      "arxiv_id": "2212.04784",
+      "source_file": "output/u1conformal/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Gauge-independent gravitational waves from a minimal dark U(1) sector with viable dark matter candidates",
+      "arxiv_id": "2602.14866",
+      "source_file": "output/u1conformal/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "NANOGrav Signal from a Dark Conformal Phase Transition",
+      "arxiv_id": "2306.17086",
+      "source_file": "output/u1conformal/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Gravitational waves from first order electroweak phase transition in models with the U(1)_X gauge symmetry",
+      "arxiv_id": "1802.02947",
+      "source_file": "output/u1conformal/handoff_librarian_preliminary.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Impact of cosmic expansion on gravitational wave spectra from strongly supercooled first-order phase transitions",
+      "arxiv_id": "2511.15687",
+      "source_file": "https://arxiv.org/abs/2511.15687",
+      "source_type": "paper",
+      "citation_verified": true
+    },
+    {
+      "title": "Higgsless simulations of cosmological phase transitions and gravitational waves",
+      "arxiv_id": "2209.04369",
+      "source_file": "https://arxiv.org/abs/2209.04369",
+      "source_type": "paper",
+      "citation_verified": true
+    },
+    {
+      "title": "Search for a dark photon in e+e- collisions at BABAR",
+      "arxiv_id": "1406.2980",
+      "source_file": "output/u1conformal/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Search for dark photons produced in 13 TeV pp collisions",
+      "arxiv_id": "1710.02867",
+      "source_file": "output/u1conformal/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Serendipity in dark photon searches",
+      "arxiv_id": "1801.04847",
+      "source_file": "output/u1conformal/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Search for Invisible Decays of a Dark Photon Produced in e+e- Collisions at BaBar",
+      "arxiv_id": "1702.03327",
+      "source_file": "output/u1conformal/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "US Cosmic Visions: New Ideas in Dark Matter 2017: Community Report",
+      "arxiv_id": "1707.04591",
+      "source_file": "output/u1conformal/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Cosmological beam dump: constraints on dark scalars mixed with the Higgs boson",
+      "arxiv_id": "1812.07585",
+      "source_file": "output/u1conformal/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Feebly Interacting Particles: FIPs 2022 workshop report",
+      "arxiv_id": "2305.01715",
+      "source_file": "output/u1conformal/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Cosmological Constraints on Decoupled Dark Photons and Dark Higgs",
+      "arxiv_id": "1605.07195",
+      "source_file": "output/u1conformal/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Updated Constraints on Self-Interacting Dark Matter from Supernova 1987A",
+      "arxiv_id": "1706.08871",
+      "source_file": "output/u1conformal/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Direct Detection Constraints on Dark Photon Dark Matter",
+      "arxiv_id": "1412.8378",
+      "source_file": "output/u1conformal/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    },
+    {
+      "title": "Dark Higgs Dark Matter",
+      "arxiv_id": "2005.02397",
+      "source_file": "output/u1conformal/handoff_constraints.json",
+      "source_type": "handoff_json",
+      "citation_verified": true
+    }
+  ],
+  "compiled_pdf": true,
+  "compile_errors": []
+}

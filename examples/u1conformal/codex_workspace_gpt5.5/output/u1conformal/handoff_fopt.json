@@ -1,0 +1,2271 @@
+{
+  "model": "u1conformal",
+  "agent": "fopt-agent",
+  "run_status": "ok",
+  "created_at": "2026-06-10",
+  "branch": "fopt-pta",
+  "created_from": [
+    ".codex/agents/fopt-agent.md",
+    ".codex/skills/fopt-implementation/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_FOPT_SCHEMA.md",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/SEMIANALYTICPIPELINE.md",
+    "backend/semianalytic_pipeline.py",
+    "backend/T_vs_g_gs_GeV.csv",
+    "output/u1conformal/handoff_model.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_librarian_preliminary.json"
+  ],
+  "commands": [
+    "MPLCONFIGDIR=output/u1conformal/.mplconfig conda run -n ptarcade python output/u1conformal/fopt_model.py",
+    "MPLCONFIGDIR=output/u1conformal/.mplconfig conda run -n ptarcade python output/u1conformal/fopt_model_scan.py"
+  ],
+  "files_read": [
+    ".codex/agents/fopt-agent.md",
+    ".codex/skills/fopt-implementation/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_FOPT_SCHEMA.md",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/SEMIANALYTICPIPELINE.md",
+    "backend/semianalytic_pipeline.py",
+    "backend/T_vs_g_gs_GeV.csv",
+    "output/u1conformal/handoff_model.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_librarian_preliminary.json"
+  ],
+  "files_written": [
+    "output/u1conformal/fopt_model.py",
+    "output/u1conformal/fopt_model_scan.py",
+    "output/u1conformal/fopt_benchmarks.csv",
+    "output/u1conformal/fopt_report.md",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/fopt_results.json"
+  ],
+  "warnings": [
+    "lambda_Phi is CW/backend-fixed and not exported as a standalone numeric input by backend/semianalytic_pipeline.py; it is therefore not scanned and is recorded as an internal dependent parameter.",
+    "f_peak_est is an order-of-magnitude scale setter only; PTA spectral templates are owned by the PTA stage.",
+    "Portal and kinetic-mixing effects are neglected in the FOPT calculation, following the upstream critic assumptions."
+  ],
+  "errors": [],
+  "approximations": [
+    "Semi-analytic conformal single-field backend with scalar/Goldstone contributions treated as subleading.",
+    "High-temperature polynomial form is used as in docs/SEMIANALYTICPIPELINE.md.",
+    "Gaussian false-vacuum-fraction/percolation approximation from the backend.",
+    "g_* for f_peak_est is interpolated from backend/T_vs_g_gs_GeV.csv and clamped at table boundaries."
+  ],
+  "backend_choice": {
+    "selected_backend": "semianalytic_pipeline",
+    "executed": true,
+    "reason": "The model is a classically scale-invariant single-field U(1)_D Coleman-Weinberg model with masses proportional to v."
+  },
+  "backend": "semianalytic_pipeline",
+  "backend_executed": true,
+  "expected_upstream_inputs": [
+    "output/u1conformal/handoff_model.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_librarian_preliminary.json"
+  ],
+  "missing_upstream_inputs": [],
+  "model_parameter_ranges": {
+    "v": {
+      "units": "GeV",
+      "scanned_min": 0.01,
+      "scanned_max": 1.0
+    },
+    "g_D": {
+      "scanned_min": 0.1,
+      "scanned_max": 0.9
+    }
+  },
+  "parameter_basis": {
+    "independent": {
+      "v": {
+        "units": "GeV",
+        "description": "Dark Higgs background vev <chi>; CSV column v."
+      },
+      "g_D": {
+        "description": "U(1)_D gauge coupling in charge-one convention; CSV column g_D."
+      }
+    },
+    "dependent": {
+      "lambda_Phi": {
+        "description": "CW-fixed scalar quartic eliminated by the backend; not scanned independently."
+      },
+      "beta_lambda": "3 * g_D**4 / (8 * pi**2)",
+      "m_Aprime": "g_D * v",
+      "m_rho": "sqrt(beta_lambda) * v"
+    },
+    "fixed": {
+      "q_Phi": 1,
+      "xi": 1,
+      "boson_gbs": {
+        "Aprime": "g_D"
+      },
+      "boson_dofs": {
+        "Aprime": 3
+      },
+      "fermion_gfs": {},
+      "fermion_dofs": {}
+    }
+  },
+  "temperature_key": "Treh",
+  "scan_status_labels": [
+    "viable",
+    "physical_failure",
+    "numerical_failure",
+    "not_fopt"
+  ],
+  "benchmark_summary": {
+    "total_points": 120,
+    "viable_points": 79,
+    "failed_points": 40,
+    "excluded_points": 1
+  },
+  "scan_summary": {
+    "total_points": 120,
+    "viable_points": 79,
+    "failed_points": 40,
+    "excluded_points": 1
+  },
+  "csv_json_alignment": {
+    "csv_file": "output/u1conformal/fopt_benchmarks.csv",
+    "independent_parameter_columns": [
+      "v",
+      "g_D"
+    ],
+    "required_result_columns": [
+      "alpha",
+      "beta_H",
+      "Tn",
+      "Tp",
+      "Treh",
+      "f_peak_est",
+      "status"
+    ],
+    "status_column": "status"
+  },
+  "model_parameters": [
+    "v",
+    "g_D"
+  ],
+  "benchmarks": [
+    {
+      "name": "scan_point_0001",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.1
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0002",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.2
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0003",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.3
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0004",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.4
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0005",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.5
+      },
+      "alpha": 31490442051061.863,
+      "beta_H": 16.658783046281652,
+      "Tn": 5.974733169326237e-07,
+      "Tp": 3.73520857629262e-07,
+      "Treh": 0.000884829406086379,
+      "f_peak_est": 1.6213627885543045e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0006",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.57
+      },
+      "alpha": 25256466.779866837,
+      "beta_H": 29.00528097687527,
+      "Tn": 2.1005243257385744e-05,
+      "Tp": 1.4226777018383e-05,
+      "Treh": 0.0010085552115087677,
+      "f_peak_est": 3.2193389473140782e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0007",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.6
+      },
+      "alpha": 512381.0049999411,
+      "beta_H": 36.45664580334085,
+      "Tn": 5.272248132683309e-05,
+      "Tp": 3.966971121652629e-05,
+      "Treh": 0.0010613472675584281,
+      "f_peak_est": 4.258820204531615e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0008",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.65
+      },
+      "alpha": 5528.648220526705,
+      "beta_H": 49.91747360043063,
+      "Tn": 0.00015926473128630194,
+      "Tp": 0.00012642436801467611,
+      "Treh": 0.0010901974634567116,
+      "f_peak_est": 5.990279331654556e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0009",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.677
+      },
+      "alpha": 797.9415554848695,
+      "beta_H": 59.06014751404597,
+      "Tn": 0.0002472698183522357,
+      "Tp": 0.00020239443695350273,
+      "Treh": 0.0010760372947089757,
+      "f_peak_est": 6.9951089437562496e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0010",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.7
+      },
+      "alpha": 216.7547770070023,
+      "beta_H": 68.34614307801701,
+      "Tn": 0.00033650357208674775,
+      "Tp": 0.0002817611823182243,
+      "Treh": 0.0010823633640353258,
+      "f_peak_est": 8.142676954485606e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0011",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.75
+      },
+      "alpha": 30.134115564725345,
+      "beta_H": 97.71090720167308,
+      "Tn": 0.0005516151206923162,
+      "Tp": 0.00048233017718648467,
+      "Treh": 0.0011393405849867636,
+      "f_peak_est": 1.2255813519139453e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0012",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.9
+      },
+      "alpha": 1.7260826492022834,
+      "beta_H": 174.60375720133925,
+      "Tn": 0.001276734415874279,
+      "Tp": 0.001170470696972388,
+      "Treh": 0.0015039912172693198,
+      "f_peak_est": 2.895396179539211e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0013",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.1
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0014",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.2
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0015",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.3
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0016",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.4
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0017",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.5
+      },
+      "alpha": 58115084715803.836,
+      "beta_H": 16.132479407517053,
+      "Tn": 8.61036678358641e-07,
+      "Tp": 5.345751889070097e-07,
+      "Treh": 0.00147598184951607,
+      "f_peak_est": 2.625301703747997e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0018",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.57
+      },
+      "alpha": 27839388.84286475,
+      "beta_H": 28.756303420010454,
+      "Tn": 3.263184054443841e-05,
+      "Tp": 2.3158757757449037e-05,
+      "Treh": 0.001682209914039107,
+      "f_peak_est": 5.3345030427330734e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0019",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.6
+      },
+      "alpha": 653311.1122639368,
+      "beta_H": 35.456448956168174,
+      "Tn": 8.316658824869073e-05,
+      "Tp": 6.207159772707104e-05,
+      "Treh": 0.0017647090048812653,
+      "f_peak_est": 6.900485617267231e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0020",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.65
+      },
+      "alpha": 5222.502875946831,
+      "beta_H": 48.72140566563132,
+      "Tn": 0.00025555266075300226,
+      "Tp": 0.00020263698322452994,
+      "Treh": 0.001722698084324408,
+      "f_peak_est": 9.256033148586082e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0021",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.677
+      },
+      "alpha": 795.3610763778476,
+      "beta_H": 57.48318953079945,
+      "Tn": 0.0003994601046885275,
+      "Tp": 0.0003255434274155439,
+      "Treh": 0.0017293640944237281,
+      "f_peak_est": 1.0962905839446058e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0022",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.7
+      },
+      "alpha": 225.04169287375518,
+      "beta_H": 66.37869930722218,
+      "Tn": 0.0005463792004613781,
+      "Tp": 0.00045514700661194925,
+      "Treh": 0.0017648135461692035,
+      "f_peak_est": 1.2919298120577503e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0023",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.75
+      },
+      "alpha": 31.5641748939103,
+      "beta_H": 94.58119862071612,
+      "Tn": 0.0009043431630130451,
+      "Tp": 0.0007885241932921343,
+      "Treh": 0.0018836492734725756,
+      "f_peak_est": 1.964978619974076e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0024",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.9
+      },
+      "alpha": 1.7908900153891834,
+      "beta_H": 170.67252114186718,
+      "Tn": 0.0021087645629767897,
+      "Tp": 0.001930896300142451,
+      "Treh": 0.002495712940440817,
+      "f_peak_est": 4.699611772192224e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0025",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.1
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0026",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.2
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0027",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.3
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0028",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.4
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0029",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.5
+      },
+      "alpha": 110260579580050.6,
+      "beta_H": 15.609211383079469,
+      "Tn": 1.2330047687274315e-06,
+      "Tp": 7.597962028436179e-07,
+      "Treh": 0.0024620801488372435,
+      "f_peak_est": 4.240205419620597e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0030",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.57
+      },
+      "alpha": 36647411.20525943,
+      "beta_H": 28.072317701614224,
+      "Tn": 5.0579523872596e-05,
+      "Tp": 3.6060468069611055e-05,
+      "Treh": 0.002805706174433739,
+      "f_peak_est": 8.690088642242922e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0031",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.6
+      },
+      "alpha": 771183.6003708274,
+      "beta_H": 34.49886013930836,
+      "Tn": 0.00013097177715600962,
+      "Tp": 9.712538525478106e-05,
+      "Treh": 0.002878209097863931,
+      "f_peak_est": 1.095546550909493e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0032",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.65
+      },
+      "alpha": 5394.02414039035,
+      "beta_H": 47.435334883971336,
+      "Tn": 0.00040959817348573614,
+      "Tp": 0.0003232232778472554,
+      "Treh": 0.0027701352789713486,
+      "f_peak_est": 1.449795333395423e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0033",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.677
+      },
+      "alpha": 859.9731723761907,
+      "beta_H": 55.93358335559628,
+      "Tn": 0.0006447169598227326,
+      "Tp": 0.0005230419598728386,
+      "Treh": 0.0028332437236541948,
+      "f_peak_est": 1.7484786220223493e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0034",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.7
+      },
+      "alpha": 245.79641444091558,
+      "beta_H": 64.52486171522764,
+      "Tn": 0.0008864167554594587,
+      "Tp": 0.0007353521152408977,
+      "Treh": 0.0029146073613670206,
+      "f_peak_est": 2.0749655383519627e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0035",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.75
+      },
+      "alpha": 33.99998061913901,
+      "beta_H": 91.47785180984158,
+      "Tn": 0.001481703932908536,
+      "Tp": 0.0012875268315407221,
+      "Treh": 0.0031316501506462903,
+      "f_peak_est": 3.1607703666530665e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0036",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.9
+      },
+      "alpha": 1.8761632835566218,
+      "beta_H": 166.60163730601596,
+      "Tn": 0.0034822536903518424,
+      "Tp": 0.0031824559544702683,
+      "Treh": 0.004144439327385131,
+      "f_peak_est": 7.618479465812108e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0037",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.1
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0038",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.2
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0039",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.3
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0040",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.4
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0041",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.5
+      },
+      "alpha": 215579746212930.12,
+      "beta_H": 15.088796667882322,
+      "Tn": 1.7535654547938806e-06,
+      "Tp": 1.0718177907011351e-06,
+      "Treh": 0.004106983428893959,
+      "f_peak_est": 6.837515524836315e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0042",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.57
+      },
+      "alpha": 50566552.90082986,
+      "beta_H": 27.28649426521201,
+      "Tn": 7.82122980641779e-05,
+      "Tp": 5.539460335464442e-05,
+      "Treh": 0.00467125199574025,
+      "f_peak_est": 1.4064910841762849e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0043",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.6
+      },
+      "alpha": 824925.7548093441,
+      "beta_H": 33.552100524772754,
+      "Tn": 0.00020589580828471652,
+      "Tp": 0.0001516603270020121,
+      "Treh": 0.004570627574308326,
+      "f_peak_est": 1.6921760578677783e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0044",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.65
+      },
+      "alpha": 6046.824363854621,
+      "beta_H": 46.156095768736805,
+      "Tn": 0.0006557403335549192,
+      "Tp": 0.0005146505742423713,
+      "Treh": 0.004538499106209384,
+      "f_peak_est": 2.31147600359956e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0045",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.677
+      },
+      "alpha": 976.0791568203679,
+      "beta_H": 54.41044480687651,
+      "Tn": 0.0010395398639297421,
+      "Tp": 0.0008393823558595839,
+      "Treh": 0.004692910515680807,
+      "f_peak_est": 2.8176157000675013e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0046",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.7
+      },
+      "alpha": 277.44148510844786,
+      "beta_H": 62.70121234433646,
+      "Tn": 0.0014368282232813108,
+      "Tp": 0.001186639764124988,
+      "Treh": 0.00484732772103682,
+      "f_peak_est": 3.353855700932652e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0047",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.75
+      },
+      "alpha": 36.97298327130263,
+      "beta_H": 88.44347347823599,
+      "Tn": 0.0024260639905980055,
+      "Tp": 0.002100175561885623,
+      "Treh": 0.005213438804122598,
+      "f_peak_est": 5.088338652740086e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0048",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.9
+      },
+      "alpha": 1.966460233656597,
+      "beta_H": 162.75294675584462,
+      "Tn": 0.005748904829282872,
+      "Tp": 0.005245946163011427,
+      "Treh": 0.006884675291090172,
+      "f_peak_est": 1.2367278685890582e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0049",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.1
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0050",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.2
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0051",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.3
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0052",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.4
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0053",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.5
+      },
+      "alpha": 435543010417841.1,
+      "beta_H": 14.571025057747987,
+      "Tn": 2.4753501891248612e-06,
+      "Tp": 1.4996344591924782e-06,
+      "Treh": 0.006850829724778483,
+      "f_peak_est": 1.1017771443305613e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0054",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.57
+      },
+      "alpha": 67253024.37863828,
+      "beta_H": 26.50611459432639,
+      "Tn": 0.00012063856292230772,
+      "Tp": 8.482689192412785e-05,
+      "Treh": 0.007681773737593916,
+      "f_peak_est": 2.2474978467844498e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0055",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.6
+      },
+      "alpha": 877989.2705157656,
+      "beta_H": 32.6865667438767,
+      "Tn": 0.0003230880560313612,
+      "Tp": 0.00023754187194320586,
+      "Treh": 0.0072713089948982235,
+      "f_peak_est": 2.6233644821424406e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0056",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.65
+      },
+      "alpha": 7071.848184399682,
+      "beta_H": 44.93653230530015,
+      "Tn": 0.001048528480426461,
+      "Tp": 0.0008195844871984329,
+      "Treh": 0.007516095916379865,
+      "f_peak_est": 3.728014782808298e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0057",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.677
+      },
+      "alpha": 1129.3612202099491,
+      "beta_H": 52.94680070042545,
+      "Tn": 0.0016744486391250168,
+      "Tp": 0.0013466566634412586,
+      "Treh": 0.0078083846093833145,
+      "f_peak_est": 4.56348974690172e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0058",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.7
+      },
+      "alpha": 315.1979090670683,
+      "beta_H": 60.943324410956734,
+      "Tn": 0.0023269125736420544,
+      "Tp": 0.0019138542197651787,
+      "Treh": 0.008070465819023123,
+      "f_peak_est": 5.429125776320476e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0059",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.75
+      },
+      "alpha": 40.49624066930894,
+      "beta_H": 85.53551383933211,
+      "Tn": 0.003969536705527695,
+      "Tp": 0.003423651739857764,
+      "Treh": 0.008689439613456567,
+      "f_peak_est": 8.204715762601166e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0060",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.9
+      },
+      "alpha": 2.063421849174618,
+      "beta_H": 158.92872512371525,
+      "Tn": 0.009488486929868895,
+      "Tp": 0.008643317024898614,
+      "Treh": 0.011434894023442435,
+      "f_peak_est": 2.0064790763877364e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0061",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.1
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0062",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.2
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0063",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.3
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0064",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.4
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0065",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.5
+      },
+      "alpha": 912098849317318.5,
+      "beta_H": 14.055652557161125,
+      "Tn": 3.4659094842153e-06,
+      "Tp": 2.0794678435972595e-06,
+      "Treh": 0.011427801441243016,
+      "f_peak_est": 1.7734282480812484e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0066",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.57
+      },
+      "alpha": 84816989.46625508,
+      "beta_H": 25.661729008263023,
+      "Tn": 0.00018558679878812693,
+      "Tp": 0.0001284083070021926,
+      "Treh": 0.012322925834185755,
+      "f_peak_est": 3.491808913492806e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0067",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.6
+      },
+      "alpha": 1033889.8274596569,
+      "beta_H": 31.767588924267898,
+      "Tn": 0.0005060085172673806,
+      "Tp": 0.000369530951352511,
+      "Treh": 0.01178336934515668,
+      "f_peak_est": 4.1329676804933275e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0068",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.65
+      },
+      "alpha": 8478.690258004004,
+      "beta_H": 43.731856966886085,
+      "Tn": 0.001674479488712132,
+      "Tp": 0.0013032484698223482,
+      "Treh": 0.012506109326440161,
+      "f_peak_est": 6.039804293493463e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0069",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.677
+      },
+      "alpha": 1321.7080072422955,
+      "beta_H": 51.49611769147101,
+      "Tn": 0.002694283741335157,
+      "Tp": 0.0021572157883590925,
+      "Treh": 0.013009469456820763,
+      "f_peak_est": 7.400749321281196e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0070",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.7
+      },
+      "alpha": 361.7076090845385,
+      "beta_H": 59.219698233945905,
+      "Tn": 0.0037648597256140755,
+      "Tp": 0.0030832791481188275,
+      "Treh": 0.013455567291011163,
+      "f_peak_est": 8.804978167425682e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0071",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.75
+      },
+      "alpha": 44.52504017527485,
+      "beta_H": 82.71945091624387,
+      "Tn": 0.006490203317141804,
+      "Tp": 0.005576267896719194,
+      "Treh": 0.01448459026444993,
+      "f_peak_est": 1.3247446936497758e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0072",
+      "parameters": {
+        "v": 0.129154966501,
+        "g_D": 0.9
+      },
+      "alpha": 2.156218172128488,
+      "beta_H": 155.1824225028895,
+      "Tn": 0.01565568545996386,
+      "Tp": 0.014236260941649969,
+      "Treh": 0.01897525818280322,
+      "f_peak_est": 3.2728282278561535e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0073",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.1
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0074",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.2
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0075",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.3
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0076",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.4
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0077",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.5
+      },
+      "alpha": 1987027485470584.5,
+      "beta_H": 13.542392941502612,
+      "Tn": 4.8098258458570395e-06,
+      "Tp": 2.855159105222083e-06,
+      "Treh": 0.019062562612555296,
+      "f_peak_est": 2.86954110533002e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0078",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.57
+      },
+      "alpha": 97337521.9980673,
+      "beta_H": 24.968798266115755,
+      "Tn": 0.0002847027584851898,
+      "Tp": 0.00019704970632423744,
+      "Treh": 0.01957248029599981,
+      "f_peak_est": 5.435457659033818e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0079",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.6
+      },
+      "alpha": 1305388.4088023705,
+      "beta_H": 30.866004754813044,
+      "Tn": 0.0007908883398467718,
+      "Tp": 0.000573816473276489,
+      "Treh": 0.019395815000773062,
+      "f_peak_est": 6.657105477854002e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0080",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.65
+      },
+      "alpha": 10320.279116591111,
+      "beta_H": 42.51770910867946,
+      "Tn": 0.0026705837540625067,
+      "Tp": 0.0020669735021898446,
+      "Treh": 0.020833790365014957,
+      "f_peak_est": 9.872153282111011e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0081",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.677
+      },
+      "alpha": 1560.2277303134122,
+      "beta_H": 50.07247598182118,
+      "Tn": 0.004330486567867004,
+      "Tp": 0.003451581319490277,
+      "Treh": 0.021696249876022144,
+      "f_peak_est": 1.2123390627641855e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0082",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.7
+      },
+      "alpha": 417.07331256515243,
+      "beta_H": 57.54138170668455,
+      "Tn": 0.006085487988824398,
+      "Tp": 0.004962789858426876,
+      "Treh": 0.022440834220846202,
+      "f_peak_est": 1.4426859798369028e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0083",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.75
+      },
+      "alpha": 49.11523494726882,
+      "beta_H": 79.98440393666328,
+      "Tn": 0.010603358941489694,
+      "Tp": 0.009073375718900087,
+      "Treh": 0.024141338056348622,
+      "f_peak_est": 2.1629077953386526e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0084",
+      "parameters": {
+        "v": 0.215443469003,
+        "g_D": 0.9
+      },
+      "alpha": 2.154832490662135,
+      "beta_H": 151.4649981644993,
+      "Tn": 0.025818039772859094,
+      "Tp": 0.02343611539648028,
+      "Treh": 0.03123415088637893,
+      "f_peak_est": 5.370182697766719e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0085",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.1
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0086",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.2
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0087",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.3
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0088",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.4
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0089",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.5
+      },
+      "alpha": 4522063425641300.0,
+      "beta_H": 13.03091182734306,
+      "Tn": 6.609777949932841e-06,
+      "Tp": 3.877613914289336e-06,
+      "Treh": 0.0317979211054903,
+      "f_peak_est": 4.707670867563489e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0090",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.57
+      },
+      "alpha": 127434993.54882501,
+      "beta_H": 24.160891360750725,
+      "Tn": 0.0004354597546415219,
+      "Tp": 0.000296843388201079,
+      "Treh": 0.031539118886298144,
+      "f_peak_est": 8.653764235010295e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0091",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.6
+      },
+      "alpha": 1714143.3746035139,
+      "beta_H": 29.980083476345953,
+      "Tn": 0.0012335209165313557,
+      "Tp": 0.000889246049688284,
+      "Treh": 0.03217612897124722,
+      "f_peak_est": 1.0966825805720337e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0092",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.65
+      },
+      "alpha": 12655.987222182916,
+      "beta_H": 41.338826880277686,
+      "Tn": 0.0042533702087061654,
+      "Tp": 0.0032755784952171146,
+      "Treh": 0.034743262421487425,
+      "f_peak_est": 1.6396305913618199e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0093",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.677
+      },
+      "alpha": 1851.3303524587511,
+      "beta_H": 48.67429990233063,
+      "Tn": 0.006952353028744453,
+      "Tp": 0.005515667479325674,
+      "Treh": 0.036184925846124906,
+      "f_peak_est": 2.0149905161283106e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0094",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.7
+      },
+      "alpha": 482.7579745457145,
+      "beta_H": 55.897292555727056,
+      "Tn": 0.009826609020389909,
+      "Tp": 0.00797892945853331,
+      "Treh": 0.03741981704713444,
+      "f_peak_est": 2.3963178092537575e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0095",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.75
+      },
+      "alpha": 53.99364164187167,
+      "beta_H": 77.34239378505947,
+      "Tn": 0.017309116485653822,
+      "Tp": 0.014750537460583402,
+      "Treh": 0.040168532406458575,
+      "f_peak_est": 3.5696031541795726e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0096",
+      "parameters": {
+        "v": 0.35938136638,
+        "g_D": 0.9
+      },
+      "alpha": 2.033947679425278,
+      "beta_H": 147.77191929793787,
+      "Tn": 0.042554890226301344,
+      "Tp": 0.03855864130037382,
+      "Treh": 0.05088897974416367,
+      "f_peak_est": 8.745537344783247e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0097",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.1
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0098",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.2
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0099",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.3
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0100",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.4
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0101",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.5
+      },
+      "alpha": 1.0803971379243638e+16,
+      "beta_H": 12.520807452574445,
+      "Tn": 8.985455998008575e-06,
+      "Tp": 5.202581618587853e-06,
+      "Treh": 0.05304137312152731,
+      "f_peak_est": 7.738929760731737e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0102",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.57
+      },
+      "alpha": 172719765.32371727,
+      "beta_H": 23.44193104461567,
+      "Tn": 0.0006639536057868237,
+      "Tp": 0.0004501746485037005,
+      "Treh": 0.05160794244970671,
+      "f_peak_est": 1.4079076680412028e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0103",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.6
+      },
+      "alpha": 2316641.7082525766,
+      "beta_H": 29.091088932148068,
+      "Tn": 0.0019195603573660689,
+      "Tp": 0.0013729128846541841,
+      "Treh": 0.05356211843683298,
+      "f_peak_est": 1.816516857677039e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0104",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.65
+      },
+      "alpha": 15628.1442072303,
+      "beta_H": 40.17774491423154,
+      "Tn": 0.0067644552460577895,
+      "Tp": 0.005182661387083389,
+      "Treh": 0.057947757552847506,
+      "f_peak_est": 2.721711879356807e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0105",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.677
+      },
+      "alpha": 2206.945130958203,
+      "beta_H": 47.30079045965851,
+      "Tn": 0.011148266721667627,
+      "Tp": 0.008802541089473143,
+      "Treh": 0.06033997559139679,
+      "f_peak_est": 3.3411946048373377e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0106",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.7
+      },
+      "alpha": 560.2857405910389,
+      "beta_H": 54.28625779154573,
+      "Tn": 0.01585096217349229,
+      "Tp": 0.012812932361687698,
+      "Treh": 0.06236551828002402,
+      "f_peak_est": 3.96808394204775e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0107",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.75
+      },
+      "alpha": 56.85139090471064,
+      "beta_H": 74.7869493756923,
+      "Tn": 0.028230917273577474,
+      "Tp": 0.023957096102092866,
+      "Treh": 0.06607126566753366,
+      "f_peak_est": 5.80485039932001e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0108",
+      "parameters": {
+        "v": 0.599484250319,
+        "g_D": 0.9
+      },
+      "alpha": 1.938256016670986,
+      "beta_H": 144.1847157981897,
+      "Tn": 0.07012301857143906,
+      "Tp": 0.06341938664597727,
+      "Treh": 0.08303179869175416,
+      "f_peak_est": 1.4193827744818915e-06,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0109",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.1
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0110",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.2
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0111",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.3
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0112",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.4
+      },
+      "alpha": null,
+      "beta_H": null,
+      "Tn": null,
+      "Tp": null,
+      "Treh": null,
+      "f_peak_est": null,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "not_fopt",
+      "failure_reason": "nucleation failure: non-finite or non-positive Tn"
+    },
+    {
+      "name": "scan_point_0113",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.5
+      },
+      "alpha": 2.725787046675835e+16,
+      "beta_H": 12.011597939945773,
+      "Tn": 1.2068702076290071e-05,
+      "Tp": 6.885827438900262e-06,
+      "Treh": 0.08847674070828859,
+      "f_peak_est": 1.2647428226962752e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "physical_failure",
+      "failure_reason": "eternal inflation"
+    },
+    {
+      "name": "scan_point_0114",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.57
+      },
+      "alpha": 248480221.58422813,
+      "beta_H": 22.720135989544584,
+      "Tn": 0.0010089627530279165,
+      "Tp": 0.0006792796678338474,
+      "Treh": 0.08528478763255481,
+      "f_peak_est": 2.300978991693697e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0115",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.6
+      },
+      "alpha": 3153363.0129511887,
+      "beta_H": 28.234766590301774,
+      "Tn": 0.0029800721414386788,
+      "Tp": 0.0021181168441044384,
+      "Treh": 0.08925723735998697,
+      "f_peak_est": 3.00070543324671e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0116",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.65
+      },
+      "alpha": 19425.669579223133,
+      "beta_H": 39.03124079270981,
+      "Tn": 0.010741754603450917,
+      "Tp": 0.008185293518620677,
+      "Treh": 0.09663486535726148,
+      "f_peak_est": 4.5119905404623124e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0117",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.677
+      },
+      "alpha": 2632.513844309746,
+      "beta_H": 45.95121377008127,
+      "Tn": 0.017854188834334095,
+      "Tp": 0.014028818619423096,
+      "Treh": 0.1004974406148993,
+      "f_peak_est": 5.537041850507597e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0118",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.7
+      },
+      "alpha": 631.4332974388327,
+      "beta_H": 52.708486364679175,
+      "Tn": 0.025540590486562702,
+      "Tp": 0.020550873146700194,
+      "Treh": 0.10305853399651063,
+      "f_peak_est": 6.522703025936027e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0119",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.75
+      },
+      "alpha": 56.84255112320293,
+      "beta_H": 72.31463007343564,
+      "Tn": 0.04600325738002016,
+      "Tp": 0.03887165252237812,
+      "Treh": 0.10720001932435477,
+      "f_peak_est": 9.334700066018855e-07,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0120",
+      "parameters": {
+        "v": 1.0,
+        "g_D": 0.9
+      },
+      "alpha": 1.8271524260866752,
+      "beta_H": 140.6723773468883,
+      "Tn": 0.1154862053187515,
+      "Tp": 0.10426133815536914,
+      "Treh": 0.13519499083085665,
+      "f_peak_est": 2.360490373603889e-06,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    }
+  ],
+  "best_points": [
+    {
+      "name": "scan_point_0001",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.65
+      },
+      "alpha": 5222.502875946831,
+      "beta_H": 48.72140566563132,
+      "Tn": 0.00025555266075300226,
+      "Tp": 0.00020263698322452994,
+      "Treh": 0.001722698084324408,
+      "f_peak_est": 9.256033148586082e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0002",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.6
+      },
+      "alpha": 771183.6003708274,
+      "beta_H": 34.49886013930836,
+      "Tn": 0.00013097177715600962,
+      "Tp": 9.712538525478106e-05,
+      "Treh": 0.002878209097863931,
+      "f_peak_est": 1.095546550909493e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0003",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.677
+      },
+      "alpha": 795.3610763778476,
+      "beta_H": 57.48318953079945,
+      "Tn": 0.0003994601046885275,
+      "Tp": 0.0003255434274155439,
+      "Treh": 0.0017293640944237281,
+      "f_peak_est": 1.0962905839446058e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0004",
+      "parameters": {
+        "v": 0.077426368268,
+        "g_D": 0.5
+      },
+      "alpha": 435543010417841.1,
+      "beta_H": 14.571025057747987,
+      "Tn": 2.4753501891248612e-06,
+      "Tp": 1.4996344591924782e-06,
+      "Treh": 0.006850829724778483,
+      "f_peak_est": 1.1017771443305613e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0005",
+      "parameters": {
+        "v": 0.027825594022,
+        "g_D": 0.57
+      },
+      "alpha": 36647411.20525943,
+      "beta_H": 28.072317701614224,
+      "Tn": 5.0579523872596e-05,
+      "Tp": 3.6060468069611055e-05,
+      "Treh": 0.002805706174433739,
+      "f_peak_est": 8.690088642242922e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0006",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.75
+      },
+      "alpha": 30.134115564725345,
+      "beta_H": 97.71090720167308,
+      "Tn": 0.0005516151206923162,
+      "Tp": 0.00048233017718648467,
+      "Treh": 0.0011393405849867636,
+      "f_peak_est": 1.2255813519139453e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0007",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.7
+      },
+      "alpha": 216.7547770070023,
+      "beta_H": 68.34614307801701,
+      "Tn": 0.00033650357208674775,
+      "Tp": 0.0002817611823182243,
+      "Treh": 0.0010823633640353258,
+      "f_peak_est": 8.142676954485606e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0008",
+      "parameters": {
+        "v": 0.016681005372,
+        "g_D": 0.7
+      },
+      "alpha": 225.04169287375518,
+      "beta_H": 66.37869930722218,
+      "Tn": 0.0005463792004613781,
+      "Tp": 0.00045514700661194925,
+      "Treh": 0.0017648135461692035,
+      "f_peak_est": 1.2919298120577503e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0009",
+      "parameters": {
+        "v": 0.046415888336,
+        "g_D": 0.57
+      },
+      "alpha": 50566552.90082986,
+      "beta_H": 27.28649426521201,
+      "Tn": 7.82122980641779e-05,
+      "Tp": 5.539460335464442e-05,
+      "Treh": 0.00467125199574025,
+      "f_peak_est": 1.4064910841762849e-08,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    },
+    {
+      "name": "scan_point_0010",
+      "parameters": {
+        "v": 0.01,
+        "g_D": 0.677
+      },
+      "alpha": 797.9415554848695,
+      "beta_H": 59.06014751404597,
+      "Tn": 0.0002472698183522357,
+      "Tp": 0.00020239443695350273,
+      "Treh": 0.0010760372947089757,
+      "f_peak_est": 6.9951089437562496e-09,
+      "_comment_f_peak_est": "template-independent, order-of-magnitude redshifted peak frequency in Hz; anchors the vev/temperature scale for the PTA agent and must not be treated as the true spectral peak",
+      "status": "viable",
+      "failure_reason": ""
+    }
+  ],
+  "prior_ranges": {
+    "v": {
+      "units": "GeV",
+      "min": 0.01,
+      "max": 1.0,
+      "scale": "log"
+    },
+    "g_D": {
+      "min": 0.1,
+      "max": 0.9,
+      "scale": "mixed linear/seeded"
+    }
+  },
+  "validation": {
+    "finite_values": true,
+    "percolation_checked": true,
+    "eternal_inflation_checked": true,
+    "perturbativity_checked": true
+  },
+  "output_files": [
+    "output/u1conformal/fopt_model.py",
+    "output/u1conformal/fopt_model_scan.py",
+    "output/u1conformal/fopt_benchmarks.csv",
+    "output/u1conformal/fopt_report.md",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/fopt_results.json"
+  ],
+  "scan_notes": [
+    "literature_seeded_coarse: evaluating 120 new points"
+  ],
+  "status_counts": {
+    "not_fopt": 40,
+    "viable": 79,
+    "physical_failure": 1
+  }
+}

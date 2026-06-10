@@ -1,0 +1,290 @@
+{
+  "model": "u1conformal",
+  "agent": "critic-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-10",
+  "branch": "fopt-pta",
+  "created_from": [
+    "input/u1conformal/prompt.md",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/critique.md",
+    ".codex/agents/critic-agent.md",
+    ".codex/skills/model-critique/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md"
+  ],
+  "commands": [
+    "sed -n '1,260p' input/u1conformal/prompt.md",
+    "sed -n '1,260p' output/u1conformal/handoff_librarian_preliminary.json",
+    "sed -n '1,320p' docs/HANDOFF_PROPOSER_SCHEMA.md"
+  ],
+  "files_read": [
+    "input/u1conformal/prompt.md",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/librarian_preliminary_report.md",
+    ".codex/agents/critic-agent.md",
+    ".codex/skills/model-critique/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/SEMIANALYTICPIPELINE.md",
+    "backend/semianalytic_pipeline.py"
+  ],
+  "files_written": [
+    "output/u1conformal/model.md",
+    "output/u1conformal/handoff_model.json"
+  ],
+  "warnings": [
+    "Full Daisy-resummed thermal masses are not specified because they are not required by backend/semianalytic_pipeline.py.",
+    "lambda_HP and epsilon are not assigned numerical priors; downstream constraint work needs values or ranges.",
+    "Do not compare directly to m_ZD = 2 * g_D * M literature benchmarks without translating conventions.",
+    "Gauge dependence and supercooling/percolation caveats remain theory uncertainties for downstream FOPT/PTA analysis."
+  ],
+  "errors": [],
+  "approximations": [
+    "Use the minimal no-fermion gauge-dominated Coleman-Weinberg beta function.",
+    "Neglect portal and kinetic-mixing effects in the FOPT effective potential.",
+    "Use the semi-analytic backend rather than a full Daisy-resummed finite-temperature potential unless later requested."
+  ],
+  "gauge_groups": [
+    {
+      "name": "U(1)_D",
+      "type": "Abelian gauge",
+      "coupling": "g_D",
+      "charge_normalization": "q_Phi = 1"
+    }
+  ],
+  "global_symmetries": [
+    {
+      "name": "classical scale invariance",
+      "status": "dark-sector tree-level assumption",
+      "notes": "No explicit dark scalar mass term is present."
+    }
+  ],
+  "particle_content": [
+    {
+      "name": "Phi",
+      "type": "complex scalar",
+      "spin": 0,
+      "statistics": "boson",
+      "gauge_charges": {
+        "U(1)_D": 1
+      },
+      "degrees_of_freedom": 2,
+      "components": [
+        "rho",
+        "G"
+      ],
+      "notes": "Phi = (chi + rho + i * G) / sqrt(2)."
+    },
+    {
+      "name": "A_prime",
+      "type": "gauge boson",
+      "spin": 1,
+      "statistics": "boson",
+      "gauge_group": "U(1)_D",
+      "degrees_of_freedom_before_ssb": 2,
+      "degrees_of_freedom_after_ssb": 3,
+      "notes": "The Goldstone G is eaten after U(1)_D breaking."
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "dark scalar kinetic",
+      "expression": "abs(D_mu(Phi))**2",
+      "notes": "Gauge invariant for q_Phi = 1 and D_mu = partial_mu - i * g_D * A_prime_mu."
+    },
+    {
+      "name": "dark quartic potential",
+      "expression": "-lambda_Phi * abs(Phi)**4",
+      "notes": "Gauge invariant and classically scale invariant."
+    },
+    {
+      "name": "dark gauge kinetic",
+      "expression": "-1/4 * Fprime_munu * Fprime_munu",
+      "notes": "Standard Abelian kinetic term."
+    },
+    {
+      "name": "optional Higgs portal",
+      "expression": "lambda_HP * abs(H)**2 * abs(Phi)**2",
+      "notes": "Gauge invariant; assumed negligible for FOPT dynamics."
+    },
+    {
+      "name": "optional kinetic mixing",
+      "expression": "epsilon / 2 * Fprime_munu * F_munu",
+      "notes": "Gauge invariant; assumed negligible for FOPT dynamics but relevant for constraints."
+    }
+  ],
+  "free_parameters": [
+    {
+      "name": "v",
+      "range": "to be scanned by downstream FOPT/PTA agents",
+      "units": "GeV",
+      "notes": "Dark Higgs background vev."
+    },
+    {
+      "name": "g_D",
+      "range": "g_D > 0; prior to be chosen downstream",
+      "notes": "Dark gauge coupling in q_Phi = 1 convention."
+    },
+    {
+      "name": "lambda_HP",
+      "determination": "optional phenomenological parameter; negligible for FOPT by assumption",
+      "notes": "Needed for quantitative visible-sector constraints if included."
+    },
+    {
+      "name": "epsilon",
+      "determination": "optional phenomenological parameter; negligible for FOPT by assumption",
+      "notes": "Needed for quantitative dark-photon constraints if included."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "v": {
+        "units": "GeV",
+        "description": "Dark Higgs background vev <chi>."
+      },
+      "g_D": {
+        "description": "U(1)_D gauge coupling in q_Phi = 1 convention.",
+        "constraint": "g_D > 0"
+      }
+    },
+    "dependent": {
+      "lambda_Phi": {
+        "description": "CW-fixed quartic; not scanned independently.",
+        "determination": "Coleman-Weinberg minimization / backend relation"
+      },
+      "beta_lambda": "3 * g_D**4 / (8 * pi**2)",
+      "m_Aprime": "g_D * v",
+      "m_Aprime_squared": "g_D**2 * v**2",
+      "m_rho_squared": "beta_lambda * v**2"
+    },
+    "fixed": {
+      "q_Phi": 1,
+      "xi": 1,
+      "new_chiral_fermions": "none",
+      "portal_effects_on_FOPT": "negligible",
+      "kinetic_mixing_effects_on_FOPT": "negligible"
+    }
+  },
+  "assumptions": [
+    "Minimal no-fermion dark U(1)_D Coleman-Weinberg model.",
+    "Dark and visible sectors have xi = T_dark / T_visible = 1 for the FOPT/PTA calculation.",
+    "Portal and kinetic-mixing effects do not alter the phase-transition potential.",
+    "The scalar quartic is dependent and must not be scanned independently.",
+    "Use q_Phi = 1 so that m_Aprime(chi) = g_D * chi."
+  ],
+  "backend_compatibility": [
+    {
+      "backend": "semianalytic_pipeline",
+      "status": "compatible_with_warnings",
+      "mapping": {
+        "chi0": "v",
+        "boson_gbs": {
+          "Aprime": "g_D"
+        },
+        "boson_dofs": {
+          "Aprime": 3
+        },
+        "fermion_gfs": {},
+        "fermion_dofs": {},
+        "xi": 1
+      },
+      "notes": "The model satisfies the conformal single-field selection rule. Warnings concern omitted full thermal masses and phenomenological portal values, not semi-analytic backend input."
+    }
+  ],
+  "ssb_pattern": [
+    {
+      "initial": "U(1)_D",
+      "final": "nothing",
+      "order_parameter": "chi",
+      "vev": "v",
+      "notes": "The charge-one scalar vev fully Higgses U(1)_D."
+    }
+  ],
+  "vev_convention": [
+    {
+      "field": "Phi",
+      "expression": "(chi + rho + i * G) / sqrt(2)",
+      "background": "chi",
+      "vev": "v",
+      "notes": "At the vacuum, <chi> = v."
+    }
+  ],
+  "tree_level_potential": [
+    {
+      "name": "dark scalar quartic",
+      "expression": "lambda_Phi * chi**4 / 4",
+      "notes": "lambda_Phi is CW-dependent."
+    }
+  ],
+  "field_dependent_masses": [
+    {
+      "particle": "A_prime",
+      "m2_of_chi": "g_D**2 * chi**2",
+      "dof": 3,
+      "statistics": "boson",
+      "notes": "Derived from |D_mu Phi|**2 using real-vector mass-term normalization."
+    },
+    {
+      "particle": "rho",
+      "m2_of_chi": "3 * lambda_Phi * chi**2",
+      "dof": 1,
+      "statistics": "boson",
+      "notes": "Tree-level scalar curvature; not passed as an independent semi-analytic backend input. The CW physical mass is beta_lambda * v**2."
+    },
+    {
+      "particle": "G",
+      "m2_of_chi": "lambda_Phi * chi**2",
+      "dof": 1,
+      "statistics": "boson",
+      "notes": "Tree-level Goldstone curvature before gauge fixing/eating; not passed as an independent semi-analytic backend input."
+    }
+  ],
+  "thermal_masses": [
+    {
+      "scope": "semianalytic_pipeline",
+      "status": "not_required_as_explicit_inputs",
+      "notes": "The selected backend uses mass-over-vev ratios and degrees of freedom, not explicit Daisy-resummed thermal masses."
+    },
+    {
+      "scope": "full_finite_temperature_potential",
+      "status": "not_specified_in_prompt",
+      "notes": "A full implementation would need scalar, Goldstone, and longitudinal-gauge thermal masses plus a gauge and resummation prescription."
+    }
+  ],
+  "expression_symbols": [
+    {
+      "symbol": "chi",
+      "meaning": "Real background field."
+    },
+    {
+      "symbol": "v",
+      "meaning": "Dark Higgs vev in GeV."
+    },
+    {
+      "symbol": "g_D",
+      "meaning": "Dark U(1)_D gauge coupling."
+    },
+    {
+      "symbol": "lambda_Phi",
+      "meaning": "Dependent scalar quartic fixed by the Coleman-Weinberg relation."
+    },
+    {
+      "symbol": "beta_lambda",
+      "meaning": "One-loop quartic beta coefficient in backend convention."
+    },
+    {
+      "symbol": "pi",
+      "meaning": "Mathematical constant pi."
+    },
+    {
+      "symbol": "lambda_HP",
+      "meaning": "Optional Higgs portal coupling."
+    },
+    {
+      "symbol": "epsilon",
+      "meaning": "Optional gauge kinetic mixing."
+    }
+  ]
+}

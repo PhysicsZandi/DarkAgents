@@ -1,0 +1,376 @@
+{
+  "model": "scale-invariant-dark-u1-zprime",
+  "agent": "prior-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-10",
+  "branch": "prior_audit",
+  "created_from": [
+    "output/scale-invariant-dark-u1-zprime/handoff_model.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_critique.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_librarian_preliminary.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_fopt.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_pta.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_constraints.json"
+  ],
+  "commands": [
+    "WebSearch dbf bulk-flow GW template supercooled alpha saturation arXiv:2511.15687"
+  ],
+  "files_read": [
+    "output/scale-invariant-dark-u1-zprime/handoff_model.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_critique.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_librarian_preliminary.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_fopt.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_pta.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_constraints.json",
+    "docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/scale-invariant-dark-u1-zprime/handoff_prior_audit.json",
+    "output/scale-invariant-dark-u1-zprime/prior_audit_report.md",
+    "output/scale-invariant-dark-u1-zprime/prior_audit_table.csv"
+  ],
+  "warnings": [
+    "Decision-driving issue: epsilon=0 (kinetic mixing) was fixed for the entire FOPT/PTA chain, making the dark sector secluded; SM reheating and BBN viability REQUIRE epsilon~1e-6..1e-3. The cosmological-viability half of the science question is therefore UNRESOLVED, despite a clean NANOGrav fit.",
+    "beta/H convention mismatch: FOPT backend reports beta_H~153 at lit Point A vs 21.1 in arXiv:2502.19478 (factor ~7). The PTA template is beta/H-driven, so the spectral peak amplitude/width and the inferred posterior could be systematically biased.",
+    "dbf bulk-flow template used at alpha up to ~1e15-1e16 with K_sw->1 saturation; the amplitude is pinned at its strong-PT ceiling and is insensitive to the true (extreme) alpha. The NANOGrav 'fit' is largely a statement about beta/H and Treh, not alpha.",
+    "No Bayes factor / evidence computed (evidence=null). The claim that the model 'explains' NANOGrav is a goodness-of-region (14/14 bins) and posterior-shape statement, not a model-comparison result against SMBHB or other SGWB sources.",
+    "5 constraint observables (portal reheating, Z' decays, Delta N_eff, chi relic, scalon decay) are uncomputed; no PTA-preferred point can yet be declared cosmologically allowed."
+  ],
+  "errors": [],
+  "approximations": [
+    "High-T (small chi/T) expansion for the bounce action",
+    "Gaussian percolation approximation",
+    "mu=w, no RG running, no Daisy resummation",
+    "scalar+Goldstone CW contributions neglected (gb=0)",
+    "dbf bulk-flow GW template with runaway walls vw->1",
+    "T=Treh used as redshift temperature",
+    "Derived masses at face value m_Zp=g_D*w, m_chi=y*w/sqrt(2), m_scalon=sqrt(beta_lambda)*w",
+    "Single-field conformal approximation; SM/portal back-reaction neglected"
+  ],
+  "uncertainty_summary": {
+    "total_items": 22,
+    "severity_distribution": {
+      "1": 0, "2": 1, "3": 2, "4": 3, "5": 4, "6": 3, "7": 3, "8": 3, "9": 2, "10": 1
+    },
+    "controlled_distribution": {
+      "1": 0, "2": 1, "3": 2, "4": 2, "5": 2, "6": 1, "7": 0, "8": 0, "9": 0, "10": 0
+    }
+  },
+  "upstream_statuses": [
+    { "handoff": "handoff_model.json", "status": "ok" },
+    { "handoff": "handoff_critique.json", "status": "ok" },
+    { "handoff": "handoff_librarian_preliminary.json", "status": "ok" },
+    { "handoff": "handoff_fopt.json", "status": "warning" },
+    { "handoff": "handoff_pta.json", "status": "warning" },
+    { "handoff": "handoff_constraints.json", "status": "warning" }
+  ],
+  "assumptions": [
+    {
+      "id": "A01",
+      "kind": "assumption",
+      "category": "cosmology_thermal_history",
+      "description": "epsilon=0 (kinetic mixing) fixed for the whole FOPT/PTA chain makes the dark sector fully secluded. SM reheating and BBN require epsilon~1e-6..1e-3; with strictly epsilon=0 the latent heat stays dark-only and the scenario fails BBN/N_eff. This is the dominant decision-driving assumption for cosmological viability.",
+      "severity": 10,
+      "controlled": false,
+      "affected_outputs": ["cosmological viability verdict", "Treh interpretation", "all dark-photon constraints C1-C9"],
+      "required_solution": "Add a portal_reheating.py module: re-introduce epsilon, solve dark->SM energy transfer through Z' decay/scattering, output T_reh^SM and verify >3-4 MeV; propagate epsilon into the model scan.",
+      "source": { "file": "handoff_constraints.json", "section": "warnings/C1/C2/missing_calculations", "note": "epsilon fixed to 0 in handoff_model/fopt/pta" }
+    },
+    {
+      "id": "A02",
+      "kind": "warning",
+      "category": "gw_parameter_convention",
+      "description": "beta/H convention mismatch: backend gives beta_H~152.7 at lit Point A vs 21.1 in arXiv:2502.19478 (factor ~7). Because the GW template peak amplitude scales ~ (beta/H)^-2 and the peak frequency ~ beta/H, a systematic factor-7 offset directly biases the predicted spectrum and the PTA posterior.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": ["GW spectrum amplitude/peak", "ptarcade posteriors on g_D,y,w", "best-fit ranking"],
+      "required_solution": "Reconcile the backend beta/H definition (nucleation vs percolation vs action-derivative convention) with the literature definition; recompute at Point A to within the validated ~15% on Tp/Treh/alpha and re-run the PTA fit if the offset is real.",
+      "source": { "file": "handoff_fopt.json", "section": "warnings", "note": "152.7 vs 21.1 flagged but not resolved" }
+    },
+    {
+      "id": "A03",
+      "kind": "approximation",
+      "category": "gw_template_validity",
+      "description": "dbf bulk-flow template applied at alpha up to ~1e15-1e16 with K_sw->1 (efficiency saturated). The amplitude is pinned at its strong-PT ceiling and is effectively independent of the true alpha, so the NANOGrav fit constrains essentially beta/H and Treh, not alpha. Extreme-supercooling template extrapolation (cf. arXiv:2511.15687 cosmic-expansion corrections) is an uncontrolled systematic.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": ["GW amplitude at extreme alpha", "interpretation of alpha posterior", "claim of fit"],
+      "required_solution": "Cross-check dbf against an expansion-corrected supercooled template (arXiv:2511.15687) and against bf; quantify the amplitude ceiling and report alpha-insensitivity explicitly in the fit interpretation.",
+      "source": { "file": "handoff_pta.json", "section": "warnings/template_validity", "note": "K_sw->1 saturation; dbf in strong-PT regime" }
+    },
+    {
+      "id": "A04",
+      "kind": "limitation",
+      "category": "model_selection",
+      "description": "No Bayes factor / evidence computed (evidence=null, evidence_error=null). The 14/14-bins 'fit' and peaked interior posteriors show the model CAN reproduce NG15 in the preferred region, but there is no quantitative comparison to the SMBHB interpretation or to a null/other-SGWB hypothesis.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": ["does-the-model-explain-NANOGrav verdict strength"],
+      "required_solution": "Run PTArcade/ceffyl with evidence estimation (e.g. product-space or thermodynamic integration) to obtain a Bayes factor vs SMBHB and vs the agnostic power-law.",
+      "source": { "file": "handoff_pta.json", "section": "bayes_estimates.evidence", "note": "evidence=null" }
+    },
+    {
+      "id": "A05",
+      "kind": "uncertainty",
+      "category": "cosmology_Neff",
+      "description": "Delta N_eff from residual dark radiation (massless chi when y=0, light scalon, undecayed Z') is uncomputed. Most dangerous at the y->0 subregion (rank1 has y=0 exactly -> massless chi -> permanent free-streaming dark radiation). Could exclude part of the PTA-preferred region.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": ["viability of y~0 best-fit points (rank1)", "CMB/BBN compatibility"],
+      "required_solution": "deltaNeff.py: track dark entropy and temperature ratio xi=T_dark/T_SM, output Delta N_eff at BBN/CMB; require <0.3-0.4 (Planck N_eff=2.99+/-0.17).",
+      "source": { "file": "handoff_constraints.json", "section": "C3/missing_calculations", "note": "requires_new_backend" }
+    },
+    {
+      "id": "A06",
+      "kind": "caveat",
+      "category": "gw_redshift",
+      "description": "temperature_key=Treh: the reheating temperature (not Tp or Tn) is used as the redshift temperature for the GW spectrum. In strong supercooling Treh and Tp differ by orders of magnitude, so the peak frequency placement in the PTA band depends sensitively on this convention choice.",
+      "severity": 6,
+      "controlled": true,
+      "affected_outputs": ["peak frequency placement in nHz band", "f_peak_est"],
+      "required_solution": "Confirm the redshift-temperature choice matches the template's derivation; document sensitivity of f_peak to Treh vs Tp.",
+      "source": { "file": "handoff_fopt.json", "section": "temperature_key", "note": "Treh chosen; consistent with vacuum-domination reheating" }
+    },
+    {
+      "id": "A07",
+      "kind": "prior",
+      "category": "statistical_prior",
+      "description": "PTArcade priors g_D~U(0.1,2.0) and y~U(0.0,2.0) were enlarged by the user up to 2.0, beyond the critic-validated independent ranges (g_D [0.1,1.5], y [0,1]). Upper edges approach the perturbativity boundary (C10) and the beta_lambda>0 cut; although posterior mass sits far from the edges, the enlarged prior affects normalization and any future evidence/Bayes-factor.",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": ["posterior normalization", "future Bayes factor", "perturbativity at high g_D/y"],
+      "required_solution": "Justify or restrict the priors to the validated [0.1,1.5]/[0,1] ranges; verify the y^4<1.5 g_D^4 cut is enforced over the full enlarged prior box.",
+      "source": { "file": "handoff_pta.json", "section": "ptarcade_analysis.priors", "note": "Uniform(0.1,2.0)/(0,2.0) vs model [0.1,1.5]/[0,1]" }
+    },
+    {
+      "id": "A08",
+      "kind": "uncertainty",
+      "category": "cosmology_relic",
+      "description": "chi dark-matter relic abundance is uncomputed; overclosure (Omega_chi h^2 <= 0.12) not checked for the y>0 region. DM viability/underabundance and the DM fraction f_chi (feeding direct detection) are unknown.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["DM viability", "direct-detection constraint C8 applicability"],
+      "required_solution": "relic_chi.py: Boltzmann freeze-out for chi chi->Zp Zp / forbidden channels; output Omega_chi h^2 and f_chi.",
+      "source": { "file": "handoff_constraints.json", "section": "C7/C8", "note": "requires_new_backend" }
+    },
+    {
+      "id": "A09",
+      "kind": "uncertainty",
+      "category": "cosmology_BBN",
+      "description": "Light scalon (m~20-110 MeV) decay width/lifetime and abundance uncomputed. With lambda_portal=0 it decays only via a two-dark-photon->SM loop and may be long-lived, risking BBN EM/hadronic injection or extra dark radiation.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["BBN injection bounds", "dark-radiation budget"],
+      "required_solution": "scalon_decay.py: two-dark-photon loop width to SM, lifetime vs t_BBN, injection check.",
+      "source": { "file": "handoff_constraints.json", "section": "C9", "note": "requires_new_backend" }
+    },
+    {
+      "id": "A10",
+      "kind": "approximation",
+      "category": "effective_potential",
+      "description": "mu=w renormalization scale fixed with no RG running and no Daisy/thermal resummation. arXiv:2511.02910 cautions that Daisy-vs-3D-EFT treatment of supercooled CW transitions matters; the bounce action and thus Tp/alpha/beta carry an uncontrolled scale-choice systematic.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": ["Tp, alpha, beta_H", "all downstream GW quantities"],
+      "required_solution": "Estimate the scale-variation band (mu in [w/2,2w]) and/or compare against a 3D-EFT treatment to bound the theory uncertainty on the thermal parameters.",
+      "source": { "file": "handoff_model.json", "section": "assumptions/fixed.mu_renorm", "note": "no RG, no Daisy; theory_uncertainties in librarian" }
+    },
+    {
+      "id": "A11",
+      "kind": "approximation",
+      "category": "bounce_action",
+      "description": "High-T (small chi/T) expansion of the bounce action used in a deeply supercooled regime where chi/T can be large at the bottom of the bounce; the small-chi/T expansion is least reliable exactly where the model operates (alpha>>1).",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["Tp, Tn, alpha, beta_H"],
+      "required_solution": "Validate the high-T action against a full numerical bounce (e.g. CosmoTransitions) at a few benchmarks in the deep-supercooling regime.",
+      "source": { "file": "handoff_fopt.json", "section": "approximations", "note": "high-T expansion bounce action" }
+    },
+    {
+      "id": "A12",
+      "kind": "approximation",
+      "category": "percolation",
+      "description": "Gaussian percolation approximation used to define Tp/completion. Percolation and eternal-inflation are reported checked=true, but the Gaussian approximation can mis-estimate completion in the extreme alpha~1e16 tail.",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": ["Tp", "percolation/completion verdict (C11)"],
+      "required_solution": "Cross-check the Gaussian percolation criterion against the full true-vacuum-fraction integral at the most supercooled points.",
+      "source": { "file": "handoff_fopt.json", "section": "approximations/validation", "note": "percolation_checked=true" }
+    },
+    {
+      "id": "A13",
+      "kind": "assumption",
+      "category": "wall_dynamics",
+      "description": "Runaway walls with vw->1 assumed (vacuum domination), feeding both the dbf template choice and K_sw->1. If friction (e.g. from the thermalized dark plasma or NLO transition radiation) prevents runaway, the wall would reach a terminal velocity, changing the efficiency and the template.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["template choice (dbf vs sound-wave)", "GW efficiency", "amplitude"],
+      "required_solution": "Estimate the friction/pressure (Bodeker-Moore) at benchmarks to confirm runaway vs terminal velocity; if non-runaway, switch template.",
+      "source": { "file": "handoff_pta.json", "section": "fixed.vw/template_validity", "note": "vw=1 runaway assumed" }
+    },
+    {
+      "id": "A14",
+      "kind": "assumption",
+      "category": "model_construction",
+      "description": "Single-field conformal approximation: SM and Higgs-portal back-reaction neglected (lambda_portal=0). The pseudo-dilaton direction is treated as the only relevant field; multi-field/portal effects on the potential and transition are dropped.",
+      "severity": 4,
+      "controlled": true,
+      "affected_outputs": ["effective potential", "transition dynamics"],
+      "required_solution": "Justify single-field reduction; bound the back-reaction of a small lambda_portal needed for reheating on the bounce.",
+      "source": { "file": "handoff_model.json", "section": "assumptions", "note": "single-field conformal" }
+    },
+    {
+      "id": "A15",
+      "kind": "assumption",
+      "category": "model_construction",
+      "description": "beta_lambda>0 enforced via hard cut y^4 < 1.5 g_D^4 (Z' bosonic contribution must dominate fermionic). This is a physically required CW-existence condition but it carves the parameter space and removes fermion-dominated regions a priori.",
+      "severity": 4,
+      "controlled": true,
+      "affected_outputs": ["allowed parameter region", "prior support"],
+      "required_solution": "None (correct physical cut); ensure it is applied as a hard cut over the full enlarged prior box, not just the nominal range.",
+      "source": { "file": "handoff_critique.json", "section": "repair_records/warnings", "note": "y^4<1.5 g_D^4" }
+    },
+    {
+      "id": "A16",
+      "kind": "limitation",
+      "category": "parameter_window",
+      "description": "vev window w restricted by the critic to [0.05,10] GeV (from proposer [100,1e6] GeV) to land the GW peak in the nHz band. The NANOGrav explanation is thus partly engineered by the prior window; outside it the model does not produce a nHz signal.",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": ["peak frequency in band", "PTA preference"],
+      "required_solution": "Document that the nHz signal is window-conditional; the physics conclusion is 'viable within the chosen w window', not unconditional.",
+      "source": { "file": "handoff_critique.json", "section": "repair_records", "note": "w corrected to [0.05,10] GeV" }
+    },
+    {
+      "id": "A17",
+      "kind": "caveat",
+      "category": "novelty",
+      "description": "Model is structurally non-novel: closest precedent arXiv:2502.19478 is essentially the same model (including the Yukawa dark fermion as sub-GeV DM, but with kinetic mixing). The only distinctive ingredients are the explicit mirror fermion eta (anomaly cancellation) and the deliberate neglect of kinetic mixing.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": ["originality framing of the result"],
+      "required_solution": "Frame results relative to arXiv:2502.19478; reusing their portal treatment would directly resolve A01.",
+      "source": { "file": "handoff_librarian_preliminary.json", "section": "novelty_verdict", "note": "not_novel_close_precedent_exists" }
+    },
+    {
+      "id": "A18",
+      "kind": "approximation",
+      "category": "redshift_thermodynamics",
+      "description": "GW redshift uses g_*(T) tabulated for the SM (T_vs_g_gs_GeV.csv) at Treh~MeV-100 MeV, but with epsilon=0 the relevant bath is dark, not SM. The g_* used for redshifting may not correspond to the actual radiation content carrying the GWs.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["redshifted peak frequency and amplitude"],
+      "required_solution": "Once the portal/thermal history is fixed (A01), use the correct effective g_* (dark+SM) at the relevant epoch for redshifting.",
+      "source": { "file": "handoff_fopt.json", "section": "files_read", "note": "T_vs_g_gs_GeV.csv (SM dof)" }
+    },
+    {
+      "id": "A19",
+      "kind": "uncertainty",
+      "category": "statistical_data",
+      "description": "Fit uses NG15 via ceffyl free-spectrum (14 frequency bins). Restricting to ceffyl/free-spectrum and 14 bins, and treating the in-band bin count (14/14) as the success metric, is an approximate likelihood relative to the full NANOGrav cross-correlation analysis.",
+      "severity": 4,
+      "controlled": true,
+      "affected_outputs": ["goodness-of-fit metric", "posterior"],
+      "required_solution": "Note ceffyl approximation; for a headline claim cross-check against the full PTA likelihood.",
+      "source": { "file": "handoff_pta.json", "section": "campaign.mode=ceffyl", "note": "NG15 free-spectrum, 14 bins" }
+    },
+    {
+      "id": "A20",
+      "kind": "approximation",
+      "category": "spectral_shape",
+      "description": "dbf chosen over bf because a thermalized dark Z plasma is assumed to dissipate part of the bulk-flow energy; bf used only as cross-check (near-identical peak). The dissipation assumption (and its degree) is qualitative, not computed from the dark-plasma transport.",
+      "severity": 5,
+      "controlled": true,
+      "affected_outputs": ["spectral shape/amplitude choice between dbf and bf"],
+      "required_solution": "Quantify dark-plasma dissipation; since bf gives near-identical peak, impact on the peak is small but the high-frequency tail differs.",
+      "source": { "file": "handoff_pta.json", "section": "template_validity", "note": "dbf vs bf" }
+    },
+    {
+      "id": "A21",
+      "kind": "caveat",
+      "category": "internal_consistency",
+      "description": "f_peak_est in handoff_fopt is explicitly a template-independent order-of-magnitude redshifted peak, NOT the true spectral peak; the true peak comes only from the PTA-stage template. Mixing the two estimates when judging band placement would be inconsistent.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": ["band-placement reasoning"],
+      "required_solution": "Use only the PTA-stage spectrum for peak placement; keep f_peak_est as a sanity estimate.",
+      "source": { "file": "handoff_fopt.json", "section": "_comment_f_peak_est", "note": "order-of-magnitude only" }
+    },
+    {
+      "id": "A22",
+      "kind": "uncertainty",
+      "category": "supernova_collider",
+      "description": "Dark-photon visible-decay, beam-dump and SN1987A bounds (C4-C6) all require Z' decay widths/lifetime and epsilon, none computed. The intermediate epsilon~1e-6..1e-4 needed for reheating overlaps the experimentally probed window, so reheating-viable epsilon may itself be excluded; currently undetermined.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": ["whether reheating-viable epsilon survives lab/SN bounds"],
+      "required_solution": "darkphoton_decays.py (DarkCast-style): Gamma(Z'->ll,hadrons,chi chi), lifetime, visible/invisible BR; overlay reheating-required epsilon vs exclusion regions.",
+      "source": { "file": "handoff_constraints.json", "section": "C4/C5/C6/missing_calculations", "note": "recast/approximate, epsilon-dependent" }
+    }
+  ],
+  "required_followups": [
+    {
+      "id": "F1",
+      "priority": "high",
+      "description": "Re-introduce kinetic mixing epsilon and compute SM reheating temperature after the supercooled transition; verify T_reh^SM>3-4 MeV across the PTA-preferred region.",
+      "blocked_by": ["A01"],
+      "suggested_action": "Build portal_reheating.py (dark->SM energy transfer via Z' decay/scattering); reproduce Balan et al. T_reh=16.8-55.9 MeV for their kappa."
+    },
+    {
+      "id": "F2",
+      "priority": "high",
+      "description": "Resolve the beta/H convention mismatch (153 vs 21.1 at Point A) and re-run the PTA fit if the offset is physical.",
+      "blocked_by": ["A02"],
+      "suggested_action": "Align the backend beta/H definition with the literature (nucleation/percolation/action-derivative); recompute Point A and the posterior."
+    },
+    {
+      "id": "F3",
+      "priority": "high",
+      "description": "Quantify GW template systematics at extreme alpha (K_sw saturation, cosmic-expansion corrections) and report alpha-insensitivity of the amplitude.",
+      "blocked_by": ["A03", "A13"],
+      "suggested_action": "Cross-check dbf vs bf vs arXiv:2511.15687 expansion-corrected template; confirm runaway-wall assumption via Bodeker-Moore friction."
+    },
+    {
+      "id": "F4",
+      "priority": "high",
+      "description": "Compute Delta N_eff from the dark sector, especially the y=0 massless-chi best-fit point (rank1).",
+      "blocked_by": ["A05"],
+      "suggested_action": "Build deltaNeff.py / AlterBBN interface; require Delta N_eff<0.3-0.4."
+    },
+    {
+      "id": "F5",
+      "priority": "high",
+      "description": "Compute a Bayes factor / evidence vs SMBHB and agnostic power-law to substantiate the 'explains NANOGrav' claim.",
+      "blocked_by": ["A04"],
+      "suggested_action": "Run PTArcade with evidence estimation; report ln(BF)."
+    },
+    {
+      "id": "F6",
+      "priority": "medium",
+      "description": "Compute Z' decay widths/lifetime/BR and overlay reheating-required epsilon against dark-photon lab + SN1987A exclusions.",
+      "blocked_by": ["A22", "A01"],
+      "suggested_action": "Build darkphoton_decays.py (DarkCast-style); check whether reheating-viable epsilon survives."
+    },
+    {
+      "id": "F7",
+      "priority": "medium",
+      "description": "Compute chi relic abundance and scalon lifetime/abundance for overclosure and BBN-injection checks.",
+      "blocked_by": ["A08", "A09"],
+      "suggested_action": "Build relic_chi.py and scalon_decay.py."
+    },
+    {
+      "id": "F8",
+      "priority": "medium",
+      "description": "Bound the effective-potential theory uncertainty (mu-scale variation, Daisy vs 3D-EFT, high-T action validity) on Tp/alpha/beta.",
+      "blocked_by": ["A10", "A11"],
+      "suggested_action": "Vary mu in [w/2,2w]; validate high-T bounce against full numerical bounce at benchmarks."
+    },
+    {
+      "id": "F9",
+      "priority": "low",
+      "description": "Restrict or justify the enlarged PTArcade priors (g_D,y up to 2.0) relative to validated ranges and confirm the y^4<1.5 g_D^4 cut over the full prior box.",
+      "blocked_by": ["A07", "A15"],
+      "suggested_action": "Re-run with priors matching critic-validated ranges as a robustness check."
+    }
+  ]
+}

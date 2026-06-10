@@ -1,0 +1,585 @@
+{
+  "model": "u1conformal",
+  "agent": "prior-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-10",
+  "branch": "prior_audit",
+  "created_from": [
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_model.json",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/handoff_pta.json",
+    "output/u1conformal/handoff_constraints.json",
+    ".codex/agents/prior-agent.md",
+    ".codex/skills/prior-audit/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md"
+  ],
+  "commands": [
+    "sed -n '1,240p' .codex/agents/prior-agent.md",
+    "sed -n '1,260p' .codex/skills/prior-audit/SKILL.md",
+    "sed -n '1,260p' docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md",
+    "sed -n '1,260p' docs/HANDOFF_SCHEMAS.md",
+    "rg --files output/u1conformal -g 'handoff_*.json'",
+    "sed -n targeted reads of output/u1conformal/handoff_*.json"
+  ],
+  "files_read": [
+    ".codex/agents/prior-agent.md",
+    ".codex/skills/prior-audit/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_PRIOR_AUDIT_SCHEMA.md",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_model.json",
+    "output/u1conformal/handoff_fopt.json",
+    "output/u1conformal/handoff_pta.json",
+    "output/u1conformal/handoff_constraints.json"
+  ],
+  "files_written": [
+    "output/u1conformal/prior_audit_report.md",
+    "output/u1conformal/prior_audit_table.csv",
+    "output/u1conformal/handoff_prior_audit.json"
+  ],
+  "warnings": [
+    "The pipeline is usable but dominated by high-severity uncontrolled theory and phenomenology assumptions.",
+    "The librarian, critic/model, PTA, and constraints handoffs all carry warning status.",
+    "No new physics calculation, scan, or constraint recast was performed by the prior agent.",
+    "No targeted web fetch was needed because the upstream librarian and constraint handoffs already document the relevant literature and missing observables."
+  ],
+  "errors": [],
+  "approximations": [
+    "Severity scores are qualitative audit rankings on the schema's 1-10 scale.",
+    "Controlled means the item is explicitly handled well enough for the existing pipeline output; it does not imply the physics assumption is universally validated.",
+    "The audit prioritizes interpretation risk for the completed fopt-pta workflow rather than proposing new benchmark points."
+  ],
+  "uncertainty_summary": {
+    "total_items": 26,
+    "severity_distribution": {
+      "1": 0,
+      "2": 0,
+      "3": 2,
+      "4": 2,
+      "5": 5,
+      "6": 3,
+      "7": 2,
+      "8": 4,
+      "9": 8,
+      "10": 0
+    },
+    "controlled_distribution": {
+      "1": 0,
+      "2": 0,
+      "3": 2,
+      "4": 1,
+      "5": 0,
+      "6": 1,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0
+    }
+  },
+  "upstream_statuses": [
+    {
+      "file": "output/u1conformal/handoff_librarian_preliminary.json",
+      "agent": "preliminary-librarian-agent",
+      "status": "warning",
+      "summary": "No exact no-fermion, charge-one, PTArcade-ready match was found; closest benchmarks require convention and model-content translation."
+    },
+    {
+      "file": "output/u1conformal/handoff_critique.json",
+      "agent": "critic-agent",
+      "status": "warning",
+      "summary": "Model is internally consistent for the semi-analytic backend, but portal values, kinetic mixing, thermalization, gauge dependence, and full thermal masses remain warnings."
+    },
+    {
+      "file": "output/u1conformal/handoff_model.json",
+      "agent": "critic-agent",
+      "status": "warning",
+      "summary": "Authoritative model uses independent v and g_D, dependent lambda_Phi, fixed q_Phi=1 and xi=1, and negligible portal/kinetic-mixing effects for FOPT."
+    },
+    {
+      "file": "output/u1conformal/handoff_fopt.json",
+      "agent": "fopt-agent",
+      "status": "ok",
+      "summary": "Semi-analytic conformal single-field scan executed with 79 viable points out of 120, but uses high-temperature and percolation approximations."
+    },
+    {
+      "file": "output/u1conformal/handoff_pta.json",
+      "agent": "pta-agent",
+      "status": "warning",
+      "summary": "PTA benchmark and PTArcade campaign completed, but template choice, wall dynamics, and convergence diagnostics remain limited."
+    },
+    {
+      "file": "output/u1conformal/handoff_constraints.json",
+      "agent": "constraint-agent",
+      "status": "warning",
+      "summary": "Only theory consistency constraints were directly applied; most laboratory and cosmology constraints require new observables or recasts."
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "PA01",
+      "kind": "caveat",
+      "category": "literature_novelty",
+      "description": "The broad class of classically conformal dark U(1) phase transitions has already been studied; novelty is only partial for the exact no-fermion, charge-one, PTArcade implementation.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["librarian novelty verdict", "benchmark interpretation", "final scientific claims"],
+      "required_solution": "Frame novelty narrowly and compare against the closest U(1) Coleman-Weinberg/PTA papers with explicit model-content differences.",
+      "source": {
+        "file": "output/u1conformal/handoff_librarian_preliminary.json",
+        "section": "novelty_verdict",
+        "note": "Not novel as a broad class; partially novel only in the stripped-down convention and implementation."
+      }
+    },
+    {
+      "id": "PA02",
+      "kind": "warning",
+      "category": "conventions",
+      "description": "Literature benchmarks use multiple U(1) charge and vev conventions, including m_ZD = 2 g_D M, while this pipeline uses q_Phi = 1 and m_Aprime = g_D v.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["benchmark seeding", "parameter comparisons", "mass-range constraints"],
+      "required_solution": "Maintain an explicit conversion table for each imported benchmark and verify all mass, vev, and coupling translations before quoting comparisons.",
+      "source": {
+        "file": "output/u1conformal/handoff_librarian_preliminary.json",
+        "section": "warnings; benchmark_hints",
+        "note": "Closest same-model paper uses a different dark charge/mass convention."
+      }
+    },
+    {
+      "id": "PA03",
+      "kind": "assumption",
+      "category": "parameter_basis",
+      "description": "lambda_Phi is fixed by the Coleman-Weinberg/backend relation and is not an independent scanned parameter.",
+      "severity": 4,
+      "controlled": true,
+      "affected_outputs": ["FOPT scan", "PTArcade priors", "mass formulas"],
+      "required_solution": "Keep lambda_Phi out of independent priors and record beta_lambda/lambda_Phi as derived quantities for every posterior sample.",
+      "source": {
+        "file": "output/u1conformal/handoff_model.json",
+        "section": "parameter_basis.dependent",
+        "note": "The critic and FOPT handoffs consistently treat lambda_Phi as dependent."
+      }
+    },
+    {
+      "id": "PA04",
+      "kind": "limitation",
+      "category": "portal_inputs",
+      "description": "epsilon and lambda_HP are unspecified and assumed negligible for FOPT, but they are essential for laboratory, cosmological, and visible-sector constraints.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": ["constraints", "thermal history", "decay lifetimes", "phenomenological viability"],
+      "required_solution": "Specify priors or benchmark values for epsilon and lambda_HP and implement the corresponding width, lifetime, branching-ratio, and production calculations.",
+      "source": {
+        "file": "output/u1conformal/handoff_constraints.json",
+        "section": "warnings; missing_calculations",
+        "note": "No collider, beam-dump, SN1987A, BBN, CMB, direct, or indirect exclusion was applied without these observables."
+      }
+    },
+    {
+      "id": "PA05",
+      "kind": "assumption",
+      "category": "thermal_history",
+      "description": "The FOPT/PTA calculation fixes xi = T_dark/T_visible = 1 while the couplings that could maintain thermal contact are small or unspecified.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": ["FOPT temperatures", "GW amplitude", "Delta N_eff", "BBN/CMB interpretation"],
+      "required_solution": "Compute Gamma_SM-dark/H, decoupling, entropy transfer, and xi(T), or explicitly impose and justify xi = 1 as an initial condition.",
+      "source": {
+        "file": "output/u1conformal/handoff_constraints.json",
+        "section": "constraints C10-C11",
+        "note": "xi=1 is an input assumption, not a derived result."
+      }
+    },
+    {
+      "id": "PA06",
+      "kind": "approximation",
+      "category": "fopt_backend",
+      "description": "The FOPT stage uses the semi-analytic conformal single-field backend with a high-temperature/small-field polynomial form and subleading scalar/Goldstone treatment.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": ["alpha", "beta_H", "Tn", "Tp", "Treh", "PTA spectrum"],
+      "required_solution": "Benchmark against a full finite-temperature effective-potential implementation over representative posterior points.",
+      "source": {
+        "file": "output/u1conformal/handoff_fopt.json",
+        "section": "approximations",
+        "note": "Semi-analytic backend with scalar/Goldstone contributions treated as subleading."
+      }
+    },
+    {
+      "id": "PA07",
+      "kind": "limitation",
+      "category": "finite_temperature_theory",
+      "description": "Full Daisy resummation, RG running, longitudinal gauge thermal masses, scalar thermal masses, and gauge/resummation prescription variations were not implemented.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": ["transition strength", "nucleation", "percolation", "literature comparisons"],
+      "required_solution": "Add a controlled finite-temperature potential implementation and compare Landau-gauge, gauge-independent, and resummation-scheme variants where available.",
+      "source": {
+        "file": "output/u1conformal/handoff_critique.json",
+        "section": "validation_thermal_masses; warnings",
+        "note": "Not required by the selected backend, but required for a full finite-temperature implementation."
+      }
+    },
+    {
+      "id": "PA08",
+      "kind": "approximation",
+      "category": "percolation",
+      "description": "The backend uses a Gaussian false-vacuum-fraction/percolation approximation; percolation and eternal-inflation checks are present only at backend-screen level.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": ["viability labels", "Tn", "Tp", "Treh", "PTA posterior"],
+      "required_solution": "Run posterior-level percolation and false-vacuum survival checks with uncertainty bands for the preferred region.",
+      "source": {
+        "file": "output/u1conformal/handoff_fopt.json",
+        "section": "approximations; validation",
+        "note": "Percolation_checked is true, but the method remains approximate."
+      }
+    },
+    {
+      "id": "PA09",
+      "kind": "uncertainty",
+      "category": "strong_supercooling",
+      "description": "The PTA-preferred points involve very large alpha, sometimes extremely large, so standard beta/H, reheating, and fluid approximations may not be reliably controlled.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": ["best-fit PTA spectra", "template validity", "GW amplitude"],
+      "required_solution": "Audit posterior samples for supercooling validity, reheating consistency, vacuum domination, and beta/H definition robustness.",
+      "source": {
+        "file": "output/u1conformal/handoff_pta.json",
+        "section": "template_validity; benchmark_analysis.best_fit_points",
+        "note": "Best 14/14 benchmark has alpha about 2.1e6; another has alpha about 2.1e11."
+      }
+    },
+    {
+      "id": "PA10",
+      "kind": "uncertainty",
+      "category": "wall_dynamics",
+      "description": "Wall velocity, microscopic friction, runaway conditions, and the bulk-flow/dissipative-bulk-flow partition were not computed.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": ["GW template normalization", "source lifetime", "PTA likelihood"],
+      "required_solution": "Implement a wall-dynamics module or scan conservative wall/friction regimes and propagate the uncertainty through the PTA spectrum.",
+      "source": {
+        "file": "output/u1conformal/handoff_pta.json",
+        "section": "warnings; template_validity",
+        "note": "bf was selected because dissipative wall-friction inputs are absent."
+      }
+    },
+    {
+      "id": "PA11",
+      "kind": "uncertainty",
+      "category": "gauge_dependence",
+      "description": "Published finite-temperature comparisons and related benchmarks often use Landau-gauge one-loop potentials; gauge dependence remains an uncontrolled theory systematic.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": ["literature comparison", "transition parameters", "theory credibility"],
+      "required_solution": "Compare against gauge-independent approximations or vary gauge/resummation prescriptions to estimate a theory envelope.",
+      "source": {
+        "file": "output/u1conformal/handoff_librarian_preliminary.json",
+        "section": "theory_uncertainties",
+        "note": "Gauge dependence of finite-temperature effective potentials is flagged across relevant papers."
+      }
+    },
+    {
+      "id": "PA12",
+      "kind": "caveat",
+      "category": "pta_template",
+      "description": "The bf spectrum template is the closest implemented template for a strongly supercooled transition, not a first-principles validation of this model's GW source.",
+      "severity": 8,
+      "controlled": false,
+      "affected_outputs": ["benchmark scoring", "PTArcade posterior", "best-fit spectrum"],
+      "required_solution": "Propagate template alternatives and wall-dynamics uncertainty, and avoid interpreting the bf posterior as uniquely model-selected.",
+      "source": {
+        "file": "output/u1conformal/handoff_pta.json",
+        "section": "spectrum_template; template_validity",
+        "note": "Closest-template choice with caveats."
+      }
+    },
+    {
+      "id": "PA13",
+      "kind": "caveat",
+      "category": "pta_template",
+      "description": "The higgsless sound-wave template was considered but not selected because the large-alpha supercooled regime is outside clean sound-wave validity assumptions.",
+      "severity": 6,
+      "controlled": true,
+      "affected_outputs": ["template comparison", "PTA interpretation"],
+      "required_solution": "Keep the sound-wave score as a diagnostic only unless a validity calculation supports it.",
+      "source": {
+        "file": "output/u1conformal/handoff_pta.json",
+        "section": "benchmark_analysis.template_comparison",
+        "note": "higgsless scored bins but was not selected for physical validity reasons."
+      }
+    },
+    {
+      "id": "PA14",
+      "kind": "limitation",
+      "category": "ptarcade_convergence",
+      "description": "PTArcade completed one 100000-sample campaign with finite chains, but no multi-chain convergence, autocorrelation, effective-sample-size, or prior-sensitivity study was performed.",
+      "severity": 7,
+      "controlled": false,
+      "affected_outputs": ["posterior means", "credible regions", "MAP estimate"],
+      "required_solution": "Run independent chains, inspect autocorrelation and effective sample size, and repeat with alternative priors/templates.",
+      "source": {
+        "file": "output/u1conformal/handoff_pta.json",
+        "section": "warnings; ptarcade_analysis.chain_validation",
+        "note": "Acceptance and finite rows were checked, but convergence was not."
+      }
+    },
+    {
+      "id": "PA15",
+      "kind": "prior",
+      "category": "ptarcade_priors",
+      "description": "PTArcade samples v through a log-uniform prior on log10_v over 0.003-5 GeV and g_D through a uniform prior over 0.42-1.05; these choices are informative.",
+      "severity": 6,
+      "controlled": false,
+      "affected_outputs": ["posterior regions", "Bayes estimates", "boundary behavior"],
+      "required_solution": "Run prior-range and measure-sensitivity checks, including wider/narrower v and g_D ranges and explicit reporting of boundary posterior mass.",
+      "source": {
+        "file": "output/u1conformal/handoff_pta.json",
+        "section": "ptarcade_analysis.priors",
+        "note": "v prior is uniform in log10_v; g_D prior is uniform linearly."
+      }
+    },
+    {
+      "id": "PA16",
+      "kind": "limitation",
+      "category": "scan_design",
+      "description": "The FOPT seed scan covered v = 0.01-1.0 GeV and g_D = 0.1-0.9, while the PTA/PTArcade prior later expanded to v = 0.003-5.0 GeV and g_D = 0.42-1.05.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["benchmark discovery", "PTA prior justification", "scan coverage"],
+      "required_solution": "Document why the later PTA range is valid and run a consistent posterior-driven FOPT diagnostic over the full PTArcade prior box.",
+      "source": {
+        "file": "output/u1conformal/handoff_fopt.json and output/u1conformal/handoff_pta.json",
+        "section": "model_parameter_ranges; benchmark_analysis.prior_ranges",
+        "note": "PTA stage expanded the explored range around viable benchmarks."
+      }
+    },
+    {
+      "id": "PA17",
+      "kind": "approximation",
+      "category": "frequency_estimate",
+      "description": "f_peak_est in the FOPT scan is only an order-of-magnitude redshifted frequency scale setter and not the physical PTA template peak.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": ["FOPT benchmark ranking", "PTA handoff seeding"],
+      "required_solution": "Continue using full PTA spectra for likelihood work and keep f_peak_est out of final spectral claims.",
+      "source": {
+        "file": "output/u1conformal/handoff_fopt.json",
+        "section": "warnings; benchmark entries",
+        "note": "The handoff explicitly warns that PTA spectral templates belong to the PTA stage."
+      }
+    },
+    {
+      "id": "PA18",
+      "kind": "limitation",
+      "category": "constraints",
+      "description": "Most experimental, astrophysical, and cosmological constraints were not applied because required observables were missing.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": ["phenomenological viability", "allowed parameter space", "final exclusion statements"],
+      "required_solution": "Treat the current result as unconstrained by those searches until the missing observables and recasts are implemented.",
+      "source": {
+        "file": "output/u1conformal/handoff_constraints.json",
+        "section": "constraint_summary; warnings",
+        "note": "Only 2 constraints were directly testable; 11 require a new backend."
+      }
+    },
+    {
+      "id": "PA19",
+      "kind": "limitation",
+      "category": "dark_photon_phenomenology",
+      "description": "A_prime widths, visible/invisible branching fractions, decay lengths, production rates, and recasts are missing because epsilon and decay assumptions are absent.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": ["BaBar/LHCb/beam-dump limits", "BBN/CMB dark-photon limits", "SN1987A checks"],
+      "required_solution": "Implement dark_photon_widths.py and dark_photon_recasts.py with an epsilon prior and decay-channel model.",
+      "source": {
+        "file": "output/u1conformal/handoff_constraints.json",
+        "section": "constraints C01-C05, C08, C12; missing_calculations",
+        "note": "Dark photon limits cannot be applied from mass alone."
+      }
+    },
+    {
+      "id": "PA20",
+      "kind": "limitation",
+      "category": "dark_higgs_phenomenology",
+      "description": "rho decay widths, Higgs mixing, portal production, and scalar lifetimes are missing; rho -> A_prime A_prime is closed in the PTArcade 1sigma box.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": ["light scalar searches", "Higgs exotic constraints", "BBN/CMB scalar limits"],
+      "required_solution": "Implement lambda_HP to scalar-Higgs mixing, rho partial widths, and cosmological lifetime/yield calculations.",
+      "source": {
+        "file": "output/u1conformal/handoff_constraints.json",
+        "section": "warnings; constraints C06-C09",
+        "note": "Visible rho decays are portal controlled."
+      }
+    },
+    {
+      "id": "PA21",
+      "kind": "limitation",
+      "category": "cosmology_constraints",
+      "description": "BBN, CMB, Delta N_eff, freeze-in, residual abundance, and late energy-injection constraints are not computed.",
+      "severity": 9,
+      "controlled": false,
+      "affected_outputs": ["cosmological viability", "thermal-history interpretation", "constraint table"],
+      "required_solution": "Implement thermal_history.py, cosmology_constraints.py, and neff.py with portal couplings, decay tables, yields, and entropy tracking.",
+      "source": {
+        "file": "output/u1conformal/handoff_constraints.json",
+        "section": "constraints C08-C11, C15; missing_calculations",
+        "note": "Masses and xi=1 are insufficient to apply cosmology bounds."
+      }
+    },
+    {
+      "id": "PA22",
+      "kind": "approximation",
+      "category": "constraint_projection",
+      "description": "The constraints agent treated the PTArcade 1sigma region as a rectangular box rather than reconstructing correlated posterior samples.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["derived mass ranges", "constraint applicability summaries"],
+      "required_solution": "Propagate actual chain samples through derived masses and future constraint backends.",
+      "source": {
+        "file": "output/u1conformal/handoff_constraints.json",
+        "section": "approximations; input_region.notes",
+        "note": "Parameter correlations were not reconstructed from the chain."
+      }
+    },
+    {
+      "id": "PA23",
+      "kind": "caveat",
+      "category": "dark_matter",
+      "description": "Direct-detection constraints are not applicable to the validated minimal no-fermion model because no stable dark matter particle or local density fraction is defined.",
+      "severity": 3,
+      "controlled": true,
+      "affected_outputs": ["constraint interpretation", "scope of model"],
+      "required_solution": "Do not quote direct-detection bounds unless a stable dark matter candidate is added.",
+      "source": {
+        "file": "output/u1conformal/handoff_constraints.json",
+        "section": "constraint C14",
+        "note": "Direct detection can be reopened only if a DM candidate is added."
+      }
+    },
+    {
+      "id": "PA24",
+      "kind": "caveat",
+      "category": "benchmark_transfer",
+      "description": "Closest PTA-scale conformal U(1) benchmarks include additional fermions, dark matter dynamics, or different thermal histories that can shift thermal masses and viable priors.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["PTA prior selection", "benchmark seeding", "literature comparison"],
+      "required_solution": "Separate same-model, structurally similar, and target-signal-only benchmarks in all reports and avoid transferring priors without caveats.",
+      "source": {
+        "file": "output/u1conformal/handoff_librarian_preliminary.json",
+        "section": "papers; benchmark_hints",
+        "note": "arXiv:2502.19478 is close but includes anomaly-cancelling fermions and dark matter dynamics."
+      }
+    },
+    {
+      "id": "PA25",
+      "kind": "approximation",
+      "category": "thermal_degrees_of_freedom",
+      "description": "The FOPT f_peak_est uses g_* interpolated from a table and clamped at table boundaries.",
+      "severity": 4,
+      "controlled": false,
+      "affected_outputs": ["order-of-magnitude peak estimates", "frequency-scale diagnostics"],
+      "required_solution": "For final spectra, use the PTA template computation; if f_peak_est is reported, include the g_* interpolation/clamping caveat.",
+      "source": {
+        "file": "output/u1conformal/handoff_fopt.json",
+        "section": "approximations",
+        "note": "g_* for f_peak_est is interpolated and clamped."
+      }
+    },
+    {
+      "id": "PA26",
+      "kind": "limitation",
+      "category": "model_comparison",
+      "description": "The PTArcade handoff reports posterior summaries but no evidence estimate or evidence error, so model comparison support is absent.",
+      "severity": 5,
+      "controlled": false,
+      "affected_outputs": ["Bayesian model comparison", "strength of PTA preference claims"],
+      "required_solution": "Run an evidence-capable campaign or restrict claims to posterior fits under the chosen model/template/prior.",
+      "source": {
+        "file": "output/u1conformal/handoff_pta.json",
+        "section": "ptarcade_analysis.bayes_estimates",
+        "note": "evidence and evidence_error are null."
+      }
+    }
+  ],
+  "required_followups": [
+    {
+      "id": "FUP01",
+      "priority": "high",
+      "description": "Specify epsilon and lambda_HP priors or benchmarks and build dark photon/dark Higgs width, lifetime, branching-ratio, and portal-mixing calculations.",
+      "blocked_by": ["PA04", "PA19", "PA20"],
+      "suggested_action": "Implement dark_photon_widths.py and dark_higgs_portal.py; validate against standard leptonic widths, hadronic R-ratio treatment, and light-scalar partial widths."
+    },
+    {
+      "id": "FUP02",
+      "priority": "high",
+      "description": "Check whether xi = 1 is dynamically consistent with the assumed small or unspecified portals.",
+      "blocked_by": ["PA05", "PA21"],
+      "suggested_action": "Implement thermal_history.py to compute Gamma_SM-dark/H, decoupling, entropy transfer, and xi(T) across the posterior."
+    },
+    {
+      "id": "FUP03",
+      "priority": "high",
+      "description": "Apply BBN, CMB, Delta N_eff, freeze-in, and late-decay energy-injection constraints once decay tables and yields exist.",
+      "blocked_by": ["PA18", "PA21"],
+      "suggested_action": "Implement cosmology_constraints.py and neff.py and propagate posterior samples rather than a rectangular 1sigma box."
+    },
+    {
+      "id": "FUP04",
+      "priority": "high",
+      "description": "Quantify FOPT theory uncertainty from the semi-analytic backend and finite-temperature approximations.",
+      "blocked_by": ["PA06", "PA07", "PA08", "PA09", "PA11"],
+      "suggested_action": "Compare representative posterior points against a full finite-temperature calculation with Daisy/RG/gauge-prescription variations and posterior-level percolation checks."
+    },
+    {
+      "id": "FUP05",
+      "priority": "high",
+      "description": "Compute wall dynamics or bracket wall-friction/runaway regimes before treating the bf template posterior as physically robust.",
+      "blocked_by": ["PA10", "PA12"],
+      "suggested_action": "Add wall-friction/runaway diagnostics and propagate bf/dbf/sound-wave template uncertainty through PTA spectra."
+    },
+    {
+      "id": "FUP06",
+      "priority": "medium",
+      "description": "Repeat PTArcade with convergence diagnostics and prior/template sensitivity studies.",
+      "blocked_by": ["PA14", "PA15", "PA26"],
+      "suggested_action": "Run multiple independent chains, compute autocorrelation/effective sample size, inspect boundary posterior mass, and record evidence if model comparison is required."
+    },
+    {
+      "id": "FUP07",
+      "priority": "medium",
+      "description": "Align FOPT scan coverage with the final PTArcade prior volume and propagate derived lambda_Phi/beta_lambda for every sample.",
+      "blocked_by": ["PA03", "PA16"],
+      "suggested_action": "Run a posterior-grid diagnostic over v = 0.003-5 GeV and g_D = 0.42-1.05, while keeping lambda_Phi dependent."
+    },
+    {
+      "id": "FUP08",
+      "priority": "medium",
+      "description": "Apply laboratory dark-photon and light-scalar constraints after FUP01 provides lifetimes and branching fractions.",
+      "blocked_by": ["PA18", "PA19", "PA20"],
+      "suggested_action": "Implement BaBar, LHCb, beam-dump, NA64/missing-energy, and light-scalar recasts with experiment-specific acceptances."
+    },
+    {
+      "id": "FUP09",
+      "priority": "medium",
+      "description": "Create a benchmark-convention ledger for all imported literature points.",
+      "blocked_by": ["PA01", "PA02", "PA24"],
+      "suggested_action": "For each cited benchmark, record q_Phi, vev convention, vector mass formula, fermion content, thermal history, and resummation/gauge prescription."
+    },
+    {
+      "id": "FUP10",
+      "priority": "low",
+      "description": "Only reopen dark-matter direct and indirect searches if the model is extended with a stable or long-lived dark matter candidate.",
+      "blocked_by": ["PA23"],
+      "suggested_action": "Keep direct-detection constraints marked not applicable for the current minimal no-fermion model."
+    }
+  ]
+}

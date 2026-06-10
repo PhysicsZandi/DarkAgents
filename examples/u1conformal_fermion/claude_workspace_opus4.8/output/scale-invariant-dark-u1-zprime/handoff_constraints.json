@@ -1,0 +1,459 @@
+{
+  "model": "scale-invariant-dark-u1-zprime",
+  "agent": "constraint-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-10",
+  "branch": "constraints",
+  "created_from": [
+    "output/scale-invariant-dark-u1-zprime/handoff_model.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_fopt.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_pta.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_librarian_preliminary.json"
+  ],
+  "commands": [
+    "conda run -n ptarcade python3 (derived-mass computation for MAP and benchmarks)",
+    "WebSearch dark photon kinetic mixing constraints GeV beam dump SN1987A",
+    "WebSearch supercooled dark phase transition reheating BBN N_eff PTA",
+    "WebFetch arXiv:2502.19478 (Balan et al.)",
+    "WebFetch arXiv:2603.08430 (Caputo & Essig, Dark Photon 2026 review)"
+  ],
+  "files_read": [
+    "output/scale-invariant-dark-u1-zprime/handoff_model.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_fopt.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_pta.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_librarian_preliminary.json",
+    "docs/HANDOFF_CONSTRAINTS_SCHEMA.md",
+    "arXiv:2502.19478",
+    "arXiv:2603.08430",
+    "arXiv:1611.03864"
+  ],
+  "files_written": [
+    "output/scale-invariant-dark-u1-zprime/handoff_constraints.json",
+    "output/scale-invariant-dark-u1-zprime/constraints_report.md",
+    "output/scale-invariant-dark-u1-zprime/constraints_table.csv"
+  ],
+  "warnings": [
+    "The FOPT and PTA analyses fixed epsilon=0 (kinetic mixing) and lambda_portal=0. With epsilon strictly 0 the dark sector is decoupled from the SM and CANNOT reheat the SM plasma: T_reh would be a dark-sector-only temperature and the model would fail BBN as a pure dark-radiation scenario. A nonzero kinetic mixing epsilon ~ 1e-6 to 1e-3 is physically REQUIRED. This portal coupling is the dominant source of new constraints and was not propagated from upstream.",
+    "Most decisive constraints (dark photon visible-decay limits, SN1987A, BBN reheating, Delta N_eff, DM relic abundance) depend on epsilon and on the decay widths/branching ratios of Z' and scalon, none of which are computed in any upstream handoff. They require a new portal/thermal-history backend module before any point can be declared excluded or allowed."
+  ],
+  "errors": [],
+  "approximations": [
+    "Derived masses computed at face value: m_Zp=g_D*w, m_chi=y*w/sqrt(2), m_scalon=sqrt(beta_lambda)*w.",
+    "Reheating-temperature BBN comparison uses T_reh values from handoff_fopt/handoff_pta as if dumped to the SM; validity requires the portal to thermalize before BBN, which is itself an unverified condition.",
+    "Dark-photon epsilon allowed-window assessment taken from published compilations (Caputo-Essig 2026, Balan et al. 2025) at the relevant masses, not recomputed."
+  ],
+  "analysis_mode": "ptarcade_1sigma",
+  "input_region": {
+    "source": "ptarcade_1sigma",
+    "parameters": {
+      "g_D": [0.529, 0.653],
+      "y": [0.119, 0.638],
+      "w_GeV": [0.667, 1.456],
+      "MAP": { "g_D": 0.5349, "y": 0.2944, "w_GeV": 1.2506 }
+    },
+    "derived_masses": {
+      "m_Zp_GeV": "0.30 - 2.17 over full 3sigma+benchmark span; MAP=0.669",
+      "m_chi_GeV": "0.0 - 1.70 over full span; MAP=0.260",
+      "m_scalon_GeV": "0.02 - 0.11; MAP=0.068",
+      "T_reh_GeV": "0.0037 - 0.10 (dark-sector); MAP=0.0986"
+    },
+    "notes": [
+      "1sigma posterior from ptarcade_bayes embedded in handoff_pta.json. Mass ranges quoted over the union of the 3sigma posterior and the four best benchmark points to be conservative.",
+      "y=0 is allowed at low end (rank1): then m_chi=0 and chi is massless dark radiation, which sharpens Delta N_eff constraints."
+    ]
+  },
+  "constraint_summary": {
+    "total_constraints_considered": 12,
+    "directly_testable": 1,
+    "approximately_testable": 2,
+    "requires_recast": 3,
+    "requires_new_backend": 5,
+    "not_applicable": 1
+  },
+  "constraints": [
+    {
+      "id": "C1",
+      "name": "BBN reheating temperature lower bound (SM must reheat above ~few MeV)",
+      "category": "BBN",
+      "description": "After the supercooled transition the vacuum energy reheats the plasma. For successful BBN and neutrino re-thermalization the temperature of the SM bath at the onset of BBN must exceed ~3-4 MeV. Since the dark sector holds essentially all the latent heat (epsilon=0 in the analysis), the latent heat must be transferred to the SM via the kinetic-mixing portal before BBN; otherwise T_reh is dark-only and BBN fails.",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": ["Zp", "Phi_scalon", "chi"],
+      "mass_range": { "T_reh_GeV": [0.0037, 0.10] },
+      "coupling_range": { "epsilon_required": [1e-6, 1e-3] },
+      "observable": "T_reh of the SM bath after percolation + entropy transfer",
+      "required_inputs": ["T_reh", "alpha", "Z' decay width to SM via epsilon", "branching to SM vs dark"],
+      "required_observables": ["SM reheating temperature after portal energy transfer"],
+      "available_observables": ["T_reh (dark-sector) from handoff_fopt/handoff_pta"],
+      "missing_observables": ["fraction of latent heat transferred to SM", "Z' lifetime vs Hubble at percolation"],
+      "units": { "T_reh": "GeV", "epsilon": "dimensionless" },
+      "conventions": { "epsilon": "L = (epsilon/2) F_munu F'^munu (= kappa in arXiv:2502.19478)" },
+      "applicability": "Applies to the entire PTA-preferred region; it is the central viability condition.",
+      "tested_subregion": { "T_reh_GeV": [0.0037, 0.10] },
+      "applicability_notes": [
+        "The reference model arXiv:2502.19478 finds T_reh = 16.8-55.9 MeV when the portal dumps the latent heat to the SM with kappa ~ 2e-6 to 3e-4, satisfying T_reh>3 MeV. Our dark T_reh down to 3.7 MeV is marginal; the actual SM T_reh depends on the (uncomputed) energy-transfer fraction.",
+        "MAP (T_reh~99 MeV dark) is comfortably above the BBN floor IF the portal thermalizes; cannot be declared safe without the transfer calculation."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C2",
+      "name": "Kinetic-mixing portal required for thermalization with SM",
+      "category": "thermalization",
+      "description": "epsilon=0 in the FOPT/PTA analysis makes the dark sector fully secluded. To connect to the SM (thermalize and reheat) a kinetic mixing epsilon is mandatory. arXiv:2502.19478 finds 1e-7 < kappa < 1e-3 gives a common dark-SM temperature before DM freeze-out. This portal then triggers all dark-photon experimental constraints (C4-C6).",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["Zp"],
+      "mass_range": { "m_Zp_GeV": [0.30, 2.17] },
+      "coupling_range": { "epsilon": [1e-7, 1e-3] },
+      "observable": "Gamma(Zp <-> SM) / H; dark-SM thermalization condition",
+      "required_inputs": ["m_Zp", "epsilon", "SM degrees of freedom at T~m_Zp"],
+      "required_observables": ["thermalization rate vs Hubble", "decoupling temperature"],
+      "available_observables": [],
+      "missing_observables": ["epsilon (set to 0 upstream)", "Z'-SM interaction rate"],
+      "units": { "m_Zp": "GeV", "epsilon": "dimensionless" },
+      "conventions": { "epsilon": "L=(epsilon/2)F F'" },
+      "applicability": "Entire region; epsilon is a hidden free parameter not yet in the model scan.",
+      "tested_subregion": {},
+      "applicability_notes": [
+        "Choosing epsilon to satisfy thermalization+reheating typically lands in 1e-6 to 1e-4, the same window probed by beam-dump/visible-decay searches; consistency must be checked simultaneously."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C3",
+      "name": "Delta N_eff from the dark sector (dark radiation)",
+      "category": "Neff",
+      "description": "Residual dark-sector species (massless chi when y=0, light scalon, and the dark photon if not fully decayed) contribute dark radiation. CMB/BBN require N_eff = 2.99 +/- 0.17 (Planck), i.e. Delta N_eff <~ 0.3-0.4. If energy is transferred to the SM before neutrino decoupling, Delta N_eff is reduced; the residual depends on dark-to-SM temperature ratio and decay timing.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["chi", "Zp", "Phi_scalon"],
+      "mass_range": { "m_chi_GeV": [0.0, 1.70], "m_scalon_GeV": [0.02, 0.11] },
+      "coupling_range": { "epsilon": [1e-7, 1e-3] },
+      "observable": "Delta N_eff",
+      "required_inputs": ["dark/SM temperature ratio", "decay times of Zp and scalon", "m_chi (massless if y=0)"],
+      "required_observables": ["Delta N_eff from dark sector at CMB/BBN"],
+      "available_observables": [],
+      "missing_observables": ["temperature ratio xi=T_dark/T_SM", "scalon and Z' lifetimes"],
+      "units": {},
+      "conventions": { "Neff_ref": "Planck 2018 N_eff=2.99+/-0.17" },
+      "applicability": "Most dangerous for the y->0 subregion (massless chi as dark radiation).",
+      "tested_subregion": { "y": [0.0, 0.12] },
+      "applicability_notes": [
+        "rank1 benchmark has y=0 exactly -> chi is exactly massless -> permanent free-streaming dark radiation, strongly constrained unless chi is heated only feebly or its abundance is diluted.",
+        "Reference uses AlterBBN with initial N_eff=3.044 to evaluate this."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C4",
+      "name": "Dark photon visible-decay collider/fixed-target limits (BaBar, KLOE, LHCb, NA48, NA64)",
+      "category": "collider",
+      "description": "For m_Zp ~ 0.3-2.2 GeV with epsilon in 1e-4 to 1e-2, Z' decays visibly to SM fermion pairs (e+e-, mu+mu-, hadrons) and is constrained by e+e- and meson-decay searches. These exclude large epsilon; the surviving window is roughly epsilon <~ few x 1e-4 down to the beam-dump/SN floors.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": ["Zp"],
+      "mass_range": { "m_Zp_GeV": [0.30, 2.17] },
+      "coupling_range": { "epsilon_excluded": [3e-4, 2e-2] },
+      "observable": "sigma(e+e- -> gamma Zp -> gamma ll) and meson decay BRs",
+      "required_inputs": ["m_Zp", "epsilon", "Z' visible branching ratios"],
+      "required_observables": ["Z' total and partial decay widths, BR to ll/hadrons"],
+      "available_observables": ["m_Zp (derived)"],
+      "missing_observables": ["epsilon", "Z' decay widths"],
+      "units": { "m_Zp": "GeV", "epsilon": "dimensionless" },
+      "conventions": { "epsilon": "L=(epsilon/2)F F'; visible dark photon limits as in PDG/DarkCast" },
+      "applicability": "Applies once epsilon is fixed; rules out the high-epsilon part of the required window, not the whole region.",
+      "tested_subregion": { "m_Zp_GeV": [0.30, 2.17], "epsilon": [3e-4, 2e-2] },
+      "applicability_notes": [
+        "Cannot be applied from mass alone; production and decay depend on epsilon and on whether Zp decays to chi (invisible) when m_Zp>2 m_chi."
+      ],
+      "source": {
+        "title": "The Dark Photon: a 2026 Perspective",
+        "arxiv_id": "2603.08430",
+        "authors": "Caputo, Essig",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C5",
+      "name": "Beam-dump / fixed-target limits (E137, E141, CHARM, NA64, nu-Cal)",
+      "category": "beam_dump",
+      "description": "Long-lived visibly-decaying dark photons in the 0.3-2.2 GeV range with small epsilon are constrained by proton/electron beam-dump experiments that probe the low-epsilon, long-lifetime regime (roughly epsilon ~ 1e-8 to 1e-5 depending on mass). E137 reaches epsilon ~ 3e-8.",
+      "applicability_class": "recast_needed",
+      "constraint_applied": false,
+      "affected_particles": ["Zp"],
+      "mass_range": { "m_Zp_GeV": [0.30, 2.17] },
+      "coupling_range": { "epsilon_excluded": [1e-8, 1e-5] },
+      "observable": "displaced Z'->ll yield in beam dump",
+      "required_inputs": ["m_Zp", "epsilon", "Z' lifetime"],
+      "required_observables": ["Z' lifetime/decay length, visible BR"],
+      "available_observables": ["m_Zp (derived)"],
+      "missing_observables": ["epsilon", "Z' lifetime"],
+      "units": { "m_Zp": "GeV", "epsilon": "dimensionless" },
+      "conventions": { "epsilon": "L=(epsilon/2)F F'" },
+      "applicability": "Constrains the low-epsilon visible-decay tail; leaves an intermediate window epsilon ~ 1e-6 to 1e-4 partly open at these masses.",
+      "tested_subregion": { "m_Zp_GeV": [0.30, 2.17], "epsilon": [1e-8, 1e-5] },
+      "applicability_notes": [
+        "If m_Zp > 2 m_chi (e.g. b3, b4 where m_chi up to 1.7 GeV but m_chi<m_Zp not guaranteed), invisible decay to chi-pairs changes the limit drastically; channel must be determined per point."
+      ],
+      "source": {
+        "title": "The Dark Photon: a 2026 Perspective",
+        "arxiv_id": "2603.08430",
+        "authors": "Caputo, Essig",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C6",
+      "name": "Supernova SN1987A cooling bound on dark photon",
+      "category": "supernova",
+      "description": "Dark photons with m_Zp <~ few hundred MeV and very small epsilon (~1e-10 to 1e-6) would be produced in the SN1987A core and shorten the neutrino burst. This excludes a band of low epsilon for the lighter part of the region (m_Zp ~ 0.3-0.5 GeV).",
+      "applicability_class": "approximate",
+      "constraint_applied": false,
+      "affected_particles": ["Zp", "Phi_scalon"],
+      "mass_range": { "m_Zp_GeV": [0.30, 0.5] },
+      "coupling_range": { "epsilon_excluded": [1e-10, 1e-6] },
+      "observable": "SN1987A neutrino-burst duration / energy loss rate",
+      "required_inputs": ["m_Zp", "epsilon"],
+      "required_observables": ["dark-photon emission rate from SN core"],
+      "available_observables": ["m_Zp (derived)"],
+      "missing_observables": ["epsilon"],
+      "units": { "m_Zp": "GeV", "epsilon": "dimensionless" },
+      "conventions": { "epsilon": "L=(epsilon/2)F F'" },
+      "applicability": "Only the lighter sub-GeV part; weakens rapidly above ~0.5 GeV and for epsilon above the trapping ceiling.",
+      "tested_subregion": { "m_Zp_GeV": [0.30, 0.5], "epsilon": [1e-10, 1e-6] },
+      "applicability_notes": [
+        "SN band sits below the reheating-required epsilon (~1e-6 to 1e-4) for the bulk of the region; the reheating window is mostly above the SN free-streaming exclusion. Overlap must be checked at the light end."
+      ],
+      "source": {
+        "title": "Revisiting Supernova 1987A Constraints on Dark Photons",
+        "arxiv_id": "1611.03864",
+        "authors": "Chang, Essig, McDermott",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C7",
+      "name": "Dark fermion chi relic abundance / overclosure",
+      "category": "cosmology_relic",
+      "description": "chi is stable (U(1)_chi number). If it is a thermal relic its abundance must not overclose: Omega_chi h^2 <= 0.12. For m_chi ~ 0.1-1.7 GeV annihilation chi chi -> Zp Zp (secluded) or forbidden/coannihilation channels set the abundance. Underabundance is allowed (then not all DM).",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["chi", "Zp", "Phi_scalon"],
+      "mass_range": { "m_chi_GeV": [0.1, 1.70] },
+      "coupling_range": { "g_D": [0.53, 0.78], "y": [0.0, 0.85] },
+      "observable": "Omega_chi h^2",
+      "required_inputs": ["m_chi", "m_Zp", "g_D", "annihilation cross section", "freeze-out temperature"],
+      "required_observables": ["thermal relic abundance of chi"],
+      "available_observables": ["m_chi, m_Zp, g_D (derived)"],
+      "missing_observables": ["<sigma v> for chi annihilation", "Boltzmann relic solution"],
+      "units": { "m_chi": "GeV" },
+      "conventions": { "Omega_DM_h2": "0.120 (Planck)" },
+      "applicability": "Whole region with y>0; for y=0 m_chi=0 and chi is dark radiation (see C3), not DM.",
+      "tested_subregion": { "y": [0.12, 0.85] },
+      "applicability_notes": [
+        "Reference implements log2(Omega h^2/0.12)=0+/-1 as a likelihood; viable points exist for sub-GeV chi via forbidden/secluded annihilation."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C8",
+      "name": "Dark matter direct detection (epsilon-mediated chi-nucleus scattering)",
+      "category": "direct_detection",
+      "description": "If chi is (part of) DM and Zp mixes with the photon, chi scatters off nuclei/electrons with cross section ~ epsilon^2 g_D^2. Sub-GeV DM direct-detection (electron-recoil: XENON, SENSEI, DAMIC) constrains the combination for the fraction of DM in chi.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["chi", "Zp"],
+      "mass_range": { "m_chi_GeV": [0.1, 1.70] },
+      "coupling_range": { "epsilon": [1e-6, 1e-3], "g_D": [0.53, 0.78] },
+      "observable": "DM-nucleon/electron scattering cross section",
+      "required_inputs": ["m_chi", "m_Zp", "g_D", "epsilon", "DM fraction"],
+      "required_observables": ["direct-detection cross section"],
+      "available_observables": ["m_chi, m_Zp, g_D (derived)"],
+      "missing_observables": ["epsilon", "DM fraction f_chi"],
+      "units": { "sigma": "cm^2" },
+      "conventions": {},
+      "applicability": "Only if chi is a sizable DM fraction; suppressed if underabundant.",
+      "tested_subregion": { "y": [0.12, 0.85] },
+      "applicability_notes": ["Sub-GeV nuclear-recoil sensitivity is weak; electron-recoil more relevant; depends strongly on f_chi."],
+      "source": {
+        "title": "The Dark Photon: a 2026 Perspective",
+        "arxiv_id": "2603.08430",
+        "authors": "Caputo, Essig",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C9",
+      "name": "Light scalon decay / cosmological lifetime (BBN injection)",
+      "category": "BBN",
+      "description": "The pseudo-dilaton scalon (m ~ 20-110 MeV) couples to SM only via loops/portal and may be long-lived. A late-decaying or stable light scalar can spoil BBN by electromagnetic/hadronic energy injection or act as extra dark radiation. Its lifetime and abundance must be checked.",
+      "applicability_class": "requires_new_backend",
+      "constraint_applied": false,
+      "affected_particles": ["Phi_scalon"],
+      "mass_range": { "m_scalon_GeV": [0.02, 0.11] },
+      "coupling_range": { "epsilon": [1e-6, 1e-3], "lambda_portal": [0.0, "small"] },
+      "observable": "scalon lifetime and abundance vs BBN/CMB injection bounds",
+      "required_inputs": ["m_scalon", "scalon-SM coupling (loop via epsilon or Higgs portal)", "abundance"],
+      "required_observables": ["scalon decay width/lifetime, relic abundance"],
+      "available_observables": ["m_scalon (derived)"],
+      "missing_observables": ["scalon decay width", "scalon abundance", "lambda_portal"],
+      "units": { "m_scalon": "GeV" },
+      "conventions": {},
+      "applicability": "Whole region; scalon is the lightest dark scalar and a generic BBN/Neff risk.",
+      "tested_subregion": { "m_scalon_GeV": [0.02, 0.11] },
+      "applicability_notes": [
+        "If lambda_portal=0 strictly, scalon decays only via the two-dark-photon -> SM loop (arXiv:2502.19478) and can be long-lived; lifetime must be computed before applying any BBN injection bound."
+      ],
+      "source": {
+        "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+        "arxiv_id": "2502.19478",
+        "authors": "Balan et al.",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C10",
+      "name": "Perturbativity / triviality of g_D and y; vacuum stability (beta_lambda>0)",
+      "category": "theory",
+      "description": "Couplings must remain perturbative and the CW vacuum stable. The model enforces beta_lambda>0 via y^4 < 1.5 g_D^4. In the PTA region g_D ~ 0.5-0.8 and y <~ 0.85 are well below 4pi and below the Landau-pole/triviality scale at GeV energies. Directly checkable from handoff parameters.",
+      "applicability_class": "direct",
+      "constraint_applied": true,
+      "affected_particles": ["Zp", "chi", "Phi_scalon"],
+      "mass_range": {},
+      "coupling_range": { "g_D": [0.53, 0.78], "y": [0.0, 0.85] },
+      "observable": "perturbativity (g_D,y < ~3); beta_lambda>0",
+      "required_inputs": ["g_D", "y"],
+      "required_observables": ["coupling values, beta_lambda sign"],
+      "available_observables": ["g_D, y, beta_lambda constraint (handoff)"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": { "beta_lambda": "(1/8pi^2)(3 g_D^4 - 8 (y/sqrt2)^4) > 0" },
+      "applicability": "Satisfied throughout the PTA-preferred region (couplings O(1), constraint y^4<1.5 g_D^4 enforced per point).",
+      "tested_subregion": { "g_D": [0.53, 0.78], "y": [0.0, 0.85] },
+      "applicability_notes": ["MAP (g_D=0.53,y=0.29) and all four benchmarks satisfy y^4<1.5 g_D^4 and remain far from 4pi."],
+      "source": {
+        "title": "Model handoff self-consistency (critic-enforced); standard perturbativity",
+        "arxiv_id": "",
+        "authors": "internal",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C11",
+      "name": "Percolation / completion of the supercooled transition (no eternal inflation)",
+      "category": "theory",
+      "description": "Strongly supercooled transitions (alpha up to 1e16) risk failing to percolate or entering eternal inflation. The FOPT backend reports percolation_checked and eternal_inflation_checked = true, so completion is verified upstream for the scanned region.",
+      "applicability_class": "direct",
+      "constraint_applied": true,
+      "affected_particles": ["Phi_scalon"],
+      "mass_range": {},
+      "coupling_range": { "alpha": [1e8, 1e16], "beta_H": [12, 24] },
+      "observable": "percolation probability, eternal-inflation criterion",
+      "required_inputs": ["alpha", "beta_H", "Tp", "Treh"],
+      "required_observables": ["percolation check, eternal-inflation check"],
+      "available_observables": ["percolation_checked=true, eternal_inflation_checked=true (handoff_fopt)"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {},
+      "applicability": "Verified for the viable scanned points by the FOPT backend.",
+      "tested_subregion": { "alpha": [1e8, 1e16] },
+      "applicability_notes": ["Already enforced upstream; flagged here for completeness."],
+      "source": {
+        "title": "handoff_fopt validation block",
+        "arxiv_id": "",
+        "authors": "internal",
+        "citation_verified": true
+      }
+    },
+    {
+      "id": "C12",
+      "name": "Higgs invisible/exotic decay and electroweak precision (Higgs portal)",
+      "category": "collider",
+      "description": "If a Higgs portal lambda_portal were switched on, scalon mixing with the SM Higgs would induce invisible/exotic Higgs decays and EW precision shifts. Since lambda_portal=0 in the analysis and the dark scalar is GeV-scale, these bounds are presently not applicable, but become relevant if a Higgs portal is added for reheating instead of (or with) kinetic mixing.",
+      "applicability_class": "not_applicable",
+      "constraint_applied": false,
+      "affected_particles": ["Phi_scalon"],
+      "mass_range": { "m_scalon_GeV": [0.02, 0.11] },
+      "coupling_range": { "lambda_portal": [0.0, 0.0] },
+      "observable": "BR(h->invisible), Higgs signal strengths",
+      "required_inputs": ["lambda_portal", "scalon-Higgs mixing angle"],
+      "required_observables": ["Higgs-scalon mixing angle"],
+      "available_observables": ["lambda_portal=0 (fixed upstream)"],
+      "missing_observables": [],
+      "units": {},
+      "conventions": {},
+      "applicability": "Not applicable with lambda_portal=0; listed in case the portal choice changes.",
+      "tested_subregion": {},
+      "applicability_notes": ["Only the kinetic-mixing portal is used; Higgs portal explicitly set to zero."],
+      "source": {
+        "title": "model handoff (lambda_portal fixed to 0)",
+        "arxiv_id": "",
+        "authors": "internal",
+        "citation_verified": true
+      }
+    }
+  ],
+  "missing_calculations": [
+    {
+      "observable": "Kinetic-mixing portal energy transfer / SM reheating temperature",
+      "needed_for_constraints": ["C1", "C2"],
+      "required_inputs": ["epsilon", "m_Zp", "alpha", "Treh(dark)", "Z'->SM width"],
+      "suggested_backend_module": "portal_reheating.py: solve dark->SM energy transfer through Z' decay/scattering, output T_reh^SM and check >3 MeV",
+      "validation_checks": ["T_reh^SM > 3-4 MeV", "transfer completes before neutrino decoupling", "reproduce Balan et al. T_reh=16.8-55.9 MeV for their kappa"],
+      "priority": "high"
+    },
+    {
+      "observable": "Z' decay widths, branching ratios and lifetime as function of (m_Zp, epsilon, m_chi)",
+      "needed_for_constraints": ["C4", "C5", "C6", "C2", "C3"],
+      "required_inputs": ["m_Zp", "epsilon", "g_D", "m_chi"],
+      "suggested_backend_module": "darkphoton_decays.py (DarkCast-style): Gamma(Z'->ll,hadrons,chi chi), lifetime, visible/invisible BR",
+      "validation_checks": ["compare to PDG dark-photon visible BR", "lifetime sets beam-dump regime", "invisible fraction when m_Zp>2 m_chi"],
+      "priority": "high"
+    },
+    {
+      "observable": "Delta N_eff from dark sector (xi=T_dark/T_SM, residual chi/scalon/Z' radiation)",
+      "needed_for_constraints": ["C3"],
+      "required_inputs": ["xi", "m_chi", "m_scalon", "decay times", "epsilon"],
+      "suggested_backend_module": "deltaNeff.py (or AlterBBN interface): track dark entropy, output Delta N_eff at BBN/CMB",
+      "validation_checks": ["Delta N_eff < 0.3-0.4", "handle y=0 massless-chi case", "Planck N_eff=2.99+/-0.17"],
+      "priority": "high"
+    },
+    {
+      "observable": "chi thermal relic abundance Omega_chi h^2",
+      "needed_for_constraints": ["C7", "C8"],
+      "required_inputs": ["m_chi", "m_Zp", "g_D", "<sigma v>"],
+      "suggested_backend_module": "relic_chi.py: Boltzmann freeze-out for chi chi->Zp Zp / forbidden channels",
+      "validation_checks": ["Omega_chi h^2 <= 0.12 (no overclosure)", "f_chi for direct detection"],
+      "priority": "medium"
+    },
+    {
+      "observable": "Scalon decay width / lifetime and abundance",
+      "needed_for_constraints": ["C9", "C3"],
+      "required_inputs": ["m_scalon", "epsilon", "lambda_portal", "abundance"],
+      "suggested_backend_module": "scalon_decay.py: two-dark-photon loop width to SM, lifetime, BBN injection check",
+      "validation_checks": ["lifetime vs t_BBN", "EM/hadronic injection bounds", "dark-radiation contribution if long-lived"],
+      "priority": "medium"
+    }
+  ]
+}

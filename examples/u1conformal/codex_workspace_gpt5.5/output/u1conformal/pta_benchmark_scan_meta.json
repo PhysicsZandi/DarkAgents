@@ -1,0 +1,81 @@
+{
+  "boundary_expansions": [],
+  "plot_file": "/Users/mattezandi/Desktop/code/run_folder/codex_workspace/output/u1conformal/pta_benchmark_spectrum.pdf",
+  "scan_csv": "/Users/mattezandi/Desktop/code/run_folder/codex_workspace/output/u1conformal/pta_benchmark_scan.csv",
+  "selected_best_rows": [
+    {
+      "Treh": 0.045704843302444044,
+      "alpha": 2101160.7305375044,
+      "beta_H": 29.37720461372351,
+      "distance_penalty": 0.0,
+      "g_D": 0.6000000000000001,
+      "inside_bins": 14,
+      "peak_frequency_Hz": 1.818698817034957e-08,
+      "peak_h2OmegaGW": 1.8279370293000069e-09,
+      "rank": 1,
+      "template": "bf",
+      "total_bins": 14,
+      "v": 0.5110871655378069
+    },
+    {
+      "Treh": 0.15268466248827434,
+      "alpha": 209420642078.82126,
+      "beta_H": 17.096756960498286,
+      "distance_penalty": 0.0,
+      "g_D": 0.54,
+      "inside_bins": 14,
+      "peak_frequency_Hz": 2.9580124665515465e-08,
+      "peak_h2OmegaGW": 2.933597862278273e-09,
+      "rank": 2,
+      "template": "bf",
+      "total_bins": 14,
+      "v": 1.7984527509569999
+    },
+    {
+      "Treh": 0.09026448453230765,
+      "alpha": 425350.063961936,
+      "beta_H": 31.71763180937148,
+      "distance_penalty": 0.0,
+      "g_D": 0.6171428571428572,
+      "inside_bins": 14,
+      "peak_frequency_Hz": 2.9580124665515465e-08,
+      "peak_h2OmegaGW": 1.3764604922639622e-09,
+      "rank": 3,
+      "template": "bf",
+      "total_bins": 14,
+      "v": 0.9834172872825407
+    },
+    {
+      "Treh": 0.07059647688477656,
+      "alpha": 938516046604.6387,
+      "beta_H": 16.838771192638546,
+      "distance_penalty": 0.0,
+      "g_D": 0.5314285714285716,
+      "inside_bins": 14,
+      "peak_frequency_Hz": 1.6889456966882153e-08,
+      "peak_h2OmegaGW": 4.990346119004779e-09,
+      "rank": 4,
+      "template": "bf",
+      "total_bins": 14,
+      "v": 0.7569038129990846
+    }
+  ],
+  "selected_template": "bf",
+  "template_comparison": {
+    "bf": {
+      "best_distance_penalty": 0.0,
+      "best_inside_bins": 14
+    },
+    "dbf": {
+      "best_distance_penalty": 0.0,
+      "best_inside_bins": 14
+    },
+    "higgsless": {
+      "best_distance_penalty": 0.0,
+      "best_inside_bins": 14
+    }
+  },
+  "total_model_points": 343,
+  "total_rows": 1038,
+  "windows_file": "/Users/mattezandi/Desktop/code/run_folder/codex_workspace/backend/pta_violin_windows.csv"
+}

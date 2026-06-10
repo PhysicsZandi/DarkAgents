@@ -1,0 +1,701 @@
+{
+  "model": "u1conformal",
+  "agent": "preliminary-librarian-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-10",
+  "branch": "fopt-pta",
+  "created_from": [
+    "input/u1conformal/prompt.md",
+    ".codex/agents/preliminary-librarian-agent.md",
+    ".codex/skills/preliminary-literature-search/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_LIBRARIAN_PRELIMINARY_SCHEMA.md"
+  ],
+  "commands": [
+    "sed -n '1,260p' input/u1conformal/prompt.md",
+    "web search: conformal dark U(1) Coleman-Weinberg first order phase transition gravitational waves PTA NANOGrav",
+    "web search: dark U(1) Coleman-Weinberg phase transition gravitational waves NANOGrav PTA",
+    "web search: classically conformal U(1) dark sector gravitational waves phase transition",
+    "curl -L https://arxiv.org/pdf/<arxiv_id> -o /tmp/u1lib/<arxiv_id>.pdf",
+    "pdftotext /tmp/u1lib/<arxiv_id>.pdf /tmp/u1lib/<arxiv_id>.txt",
+    "rg -n benchmark|NANOGrav|PTA|alpha|beta|Tn|T_*|nucleation|thermal|daisy|gauge /tmp/u1lib/*.txt",
+    "curl -L 'https://inspirehep.net/api/literature?q=arxiv:<arxiv_id>'"
+  ],
+  "files_read": [
+    "input/u1conformal/prompt.md",
+    ".codex/agents/preliminary-librarian-agent.md",
+    ".codex/skills/preliminary-literature-search/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_LIBRARIAN_PRELIMINARY_SCHEMA.md",
+    "/tmp/u1lib/2105.01007.txt",
+    "/tmp/u1lib/2502.19478.txt",
+    "/tmp/u1lib/2212.04784.txt",
+    "/tmp/u1lib/2602.14866.txt",
+    "/tmp/u1lib/2306.17086.txt",
+    "/tmp/u1lib/1802.02947.txt"
+  ],
+  "files_written": [
+    "output/u1conformal/librarian_preliminary_report.md",
+    "output/u1conformal/handoff_librarian_preliminary.json"
+  ],
+  "warnings": [
+    "No paper found that exactly matches the supplied no-fermion, charge-one, m_A'=g_D v convention and also performs a PTArcade-ready PTA fit.",
+    "The closest minimal U(1)_D NANOGrav benchmark uses a different charge/mass convention, m_ZD = 2 g_D M.",
+    "Several directly relevant calculations use Landau-gauge one-loop finite-temperature potentials, so gauge dependence is a theory uncertainty.",
+    "Some PTA-scale conformal dark-sector papers assume dark/visible thermal decoupling, whereas the target prompt assumes xi = 1."
+  ],
+  "errors": [],
+  "approximations": [
+    "Benchmark extraction was preliminary and focused on published tables, captions, and convention sections rather than a full reproduction of each numerical scan.",
+    "INSPIRE-HEP was used as a metadata cross-check for key papers; detailed physics extraction used the arXiv PDFs converted to text."
+  ],
+  "scan_mode": "preliminary_scan",
+  "papers": [
+    {
+      "arxiv_id": "2105.01007",
+      "title": "Gravitational waves from a dark U(1)_D phase transition in the light of NANOGrav 12.5 yr data",
+      "authors": [
+        "Debasish Borah",
+        "Arnab Dasgupta",
+        "Sin Kyu Kang"
+      ],
+      "year": 2021,
+      "journal": "Phys. Rev. D 104, 063501 (2021)",
+      "relevance_score": 9.5,
+      "brief_description": "Closest prior study of a classically conformal dark U(1)_D phase transition giving a NANOGrav-scale stochastic GW signal.",
+      "model_studied": "Classically conformal U(1)_D extension with a complex scalar singlet, dark gauge boson, and optional vectorlike fermion/neutrino-sector additions; portal and Yukawa effects are neglected in the FOPT calculation.",
+      "similarity_to_target": "Same core dark Abelian Higgs/Coleman-Weinberg/FOPT/PTA structure, but uses a scalar charge and mass convention with m_ZD = 2 g_D M rather than the prompt's m_A' = g_D v.",
+      "paper_classification": "same_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "NANOGrav 12.5-year FOPT preferred regions",
+        "Planck/BBN/CMB Delta N_eff pressure on light dark photons",
+        "Sub-GeV dark matter cosmology constraints when optional fermion is included"
+      ],
+      "observables": [
+        "T_*",
+        "T_p",
+        "alpha_*",
+        "beta/H_*",
+        "v_w",
+        "Omega_GW h^2(f)",
+        "m_ZD",
+        "g_D"
+      ],
+      "benchmark_points": [
+        {
+          "label": "NANOGrav benchmark",
+          "parameters": {
+            "g_D": 0.32,
+            "m_ZD_MeV": 12.6,
+            "T_c_MeV": 4.18,
+            "T_star_MeV": 2.25,
+            "T_p_MeV": 1.9,
+            "alpha_star": 0.68,
+            "beta_over_H_star": 82.4,
+            "v_w": 0.91,
+            "false_vacuum_condition_value_GeV": -24.17
+          },
+          "notes": "Table I/Fig. 1/Fig. 3 benchmark; paper states it is consistent with NANOGrav 12.5-year regions at 95 percent CL."
+        },
+        {
+          "label": "scan range",
+          "parameters": {
+            "alpha_D_range": "0.002-0.01"
+          },
+          "notes": "Gauge coupling varied in this alpha_D range for alpha_*-T_* plots."
+        }
+      ],
+      "assumptions": [
+        "Landau gauge",
+        "Arnold-Espinosa daisy resummation",
+        "Neglects portal coupling and dark-fermion Yukawa in the FOPT potential",
+        "Radiation domination with low-temperature g_* adjusted qualitatively"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2502.19478",
+      "title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector",
+      "authors": [
+        "Sowmiya Balan",
+        "Torsten Bringmann",
+        "Felix Kahlhoefer",
+        "Jonas Matuszak",
+        "Carlo Tasillo"
+      ],
+      "year": 2025,
+      "journal": "JCAP 08, 062 (2025)",
+      "relevance_score": 9.0,
+      "brief_description": "Classically conformal hidden U(1)' model fitted to nano-Hz PTA data with PTArcade and sub-GeV dark matter constraints.",
+      "model_studied": "Hidden U(1)' with dark Higgs Phi, dark photon A', and two anomaly-cancelling left-handed fermions. Coleman-Weinberg breaking generates v and masses.",
+      "similarity_to_target": "Very close mass convention and target signal; differs by required fermions, Yukawa coupling, dark matter relic calculation, and kinetic mixing phenomenology.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "NANOGrav 15-year PTA likelihood via PTArcade/ceffyl",
+        "Dark photon beam dump and NA64 constraints",
+        "BBN and CMB constraints from dark Higgs decays",
+        "Sub-GeV dark matter relic abundance"
+      ],
+      "observables": [
+        "v",
+        "g",
+        "y",
+        "kappa",
+        "m_Aprime",
+        "m_phi",
+        "m_chi",
+        "T_p",
+        "T_reh",
+        "alpha",
+        "beta/H",
+        "PTA likelihood"
+      ],
+      "benchmark_points": [
+        {
+          "label": "Point A coupled dark sector",
+          "parameters": {
+            "g": 0.677,
+            "y": 0.224,
+            "delta_mass_split": -0.322,
+            "kappa": 2.29e-6,
+            "v_MeV": 173,
+            "m_Aprime_MeV": 117,
+            "m_phi_MeV": 36.3,
+            "m_chi_MeV": 27.4,
+            "T_p_MeV": 2.28,
+            "T_reh_MeV": 16.8,
+            "alpha": 4700.0,
+            "beta_over_H": 33.7
+          }
+        },
+        {
+          "label": "Point B secluded dark sector",
+          "parameters": {
+            "g": 0.601,
+            "y": 0.234,
+            "delta_mass_split": 0.00648,
+            "kappa": 0.00027,
+            "v_MeV": 692,
+            "m_Aprime_MeV": 416,
+            "m_phi_MeV": 114,
+            "m_chi_MeV": 115,
+            "T_p_MeV": 1.21,
+            "T_reh_MeV": 55.9,
+            "alpha": 9480000.0,
+            "beta_over_H": 18.0
+          }
+        },
+        {
+          "label": "PTA-preferred coupled-region summary",
+          "parameters": {
+            "g_range": "0.57-0.75",
+            "v_MeV_range": "60-900",
+            "beta_over_H_range": "15-45",
+            "m_Aprime_MeV_range": "50-600",
+            "m_phi_MeV_range": "20-170",
+            "T_p_MeV_typical": "around 2"
+          }
+        }
+      ],
+      "assumptions": [
+        "Landau gauge for one-loop finite-temperature potential",
+        "MS-bar Coleman-Weinberg potential",
+        "Arnold-Espinosa daisy resummation",
+        "Dark and visible sectors thermally coupled before freeze-out in the studied scenarios",
+        "Sound-wave dominated GW signal with strong supercooling"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2212.04784",
+      "title": "Gravitational waves and dark matter from classical scale invariance",
+      "authors": [
+        "Valentin V. Khoze",
+        "Daniel L. Milne"
+      ],
+      "year": 2023,
+      "journal": "Phys. Rev. D 107, 095012 (2023)",
+      "relevance_score": 6.8,
+      "brief_description": "Classically conformal U(1) dark-matter model with finite-temperature phase transitions and GW spectra, mostly at electroweak-scale frequencies.",
+      "model_studied": "Classically conformal U(1) model with scalar S, dark gauge boson, fermionic dark matter, Higgs portal, and Gildener-Weinberg symmetry breaking.",
+      "similarity_to_target": "Good conformal-U(1) structure match but not PTA scale and not the minimal no-fermion dark U(1) prompt.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "Collider constraints",
+        "Direct detection constraints",
+        "Perturbativity, unitarity, and vacuum stability"
+      ],
+      "observables": [
+        "T_N",
+        "alpha",
+        "beta/H",
+        "Omega_GW h^2",
+        "dark matter relic density"
+      ],
+      "benchmark_points": [
+        {
+          "label": "BP1",
+          "parameters": {
+            "T_N_GeV": 84.2,
+            "alpha": 0.547,
+            "beta_over_H": 129
+          }
+        },
+        {
+          "label": "BP2",
+          "parameters": {
+            "T_N_GeV": 115.2,
+            "alpha": 5.7,
+            "beta_over_H": 63.5
+          }
+        },
+        {
+          "label": "BP3",
+          "parameters": {
+            "T_N_GeV": 30.8,
+            "alpha": 10.1,
+            "beta_over_H": 85.4
+          }
+        },
+        {
+          "label": "BP4",
+          "parameters": {
+            "T_N_GeV": 273.9,
+            "alpha": 0.0698,
+            "beta_over_H": 290
+          }
+        }
+      ],
+      "assumptions": [
+        "Gildener-Weinberg approach",
+        "Unitary gauge field parametrization",
+        "Daisy resummation",
+        "Nucleation criterion S3/T about 140"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2602.14866",
+      "title": "Gauge-independent gravitational waves from a minimal dark U(1) sector with viable dark matter candidates",
+      "authors": [
+        "Wan-Zhe Feng",
+        "Zi-Hui Zhang"
+      ],
+      "year": 2026,
+      "journal": "",
+      "relevance_score": 7.8,
+      "brief_description": "Minimal dark U(1) dark-Higgs/dark-photon model with gauge-independent phase-transition and GW treatment in high- and low-temperature limits.",
+      "model_studied": "Minimal gauged U(1)_x dark sector with dark Higgs, dark photon, optional vectorlike dark fermion, Higgs portal or kinetic mixing.",
+      "similarity_to_target": "Close dark Abelian Higgs structure and very relevant gauge-dependence analysis, but not the exact classically scale-invariant Coleman-Weinberg target.",
+      "paper_classification": "structurally_similar_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "PTA, LISA/Taiji/TianQin sensitivity comparisons",
+        "Kinetic mixing constraints from beam dumps, colliders, (g-2)_e and supernova",
+        "BBN lifetime requirements in benchmark dark-sector scenarios"
+      ],
+      "observables": [
+        "v_x",
+        "g_x",
+        "lambda_x",
+        "m_Aprime",
+        "T_p",
+        "T_p/m_Aprime",
+        "Omega_GW h^2",
+        "gauge-dependent versus gauge-independent spectra"
+      ],
+      "benchmark_points": [
+        {
+          "label": "Case 2 model d",
+          "parameters": {
+            "v_x_GeV": 1,
+            "g_x": 0.0208,
+            "lambda_x": 1.93e-7,
+            "m_Aprime_GeV": 0.0208,
+            "m_chi_GeV": 0.35,
+            "T_p_GeV": 0.0423,
+            "T_p_over_m_Aprime": 2.03
+          }
+        },
+        {
+          "label": "Case 2 model e",
+          "parameters": {
+            "v_x_GeV": 10,
+            "g_x": 0.505,
+            "lambda_x": 0.000117,
+            "m_Aprime_GeV": 5.05,
+            "m_chi_GeV": 4.5,
+            "T_p_GeV": 0.54,
+            "T_p_over_m_Aprime": 0.107
+          }
+        },
+        {
+          "label": "Case 2 model f",
+          "parameters": {
+            "v_x_GeV": 100,
+            "g_x": 0.391,
+            "lambda_x": 3.13e-5,
+            "m_Aprime_GeV": 39.1,
+            "m_chi_GeV": 38.5,
+            "T_p_GeV": 3.34,
+            "T_p_over_m_Aprime": 0.085
+          }
+        },
+        {
+          "label": "PTA frequency scale statement",
+          "parameters": {
+            "v_x_MeV_range_for_nHz": "10-100",
+            "v_x_GeV_range_for_mHz": "1-100"
+          }
+        }
+      ],
+      "assumptions": [
+        "Gauge-independent Nielsen-identity treatment in controlled high- and low-temperature regimes",
+        "Intermediate T_p/m_Aprime region not controlled by those expansions",
+        "MS-bar Coleman-Weinberg terms in conventional gauge-dependent comparison"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "2306.17086",
+      "title": "NANOGrav Signal from a Dark Conformal Phase Transition",
+      "authors": [
+        "Kohei Fujikura",
+        "Sudhakantha Girmohanta",
+        "Yuichiro Nakai",
+        "Motoo Suzuki"
+      ],
+      "year": 2023,
+      "journal": "Phys. Lett. B 846, 138203 (2023)",
+      "relevance_score": 6.5,
+      "brief_description": "Nearly conformal dark confining phase transition producing a NANOGrav-scale GW signal.",
+      "model_studied": "Dark conformal sector with dark Yang-Mills dynamics, described via a dilaton/radion effective potential in a holographic picture.",
+      "similarity_to_target": "Same target signal and conformal motivation, but not a perturbative Abelian Coleman-Weinberg U(1) model.",
+      "paper_classification": "same_target_signal_different_model",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "NANOGrav 15-year signal region",
+        "Delta N_eff constraints for secluded dark radiation",
+        "CMB-S4 prospects"
+      ],
+      "observables": [
+        "T_*",
+        "alpha_prime",
+        "beta/H_*",
+        "Delta N_eff",
+        "Omega_GW h^2"
+      ],
+      "benchmark_points": [
+        {
+          "label": "secluded bubble-collision example",
+          "parameters": {
+            "T_star_GeV": 0.12,
+            "alpha_prime": 0.1,
+            "beta_over_H_star": 4
+          }
+        },
+        {
+          "label": "secluded sound-wave example",
+          "parameters": {
+            "T_star_GeV": 0.01,
+            "alpha_prime": 0.1,
+            "beta_over_H_star": 8
+          }
+        },
+        {
+          "label": "decaying dark-sector bubble-collision example",
+          "parameters": {
+            "T_star_GeV": 0.12,
+            "alpha_prime": 10,
+            "beta_over_H_star": 5
+          }
+        },
+        {
+          "label": "decaying dark-sector sound-wave example",
+          "parameters": {
+            "T_star_GeV": 0.01,
+            "alpha_prime": 10,
+            "beta_over_H_star": 21
+          }
+        }
+      ],
+      "assumptions": [
+        "Dark and visible sectors initially thermally decoupled",
+        "Holographic radion/dilaton effective potential",
+        "Optimistic wall velocity v_w = 1 in examples"
+      ],
+      "citation_verified": true
+    },
+    {
+      "arxiv_id": "1802.02947",
+      "title": "Gravitational waves from first order electroweak phase transition in models with the U(1)_X gauge symmetry",
+      "authors": [
+        "Katsuya Hashino",
+        "Mitsuru Kakizaki",
+        "Shinya Kanemura",
+        "Pyungwon Ko",
+        "Toshinori Matsui"
+      ],
+      "year": 2018,
+      "journal": "JHEP 06, 088 (2018)",
+      "relevance_score": 4.8,
+      "brief_description": "Dark U(1)_X Abelian Higgs model with electroweak-scale multi-step phase transitions and GW signals.",
+      "model_studied": "SM plus dark U(1)_X gauge symmetry broken by a complex scalar S, with portal mixing and optional kinetic mixing or vector dark matter.",
+      "similarity_to_target": "Useful background for dark-Higgs/dark-photon conventions and constraints, but not classically conformal and not PTA scale.",
+      "paper_classification": "background_context_only",
+      "metadata_only": false,
+      "experimental_constraints": [
+        "Collider Higgs coupling constraints",
+        "Dark matter direct detection",
+        "Perturbative unitarity and vacuum stability"
+      ],
+      "observables": [
+        "T_t",
+        "alpha",
+        "beta/H_t",
+        "m_X",
+        "g_X",
+        "LISA/DECIGO detectability"
+      ],
+      "benchmark_points": [
+        {
+          "label": "detectability summary",
+          "parameters": {
+            "m_X_threshold_GeV": "about 25 or larger",
+            "g_X_threshold": "about 0.5 or larger",
+            "v_S_examples_GeV": [
+              50,
+              100,
+              200
+            ]
+          },
+          "notes": "Not PTA-scale; included as background only."
+        }
+      ],
+      "assumptions": [
+        "Landau gauge",
+        "CosmoTransitions 2.0a2 for multi-field phase transitions",
+        "Electroweak-scale focus"
+      ],
+      "citation_verified": true
+    }
+  ],
+  "searched_sources": [
+    {
+      "source": "arXiv",
+      "queries": [
+        "conformal dark U(1) Coleman-Weinberg first order phase transition gravitational waves PTA NANOGrav",
+        "dark U(1) Coleman-Weinberg phase transition gravitational waves NANOGrav PTA",
+        "classically conformal U(1) dark sector gravitational waves phase transition",
+        "Sub-GeV dark matter nano-Hertz gravitational waves classically conformal dark sector",
+        "gauge-independent gravitational waves minimal dark U(1) sector"
+      ],
+      "verified_urls": [
+        "https://arxiv.org/abs/2105.01007",
+        "https://arxiv.org/abs/2502.19478",
+        "https://arxiv.org/abs/2212.04784",
+        "https://arxiv.org/abs/2602.14866",
+        "https://arxiv.org/abs/2306.17086",
+        "https://arxiv.org/abs/1802.02947"
+      ]
+    },
+    {
+      "source": "INSPIRE-HEP",
+      "queries": [
+        "arxiv:2105.01007",
+        "arxiv:2502.19478",
+        "arxiv:2602.14866",
+        "arxiv:2212.04784",
+        "arxiv:2306.17086",
+        "arxiv:1802.02947"
+      ],
+      "verified_urls": [
+        "https://inspirehep.net/api/literature?q=arxiv:2105.01007",
+        "https://inspirehep.net/api/literature?q=arxiv:2502.19478",
+        "https://inspirehep.net/api/literature?q=arxiv:2602.14866",
+        "https://inspirehep.net/api/literature?q=arxiv:2212.04784",
+        "https://inspirehep.net/api/literature?q=arxiv:2306.17086",
+        "https://inspirehep.net/api/literature?q=arxiv:1802.02947"
+      ]
+    },
+    {
+      "source": "Web search",
+      "queries": [
+        "NANOGrav dark conformal phase transition Coleman Weinberg U(1) dark photon",
+        "hidden U(1) scale invariant gravitational waves dark matter first order phase transition",
+        "NANOGrav phase transition light dark photon U(1)D scalar singlet"
+      ]
+    }
+  ],
+  "novelty_verdict": "Not novel as a broad class; partially novel only in the exact stripped-down convention and planned PTArcade implementation if no additional fermions are included.",
+  "novelty_notes": "Dark U(1) Coleman-Weinberg/conformal first-order phase transitions have prior PTA-scale studies. The closest same-model paper is arXiv:2105.01007, but it uses a different dark charge/mass convention. arXiv:2502.19478 is a very close PTA/PTArcade conformal U(1)' study with matching m_A'=g v convention, but includes anomaly-cancelling fermions and dark matter dynamics absent from the target prompt.",
+  "benchmark_hints": [
+    {
+      "source": "arXiv:2105.01007",
+      "parameters": {
+        "g_D": 0.32,
+        "m_ZD_MeV": 12.6,
+        "T_star_MeV": 2.25,
+        "T_p_MeV": 1.9,
+        "alpha_star": 0.68,
+        "beta_over_H_star": 82.4,
+        "v_w": 0.91
+      },
+      "confidence": "adaptable",
+      "conventions": {
+        "vev_convention": "hPhi = M/sqrt(2); prompt uses Phi=(chi+...)/sqrt(2) and v as the background vev",
+        "mass_convention": "paper: m_ZD = 2 g_D M; prompt: m_A' = g_D v",
+        "thermal_resummation": "Arnold-Espinosa",
+        "gauge": "Landau gauge",
+        "fopt_definitions": "alpha_* from released vacuum energy over radiation density at T_*; beta/H_* from S3/T derivative; T_* nucleation temperature"
+      },
+      "notes": "Closest direct PTA-scale benchmark, but do not insert m_ZD directly without charge/vev translation."
+    },
+    {
+      "source": "arXiv:2502.19478",
+      "parameters": {
+        "g_range": "0.57-0.75",
+        "v_MeV_range": "60-900",
+        "m_Aprime_MeV_range": "50-600",
+        "m_phi_MeV_range": "20-170",
+        "T_p_MeV_typical": "1-3",
+        "beta_over_H_range": "15-45",
+        "best_fit_coupled": {
+          "g": 0.677,
+          "v_MeV": 173,
+          "m_Aprime_MeV": 117,
+          "T_p_MeV": 2.28,
+          "alpha": 4700.0,
+          "beta_over_H": 33.7
+        },
+        "best_fit_secluded": {
+          "g": 0.601,
+          "v_MeV": 692,
+          "m_Aprime_MeV": 416,
+          "T_p_MeV": 1.21,
+          "alpha": 9480000.0,
+          "beta_over_H": 18.0
+        }
+      },
+      "confidence": "direct",
+      "conventions": {
+        "vev_convention": "Phi=(phi_b+phi+i varphi)/sqrt(2) with v=<phi_b>",
+        "mass_convention": "m_A'^2(phi_b)=g^2 phi_b^2, matching prompt for charge one",
+        "thermal_resummation": "Arnold-Espinosa",
+        "gauge": "Landau gauge",
+        "renormalisation": "MS-bar; Lambda identified with v for Coleman-Weinberg minimization",
+        "spectrum_target": "NANOGrav 15-year PTA likelihood via PTArcade/ceffyl"
+      },
+      "notes": "Best guide for PTArcade priors and PTA-scale conformal U(1), but the target no-fermion model may shift thermal masses and viable g ranges."
+    },
+    {
+      "source": "arXiv:2602.14866",
+      "parameters": {
+        "v_x_MeV_for_nHz": "10-100",
+        "v_x_GeV_for_mHz": "1-100",
+        "case2_model_d": {
+          "v_x_GeV": 1,
+          "g_x": 0.0208,
+          "m_Aprime_GeV": 0.0208,
+          "T_p_GeV": 0.0423
+        },
+        "case2_model_e": {
+          "v_x_GeV": 10,
+          "g_x": 0.505,
+          "m_Aprime_GeV": 5.05,
+          "T_p_GeV": 0.54
+        },
+        "case2_model_f": {
+          "v_x_GeV": 100,
+          "g_x": 0.391,
+          "m_Aprime_GeV": 39.1,
+          "T_p_GeV": 3.34
+        }
+      },
+      "confidence": "qualitative",
+      "conventions": {
+        "vev_convention": "Phi=(phi_c+h_x+iG)/sqrt(2)",
+        "mass_convention": "m_A'=g_x v_x",
+        "gauge_treatment": "gauge-independent Nielsen identity in controlled high-/low-temperature regimes",
+        "renormalisation": "MS-bar for Coleman-Weinberg terms in conventional comparison"
+      },
+      "notes": "Use mainly to budget gauge-dependence and to set broad scale expectations."
+    },
+    {
+      "source": "arXiv:2212.04784",
+      "parameters": {
+        "T_N_GeV": [
+          84.2,
+          115.2,
+          30.8,
+          273.9
+        ],
+        "alpha": [
+          0.547,
+          5.7,
+          10.1,
+          0.0698
+        ],
+        "beta_over_H": [
+          129,
+          63.5,
+          85.4,
+          290
+        ]
+      },
+      "confidence": "unusable",
+      "conventions": {
+        "target_frequency": "space-interferometer rather than PTA",
+        "scale": "electroweak/GeV transition temperatures"
+      },
+      "notes": "Useful for formalism but not for PTA priors."
+    },
+    {
+      "source": "arXiv:2306.17086",
+      "parameters": {
+        "T_star_examples_GeV": [
+          0.12,
+          0.01
+        ],
+        "alpha_prime_examples": [
+          0.1,
+          10
+        ],
+        "beta_over_H_examples": [
+          4,
+          5,
+          8,
+          21
+        ]
+      },
+      "confidence": "qualitative",
+      "conventions": {
+        "model": "confining nearly conformal dark sector, not Abelian Coleman-Weinberg",
+        "thermal_history": "dark/visible sectors initially decoupled"
+      },
+      "notes": "Useful for PTA-scale conformal transition intuition and Delta N_eff caveats."
+    }
+  ],
+  "constraint_summary": [
+    "MeV-scale dark photons and dark scalars are constrained by BBN, CMB, Delta N_eff, late decays, and laboratory dark-photon searches once kinetic mixing or other portals are specified.",
+    "The exact target prompt assumes small portal/kinetic mixing for FOPT dynamics, so collider and beam-dump constraints require a separate constraint-agent analysis after the model convention is fixed.",
+    "If the dark sector remains thermally coupled to the visible sector with xi=1, secluded-sector benchmark assumptions from some conformal papers are not directly transferable."
+  ],
+  "theory_uncertainties": [
+    "Gauge dependence of the finite-temperature effective potential in Abelian gauge theories.",
+    "Choice of daisy resummation scheme and truncation order.",
+    "Supercooling/percolation failure and reliability of beta/H definitions in slow transitions.",
+    "Translation between different U(1) charge and vev conventions.",
+    "Thermal-mass changes if optional fermions are removed from structurally similar models."
+  ],
+  "recommended_next_steps": [
+    "Before FOPT implementation, fix the U(1)_D charge normalization and verify that m_A'=g_D v is the intended physical mass.",
+    "Use arXiv:2105.01007 as the closest same-model seed after converting m_ZD=2 g_D M to the prompt convention.",
+    "Use arXiv:2502.19478 to set broad PTArcade/PTA priors around v=10 MeV-1 GeV and MeV-scale transition temperatures, while flagging fermion effects.",
+    "Track Landau-gauge and Arnold-Espinosa assumptions in downstream FOPT outputs.",
+    "Have the constraint agent check BBN, CMB/Delta N_eff, dark photon laboratory constraints, SN1987A, and late dark-scalar decay constraints once portal parameters are specified."
+  ]
+}

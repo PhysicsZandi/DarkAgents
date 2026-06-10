@@ -1,0 +1,265 @@
+{
+  "model": "u1conformal",
+  "agent": "critic-agent",
+  "run_status": "ok",
+  "validation_gauge_groups": [
+    {
+      "item": "U(1)_D dark gauge group",
+      "status": "ok",
+      "notes": "Abelian gauge group with gauge coupling g_D. Complex scalar Phi charged under U(1)_D with charge +1. One massive gauge boson A' after SSB. No new chiral fermions, so no gauge anomalies. Gauge group is anomaly-free by construction."
+    }
+  ],
+  "validation_global_symmetries": [
+    {
+      "item": "Classical scale invariance (conformal symmetry)",
+      "status": "ok",
+      "notes": "Tree-level Lagrangian has no dimensionful parameters: no mass term for Phi, no mass term for A'. Scale invariance is broken radiatively via Coleman-Weinberg mechanism (dimensional transmutation). The Lagrangian is classically scale-invariant."
+    }
+  ],
+  "validation_particle_content": [
+    {
+      "item": "Complex scalar Phi (U(1)_D charge +1)",
+      "status": "ok",
+      "notes": "Spin 0, 2 real dofs before SSB (1 complex scalar field). After SSB, decomposes into radial mode rho (1 dof, physical Higgs) and Goldstone G (1 dof, eaten by A'). U(1)_D charge +1. No tree-level mass. Vev convention: Phi = (chi + rho + i G)/sqrt(2)."
+    },
+    {
+      "item": "Dark gauge boson A'",
+      "status": "ok",
+      "notes": "Spin 1, 2 transverse polarizations before SSB (massless gauge boson), 3 polarizations after SSB (massive via Higgs mechanism). Mass: m_A' = g_D * v at the minimum."
+    },
+    {
+      "item": "SM particle content",
+      "status": "warning",
+      "notes": "SM particles are neither listed individually nor specified in the model Lagrangian. The backend (semianalytic_pipeline.py) handles SM degrees of freedom internally via an interpolated g_star(T) table from T_vs_g_gs_GeV.csv. This is acceptable for the FOPT-PTA analysis but should be documented. For the constraint analysis and PTArcade inference downstream, the SM particle content and portal interactions (kinetic mixing epsilon, Higgs portal lambda_{HPhi}) must be quantified."
+    }
+  ],
+  "validation_lagrangian_terms": [
+    {
+      "item": "Kinetic term: |D_mu Phi|^2",
+      "status": "ok",
+      "notes": "Gauge invariant under U(1)_D. D_mu = partial_mu - i g_D A'_mu. No mass term for Phi, consistent with scale invariance. When expanded, this term generates the gauge boson mass via the covariant derivative acting on the scalar vev."
+    },
+    {
+      "item": "Scalar quartic term: -lambda_Phi |Phi|^4",
+      "status": "ok",
+      "notes": "Gauge invariant. Sign convention: L = kinetic - potential, so V = lambda_Phi |Phi|^4 with lambda_Phi > 0. This is the only scalar interaction at tree level (no quadratic term), consistent with classical scale invariance."
+    },
+    {
+      "item": "Gauge kinetic term: -1/4 F'_mu_nu F'^mu_nu",
+      "status": "ok",
+      "notes": "Standard gauge kinetic term for U(1)_D. F'_mu_nu = partial_mu A'_nu - partial_nu A'_mu. Gauge invariant."
+    },
+    {
+      "item": "Higgs portal: lambda_{HPhi} |H|^2 |Phi|^2 (optional, assumed small)",
+      "status": "ok",
+      "notes": "Gauge invariant under both SM SU(2)_L x U(1)_Y and U(1)_D. Assumed small enough to not affect FOPT dynamics. Will be important for constraint analysis (dark Higgs decay, BBN, direct detection). Value not specified -- should be quantified for downstream constraint analysis."
+    },
+    {
+      "item": "Gauge kinetic mixing: (epsilon/2) F'_mu_nu F^mu_nu (optional, assumed small)",
+      "status": "ok",
+      "notes": "Renormalizable, gauge-invariant portal between dark U(1)_D and SM hypercharge U(1)_Y (or photon after EWSB). Assumed small for FOPT analysis. Is essential for thermalization mechanism between dark and visible sectors. Value not specified."
+    }
+  ],
+  "validation_free_parameters": [
+    {
+      "item": "vev v",
+      "status": "ok",
+      "notes": "Free independent parameter. Vev scale is the only dimensionful parameter in the model after CW breaking. Expected range for PTA signals: v ~ O(10-1000) MeV from literature benchmarks."
+    },
+    {
+      "item": "Gauge coupling g_D",
+      "status": "ok",
+      "notes": "Free independent parameter. Dimensionless. Expected range for PTA signals: g_D ~ 0.5-1.2 from literature benchmarks. Must satisfy perturbativity (g_D^2/(4 pi) < 1)."
+    },
+    {
+      "item": "lambda_Phi (dependent, CW-fixed)",
+      "status": "ok",
+      "notes": "Dependent parameter fixed by CW minimization condition. Not a free scan parameter. The tree-level quartic coupling at the RG scale mu ~ v is related to g_D via the CW condition. The backend does not require lambda_Phi as input -- it computes the effective potential from g_b = g_D values directly."
+    },
+    {
+      "item": "m_rho (dependent, CW-fixed)",
+      "status": "ok",
+      "notes": "Dependent parameter. Radial mode mass m_rho^2 = beta_lambda * v^2 = 3 * g_D^4 * v^2 / (8 * pi^2). Not a free scan parameter."
+    },
+    {
+      "item": "Portals epsilon and lambda_{HPhi} (assumed small)",
+      "status": "warning",
+      "notes": "These are free parameters whose values are not specified. They are declared optional and assumed small. For constraint analysis downstream, specific values or priors will be needed. The assumption of smallness should be quantified (e.g., epsilon < 10^{-9}, lambda_{HPhi} < 10^{-3})."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "v": {
+        "type": "dimensionful",
+        "dimension": "mass",
+        "unit": "GeV",
+        "range": "1e-2 to 1e3",
+        "notes": "Scalar vev from CW breaking. The only dimensionful parameter after dimensional transmutation."
+      },
+      "g_D": {
+        "type": "dimensionless",
+        "dimension": "none",
+        "unit": "1",
+        "range": "0.1 to 4*pi (perturbativity bound)",
+        "notes": "U(1)_D gauge coupling. Expected PTA-relevant range: 0.5-1.2 from literature."
+      }
+    },
+    "dependent": {
+      "lambda_Phi": {
+        "type": "dimensionless",
+        "dimension": "none",
+        "unit": "1",
+        "determination": "CW-fixed. Related to g_D via minimization condition: dV_eff/dchi|_{chi=v} = 0. Value depends on renormalization scale and scheme. The backend computes the effective potential directly from g_b = g_D, not from lambda_Phi."
+      },
+      "m_rho": {
+        "type": "dimensionful",
+        "dimension": "mass",
+        "unit": "GeV",
+        "determination": "m_rho^2 = 3 * g_D^4 * v^2 / (8 * pi^2). Radially generated by CW mechanism."
+      },
+      "m_A_prime": {
+        "type": "dimensionful",
+        "dimension": "mass",
+        "unit": "GeV",
+        "determination": "m_A' = g_D * v. Tree-level mass from Higgs mechanism."
+      },
+      "beta_lambda": {
+        "type": "dimensionless",
+        "dimension": "none",
+        "unit": "1",
+        "determination": "beta_lambda = 3 * g_D^4 / (8 * pi^2). One-loop quartic beta function. Positive (boson-dominated), ensuring radiative symmetry breaking."
+      }
+    },
+    "fixed": {
+      "xi": {
+        "type": "dimensionless",
+        "value": 1.0,
+        "notes": "Temperature ratio T_dark / T_visible. Assumed 1 (thermalised sectors). Hardcoded in backend."
+      },
+      "epsilon": {
+        "type": "dimensionless",
+        "value": "small (unspecified)",
+        "notes": "Kinetic mixing parameter. Assumed small for FOPT dynamics. Value required for constraint analysis."
+      },
+      "lambda_HPhi": {
+        "type": "dimensionless",
+        "value": "small (unspecified)",
+        "notes": "Higgs portal coupling. Assumed small for FOPT dynamics. Value required for constraint analysis."
+      }
+    }
+  },
+  "validation_ssb_pattern": [
+    {
+      "item": "U(1)_D -> nothing (complete breaking)",
+      "status": "ok",
+      "notes": "Complex scalar Phi with charge +1 under U(1)_D acquires a vev, completely breaking the U(1)_D gauge symmetry. One Goldstone mode is eaten by the gauge boson A', which becomes massive (3 polarizations). No discrete or global symmetries remain unbroken in the dark sector."
+    }
+  ],
+  "validation_vev_convention": [
+    {
+      "item": "Phi(x) = (chi + rho(x) + i G(x)) / sqrt(2)",
+      "status": "ok",
+      "notes": "Standard convention for expanding a complex scalar around a real background field direction. chi is the classical background field (RGI), rho is the radial fluctuation (physical Higgs), G is the Goldstone mode (eaten by A'). The vev is v = <chi> at the minimum of the effective potential. Normalization factor 1/sqrt(2) is correctly accounted for in the tree-level potential and mass formulas."
+    }
+  ],
+  "validation_tree_level_potential": [
+    {
+      "item": "V_tree(chi) = lambda_Phi * chi^4 / 4",
+      "status": "ok",
+      "notes": "Derived from V = lambda_Phi |Phi|^4 with Phi = chi/sqrt(2) (background only). Factor of 4 in denominator from |Phi|^4 = (chi^2/2)^2 = chi^4/4. Note: this is the tree-level potential along the background direction. The full finite-T effective potential is reconstructed by the backend semianalytic_pipeline.py using CW inputs (g_b values and dofs), not from this tree-level expression."
+    }
+  ],
+  "validation_field_dependent_masses": [
+    {
+      "item": "m_A'^2(chi) = g_D^2 * chi^2",
+      "status": "ok",
+      "notes": "Derived from |D_mu Phi|^2 with <Phi> = chi/sqrt(2) and D_mu = partial_mu - i g_D A'_mu. The mass term for a real vector field is (1/2) g_D^2 chi^2 A'_mu A'^mu, giving m^2 = g_D^2 chi^2. Physical mass at minimum: m_A'^2(v) = g_D^2 v^2. Verified: the factor of 1/2 from the real vector field canonical mass term cancels with the 1/2 from |Phi|^2 = chi^2/2. SymPy-compatible string: gD**2 * chi**2"
+    },
+    {
+      "item": "m_rho^2(chi) = beta_lambda * chi^2",
+      "status": "ok",
+      "notes": "Radial mode mass from CW curvature at minimum. beta_lambda = 3 * g_D^4 / (8 * pi^2). Physical mass at minimum: m_rho^2(v) = 3 * g_D^4 * v^2 / (8 * pi^2). Verified: for a U(1) gauge theory with only gauge boson contributions, the one-loop CW scalar mass is m_s^2 = 3 g^4 v^2 / (8 pi^2), matching the classic Coleman-Weinberg result. SymPy-compatible string: 3 * gD**4 * chi**2 / (8 * pi**2)"
+    },
+    {
+      "item": "Goldstone G (eaten by A')",
+      "status": "ok",
+      "notes": "The Goldstone mode G becomes the longitudinal polarization of the massive gauge boson A'. It has no physical mass eigenstate. Its field-dependent mass in the Landau gauge (R_xi) is zero along the RGI direction."
+    }
+  ],
+  "validation_thermal_masses": [
+    {
+      "item": "A' Debye mass (longitudinal)",
+      "status": "ok",
+      "notes": "Handled internally by backend semianalytic_pipeline.py. Thermal mass squared: msq^2 = (T^2 / 12) * sum(n_b * g_b^2 + n_f * g_f^2 / 2) = g_D^2 * 3 * T^2 / 12 = g_D^2 * T^2 / 4. The backend computes this automatically in get_coeffs() via g2sq = sum(dof * gb^2)."
+    },
+    {
+      "item": "rho thermal mass",
+      "status": "ok",
+      "notes": "Handled internally by backend. The scalar mode is included with g_b = 0 and dof = 1 by default (self.boson_gbs['scalar'] = 0, self.boson_dofs['scalar'] = 1). This means the scalar contributes to the thermal mass via its (zero) gauge coupling but its contribution is subleading."
+    }
+  ],
+  "validation_backend_compatibility": [
+    {
+      "item": "semianalytic_pipeline.py compatibility",
+      "status": "compatible",
+      "notes": "The backend is designed exactly for models of this type (single-field CSI Abelian Higgs model). Example usage in the backend file matches this model: boson_gbs={'Aprime': gprime}, boson_dofs={'Aprime': 3}, no fermions. Inputs required: chi0 (vev), boson_gbs (dict of g_b = m_b/v ratios), boson_dofs (dict of dofs). For this model: boson_gbs = {'Aprime': g_D}, boson_dofs = {'Aprime': 3}, fermion_gfs = {}, fermion_dofs = {}. The backend computes beta_lambda = 3 * g_D^4 / (8 * pi^2) internally."
+    }
+  ],
+  "validation_assumptions": [
+    {
+      "item": "xi = T_dark/T_visible = 1 (thermalised sectors)",
+      "status": "warning",
+      "notes": "Assumes dark and visible sectors are in thermal equilibrium at the same temperature. This requires portal couplings (epsilon, lambda_{HPhi}) to be large enough for thermalization (typically epsilon >= 10^{-10} for MeV-scale temperatures) but small enough not to affect the FOPT dynamics. This assumption should be verified against the portal coupling values. The backend hardcodes xi=1 (self.xi = 1)."
+    },
+    {
+      "item": "Portal couplings assumed negligible for FOPT dynamics",
+      "status": "warning",
+      "notes": "The Higgs portal lambda_{HPhi}|H|^2|Phi|^2 and gauge kinetic mixing (epsilon/2) F'F are asserted to be small enough to not affect the phase transition dynamics. This is a standard assumption but should be quantified for the specific parameter space. In particular, if the dark scalar mixes with the SM Higgs, the potential is modified and the CW analysis changes. For epsilon, the effect on the effective potential is typically negligible for epsilon << g_D."
+    },
+    {
+      "item": "No fermion content in dark sector",
+      "status": "ok",
+      "notes": "The model contains no fermions charged under U(1)_D. This means (a) no gauge anomalies to worry about, (b) no dark matter candidate in the minimal model, (c) beta_lambda > 0 automatically (boson-dominated CW), (d) the dark scalar rho has no tree-level decay channel to dark fermions."
+    },
+    {
+      "item": "No cross-quartic in tree-level potential",
+      "status": "ok",
+      "notes": "The tree-level potential assumes no interaction with the SM Higgs at tree level. The Higgs portal lambda_{HPhi}|H|^2|Phi|^2 is considered separately and assumed small. This is consistent but means that at tree level the scalar potential is completely decoupled from the SM."
+    },
+    {
+      "item": "RG-improved effective potential not explicit",
+      "status": "warning",
+      "notes": "The backend semianalytic_pipeline.py uses a fixed-scale approximation for the CW log terms (evaluated at chi = chi0). This is a simplified CW treatment. For a more accurate analysis, RG-improvement or 3D EFT methods (as used in arXiv:2511.02910) would be needed. The literature (Goncalves et al. 2025, arXiv:2501.11619) uses RG-improved one-loop potentials with scale mu = max[M_Z'(phi_s), pi T]."
+    }
+  ],
+  "authoritative_model_file": "output/u1conformal/model.md",
+  "repair_records": [],
+  "red_flags": [],
+  "warnings": [
+    {
+      "item": "Portal coupling values unspecified",
+      "severity": "minor",
+      "notes": "The magnitude of kinetic mixing epsilon and Higgs portal lambda_{HPhi} are stated to be 'small' but not quantified. These are needed for (a) verifying the xi=1 thermalization assumption, (b) BBN constraints on dark Higgs decay, (c) Dark radiation (Delta N_eff) constraints, (d) Collider constraints on dark photons. Recommend specifying at least upper bounds or benchmark values."
+    },
+    {
+      "item": "xi=1 assumption vs thermalization requirements",
+      "severity": "minor",
+      "notes": "The assumption that dark and visible sectors are at the same temperature (xi=1) requires thermal equilibrium via portal interactions. However, portal interactions are also assumed small. This is a well-known tension in dark sector models. For MeV-scale phase transitions, kinetic mixing epsilon ~ 10^{-10}-10^{-9} is typically sufficient for thermalization while satisfying constraints. The user should confirm that this is the intended regime."
+    },
+    {
+      "item": "RG scheme and scale dependence not specified",
+      "severity": "minor",
+      "notes": "The CW mechanism and the resulting FOPT parameters (alpha, beta/H) are known to depend on the renormalization scheme and RG scale choice (see arXiv:2511.02910 for a detailed comparison). The backend uses a simplified fixed-scale approximation. The literature benchmarks (arXiv:2501.11619, arXiv:2502.19478) use different schemes (RG-improved, CosmoTransitions, DRalgo). This scheme dependence is a known uncertainty in the field and should be kept in mind when interpreting results."
+    },
+    {
+      "item": "No fermionic dofs in the dark sector",
+      "severity": "info",
+      "notes": "The absence of dark fermions means no DM candidate in the minimal model. The radial mode rho is the only new particle beyond the dark photon. This simplifies the analysis but means the model has less predictive power for DM-related constraints. If the user later wishes to add DM, the beta_lambda value would change (fermions contribute negatively)."
+    },
+    {
+      "item": "SM particle content not explicitly listed",
+      "severity": "minor",
+      "notes": "The model description focuses on the dark sector. The SM particles are implicitly present (via the gstar table in the backend) but not listed in the particle content. For the model handoff, this is acceptable since the FOPT-PTA backend only uses SM degrees of freedom via the gstar interpolation. However, for constraint analysis, the SM Yukawa and gauge structure may need to be referenced."
+    }
+  ]
+}

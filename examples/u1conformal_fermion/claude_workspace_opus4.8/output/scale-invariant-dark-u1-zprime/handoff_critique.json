@@ -1,0 +1,101 @@
+{
+  "model": "scale-invariant-dark-u1-zprime",
+  "agent": "critic-agent",
+  "run_status": "ok",
+  "validation_gauge_groups": [
+    { "item": "U(1)_D abelian, coupling g_D", "status": "ok", "notes": "Single dark abelian factor; SM singlet under it. Consistent with all charge assignments and covariant derivatives." }
+  ],
+  "validation_global_symmetries": [
+    { "item": "U(1)_chi dark fermion number", "status": "ok", "notes": "Preserved by Dirac Yukawa mass term; stabilizes lightest dark fermion." },
+    { "item": "Classical scale invariance", "status": "ok", "notes": "Only dim-4 operators present; no tree mass term in potential. Broken radiatively (CW). Consistent." }
+  ],
+  "validation_particle_content": [
+    { "item": "Phi complex scalar, q=1, dof=2", "status": "ok", "notes": "Radial = scalon/pseudo-dilaton, angular eaten by Z'." },
+    { "item": "Zp massive vector, dof=3", "status": "ok", "notes": "m_Zp = g_D*w after SSB; 3 dof correct for massive vector." },
+    { "item": "psi (psi_L q=+1/2, psi_R q=-1/2)", "status": "ok", "notes": "Dirac dark fermion chi, q=+1/2." },
+    { "item": "eta mirror (eta_L q=-1/2, eta_R q=+1/2)", "status": "ok", "notes": "Second Dirac fermion, q=-1/2; renders sector vector-like." }
+  ],
+  "validation_lagrangian_terms": [
+    { "item": "gauge_kinetic -1/4 Fp^2", "status": "ok", "notes": "Standard U(1)_D kinetic term." },
+    { "item": "scalar_kinetic |D_mu Phi|^2", "status": "ok", "notes": "q_Phi=1; correct covariant derivative." },
+    { "item": "fermion_kinetic", "status": "ok", "notes": "Chiral charges (+1/2,-1/2) and mirror; gauge invariant." },
+    { "item": "yukawa y Phi psibar_L psi_R + y Phi etabar_L eta_R + h.c.", "status": "ok", "notes": "Charge balance q(Phi)+q(psi_R)-q(psi_L)=1-1/2-1/2=0 and likewise for eta. Gauge invariant; generates Dirac masses." },
+    { "item": "quartic -lambda (Phi*Phi)^2", "status": "ok", "notes": "Only scalar self-coupling; no tree-level mass term, consistent with scale invariance." }
+  ],
+  "validation_free_parameters": [
+    { "item": "g_D independent [0.1,1.5]", "status": "ok", "notes": "gb_gauge = g_D." },
+    { "item": "y independent [0,1] with constraint y**4 < 1.5*g_D**4", "status": "fixed", "notes": "Added explicit beta_lambda>0 constraint to the independent y range so radiative symmetry breaking is guaranteed (bosons dominate)." },
+    { "item": "w independent vev", "status": "fixed", "notes": "Range corrected from [100,1e6] GeV to [0.05,10] GeV to land in the nHz PTA band." },
+    { "item": "lambda dependent (CW)", "status": "ok", "notes": "Correctly classified dependent; fixed by CW minimization, not scanned." },
+    { "item": "beta_lambda dependent", "status": "ok", "notes": "Form (1/(8pi^2))(3 g_D^4 - 8 (y/sqrt2)^4) matches model-independent CW relation sum_B n_B gb^4 - sum_F n_F gf^4 with n_B=3 (Zp), n_F=8 (two Dirac)." },
+    { "item": "m_chi_radial dependent sqrt(beta_lambda)*w", "status": "ok", "notes": "Standard CW scalon mass relation." }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "g_D": { "range": [0.1, 1.5] },
+      "y": { "range": [0.0, 1.0], "constraint": "y**4 < 1.5*g_D**4" },
+      "w": { "range": [0.05, 10.0], "unit": "GeV" }
+    },
+    "dependent": {
+      "lambda": { "relation": "CW minimization" },
+      "beta_lambda": { "relation": "(1/(8*pi**2))*(3*g_D**4 - 8*(y/sqrt(2))**4)", "constraint": "beta_lambda > 0" },
+      "m_chi_radial": { "relation": "sqrt(beta_lambda)*w" },
+      "m_Zp": { "relation": "g_D*w" },
+      "m_chi": { "relation": "y*w/sqrt(2)" }
+    },
+    "fixed": {
+      "lambda_portal": { "value": 0.0 },
+      "epsilon": { "value": 0.0 },
+      "mu_renorm": { "value": "w" }
+    }
+  },
+  "validation_assumptions": [
+    { "item": "Single-field conformal approximation", "status": "ok", "notes": "Appropriate for semianalytic backend." },
+    { "item": "beta_lambda > 0 (bosons dominate)", "status": "ok", "notes": "Now enforced via y**4 < 1.5*g_D**4." },
+    { "item": "mu = w, no RG running, no Daisy", "status": "ok", "notes": "Matches backend convention." },
+    { "item": "Strong supercooling for nHz window", "status": "ok", "notes": "Consistent with corrected vev window." }
+  ],
+  "validation_ssb_pattern": [
+    { "item": "U(1)_D -> nothing, Goldstone eaten by Z'", "status": "ok", "notes": "Phi has q=1; radial CW vev breaks U(1)_D fully. DOF count: complex Phi (2) -> 1 radial scalar + 1 Goldstone eaten; massless Zp (2) -> massive Zp (3). Total bosonic dof conserved (4 -> 4). Consistent." }
+  ],
+  "validation_vev_convention": [
+    { "item": "Phi = (1/sqrt(2)) chi exp(i theta), <chi>=w", "status": "ok", "notes": "Standard normalization; consistent with field-dependent masses below (factor 1/sqrt(2) accounted for)." }
+  ],
+  "validation_tree_level_potential": [
+    { "item": "(lambda/4) chi**4", "status": "ok", "notes": "Pure quartic along radial direction; |Phi|^4 = chi^4/4. No mass term. Consistent with scale invariance." }
+  ],
+  "validation_field_dependent_masses": [
+    { "item": "Zp: g_D**2 * chi**2 (dof 3)", "status": "ok", "notes": "From |D_mu Phi|^2 with Phi=chi/sqrt(2): m_Zp^2 = g_D^2 chi^2; matches m_Zp=g_D*w." },
+    { "item": "chi_fermion: (y**2/2)*chi**2 (dof 8)", "status": "ok", "notes": "Dirac mass m=y*chi/sqrt(2); two degenerate Dirac fermions, 4 dof each = 8. Correct CW fermion dof." },
+    { "item": "radial_scalar: 3*lambda*chi**2, goldstone: lambda*chi**2", "status": "ok", "notes": "Negligible and not passed to backend, per backend convention." }
+  ],
+  "validation_thermal_masses": [
+    { "item": "Zp_longitudinal Debye mass", "status": "ok", "notes": "Leading high-T Debye term supplied as SymPy-parseable string. Backend reconstructs the thermal barrier internally from gb/gf and dofs, so this is informational; consistent." }
+  ],
+  "validation_backend_compatibility": [
+    { "item": "semianalytic_pipeline", "status": "ok", "notes": "Classically scale-invariant single scalar; all masses proportional to w; CW-fixed quartic dependent. Mapping chi0=w, boson gb=g_D dof=3, fermion gf=y/sqrt(2) dof=8 is correct." },
+    { "item": "spectrum", "status": "ok", "notes": "Downstream GW spectrum from alpha, beta_H, Treh." }
+  ],
+  "authoritative_model_file": "output/scale-invariant-dark-u1-zprime/handoff_model.json",
+  "repair_records": [
+    {
+      "issue": "Independent vev range w in [100, 1e6] GeV is 1-4 orders of magnitude above the literature window that yields a nanohertz PTA signal (92.9 MeV - 10 GeV in arXiv:2502.19478 and 2501.15649). At w >~ TeV the GW peak frequency falls well above the PTA band.",
+      "fix": "Restricted w to [0.05, 10.0] GeV.",
+      "justification": "Minimal change to one independent parameter range; brackets all literature benchmarks with margin while keeping the FOPT-PTA branch physically able to produce a nHz signal. Field content, gauge group, and Lagrangian unchanged.",
+      "minimal": true
+    },
+    {
+      "issue": "Independent ranges g_D in [0.1,1.5] and y in [0,1] allow beta_lambda <= 0 (e.g. g_D=0.1, y=1), which forbids radiative symmetry breaking and makes the CW construction ill-defined.",
+      "fix": "Added explicit constraint y**4 < 1.5*g_D**4 (equivalently 3*g_D**4 > 8*(y/sqrt(2))**4) to the independent y parameter.",
+      "justification": "Enforces beta_lambda>0 (boson-dominated radiative SB) already stated in the assumptions; no field-content or coupling-range change beyond the physical viability cut.",
+      "minimal": true
+    }
+  ],
+  "red_flags": [],
+  "warnings": [
+    "Constraint y**4 < 1.5*g_D**4 must be applied as a hard cut during the downstream parameter scan; points violating it (beta_lambda<=0) are unphysical and must be discarded, not run through the backend.",
+    "Even within w in [0.05,10] GeV, only strongly supercooled points land in the nHz band; the FOPT/PTA agents must verify Tp, alpha, beta_H per point and exclude eternal-inflation regions.",
+    "Model is structurally non-novel: closest precedent arXiv:2502.19478 (same field content including Yukawa dark fermion). Distinctive features are the explicit mirror fermion eta for anomaly cancellation and the neglect of kinetic mixing.",
+    "Particle-content spin field for Phi is 0 (correct) and for fermions 0.5 (correct); ensure downstream parsers do not misread the spin-0 entries for psi listed in the original proposer JSON (already 0.5)."
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "model": "scale-invariant-dark-u1-zprime",
+  "agent": "report-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-10",
+  "branch": "report",
+  "created_from": [
+    "output/scale-invariant-dark-u1-zprime/handoff_model.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_critique.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_librarian_preliminary.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_fopt.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_pta.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_constraints.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_prior_audit.json"
+  ],
+  "commands": [
+    "pdflatex -interaction=nonstopmode final_report.tex (x4 runs)",
+    "WebSearch arXiv/INSPIRE-HEP citation validation for 2502.19478, 2501.11619, 2501.15649, 2105.01007, 2306.17086, 2603.08430, 1611.03864, 2511.15687"
+  ],
+  "files_read": [
+    "output/scale-invariant-dark-u1-zprime/handoff_model.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_critique.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_librarian_preliminary.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_fopt.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_pta.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_constraints.json",
+    "output/scale-invariant-dark-u1-zprime/handoff_prior_audit.json",
+    "docs/HANDOFF_REPORT_SCHEMA.md"
+  ],
+  "files_written": [
+    "output/scale-invariant-dark-u1-zprime/final_report.tex",
+    "output/scale-invariant-dark-u1-zprime/final_report.pdf",
+    "output/scale-invariant-dark-u1-zprime/handoff_report.json"
+  ],
+  "warnings": [
+    "Overall run_status is warning: all branch-dependent and astroparticle stages (fopt, pta, constraints, prior_audit) carry warning status, propagated to the verdict.",
+    "Cosmological viability is conditional/unverified: epsilon=0 was fixed for the whole chain (A01), reheating/BBN require epsilon~1e-6..1e-3.",
+    "beta/H convention mismatch (152.7 vs 21.1 at lit Point A; A02) and dbf K_sw->1 template saturation (A03) weaken the spectral-amplitude interpretation.",
+    "No Bayes factor / evidence computed (A04); the NANOGrav fit is a goodness-of-region statement, not a model comparison.",
+    "Citation-content mismatch: arXiv:2511.15687 is described in upstream handoffs as a 'dbf bulk-flow template' paper but is actually Lewicki & Vaskonen on cosmic-expansion corrections to supercooled-PT spectra. Cited only for its true subject; flagged in report Sec. Inconsistencies."
+  ],
+  "errors": [],
+  "approximations": [
+    "Report reproduces upstream numbers verbatim from handoff JSONs; no new physics computed.",
+    "FOPT high-T bounce, Gaussian percolation, mu=w (no RG/Daisy), neglected scalar/Goldstone.",
+    "dbf bulk-flow template with runaway walls vw->1; T=Treh redshift; K_sw saturated.",
+    "ptarcade ceffyl free-spectrum likelihood (14 bins)."
+  ],
+  "included_sections": [
+    {"name": "Prompt", "status": "included", "source": "user prompt", "notes": []},
+    {"name": "Model description", "status": "included", "source": "handoff_model.json/handoff_critique.json", "notes": []},
+    {"name": "Pipeline status", "status": "included", "source": "all handoffs", "notes": []},
+    {"name": "Preliminary literature search", "status": "included", "source": "handoff_librarian_preliminary.json", "notes": []},
+    {"name": "FOPT results", "status": "included", "source": "handoff_fopt.json", "notes": []},
+    {"name": "PTA results", "status": "included", "source": "handoff_pta.json", "notes": ["benchmark + ptarcade campaign; 3 required figures included"]},
+    {"name": "Constraints", "status": "included", "source": "handoff_constraints.json", "notes": []},
+    {"name": "Assumptions and limitations", "status": "included", "source": "handoff_prior_audit.json", "notes": []},
+    {"name": "Inconsistencies and reference caveats", "status": "included", "source": "report-agent citation validation", "notes": ["2511.15687 content mismatch"]},
+    {"name": "Conclusions", "status": "included", "source": "synthesis", "notes": []},
+    {"name": "References", "status": "included", "source": "validated bibliography", "notes": []}
+  ],
+  "figures_included": [
+    {"label": "fig:bench", "file": "pta_benchmark_spectrum.pdf", "caption": "Estimated benchmark GW spectrum vs frequency with NG15 violins.", "source": "handoff_pta.json", "notes": []},
+    {"label": "fig:ptarcade", "file": "pta_ptarcade_spectrum.pdf", "caption": "PTArcade MAP-point spectrum vs frequency with NG15 violins.", "source": "handoff_pta.json", "notes": []},
+    {"label": "fig:posteriors", "file": "pta_posteriors.pdf", "caption": "Bayesian posteriors on g_D, y, log10 w from PTArcade/ceffyl.", "source": "handoff_pta.json", "notes": ["interior; enlarged prior edges carry no mass"]}
+  ],
+  "tables_included": [
+    {"label": "tab:fields", "file": "", "caption": "Field content and U(1)_D charges.", "source": "handoff_model.json", "notes": []},
+    {"label": "tab:status", "file": "", "caption": "Pipeline stage status.", "source": "all handoffs", "notes": []},
+    {"label": "tab:lit", "file": "", "caption": "Verified preliminary-literature papers.", "source": "handoff_librarian_preliminary.json", "notes": []},
+    {"label": "tab:fopt", "file": "", "caption": "FOPT benchmarks.", "source": "handoff_fopt.json", "notes": []},
+    {"label": "tab:pta", "file": "", "caption": "PTA best-fit benchmark points.", "source": "handoff_pta.json", "notes": []},
+    {"label": "tab:constr", "file": "", "caption": "Constraints classification.", "source": "handoff_constraints.json", "notes": []},
+    {"label": "tab:assump", "file": "", "caption": "Highest-severity assumptions/limitations.", "source": "handoff_prior_audit.json", "notes": []}
+  ],
+  "cited_sources": [
+    {"title": "Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector", "arxiv_id": "2502.19478", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Supercooled phase transitions in conformal dark sectors explain NANOGrav data", "arxiv_id": "2501.11619", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Supercooled Dark Scalar Phase Transitions explanation of NANOGrav data", "arxiv_id": "2501.15649", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Gravitational waves from a dark U(1)_D phase transition in the light of NANOGrav 12.5 yr data", "arxiv_id": "2105.01007", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "NANOGrav Signal from a Dark Conformal Phase Transition", "arxiv_id": "2306.17086", "source_file": "handoff_librarian_preliminary.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "The Dark Photon: a 2026 Perspective", "arxiv_id": "2603.08430", "source_file": "handoff_constraints.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Revisiting Supernova 1987A Constraints on Dark Photons", "arxiv_id": "1611.03864", "source_file": "handoff_constraints.json", "source_type": "handoff_json", "citation_verified": true},
+    {"title": "Impact of cosmic expansion on gravitational wave spectra from strongly supercooled first-order phase transitions", "arxiv_id": "2511.15687", "source_file": "handoff_pta.json", "source_type": "handoff_json", "citation_verified": true}
+  ],
+  "compiled_pdf": true,
+  "compile_errors": [],
+  "inconsistencies": [
+    {
+      "type": "citation_content_mismatch",
+      "arxiv_id": "2511.15687",
+      "description": "Upstream handoff_pta.json and handoff_prior_audit.json attribute the 'dbf bulk-flow' GW template / 'expansion-corrected supercooled template' to arXiv:2511.15687. The arXiv ID exists but is 'Impact of cosmic expansion on gravitational wave spectra from strongly supercooled first-order phase transitions' by M. Lewicki & V. Vaskonen, which is about cosmic-expansion corrections, not a dedicated dissipative bulk-flow template. Cited only for its actual subject; attribution caveat documented in report.",
+      "severity": "low",
+      "affected_outputs": ["bibliographic attribution of the dbf template"]
+    },
+    {
+      "type": "internal_convention_mismatch",
+      "description": "FOPT backend reports beta/H ~ 152.7 at literature Point A vs 21.1 in arXiv:2502.19478 (factor ~7). Reported as prior-audit item A02; an internal convention issue, not a cross-handoff data conflict.",
+      "severity": "high",
+      "affected_outputs": ["GW spectrum amplitude/peak", "PTA posteriors"]
+    }
+  ],
+  "unverified_or_rejected_references": [
+    {
+      "arxiv_id": "2511.15687",
+      "status": "verified_exists_content_mismatch",
+      "note": "Exists and is cited for its true content; the upstream 'dbf template' description does not match the paper."
+    }
+  ]
+}

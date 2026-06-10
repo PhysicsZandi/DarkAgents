@@ -1,0 +1,645 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[margin=2.5cm]{geometry}
+% \usepackage{natbib}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{xcolor}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue
+}
+
+\newcommand{\Msun}{M_\odot}
+\newcommand{\GeV}{\,\text{GeV}}
+\newcommand{\MeV}{\,\text{MeV}}
+\newcommand{\Hz}{\,\text{Hz}}
+\newcommand{\nHz}{\,\text{nHz}}
+\newcommand{\gw}{{\rm GW}}
+\newcommand{\pt}{{\rm PT}}
+
+\title{Gravitational Waves from a First-Order Phase Transition in a Dark U(1)$_D$ Conformal Model: Pipeline Analysis and PTA Comparison}
+\author{DarkAgents}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We present a comprehensive pipeline analysis of the stochastic gravitational wave (GW) background produced by a first-order phase transition (FOPT) in a classically scale-invariant dark U(1)$_D$ extension of the Standard Model. The model contains a complex scalar $\Phi$ charged under the dark U(1)$_D$ and a dark gauge boson $A'$, with no tree-level mass terms -- scale invariance is broken radiatively via the Coleman-Weinberg (CW) mechanism~\cite{coleman1973cw}. The FOPT is strongly supercooled, producing GW spectra with peak frequencies in the nano-Hertz band accessible to pulsar timing arrays (PTAs). Using a semianalytic pipeline and PTArcade Bayesian inference, we identify a preferred parameter region with scalar vacuum expectation value $v \sim 0.6$--$1.2\GeV$ and dark gauge coupling $g_D \sim 0.51$--$0.55$ (68\% credible interval). We compare the GW spectrum to the NANOGrav 15-year dataset and find good agreement across all 14 frequency bins. However, the model faces significant uncontrolled uncertainties: the portal couplings $\epsilon$ (kinetic mixing) and $\lambda_{H\Phi}$ (Higgs portal) are unspecified, blocking 19 of 23 experimental constraints; the assumption $\xi = T_{\rm dark}/T_{\rm SM} = 1$ leads to an estimated $\Delta N_{\rm eff} \sim 0.57$ in tension with Planck bounds; and several backend approximations (fixed-scale CW potential, $\beta/H$ parameterization, high-temperature expansion) introduce systematic uncertainties in the extreme supercooling regime where $\alpha \sim 10^{11}$--$10^{15}$. We identify the required backend extensions and follow-up calculations needed to resolve these limitations.
+\end{abstract}
+
+\section{Summary}
+
+This report documents the full analysis pipeline for the dark U(1)$_D$ conformal model, from model specification through FOPT computation, PTA data comparison, constraint analysis, and prior audit. The pipeline was executed by the multi-agent system in the sequence: critic validation, literature search, FOPT scan, PTA benchmark scan and PTArcade Bayesian inference, constraint mapping, and prior/assumptions audit. The key results are:
+
+\begin{itemize}
+\item \textbf{FOPT viability}: 680 of 925 scanned points are viable, with $(243)$ points falling in the PTA nHz band. The FOPT is invariably strongly supercooled ($\alpha \sim 10^5$--$10^{15}$).
+\item \textbf{PTA compatibility}: The PTArcade Bayesian analysis of the NANOGrav 15-year dataset yields a preferred region $v \sim 0.62$--$1.23\GeV$, $g_D \sim 0.509$--$0.545$ (68\% CL), with MAP at $(v,\,g_D) = (1.07\GeV,\,0.508)$.
+\item \textbf{Constraint coverage}: 23 constraints were surveyed. Only 4 theory-level constraints (perturbativity, CW consistency, scale invariance) are directly testable and satisfied. The remaining 19 constraints depend on portal couplings that are not specified.
+\item \textbf{Assumptions and limitations}: 38 distinct items were catalogued. The most severe uncontrolled uncertainties are the unspecified portal couplings (severity 8/10), the $\xi=1$ assumption leading to $\Delta N_{\rm eff}$ tension (severity 9/10), and the lack of backend modules for computing decay widths and freeze-in yields (severity 10/10).
+\end{itemize}
+
+\section{Model Description}
+
+The model was validated by the critic agent and documented in \texttt{handoff\_model.json}. It is a minimal dark U(1)$_D$ extension of the Standard Model with classical scale invariance at tree level.
+
+\subsection{Lagrangian}
+
+The dark-sector Lagrangian in the unbroken phase is
+\begin{equation}
+\mathcal{L}_{\rm dark} = -\frac14 F'_{\mu\nu}F'^{\mu\nu} + |D_\mu\Phi|^2 - \lambda_\Phi |\Phi|^4 + \mathcal{L}_{\rm portal},
+\end{equation}
+where $D_\mu = \partial_\mu - i g_D A'_\mu$ is the covariant derivative under U(1)$_D$, $\Phi$ is a complex scalar with charge $+1$, and $F'_{\mu\nu} = \partial_\mu A'_\nu - \partial_\nu A'_\mu$. The tree-level potential contains only the quartic term $V_{\rm tree} = \lambda_\Phi |\Phi|^4$ with $\lambda_\Phi > 0$; there are no dimensionful parameters, enforcing classical scale invariance.
+
+The portal terms are
+\begin{align}
+\mathcal{L}_{\rm portal} &= -\lambda_{H\Phi} |H|^2 |\Phi|^2 - \frac{\epsilon}{2} F'_{\mu\nu} F^{\mu\nu},
+\end{align}
+where $H$ is the SM Higgs doublet, $F_{\mu\nu}$ is the SM hypercharge field strength, $\epsilon$ is the kinetic mixing parameter, and $\lambda_{H\Phi}$ is the Higgs portal quartic coupling. Both portal couplings are {\it a priori} unspecified but assumed small enough not to affect the FOPT dynamics.
+
+\subsection{Particle Content}
+
+The particle content and symmetry breaking pattern are summarized in Table~\ref{tab:particles}.
+
+\begin{table}[htbp]
+\centering
+\caption{Particle content of the dark U(1)$_D$ model. After spontaneous symmetry breaking (SSB), the Goldstone mode $G$ is eaten by $A'$ to become its longitudinal polarization.}
+\label{tab:particles}
+\begin{tabular}{lcccc}
+\toprule
+Particle & Type & Spin & U(1)$_D$ charge & DoF (after SSB) \\
+\midrule
+$\Phi$ & Complex scalar & 0 & $+1$ & 2 (constituent) \\
+$\rho$ & Real scalar (radial mode) & 0 & 0 & 1 \\
+$G$ & Goldstone & 0 & 0 & 0 (eaten) \\
+$A'$ & Gauge boson (dark photon) & 1 & 0 (adjoint) & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The field is expanded around the background as $\Phi = (\chi + \rho + iG)/\sqrt{2}$, with $\chi$ the classical background field and $v = \langle\chi\rangle$ the vacuum expectation value (vev).
+
+\subsection{Symmetries}
+
+\begin{itemize}
+\item \textbf{Gauge symmetry}: U(1)$_D$, completely broken by $\langle\Phi\rangle \neq 0$. One Goldstone mode is eaten by $A'$, leaving no unbroken gauge symmetry in the dark sector.
+\item \textbf{Classical scale invariance}: No dimensionful parameters at tree level. Scale invariance is broken radiatively via the Coleman-Weinberg mechanism, generating the vev $v$ and all dark-sector masses through dimensional transmutation.
+\end{itemize}
+
+\subsection{Parameters}
+
+The parameter basis is shown in Table~\ref{tab:parameters}. Only $v$ and $g_D$ are independent; all other parameters are derived.
+
+\begin{table}[htbp]
+\centering
+\caption{Parameter basis of the dark U(1)$_D$ model.}
+\label{tab:parameters}
+\begin{tabularx}{\textwidth}{lccX}
+\toprule
+Parameter & Type & Dimension & Determination \\
+\midrule
+$v$ & Independent & Mass ($\GeV$) & Vacuum expectation value from CW minimum \\
+$g_D$ & Independent & 1 & Dark U(1)$_D$ gauge coupling \\
+$\lambda_\Phi$ & Dependent & 1 & CW-fixed: $\beta_\lambda/4$ at minimum \\
+$m_\rho$ & Dependent & Mass ($\GeV$) & $m_\rho^2 = 3 g_D^4 v^2 / (8\pi^2)$ \\
+$m_{A'}$ & Dependent & Mass ($\GeV$) & $m_{A'} = g_D v$ \\
+$\beta_\lambda$ & Dependent & 1 & $\beta_\lambda = 3 g_D^4/(8\pi^2)$ (one-loop) \\
+$\epsilon$ & Fixed (unspecified) & 1 & Kinetic mixing, assumed small \\
+$\lambda_{H\Phi}$ & Fixed (unspecified) & 1 & Higgs portal, assumed small \\
+$\xi$ & Fixed & 1 & $T_{\rm dark}/T_{\rm SM} = 1$ (assumed thermal equilibrium) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Effective Potential and FOPT Mechanism}
+
+The one-loop CW effective potential at zero temperature is
+\begin{equation}
+V_{\rm eff}(\chi) = \frac{\beta_\lambda}{4} \chi^4 \left( \log\frac{\chi^2}{v^2} - \frac12 \right) + \frac12 \beta_\lambda v^2 \chi^2,
+\end{equation}
+where $\beta_\lambda = 3 g_D^4/(8\pi^2)$ is the one-loop coefficient of the scalar quartic beta function. The CW minimum satisfies $dV_{\rm eff}/d\chi|_{\chi=v} = 0$, yielding $\lambda_\Phi(v) = \beta_\lambda/4$. The vacuum energy density difference (false minus true vacuum) is $\Delta V = \beta_\lambda v^4 / 16$.
+
+At finite temperature, the effective potential is augmented by thermal mass corrections (Debye screening) via the Arnold-Espinosa daisy resummation scheme and the high-temperature expansion. The bounce action $S_3(T)$ is computed from the one-dimensional tunneling potential using the semianalytic pipeline backend, with the nucleation rate $\Gamma(T) \sim T^4 e^{-S_3(T)/T}$.
+
+\section{Pipeline Status}
+
+Table~\ref{tab:pipeline} summarizes the pipeline stages and their outcomes.
+
+\begin{table}[htbp]
+\centering
+\caption{Pipeline execution status for the dark U(1)$_D$ model.}
+\label{tab:pipeline}
+\begin{tabular}{lccp{4cm}}
+\toprule
+Agent & Handoff file & Status & Notes \\
+\midrule
+Critic & \texttt{handoff\_model.json} & ok & Model validated; 5 warnings \\
+Preliminary librarian & \texttt{handoff\_librarian\_preliminary.json} & ok & 10 papers surveyed; model not novel \\
+FOPT & \texttt{handoff\_fopt.json} & ok & 925 points scanned; 680 viable \\
+PTA & \texttt{handoff\_pta.json} & ok & Benchmark scan + PTArcade campaign \\
+Constraints & \texttt{handoff\_constraints.json} & ok & 23 constraints; 19 blocked by missing portals \\
+Prior audit & \texttt{handoff\_prior\_audit.json} & ok & 38 assumptions/limitations catalogued \\
+Report & \texttt{handoff\_report.json} & ok & This document \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Preliminary Literature Search}
+
+Ten relevant papers were identified and verified. Table~\ref{tab:lit} summarizes the most directly relevant works.
+
+\begin{table}[htbp]
+\centering
+\caption{Key literature papers identified by the preliminary literature search.}
+\label{tab:lit}
+\begin{tabularx}{\textwidth}{llXc}
+\toprule
+arXiv ID & Authors (Year) & Brief description & Relevance \\
+\midrule
+2501.11619 & Gon\c{c}alves et al. (2025) & Same model class: conformal dark U(1)$'$ with CW, PTArcade fit to NG15. Best-fit: $g_L=0.59$, $M_{Z'} = 107\MeV$, $\alpha=2.6\times10^5$ & Same model, direct comparison \\
+2502.19478 & Balan et al. (2025) & Conformal U(1)$'$ + DM. GAMBIT+PTArcade global fit. Benchmark points with $v=93$--$343\MeV$, $g=0.79$--$0.88$ & Structurally similar + DM \\
+2501.15649 & Costa et al. (2025) & U(1)$_D$ supercooled FOPT with percolation check. $v=0.5$--$10\GeV$, $g_D=0.75$--$0.86$ & Methodology for percolation \\
+2511.02910 & Christiansen et al. (2025) & Conformal Abelian Higgs: RG running essential, 3D EFT vs 4D HT. Methodology validation & Identical model (method) \\
+2412.16282 & Banik et al. (2024) & Minimal U(1) dark sector mapping to NG15+EPTA+PPTA. Non-CW benchmark & Parameter space guide \\
+2306.17239 & Athron et al. (2024) & Critical paper: supercooled FOPTs face completion and reheating challenges & Background context \\
+2602.14324 & Li \& Nath (2026) & Thermal history ($\xi$) crucial; $R^*$ rather than $\beta/H$ for supercooling & Methodology, $\xi$ treatment \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Novelty Verdict}
+
+The preliminary librarian declared the model {\bf not novel}. The conformal dark U(1)$_D$ with Coleman-Weinberg symmetry breaking and GW signals for PTA has been extensively studied, most directly by Gon\c{c}alves et al.~\cite{goncalves2025} (same model, PTArcade analysis) and Christiansen et al.~\cite{christiansen2025} (identical Abelian Higgs model, methodology focus). The present analysis provides a complementary perspective by using the semianalytic pipeline backend ({\tt semianalytic\_pipeline.py}) with the dbf template and a minimal parameter space (no DM, no portal effects on FOPT).
+
+\section{FOPT Results}
+
+\subsection{Scan Summary}
+
+The FOPT scan covered 925 points in the $(v,\,g_D)$ plane with the ranges and results shown in Table~\ref{tab:fopt_scan_summary}.
+
+\begin{table}[htbp]
+\centering
+\caption{FOPT scan summary.}
+\label{tab:fopt_scan_summary}
+\begin{tabular}{lcc}
+\toprule
+Metric & Value \\
+\midrule
+Total points & 925 \\
+Viable points & 680 \\
+Points in PTA nHz band & 243 \\
+Physical failures (eternal inflation) & 41 \\
+Numerical failures ($T_n$ or $T_p$ invalid) & 204 \\
+\midrule
+$v$ range scanned & $[0.005,\,10]\GeV$ \\
+$g_D$ range scanned & $[0.3,\,1.5]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The viable points occupy a well-defined region in parameter space. At small $v \lesssim 0.02\GeV$ and small $g_D \lesssim 0.5$, the CW potential becomes numerically unstable ($T_n$ invalid). At large $g_D \gtrsim 0.7$--$0.9$ (depending on $v$), eternal inflation prevents FOPT completion. The FOPT is always strongly supercooled: the transition strength $\alpha$ ranges from $\sim 10^1$ to $10^{15}$, the inverse duration $\beta/H$ ranges from $\sim 13$ to $250$, and percolation temperatures $T_p$ are in the range $10^{-7}$--$10^{-3}\GeV$.
+
+\subsection{Representative Viable Points}
+
+Table~\ref{tab:fopt_benchmarks} lists representative viable points that fall in the PTA nHz band ($f_{\rm peak} \sim 1$--$30\nHz$).
+
+\begin{table}[htbp]
+\centering
+\caption{Representative FOPT viable points in the PTA nHz band.}
+\label{tab:fopt_benchmarks}
+\begin{tabular}{ccccccc}
+\toprule
+$v$ [$\GeV$] & $g_D$ & $\alpha$ & $\beta/H$ & $T_p$ [$\GeV$] & $T_{\rm reh}$ [$\GeV$] & $f_{\rm peak}$ [$\Hz$] \\
+\midrule
+$2.37\times10^{-2}$ & 0.600 & $7.4\times10^5$ & 34.8 & $8.4\times10^{-5}$ & $2.5\times10^{-3}$ & $1.00\times10^{-8}$ \\
+$4.35\times10^{-2}$ & 0.540 & $1.0\times10^{10}$ & 21.5 & $1.3\times10^{-5}$ & $4.2\times10^{-3}$ & $1.04\times10^{-8}$ \\
+$7.85\times10^{-2}$ & 0.492 & $7.2\times10^{15}$ & 13.4 & $7.4\times10^{-7}$ & $6.8\times10^{-3}$ & $1.06\times10^{-8}$ \\
+$2.41\times10^{-2}$ & 0.587 & $3.7\times10^6$ & 31.7 & $5.7\times10^{-5}$ & $2.5\times10^{-3}$ & $9.22\times10^{-9}$ \\
+$1.98\times10^{-2}$ & 0.634 & $2.0\times10^4$ & 43.6 & $1.7\times10^{-4}$ & $2.0\times10^{-3}$ & $1.03\times10^{-8}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Failure Diagnostics}
+
+\begin{itemize}
+\item \textbf{Numerical failures} (204/925): predominantly occur for $v < 0.02\GeV$ and/or $g_D < 0.5$, where the CW potential curvature at the origin is insufficient to produce a well-defined nucleation temperature. The backend returns `Tn invalid: nan` or `Tp invalid: nan`. These likely correspond to genuinely non-viable regions where the FOPT is too weak or the CW potential does not develop a sufficient barrier.
+\item \textbf{Physical failures} (41/925): all due to eternal inflation, occurring when the Hubble parameter during the false-vacuum-dominated phase exceeds the nucleation rate. These occur at $g_D \gtrsim 0.7$--$0.9$ depending on $v$, consistent with the expectation that larger gauge couplings lead to stronger supercooling that can trap the Universe in the false vacuum forever.
+\end{itemize}
+
+\subsection{Backend Caveats}
+
+The FOPT backend uses several approximations that are relevant in the extreme supercooling regime:
+\begin{itemize}
+\item \textbf{High-temperature expansion}: Valid for $m/T \ll 1$, but in the deep supercooling regime $m_{A'}/T_p \sim \mathcal{O}(10$--$1000)$, potentially invalidating the expansion.
+\item \textbf{Fixed-scale CW}: The backend evaluates the effective potential at scale $\mu = v$ with no RG improvement. Christiansen et al.~\cite{christiansen2025} show that proper RG running is essential for the conformal Abelian Higgs model.
+\item \textbf{Gaussian approximation}: The nucleation rate is approximated as Gaussian around the peak. For extremely supercooled transitions, the mean bubble separation $R^*$ approach~\cite{costa2025,li2026} provides a more robust alternative.
+\item $\beta/H$ \textbf{parameterization}: Standard for weak transitions, but may break down for $\alpha \gg 1$ where $\beta/H$ can approach values where the exponential nucleation regime no longer holds.
+\end{itemize}
+
+\section{PTA Results}
+
+\subsection{Benchmark Scan}
+
+A dedicated PTA benchmark scan was performed over 1600 points in the $(v,\,g_D)$ plane (ranges: $v \in [0.005,\,10]\GeV$ log-uniform; $g_D \in [0.3,\,1.5]$ uniform). Of these, 524 points were viable and were scored against the NANOGrav 15-year violin plot using a bin-counting metric (number of the 14 frequency bins where the predicted GW spectrum falls within the 1-$\sigma$ NG15 violin).
+
+Table~\ref{tab:pta_benchmarks} lists the top-ranked benchmark points, all of which achieve a perfect score of 14/14 bins inside the 1-$\sigma$ violins.
+
+\begin{table}[htbp]
+\centering
+\caption{Top PTA benchmark points from the benchmark scan. All achieve 14/14 NG15 bins inside violins.}
+\label{tab:pta_benchmarks}
+\begin{tabular}{ccccccc}
+\toprule
+Rank & $v$ [$\GeV$] & $g_D$ & $\alpha$ & $\beta/H$ & $m_{A'}$ [$\GeV$] & $m_\rho$ [$\GeV$] \\
+\midrule
+1 & 0.431 & 0.533 & $3.78\times10^{11}$ & 17.7 & 0.229 & 0.030 \\
+2 & 0.794 & 0.580 & $4.24\times10^{7}$ & 24.8 & 0.460 & 0.046 \\
+3 & 1.172 & 0.540 & $1.50\times10^{11}$ & 17.6 & 0.633 & 0.065 \\
+4 & 1.731 & 0.540 & $2.03\times10^{11}$ & 17.1 & 0.935 & 0.096 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The preferred region from the benchmark scan centers around $v \sim 0.4$--$1.7\GeV$ and $g_D \sim 0.53$--$0.58$, corresponding to $m_{A'} \sim 0.2$--$0.9\GeV$ and $m_\rho \sim 30$--$100\MeV$.
+
+\subsection{Benchmark Spectrum vs PTA Violins}
+
+Figure~\ref{fig:benchmark_spectrum} shows the GW spectrum from the best-fit benchmark points compared to the NANOGrav 15-year violin plot.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{pta_benchmark_spectrum.pdf}
+\caption{GW energy density spectra for the top four benchmark points (colored curves) compared to the NANOGrav 15-year free-spectrum violins (gray shaded regions, showing 1-, 2-, and 3-$\sigma$ contours). All four spectra fall within the 1-$\sigma$ band across all 14 frequency bins.}
+\label{fig:benchmark_spectrum}
+\end{figure}
+
+\subsection{PTArcade Bayesian Analysis}
+
+A full PTArcade Bayesian inference campaign was conducted using the CEFFyL likelihood on the NANOGrav 15-year dataset. The priors were: $\log_{10}(v/\GeV) \sim \text{Uniform}(-3.30,\,1.70)$ and $g_D \sim \text{Uniform}(0.3,\,1.5)$. The total number of samples was $N=10^5$, yielding approximately 5700 post-thinning, post-burn-in samples with an acceptance rate of $\sim 42\%$.
+
+\subsubsection{Bayesian Posteriors}
+
+Figure~\ref{fig:posteriors} shows the marginalized posterior distributions.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{pta_posteriors.pdf}
+\caption{Marginalized posterior distributions from the PTArcade Bayesian analysis. The 1-, 2-, and 3-$\sigma$ credible regions are shown for the two free parameters $\log_{10}(v/\GeV)$ and $g_D$.}
+\label{fig:posteriors}
+\end{figure}
+
+The posterior means, standard deviations, and credible regions are given in Table~\ref{tab:posterior}.
+
+\begin{table}[htbp]
+\centering
+\caption{Bayesian posterior summary from PTArcade analysis of NG15 data.}
+\label{tab:posterior}
+\begin{tabular}{lcccc}
+\toprule
+Parameter & Mean $\pm$ Std & MAP & 68\% CL & 95\% CL \\
+\midrule
+$\log_{10}(v/\GeV)$ & $-0.061 \pm 0.162$ & $0.029$ & $[-0.210,\,0.090]$ & $[-0.476,\,0.164]$ \\
+$g_D$ & $0.527 \pm 0.020$ & $0.508$ & $[0.509,\,0.545]$ & $[0.504,\,0.583]$ \\
+\midrule
+$v$ [$\GeV$] & $\sim 0.87$ & $1.07$ & $[0.62,\,1.23]$ & $[0.33,\,1.46]$ \\
+$m_{A'}$ [$\GeV$] & $\sim 0.46$ & $0.54$ & $[0.31,\,0.67]$ & $[0.17,\,0.85]$ \\
+$m_\rho$ [$\MeV$] & $\sim 47$ & $54$ & $[31,\,71]$ & $[18,\,97]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{MAP Spectrum}
+
+The MAP point ($v=1.07\GeV$, $g_D=0.508$) produces the GW spectrum shown in Figure~\ref{fig:ptarcade_spectrum}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{pta_ptarcade_spectrum.pdf}
+\caption{GW energy density spectrum at the MAP point from the PTArcade analysis, compared to the NG15 free-spectrum violins.}
+\label{fig:ptarcade_spectrum}
+\end{figure}
+
+\subsection{GW Template and Calibration}
+
+The GW spectrum is computed using the dissipative bulk flow (dbf) template from Lewicki and Vaskonen~\cite{lewicki2025dbf}. This template is appropriate for the strong-supercooling regime ($\alpha \gg 1$) where bulk flow dominates over sound waves, and assumes runaway bubble walls ($v_w \to 1$). The `higgsless' (sound-wave) template was rejected as inapplicable for $\alpha \gg 1$.
+
+A caveat noted by the PTA agent: the dbf template calibration may be pushed for the most extreme $\alpha$ values ($10^{11}$--$10^{15}$) encountered in this model, as the prefactor calibration range may not extend to such high values.
+
+\subsection{Benchmark vs MAP Discrepancy}
+
+The benchmark scan BP1 ($v=0.43\GeV$) and the PTArcade MAP ($v=1.07\GeV$) differ by a factor $\sim 2.5$ in $v$. This arises because the benchmark scan uses a simple bin-counting score (number of bins inside 1-$\sigma$ violins, saturated at 14/14 for all top points), while PTArcade uses the full CEFFyL likelihood that accounts for bin correlations and spectral shape. The 68\% credible interval from PTArcade ($v$: $0.62$--$1.23\GeV$) encompasses both values, suggesting the discrepancy reflects the different statistical methodologies rather than a physical inconsistency.
+
+\section{Constraints}
+
+The constraint agent surveyed 23 distinct constraints across collider, astrophysical, and cosmological categories. Table~\ref{tab:constraints_summary} provides the classification breakdown.
+
+\begin{table}[htbp]
+\centering
+\caption{Constraint classification summary.}
+\label{tab:constraints_summary}
+\begin{tabular}{lrl}
+\toprule
+Classification & Count & Description \\
+\midrule
+Directly testable & 4 & Perturbativity, CW consistency, scale invariance (all satisfied) \\
+Approximately testable & 6 & $\Delta N_{\rm eff}$, BBN bounds, freeze-in estimate \\
+Requires recast & 3 & Higgs exotic decays, beam-dump rho constraints \\
+Not applicable & 6 & Stellar cooling, SN1987A, direct detection, structure formation \\
+Total & 23 & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Major Constraint Categories}
+
+\paragraph{Theory (4 constraints, all satisfied):}
+\begin{itemize}
+\item \textbf{Perturbativity} ($g_D < \sqrt{4\pi}$): satisfied with $g_D^2/(4\pi) = 0.082$--$0.095$ at the 68\% CL region.
+\item \textbf{CW consistency} ($\beta_\lambda > 0$): satisfied, $\beta_\lambda = 0.0025$--$0.0034 > 0$.
+\item \textbf{Classical scale invariance}: verified at the Lagrangian level.
+\end{itemize}
+
+\paragraph{Collider (5 constraints, all blocked by unspecified portal couplings):}
+\begin{itemize}
+\item \textbf{LHCb prompt $A' \to \mu^+\mu^-$}~\cite{lhcb2019}: Covers $m_{A'} = 214$--$740\MeV$, excluding $\epsilon > \text{few}\times10^{-4}$ for visible decays. The 68\% CL region $m_{A'} = 0.31$--$0.67\GeV$ lies fully within range, but applicability depends on the $A'\to\mu^+\mu^-$ branching ratio.
+\item \textbf{BaBar invisible $A'$}~\cite{babar2017}: Excludes $\epsilon > (2$--$4)\times10^{-4}$ for $m_{A'} < 8\GeV$ if $A'$ decays invisibly.
+\item \textbf{NA64}~\cite{na64darkmatter}: Covers $m_{A'} < 350\MeV$, partially overlapping the 68\% CL lower boundary.
+\item \textbf{NA62}~{}: Covers $m_{A'} = 215$--$550\MeV$ for visible muon decays.
+\item \textbf{KLOE-2}~{}: Narrow $m_{A'} \approx 527$--$568\MeV$ window, superseded by LHCb.
+\end{itemize}
+
+\paragraph{BBN and $\Delta N_{\rm eff}$ (5 constraints):}
+\begin{itemize}
+\item \textbf{BBN $A'$ decay}~\cite{coy2025}: For $m_{A'} \sim 300$--$700\MeV$, requires $\epsilon > 10^{-9}$--$10^{-8}$ for $\tau_{A'} < 0.2$~s. This is a {\bf lower bound} on $\epsilon$, not upper.
+\item \textbf{BBN $\rho$ decay}~\cite{fradette2018}: For $m_\rho \sim 31$--$71\MeV$, excludes $\sin^2\theta > 10^{-7}$; combined BBN+CMB exclusion covers $\sin^2\theta \sim 10^{-11}$--$10^{-7}$.
+\item \textbf{CMB energy injection}~\cite{fradette2018}: Excludes long-lived rho with $\tau_\rho > 10^{13}$~s, covering $\sin^2\theta \sim 10^{-11}$--$10^{-10}$.
+\item \textbf{$\Delta N_{\rm eff}$ (pre-PT)}~\cite{planck2018}: With $\xi=1$ and 4 dark-sector bosonic dofs, $\Delta N_{\rm eff} \sim 0.57$, exceeding Planck 95\% CL bound $\Delta N_{\rm eff} < 0.3$.
+\item \textbf{$\Delta N_{\rm eff}$ (post-PT)}: The extreme supercooling may dilute the residual abundance, but this has not been computed.
+\end{itemize}
+
+\paragraph{Beam dump and other (4 constraints):}
+\begin{itemize}
+\item \textbf{PS191/CHARM/LSND $\rho$ searches}~\cite{gorbunov2021}: Partially cover $m_\rho \sim 50$--$100\MeV$; full constraint requires recasting.
+\item \textbf{Higgs exotic decays}~\cite{falkowski2015}: $h \to \rho\rho$ kinematically allowed, but $m_\rho \sim 50$--$70\MeV$ is below CMS h$\to$SS sensitivity ($>0.4\GeV$).
+\end{itemize}
+
+\paragraph{Not applicable (6 constraints):}
+Stellar cooling, SN1987A cooling, SN1987A gamma rays, direct detection, structure formation, and warm DM constraints are all inapplicable because the dark sector masses ($m_{A'} \sim 300$--$700\MeV$, $m_\rho \sim 30$--$70\MeV$) are too large for stellar/SN production, and the model contains no stable DM candidate.
+
+\section{Assumptions and Limitations}
+
+The prior agent catalogued 38 distinct assumptions, approximations, uncertainties, and caveats. Table~\ref{tab:severity} shows the severity distribution.
+
+\begin{table}[htbp]
+\centering
+\caption{Severity distribution of the 38 catalogued assumptions/limitations. Severity scale: 1 (minor) to 10 (critical).}
+\label{tab:severity}
+\begin{tabular}{ccccccccccc}
+\toprule
+Severity & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+\midrule
+Total & 5 & 5 & 4 & 5 & 5 & 5 & 3 & 3 & 2 & 1 \\
+Controlled & 5 & 4 & 1 & 2 & 2 & 0 & 0 & 0 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The most critical uncontrolled uncertainties are:
+
+\subsection{Critical Uncontrolled Uncertainties}
+
+\begin{itemize}
+\item \textbf{[Severity 10] Missing backend modules} (item A-038): No backend exists for computing $A'$ decay widths, $\rho$ decay widths, freeze-in yields, or dark-sector thermal history. The constraint agent identified 8 specific missing calculations with high priority. This blocks quantitative application of nearly all experimental constraints.
+
+\item \textbf{[Severity 9] $\Delta N_{\rm eff}$ tension} (item A-024): With $\xi=1$ and 4 dark-sector bosonic degrees of freedom, $\Delta N_{\rm eff} \sim 0.57$, exceeding the Planck 95\% CL bound of 0.3~\cite{planck2018}. Possible resolutions (supercooled dilution, non-thermal dark sector, entropy transfer to SM) require dedicated computation.
+
+\item \textbf{[Severity 9] Portal consistency} (item A-005): Portal couplings must simultaneously be small enough to not affect FOPT dynamics (requiring $\epsilon, \lambda_{H\Phi} \ll 1$) and large enough to thermalize the dark sector ($\xi=1$). Whether these requirements can be simultaneously satisfied is not demonstrated.
+
+\item \textbf{[Severity 8] Unspecified $\epsilon$} (item A-020): Blocks 5 directly testable $A'$ collider constraints and all BBN constraints on $A'$. Viable window from literature: $10^{-9} < \epsilon < 10^{-4}$ (lower bound from BBN, upper from colliders), but this cannot be verified.
+
+\item \textbf{[Severity 8] Unspecified $\lambda_{H\Phi}$} (item A-021): Blocks all constraints on the dark scalar $\rho$. Combined BBN+CMB exclusion from Fradette et al.~\cite{fradette2018} covers $\sin^2\theta \sim 10^{-11}$--$10^{-7}$ for $m_\rho \sim 50$--$100\MeV$.
+
+\item \textbf{[Severity 8] $\xi=1$ assumption} (item A-004): Hardcoded in the backend. Li \& Nath~\cite{li2026} show treating $\xi$ dynamically can change GW predictions by up to 4 orders of magnitude.
+\end{itemize}
+
+\subsection{Approximations with Impact}
+
+\begin{itemize}
+\item \textbf{Fixed-scale CW} (item A-007, severity 7): The backend evaluates log terms at $\chi = v$ with no RG running. Christiansen et al.~\cite{christiansen2025} show RG running is essential for the conformal Abelian Higgs model.
+\item \textbf{$\beta/H$ parameterization} (item A-011, severity 7): The mean bubble separation $R^*$ is the proper variable for ultra-strong supercooling~\cite{costa2025,li2026}. The current $\beta/H$ values (17--35) are positive, suggesting the approximation is not yet invalid, but a cross-check is needed.
+\item \textbf{High-T expansion validity} (item A-009, severity 5): In the extreme supercooling regime, $m_{A'}/T_p \sim \mathcal{O}(10$--$1000)$, well beyond the formal validity of the high-temperature expansion.
+\item \textbf{PTArcade convergence} (item A-018, severity 6): $\sim 5700$ post-burn-in samples from $10^5$ total; formal diagnostics ($\hat{R}$, ESS) not reported.
+\end{itemize}
+
+\subsection{Controlled Assumptions}
+
+Several assumptions are well-motivated and controlled:
+\begin{itemize}
+\item \textbf{CW-fixed $\lambda_\Phi$} (severity 2): Correct by construction for the CW mechanism.
+\item \textbf{Runaway bubble walls} (severity 5, partially controlled): Expected for $\alpha \gg 1$, though NLO friction~\cite{costa2025} could modify this.
+\item \textbf{dbf template} (severity 4): Most appropriate for $\alpha \gg 1$, though calibration range may be pushed.
+\item \textbf{Model non-novelty} (severity 3): Well-documented with literature comparisons.
+\end{itemize}
+
+\section{Inconsistencies}
+
+The following discrepancies between handoffs were identified:
+
+\begin{itemize}
+\item \textbf{Benchmark BP1 vs PTArcade MAP}: The benchmark scan rank-1 point ($v=0.43\GeV$) and the Bayesian MAP ($v=1.07\GeV$) differ by a factor $\sim 2.5$ in $v$. This is attributed to the different scoring/likelihood methods and is within the 68\% credible interval.
+\item \textbf{FOPT viable points (680/925) vs PTA benchmark viable points (524/1600)}: Different scan grids and slightly different backend implementations may account for the different viability rates. The FOPT scan covers coarser resolution and includes points that are viable but produce GW spectra outside the PTA band.
+\end{itemize}
+
+\section{Conclusions}
+
+\subsection{Robust Results}
+
+\begin{itemize}
+\item The dark U(1)$_D$ conformal model produces a strongly supercooled FOPT across a wide region of its parameter space, consistent with the conclusions of Gon\c{c}alves et al.~\cite{goncalves2025}.
+\item The PTArcade Bayesian analysis identifies a preferred region $v \sim 0.6$--$1.2\GeV$, $g_D \sim 0.51$--$0.55$ (68\% CL) favored by the NANOGrav 15-year dataset. The GW spectra for these parameters match all 14 NG15 frequency bins.
+\item The four directly testable theory constraints are satisfied: perturbativity, CW consistency, classical scale invariance, and absence of tree-level masses.
+\item The FOPT avoids the Athron et al.~\cite{athron2024} vacuum trapping challenge because the Euclidean action asymptotes to zero as $T\to 0$, ensuring percolation for conformal models.
+\end{itemize}
+
+\subsection{Conditional Results}
+
+\begin{itemize}
+\item The PTA-compatible parameter space depends on the choice of GW template (dbf vs alternative). The extreme $\alpha$ values ($10^{11}$--$10^{15}$) push the dbf calibration range.
+\item The $\beta/H$ parameterization provides conditional results that should be cross-checked with the mean bubble separation $R^*$ formalism~\cite{costa2025,li2026}.
+\item The PTArcade posteriors are conditional on the specific priors $\log_{10}v \sim U(-3.3,1.7)$, $g_D \sim U(0.3,1.5)$.
+\end{itemize}
+
+\subsection{Blocked Results}
+
+\begin{itemize}
+\item \textbf{Experimental constraints}: 19 of 23 constraints cannot be definitively applied without specifying the portal couplings $\epsilon$ and $\lambda_{H\Phi}$. The model's consistency with collider, BBN, and CMB data is blocked.
+\item \textbf{Cosmological viability}: The $\xi=1$ assumption leads to an estimated $\Delta N_{\rm eff} \sim 0.57 > 0.3$ (Planck bound). Resolution requires computing the post-FOPT dark-sector energy density, which is blocked by missing backend modules.
+\item \textbf{Bayesian evidence}: The Bayes factor versus the SMBHB model was not computed, blocking a standard quantitative model comparison.
+\end{itemize}
+
+\subsection{Uncontrolled Uncertainties}
+
+\begin{itemize}
+\item \textbf{Portal coupling values}: The two most influential model parameters ($\epsilon$, $\lambda_{H\Phi}$) are completely unspecified. This is the single most impactful limitation of the current analysis.
+\item \textbf{RG scheme dependence}: The fixed-scale CW approximation used in the backend may produce quantitatively different FOPT parameters compared to a full RG-improved approach~\cite{christiansen2025}.
+\item \textbf{$\beta/H$ validity}: For $\alpha \sim 10^{11}$--$10^{15}$, the standard $\beta/H$ parameterization may not correctly capture the transition duration.
+\item \textbf{PTArcade convergence}: Formal convergence diagnostics were not reported for the $\sim$5700 post-burn-in samples.
+\end{itemize}
+
+\subsection{Required Follow-Ups}
+
+Table~\ref{tab:followups} lists the highest-priority recommended follow-ups.
+
+\begin{table}[htbp]
+\centering
+\caption{Highest-priority follow-up actions identified by the prior audit.}
+\label{tab:followups}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Priority & Action \\
+\midrule
+High & Implement $A'$ and $\rho$ decay width and branching fraction modules \\
+High & Specify benchmark values for $\epsilon$ and $\lambda_{H\Phi}$ or treat as nuisance parameters \\
+High & Implement synchronous $\xi(T)$ evolution to resolve $\Delta N_{\rm eff}$ tension \\
+High & Compute $\rho$ freeze-in yield and decay lifetime \\
+Medium & Compute $R^*$ directly from nucleation history to validate $\beta/H$ \\
+Medium & Complete PTArcade analysis with convergence diagnostics and Bayes factors \\
+Medium & Quantify RG scheme dependence via RG-improved potential \\
+Medium & Check runaway wall assumption with NLO friction calculation \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Data Availability}
+
+All handoff JSON files, pipeline outputs, and generated plots are available in \texttt{output/u1conformal/}. The backend code is in \texttt{backend/}. The PTArcade campaign chains are in \texttt{output/u1conformal/chains/}.
+
+\begin{thebibliography}{99}
+
+\bibitem{coleman1973cw}
+S.~Coleman and E.~Weinberg, Phys. Rev. D 7, 1888 (1973).
+
+\bibitem{goncalves2025}
+J.~Gon\c{c}alves, D.~Marfatia, A.~P.~Morais, and R.~Pasechnik,
+\emph{Supercooled phase transitions in conformal dark sectors explain NANOGrav data},
+Phys. Lett. B 869, 139829 (2025), arXiv:2501.11619.
+
+\bibitem{balan2025}
+S.~Balan, T.~Bringmann, F.~Kahlhoefer, J.~Matuszak, and C.~Tasillo,
+\emph{Sub-GeV dark matter and nano-Hertz gravitational waves from a classically conformal dark sector},
+JCAP 08 (2025) 062, arXiv:2502.19478.
+
+\bibitem{costa2025}
+F.~Costa, J.~Hoefken Zink, M.~Lucente, S.~Pascoli, and S.~Rosauro-Alcaraz,
+\emph{Supercooled Dark Scalar Phase Transitions explanation of NANOGrav data},
+Phys. Lett. B 868, 139634 (2025), arXiv:2501.15649.
+
+\bibitem{christiansen2025}
+O.~Christiansen, E.~Madge, L.~Puchades-Ibanez, M.~T.~Ramirez-Quezada, and P.~Schwaller,
+\emph{Beyond the Daisy Chain: Running and the 3D EFT View of Supercooled Phase Transitions},
+arXiv:2511.02910 (2025).
+
+\bibitem{banik2024}
+A.~Banik, X.~Cui, Y.-D.~Tsai, and Y.~Tsai,
+\emph{The Sound of Dark Sectors in Pulsar Timing Arrays},
+arXiv:2412.16282 (2024).
+
+\bibitem{athron2024}
+P.~Athron, A.~Fowlie, C.-T.~Lu, L.~Morris, L.~Wu, Y.~Wu, and Z.~Xu,
+\emph{Can supercooled phase transitions explain the gravitational wave background observed by pulsar timing arrays?},
+Phys. Rev. Lett. 132, 221001 (2024), arXiv:2306.17239.
+
+\bibitem{li2026}
+J.~Li and P.~Nath,
+\emph{Gravitational waves from supercooled phase transitions and pulsar timing array signals},
+arXiv:2602.14324 (2026).
+
+\bibitem{feng2026}
+W.-Z.~Feng and Z.-H.~Zhang,
+\emph{Gauge-independent gravitational waves from a minimal dark U(1) sector with viable dark matter candidates},
+arXiv:2602.14866 (2026).
+
+\bibitem{khoze2023}
+V.~V.~Khoze and D.~L.~Milne,
+\emph{Gravitational waves and dark matter from classical scale invariance},
+Phys. Rev. D 107, 095012 (2023), arXiv:2212.04784.
+
+\bibitem{fujikura2023}
+K.~Fujikura, S.~Girmohanta, Y.~Nakai, and M.~Suzuki,
+\emph{NANOGrav Signal from a Dark Conformal Phase Transition},
+arXiv:2306.17086 (2023).
+
+\bibitem{lewicki2025dbf}
+M.~Lewicki and V.~Vaskonen,
+\emph{Impact of cosmic expansion on gravitational wave spectra from strongly supercooled first-order phase transitions},
+arXiv:2511.15687 (2025).
+
+\bibitem{lhcb2019}
+LHCb Collaboration,
+\emph{Search for $A'\to\mu^+\mu^-$ Decays},
+Phys. Rev. Lett. 124, 041801 (2020), arXiv:1910.06926.
+
+\bibitem{babar2017}
+BaBar Collaboration,
+\emph{Search for Invisible Decays of a Dark Photon Produced in $e^+e^-$ Collisions at BaBar},
+Phys. Rev. Lett. 119, 131804 (2017), arXiv:1702.03327.
+
+\bibitem{na64darkmatter}
+NA64 Collaboration,
+\emph{Search for Light Dark Matter with NA64 at CERN},
+arXiv:2307.02404 (2023).
+
+\bibitem{coy2025}
+R.~Coy, J.~Kimus, and M.~H.~G.~Tytgat,
+\emph{Light from darkness: history of a hot dark sector},
+JCAP 02 (2025) 077, arXiv:2405.10792.
+
+\bibitem{fradette2018}
+A.~Fradette, M.~Pospelov, J.~Pradler, and A.~Ritz,
+\emph{Cosmological beam dump: constraints on dark scalars mixed with the Higgs boson},
+Phys. Rev. D 99, 075004 (2019), arXiv:1812.07585.
+
+\bibitem{planck2018}
+Planck Collaboration,
+\emph{Planck 2018 results. VI. Cosmological parameters},
+A\&A 641, A6 (2020), arXiv:1807.06209.
+
+\bibitem{falkowski2015}
+A.~Falkowski, M.~Grosserura, T.~Sloth, and T.~Valkenburg,
+\emph{Combining LEP and LHC to bound the Higgs Width},
+arXiv:1504.02458 (2015).
+
+\bibitem{gorbunov2021}
+D.~Gorbunov, I.~Krasnov, and S.~Suvorov,
+\emph{Constraints on light scalars from PS191 results},
+arXiv:2105.11102 (2021).
+
+\bibitem{dolan2023}
+M.~J.~Dolan, C.~Hiskens, and R.~R.~Volkas,
+\emph{Constraining dark photons with self-consistent simulations of globular cluster stars},
+arXiv:2306.13335 (2023).
+
+\bibitem{caputo2025}
+A.~Caputo, H.-T.~Janka, G.~Raffelt, and R.~Yun,
+\emph{Cooling the Shock: New Supernova Constraints on Dark Photons},
+arXiv:2502.01731 (2025).
+
+\bibitem{lewicki2020}
+M.~Lewicki and V.~Vaskonen,
+\emph{Gravitational waves from strongly supercooled phase transitions},
+arXiv:2007.04967 (2020).
+
+\end{thebibliography}
+
+\end{document}

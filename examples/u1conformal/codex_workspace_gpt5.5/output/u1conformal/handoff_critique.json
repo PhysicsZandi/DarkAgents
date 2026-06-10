@@ -1,0 +1,283 @@
+{
+  "model": "u1conformal",
+  "agent": "critic-agent",
+  "run_status": "warning",
+  "created_at": "2026-06-10",
+  "branch": "fopt-pta",
+  "created_from": [
+    "input/u1conformal/prompt.md",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/librarian_preliminary_report.md",
+    ".codex/agents/critic-agent.md",
+    ".codex/skills/model-critique/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_CRITIC_SCHEMA.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/SEMIANALYTICPIPELINE.md",
+    "docs/SPECTRUM.md",
+    "backend/semianalytic_pipeline.py"
+  ],
+  "commands": [
+    "sed -n '1,220p' .codex/agents/critic-agent.md",
+    "sed -n '1,260p' .codex/skills/model-critique/SKILL.md",
+    "sed -n '1,260p' docs/HANDOFF_SCHEMAS.md",
+    "sed -n '1,260p' docs/HANDOFF_CRITIC_SCHEMA.md",
+    "sed -n '1,320p' docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "sed -n '1,260p' input/u1conformal/prompt.md",
+    "sed -n '1,260p' output/u1conformal/handoff_librarian_preliminary.json",
+    "sed -n '261,620p' output/u1conformal/handoff_librarian_preliminary.json",
+    "sed -n '621,920p' output/u1conformal/handoff_librarian_preliminary.json",
+    "sed -n '1,220p' output/u1conformal/librarian_preliminary_report.md",
+    "sed -n '1,280p' docs/BACKEND_COMPATIBILITY.md",
+    "sed -n '1,260p' docs/SEMIANALYTICPIPELINE.md",
+    "sed -n '1,260p' docs/SPECTRUM.md",
+    "rg -n \"thermal|Debye|daisy|lambda|beta|boson|dof|chi0|gbs|lambda\" backend/semianalytic_pipeline.py",
+    "sed -n '1,260p' backend/semianalytic_pipeline.py",
+    "ls -la output/u1conformal"
+  ],
+  "files_read": [
+    ".codex/agents/critic-agent.md",
+    ".codex/skills/model-critique/SKILL.md",
+    "docs/HANDOFF_SCHEMAS.md",
+    "docs/HANDOFF_CRITIC_SCHEMA.md",
+    "docs/HANDOFF_PROPOSER_SCHEMA.md",
+    "docs/BACKEND_COMPATIBILITY.md",
+    "docs/SEMIANALYTICPIPELINE.md",
+    "docs/SPECTRUM.md",
+    "input/u1conformal/prompt.md",
+    "output/u1conformal/handoff_librarian_preliminary.json",
+    "output/u1conformal/librarian_preliminary_report.md",
+    "backend/semianalytic_pipeline.py"
+  ],
+  "files_written": [
+    "output/u1conformal/critique.md",
+    "output/u1conformal/model.md",
+    "output/u1conformal/handoff_critique.json",
+    "output/u1conformal/handoff_model.json"
+  ],
+  "warnings": [
+    "Full Daisy-resummed thermal masses are not specified in the prompt; this is not required by backend/semianalytic_pipeline.py but is required for a full finite-temperature effective-potential implementation.",
+    "The optional portal coupling lambda_HP and kinetic mixing epsilon are not numerically specified; constraints depending on visible-sector coupling require values or priors.",
+    "The assumptions of negligible portals for FOPT and xi = 1 thermalization must be checked phenomenologically downstream.",
+    "Literature benchmarks using m_ZD = 2 * g_D * M must be translated before comparison with the prompt convention m_Aprime = g_D * v.",
+    "Landau-gauge finite-temperature potentials and Daisy prescriptions introduce theory uncertainties in comparisons with the literature."
+  ],
+  "errors": [],
+  "approximations": [
+    "Scalar and Goldstone thermal effects are treated as subleading for the semi-analytic backend, following docs/SEMIANALYTICPIPELINE.md.",
+    "No new literature search was performed by the critic; literature caveats were taken from output/u1conformal/handoff_librarian_preliminary.json."
+  ],
+  "validation_gauge_groups": [
+    {
+      "item": "U(1)_D gauge group",
+      "status": "ok",
+      "notes": "The supplied Abelian gauge group is well defined. The covariant derivative fixes the scalar charge convention to q_Phi = 1."
+    },
+    {
+      "item": "U(1)_D charge normalization",
+      "status": "ok",
+      "notes": "With D_mu = partial_mu - i * g_D * A'_mu, the physical mass convention is m_Aprime**2(chi) = g_D**2 * chi**2. Benchmarks using other charge normalizations need explicit translation."
+    }
+  ],
+  "validation_global_symmetries": [
+    {
+      "item": "classical scale invariance of the dark sector",
+      "status": "ok",
+      "notes": "The dark-sector tree potential contains only lambda_Phi * |Phi|**4 and no explicit scalar mass term."
+    },
+    {
+      "item": "visible-sector portals",
+      "status": "warning",
+      "notes": "The optional portal and kinetic mixing terms are dimension-four and gauge invariant. Their sizes are unspecified and assumed negligible for FOPT dynamics."
+    }
+  ],
+  "validation_particle_content": [
+    {
+      "item": "complex scalar Phi",
+      "status": "ok",
+      "notes": "Phi contains two real degrees of freedom before SSB: radial direction and Goldstone direction."
+    },
+    {
+      "item": "dark gauge boson A'",
+      "status": "ok",
+      "notes": "A' has two transverse polarizations before SSB and three massive polarizations after eating the Goldstone."
+    },
+    {
+      "item": "degree-of-freedom accounting",
+      "status": "ok",
+      "notes": "Before SSB: 2 scalar + 2 vector = 4. After SSB: 1 radial scalar + 3 massive vector = 4."
+    },
+    {
+      "item": "anomaly check",
+      "status": "ok",
+      "notes": "No new chiral fermions are present, so there are no new chiral gauge anomalies to cancel."
+    }
+  ],
+  "validation_lagrangian_terms": [
+    {
+      "item": "dark scalar kinetic term",
+      "status": "ok",
+      "notes": "|D_mu Phi|**2 is gauge invariant for q_Phi = 1."
+    },
+    {
+      "item": "dark quartic potential",
+      "status": "ok",
+      "notes": "lambda_Phi * |Phi|**4 is gauge invariant and classically scale invariant."
+    },
+    {
+      "item": "dark gauge kinetic term",
+      "status": "ok",
+      "notes": "-1/4 * F'_munu * F'**munu is the standard Abelian kinetic term."
+    },
+    {
+      "item": "Higgs portal",
+      "status": "warning",
+      "notes": "lambda_HP * |H|**2 * |Phi|**2 is gauge invariant, but its numerical value is unspecified and it is assumed negligible for the FOPT potential."
+    },
+    {
+      "item": "kinetic mixing",
+      "status": "warning",
+      "notes": "(epsilon / 2) * F'_munu * F**munu is gauge invariant, but epsilon is unspecified and will matter for laboratory and cosmological constraints."
+    }
+  ],
+  "validation_free_parameters": [
+    {
+      "item": "v",
+      "status": "ok",
+      "notes": "The vev is an independent scan parameter and should be supplied in GeV to the semi-analytic backend."
+    },
+    {
+      "item": "g_D",
+      "status": "ok",
+      "notes": "The dark gauge coupling is an independent scan parameter."
+    },
+    {
+      "item": "lambda_Phi",
+      "status": "ok",
+      "notes": "The scalar quartic is dependent in the Coleman-Weinberg parameter basis and must not be scanned independently."
+    },
+    {
+      "item": "lambda_HP and epsilon",
+      "status": "warning",
+      "notes": "These are optional phenomenological parameters, not FOPT backend scan parameters under the prompt's assumptions."
+    }
+  ],
+  "parameter_basis": {
+    "independent": {
+      "v": {
+        "description": "Dark Higgs background vev <chi>.",
+        "units": "GeV",
+        "downstream_role": "FOPT scan parameter"
+      },
+      "g_D": {
+        "description": "U(1)_D gauge coupling in charge-one convention.",
+        "range_requirement": "g_D > 0",
+        "downstream_role": "FOPT scan parameter"
+      }
+    },
+    "dependent": {
+      "lambda_Phi": {
+        "description": "CW-fixed quartic; not an independent scan parameter.",
+        "determination": "Coleman-Weinberg minimization / semi-analytic backend"
+      },
+      "beta_lambda": "3 * g_D**4 / (8 * pi**2)",
+      "m_Aprime": "g_D * v",
+      "m_rho_squared": "beta_lambda * v**2"
+    },
+    "fixed": {
+      "q_Phi": 1,
+      "xi": 1,
+      "fermion_content": "none",
+      "portal_effects_on_FOPT": "negligible by assumption",
+      "kinetic_mixing_effects_on_FOPT": "negligible by assumption"
+    }
+  },
+  "validation_assumptions": [
+    {
+      "item": "minimal gauge-only Coleman-Weinberg beta function",
+      "status": "ok",
+      "notes": "With one massive vector contributing three degrees of freedom and no fermions, beta_lambda = 3 * g_D**4 / (8 * pi**2)."
+    },
+    {
+      "item": "positive beta_lambda",
+      "status": "ok",
+      "notes": "For g_D > 0, beta_lambda is positive, satisfying the radiative-symmetry-breaking condition used by the backend."
+    },
+    {
+      "item": "thermal history xi = 1",
+      "status": "warning",
+      "notes": "The semi-analytic backend assumes xi = 1, matching the prompt. Phenomenological viability of thermalization with small portals must be checked downstream."
+    }
+  ],
+  "authoritative_model_file": "output/u1conformal/model.md",
+  "repair_records": [],
+  "red_flags": [],
+  "validation_ssb_pattern": [
+    {
+      "item": "U(1)_D breaking",
+      "status": "ok",
+      "notes": "A charge-one scalar vev fully Higgses U(1)_D with no residual gauge symmetry."
+    }
+  ],
+  "validation_vev_convention": [
+    {
+      "item": "Phi decomposition",
+      "status": "ok",
+      "notes": "Phi = (chi + rho + i * G) / sqrt(2) is consistent with v = <chi> and the stated mass convention."
+    }
+  ],
+  "validation_tree_level_potential": [
+    {
+      "item": "single-field quartic potential",
+      "status": "ok",
+      "notes": "V_tree(chi) = lambda_Phi * chi**4 / 4 follows from lambda_Phi * |Phi|**4 along the real background."
+    }
+  ],
+  "validation_field_dependent_masses": [
+    {
+      "item": "dark gauge boson mass",
+      "status": "ok",
+      "notes": "The real-vector mass-term normalization gives m_Aprime**2(chi) = g_D**2 * chi**2."
+    },
+    {
+      "item": "radial scalar tree curvature",
+      "status": "warning",
+      "notes": "The prompt gives the CW physical mass at the minimum but not the tree-level field-dependent scalar curvature. It is derivable as 3 * lambda_Phi * chi**2 and is not an independent semi-analytic backend input."
+    },
+    {
+      "item": "Goldstone tree curvature",
+      "status": "warning",
+      "notes": "The prompt does not list the Goldstone field-dependent mass. From the tree potential it is lambda_Phi * chi**2 before gauge fixing/eating; it is not an independent semi-analytic backend input."
+    }
+  ],
+  "validation_thermal_masses": [
+    {
+      "item": "thermal masses for full finite-temperature effective potential",
+      "status": "warning",
+      "notes": "The prompt does not specify scalar, Goldstone, or longitudinal-gauge Debye masses. This is a downstream implementation warning for full Daisy-resummed potentials."
+    },
+    {
+      "item": "thermal masses for semianalytic_pipeline",
+      "status": "ok",
+      "notes": "Explicit thermal masses are not required as inputs by backend/semianalytic_pipeline.py."
+    }
+  ],
+  "validation_backend_compatibility": [
+    {
+      "item": "backend/semianalytic_pipeline.py selection rule",
+      "status": "ok",
+      "notes": "The model is a conformal single-field model with masses proportional to one vev and no explicit tree-level mass term."
+    },
+    {
+      "item": "semi-analytic backend mapping",
+      "status": "ok",
+      "notes": "Use chi0 = v, boson_gbs = {\"Aprime\": g_D}, boson_dofs = {\"Aprime\": 3}, fermion_gfs = {}, fermion_dofs = {}."
+    },
+    {
+      "item": "dependent quartic handling",
+      "status": "ok",
+      "notes": "lambda_Phi is dependent and must not appear in independent scan columns or PTArcade priors."
+    }
+  ]
+}
