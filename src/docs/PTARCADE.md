@@ -39,6 +39,8 @@ NAME_OF_PARAMETER = float(
 ```
 - If you want a logarithmic prior, do not use `prior("LogUniform", ...)` because PTArcade does not support it. Instead, use `prior("Uniform", np.log10(LOWER_VALUE), np.log10(UPPER_VALUE))` and then recover the parameter inside the `spectrum` function with `10**` (i.e. base-10). Always work in base-10: use `np.log10` and `10**`, never `np.log`/`np.exp` (natural log), to avoid confusion between the two conventions.
 - If a parameter spans several orders of magnitude, use a logarithmic prior. If it spans a small range, use a linear prior. 
+- If the user asks for the contribution of supermassive black hole binaries (SMBHBs) to the PTA signal, simply add `smbhb = True` at the end of the model file. PTArcade will then automatically include them in the spectrum and marginalize over their contribution. Do not attempt to model the SMBHB contribution yourself or to add extra parameters for it, as this may lead to double-counting and incorrect results. 
+```python
 
 ## PTArcade Config File
 
@@ -145,6 +147,15 @@ in `ptarcade_model.py`, update this subfolder name to match.
 For the name of the parameter in the plot, use a LaTeX string, while for the model-name in the plot, use a human-readable string.
 
 The PTArcade plot file should produce a publication-quality posterior visualization for the free parameters and, if helpful, may also write a post-PTArcade best-fit spectrum figure using the same LaTeX styling conventions as the benchmark plot.
+
+If the contributions of SMBHBs are included in the model, in the posterior plot, add at the end of the list of the parameters r"$A_{\rm SMBHB}$", r"$\gamma_{\rm SMBHB}$", which are the amplitude and slope of the SMBHB contribution. This allow to plot the posterior distribution of the SMBHB parameters.
+
+If the user wants a plot of only the FOPT parameters, restrict the chains and params dict to only those parameters that are relevant for the FOPT model. For example
+```python
+plot_idx = [i for i, name in enumerate(param_names) if name in {"NAME_OF_PARAMETER_FOPT", ...}]
+chain_FOPT = chain[:, plot_idx]
+params_FOPT = {k: params[k] for k in param_names if k in {"NAME_OF_PARAMETER_FOPT", ...}}
+```
 
 ## LaTeX Styling
 
