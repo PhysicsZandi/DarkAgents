@@ -185,6 +185,16 @@ The sub-agents and their skills implemented in the current release are listed in
 | `prior-agent` | `prior-audit` | Audit any assumption, prior, approximation, uncertainty, validity domain, caveat, limitation or warning. | `prior_audit_report.md` |
 | `report-agent` | — | Write the final LaTeX report. | `final_report.tex` |
 
+## Reproducibility
+
+The examples in `examples/` were run on 7–10 June 2026 with release `v0.1.0` (`git checkout v0.1.0`), using:
+
+- Python 3.10, PTArcade 1.1.5
+- Claude Code 2.1.172, model Claude Opus 4.8
+- Codex 0.139.0, model GPT-5.5
+- Mistral Vibe 2.14.1, model mistral-medium-3.5
+- Ollama, model deepseek-v4-flash
+
 ## Citation 
 
 To cite this work:
